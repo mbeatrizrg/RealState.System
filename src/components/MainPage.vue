@@ -40,29 +40,45 @@
           </div>
 
           <div class="filter-group">
-            <label>Tipo de Propiedad</label>
-            <select name="tipo">
+            <label for="tipo">Tipo de Propiedad</label>
+            <select id="tipo" name="tipo">
               <option value="casa">Casa</option>
+              <option value="apartamento">Apartamento</option>
+              <option value="townhouse">Townhouse</option>
+              <option value="terreno">Terreno</option>
+              <option value="local comercial">local comercial</option>
+              <option value="galpon">galpon</option>
+              <option value="oficina">oficina</option>
+              <option value="consultorio medico">consultorio medico</option>
+              <option value="club">club</option>
+              <option value="negocio">negocio</option>
             </select>
           </div>
 
           <div class="filter-group">
-            <label>Precio</label>
-            <select name="precio">
-              <option value="150000">150.000$</option>
-            </select>
+            <label for="precio">Precio</label>
+            <input 
+            class="filter-input"
+              type="number" 
+              id="precio" 
+              min="0"
+              max="100000000"
+              name="precio" 
+              placeholder="Ej: 15000"
+            />
           </div>
 
           <div class="filter-group">
-            <label>Alquiler o Compra</label>
-            <select name="modalidad">
+            <label for="modalidad">Alquiler o Compra</label>
+            <select id="modalidad" name="modalidad">
               <option value="compra">Compra</option>
+              <option value="alquiler">Alquiler</option>
             </select>
           </div>
 
-          <button class="btn-search">
-            <img src="https://via.placeholder.com/20" alt="" />
-            Buscar Propiedad
+          <button class="search-btn">
+            <img src="/lupa.svg" alt="" />
+            <span>Buscar Propiedad</span>
           </button>
         </div>
       </section>
