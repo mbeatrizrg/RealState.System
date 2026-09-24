@@ -271,17 +271,20 @@
             <button class="inc-btn">Iniciar Sesión</button>
           </nav>
         </header>
-        <div>
+        <div class="vision-container">
           <article class="image-article">
             <div class="card-image-4">
               <img src="/building.png" alt="Residencias Altos Del Mirador" class="building-img" />
             </div>
           </article>
-          <article>
-            <h1 class="4-text">Nuestra vision</h1>
-            <p class="4-text">
+          <article class="text-article">
+            <h1 class="text-4">Nuestra vision</h1>
+            <p class="text-little-4">
             "Durante más de 15 años hemos trabajado para que tus proyectos sean materializados. Logrando consolidar cientos de hogares y establecimientos comerciales, atendiendo sus requerimientos de la mano de nuestro equipo de trabajo."
             </p>
+            <button class="next-btn" aria-label="Siguiente">
+              <img src="/arrow.png" alt="Siguiente" />
+            </button>
           </article>
         </div>
   </section>

@@ -404,16 +404,36 @@
 }
 
 .page-4 {
-  height: 550px;
+  height: 600px;
   background-color: #EDF2F3;
 }
 
 .image-article {
-  margin-left: 25px;
+  margin-left: 10px;
 }
 .card-image-4 img{
   width: 350px;
   height: 400px;
   object-fit: cover;
+  border-radius: 0px;
+}
+.vision-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 60px;
+  padding: 40px 20px;
 }
 
+.text-little-4 {
+  color: #0b1f46;
+  margin-left: 10px;
+  margin-right: 80px;
+}
+.text-4 {
+  color: #0b1f46;
+  margin-left: 25px;
+  margin-bottom: 60px;
+  font-weight: bold;
+  font-size: 50px;
+}
