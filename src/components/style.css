@@ -402,3 +402,18 @@
   margin-left: 80px;
   margin-right: 80px;
 }
+
+.page-4 {
+  height: 550px;
+  background-color: #EDF2F3;
+}
+
+.image-article {
+  margin-left: 25px;
+}
+.card-image-4 img{
+  width: 350px;
+  height: 400px;
+  object-fit: cover;
+}
+

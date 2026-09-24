@@ -258,9 +258,9 @@
       </section>
     </main>
   </div>
-</template>
- <!-- PÁGINA 4-->
-<header class="CommonHeader">
+  <!-- PÁGINA 4-->
+  <section class = "page-4">
+      <header class="CommonHeader">
           <div class="logo">
             <img src="/icon.png" alt="Icono" class="icon" />
             <img src="/brand.png" alt="Rifat Richani" class="brand" />
@@ -269,9 +269,24 @@
           <nav class="primary-nav">
             <button class="menu-btn">Menu</button>
             <button class="inc-btn">Iniciar Sesión</button>
-
           </nav>
         </header>
+        <div>
+          <article class="image-article">
+            <div class="card-image-4">
+              <img src="/building.png" alt="Residencias Altos Del Mirador" class="building-img" />
+            </div>
+          </article>
+          <article>
+            <h1 class="4-text">Nuestra vision</h1>
+            <p class="4-text">
+            "Durante más de 15 años hemos trabajado para que tus proyectos sean materializados. Logrando consolidar cientos de hogares y establecimientos comerciales, atendiendo sus requerimientos de la mano de nuestro equipo de trabajo."
+            </p>
+          </article>
+        </div>
+  </section>
+</template>
+ 
 <script setup>
 // Lógica de JavaScript / Vue (si es necesaria)
 </script>
