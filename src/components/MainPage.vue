@@ -33,9 +33,23 @@
         <!-- Barra de filtros -->
         <div class="filter-bar">
           <div class="filter-group">
-            <label>Selecciona tu locación</label>
-            <select name="locacion">
+            <label for="locacion">Selecciona tu locación</label>
+            <select id="locacion" name="locacion">
+              <option value="" disabled selected>Todas las ciudades</option>
               <option value="valencia">Valencia</option>
+              <option value="naguanagua">Naguanagua</option>
+              <option value="san_diego">San Diego</option>
+              <option value="puerto_cabello">Puerto Cabello</option>
+              <option value="guacara">Guacara</option>
+              <option value="los_guayos">Los Guayos</option>
+              <option value="tocuyito">Tocuyito (Libertador)</option>
+              <option value="san_joaquin">San Joaquín</option>
+              <option value="diego_ibarra">Mariara (Diego Ibarra)</option>
+              <option value="bejuma">Bejuma</option>
+              <option value="montalban">Montalbán</option>
+              <option value="miranda">Miranda</option>
+              <option value="carlos_arvelo">Güigüe (Carlos Arvelo)</option>
+              <option value="juan_jose_mora">Morón (Juan José Mora)</option>
             </select>
           </div>
 
@@ -84,7 +98,7 @@
       </section>
 
       <!-- DESTACADOS 2DA PAGINA -->
-      <section class="destacados-section">
+      <section class="featured-section">
         <!-- Encabezado de la sección -->
         <header class="section-header">
           <h2>Destacados</h2>
@@ -94,19 +108,20 @@
         <!-- Contenedor del Grid/Carrusel de tarjetas -->
         <div class="cards-grid">
           <!-- TARJETA 1 -->
-          <article class="card">
+           <article class="card">
             <div class="card-image-wrapper">
-              <img src="https://c.animaapp.com/5BXuPLFojmZUII9wyDPqxg/img/unnamed-1-3.png" alt="Residencias Altos Del Mirador" class="card-img" />
-              <button class="favorite-btn" aria-label="Añadir a favoritos">
-                <img src="https://c.animaapp.com/5BXuPLFojmZUII9wyDPqxg/img/heart.svg" alt="Favorito" />
-              </button>
+              <img src="/building.png" alt="Residencias Altos Del Mirador" class="building-img" />
             </div>
 
             <div class="card-content">
               <div class="card-location">
-                <img src="https://c.animaapp.com/5BXuPLFojmZUII9wyDPqxg/img/location-on.svg" alt="Ubicación" />
+                <img src="/location.png" alt="Ubicación" />
                 <span>Valencia, Via Guataparo</span>
               </div>
+
+              <button class="favorite-btn" aria-label="Añadir a favoritos">
+                <img src="/heart.png" alt="Favorito" />
+              </button>
 
               <h3 class="card-title">Residencias Altos Del Mirador</h3>
 
@@ -117,7 +132,7 @@
 
               <div class="card-footer">
                 <span class="card-price">$150,000</span>
-                <a href="#" class="btn-detalles">Ver Detalles &gt;</a>
+                <a href="#" class="details-btn">Ver Detalles &gt;</a>
               </div>
             </div>
           </article>
@@ -125,17 +140,18 @@
           <!-- TARJETA 2 -->
           <article class="card">
             <div class="card-image-wrapper">
-              <img src="https://c.animaapp.com/5BXuPLFojmZUII9wyDPqxg/img/unnamed-1-3-1.png" alt="Residencias Altos Del Mirador" class="card-img" />
-              <button class="favorite-btn active" aria-label="Añadir a favoritos">
-                <img src="https://c.animaapp.com/5BXuPLFojmZUII9wyDPqxg/img/heart-3.svg" alt="Favorito" />
-              </button>
+              <img src="/building.png" alt="Residencias Altos Del Mirador" class="building-img" />
             </div>
 
             <div class="card-content">
               <div class="card-location">
-                <img src="https://c.animaapp.com/5BXuPLFojmZUII9wyDPqxg/img/location-on.svg" alt="Ubicación" />
+                <img src="/location.png" alt="Ubicación" />
                 <span>Valencia, Via Guataparo</span>
               </div>
+
+              <button class="favorite-btn" aria-label="Añadir a favoritos">
+                <img src="/heart.png" alt="Favorito" />
+              </button>
 
               <h3 class="card-title">Residencias Altos Del Mirador</h3>
 
@@ -146,7 +162,7 @@
 
               <div class="card-footer">
                 <span class="card-price">$150,000</span>
-                <a href="#" class="btn-detalles">Ver Detalles &gt;</a>
+                <a href="#" class="details-btn">Ver Detalles &gt;</a>
               </div>
             </div>
           </article>
@@ -154,18 +170,18 @@
           <!-- TARJETA 3 -->
           <article class="card">
             <div class="card-image-wrapper">
-              <img src="https://c.animaapp.com/5BXuPLFojmZUII9wyDPqxg/img/unnamed-1-3-2.png" alt="Residencias Altos Del Mirador" class="card-img" />
-              <button class="favorite-btn" aria-label="Añadir a favoritos">
-                <img src="https://c.animaapp.com/5BXuPLFojmZUII9wyDPqxg/img/heart-1.svg" alt="Favorito" />
-              </button>
+              <img src="/building.png" alt="Residencias Altos Del Mirador" class="building-img" />
             </div>
 
             <div class="card-content">
               <div class="card-location">
-                <img src="https://c.animaapp.com/5BXuPLFojmZUII9wyDPqxg/img/location-on.svg" alt="Ubicación" />
+                <img src="/location.png" alt="Ubicación" />
                 <span>Valencia, Via Guataparo</span>
               </div>
 
+              <button class="favorite-btn" aria-label="Añadir a favoritos">
+                <img src="/heart.png" alt="Favorito" />
+              </button>
               <h3 class="card-title">Residencias Altos Del Mirador</h3>
 
               <div class="card-details">
@@ -175,7 +191,7 @@
 
               <div class="card-footer">
                 <span class="card-price">$150,000</span>
-                <a href="#" class="btn-detalles">Ver Detalles &gt;</a>
+                <a href="#" class="details-btn">Ver Detalles &gt;</a>
               </div>
             </div>
           </article>
@@ -183,17 +199,18 @@
           <!-- TARJETA 4 -->
           <article class="card">
             <div class="card-image-wrapper">
-              <img src="https://c.animaapp.com/5BXuPLFojmZUII9wyDPqxg/img/unnamed-1-3-3.png" alt="Residencias Altos Del Mirador" class="card-img" />
-              <button class="favorite-btn" aria-label="Añadir a favoritos">
-                <img src="https://c.animaapp.com/5BXuPLFojmZUII9wyDPqxg/img/heart-1.svg" alt="Favorito" />
-              </button>
+              <img src="/building.png" alt="Residencias Altos Del Mirador" class="building-img" />
             </div>
 
             <div class="card-content">
               <div class="card-location">
-                <img src="https://c.animaapp.com/5BXuPLFojmZUII9wyDPqxg/img/location-on.svg" alt="Ubicación" />
+                <img src="/location.png" alt="Ubicación" />
                 <span>Valencia, Via Guataparo</span>
               </div>
+
+              <button class="favorite-btn" aria-label="Añadir a favoritos">
+                <img src="/heart.png" alt="Favorito" />
+              </button>
 
               <h3 class="card-title">Residencias Altos Del Mirador</h3>
 
@@ -204,15 +221,15 @@
 
               <div class="card-footer">
                 <span class="card-price">$150,000</span>
-                <a href="#" class="btn-detalles">Ver Detalles &gt;</a>
+                <a href="#" class="details-btn">Ver Detalles &gt;</a>
               </div>
             </div>
           </article>
         </div>
 
         <!-- Botón de Navegación del Carrusel -->
-        <button class="carousel-next-btn" aria-label="Siguiente">
-          <img src="https://c.animaapp.com/5BXuPLFojmZUII9wyDPqxg/img/boton1.svg" alt="Siguiente" />
+        <button class="next-btn" aria-label="Siguiente">
+          <img src="/arrow.png" alt="Siguiente" />
         </button>
       </section>
 
