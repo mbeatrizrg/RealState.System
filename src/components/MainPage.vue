@@ -233,7 +233,7 @@
         </button>
       </section>
 
-      <!-- SECCIÓN 3 PÁGINA -->
+      <!-- PÁGINA 3 -->
       <section class="info-section">
         <header class="CommonHeader">
           <div class="logo">
@@ -259,7 +259,19 @@
     </main>
   </div>
 </template>
+ <!-- PÁGINA 4-->
+<header class="CommonHeader">
+          <div class="logo">
+            <img src="/icon.png" alt="Icono" class="icon" />
+            <img src="/brand.png" alt="Rifat Richani" class="brand" />
+          </div>
+      
+          <nav class="primary-nav">
+            <button class="menu-btn">Menu</button>
+            <button class="inc-btn">Iniciar Sesión</button>
 
+          </nav>
+        </header>
 <script setup>
 // Lógica de JavaScript / Vue (si es necesaria)
 </script>
