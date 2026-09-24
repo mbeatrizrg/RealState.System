@@ -377,3 +377,28 @@
   display: block;
   margin: 0 auto;
 }
+
+
+.info-section {
+  background-color: #EDF2F3;
+  height: 550px;
+}
+
+.section-content {
+  text-align: center;
+  margin: 150px;
+  margin-top: 20px;
+}
+.principal-text{
+  color: #0b1f46;
+  font-size: 60px;
+  object-fit: contain;
+  align-items: center;
+  margin-bottom: 80px;
+}
+
+.little-text {
+  color: #0b1f46;
+  margin-left: 80px;
+  margin-right: 80px;
+}

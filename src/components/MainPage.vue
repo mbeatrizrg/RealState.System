@@ -235,27 +235,23 @@
 
       <!-- SECCIÓN 3 PÁGINA -->
       <section class="info-section">
-        <header class="head">
-          <div class="logo"></div>
-          
-          <img 
-            class="nombre-marca" 
-            src="https://c.animaapp.com/L565bYk0ekRFb-3uewjQIg/img/nombre-marca.png" 
-            alt="Rifat Richani" 
-          />
+        <header class="CommonHeader">
+          <div class="logo">
+            <img src="/icon.png" alt="Icono" class="icon" />
+            <img src="/brand.png" alt="Rifat Richani" class="brand" />
+          </div>
+      
+          <nav class="primary-nav">
+            <button class="menu-btn">Menu</button>
+            <button class="inc-btn">Iniciar Sesión</button>
 
-          <nav class="barra-menu">
-            <span class="text-wrapper-2">Menu</span>
-            <button class="barra-inicio-sesion">
-              <span class="text-wrapper">Iniciar Sesion</span>
-            </button>
           </nav>
         </header>
 
         <div class="section-content">
-          <h1 class="text-wrapper-3">24 Años Transformando Espacios</h1>
+          <h1 class="principal-text">24 Años Transformando Espacios</h1>
           
-          <p class="durante-m-s-de-a">
+          <p class="little-text">
             "Durante más de 15 años hemos trabajado para que tus proyectos sean materializados. Logrando consolidar cientos de hogares y establecimientos comerciales, atendiendo sus requerimientos de la mano de nuestro equipo de trabajo."
           </p>
         </div>
