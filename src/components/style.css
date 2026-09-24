@@ -48,7 +48,7 @@
 }
 
 .inc-btn {
-  background-color: #0c1762;
+  background-color: #0b1f46;
   color: #ffffff;
   border: none;
   border-radius: 5px;
@@ -93,7 +93,7 @@
 .icon-btn {
   height: 40px;
   width: 40px;
-  background-color: #0c1762;
+  background-color: #0b1f46;
   border-radius: 50px;
   border: none;
   color: #ffffff;
@@ -132,7 +132,7 @@
   display: flex;
   flex-direction: column;
   flex: 1;
-  border-right: 2px solid #e5e5e5;
+  border-right: 2px solid #ffffff;
   padding-right: 10px;
   align-items: flex-start;
   text-align: left;
@@ -164,7 +164,7 @@
 }
 
 .search-btn {
-  background-color: #0c1762;
+  background-color: #0b1f46;
   color: #ffffff;
   border: none;
   border-radius: 0px;
@@ -202,7 +202,7 @@
 
 .section-header {
   margin-bottom: 20px;
-  color: #0c1762;
+  color: #0b1f46;
   Padding-top: 20px;
   padding-left: 20px;
   font-size: 30px;
@@ -211,12 +211,12 @@
 .section-header h2 {
   font-size: 40px;
   margin: 0;
-  color: #0c1762;
+  color: #0b1f46;
 }
 .section-header p {
   font-size: 13px;
   margin-top: 5;
-  color: #1c1c1c;
+  color: #000000;
 }
 
 .cards-grid {
@@ -280,7 +280,7 @@
   gap: 6px;
   font-size: 12px;
   font-weight: 300;
-  color: #0c1762;
+  color: #0b1f46;
   margin-bottom: -24px;
 }
 
@@ -314,7 +314,7 @@
   margin-bottom: 5px;
   font-size: 15px;
   font-weight: 600;
-  color: #1c1c1c;
+  color: #000000;
   margin: 0;
 }
 
@@ -342,7 +342,7 @@
 
 
 .details-btn {
-  background-color: #0c1762;
+  background-color: #0b1f46;
   color: #ffffff;
   border: none;
   border-radius: 6px;
@@ -353,7 +353,7 @@
 }
 
 .next-btn {
-  background-color: #0c1762;
+  background-color: #0b1f46;
   color: #ffffff;
   position: absolute;
   right: 45px;
