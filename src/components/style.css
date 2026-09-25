@@ -131,7 +131,7 @@
   display: flex;
   flex-direction: column;
   flex: 1;
-  border-right: 2px solid #ffffff;
+  border-right: 2px solid #cccbcb;
   padding-right: 10px;
   align-items: flex-start;
   text-align: left;
@@ -509,3 +509,43 @@
 }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* page 8 */
+
+.home-search{
+  height: 600px;
+  background-color: #EDF2F3;
+  padding-bottom: 40px;
+}
+
+.CommonHeader{
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+}
+
+.filter-bar{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 60px;
+}
