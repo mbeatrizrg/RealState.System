@@ -288,6 +288,50 @@
           </article>
         </div>
   </section>
+  <!-- PÁGINA 5-->
+
+  <section class="container">
+    <!-- Banner Superior de datos -->
+    <div class="banner">
+      <div class="stat-item">
+        <div class="stat-number">600+</div>
+        <div class="stat-label">VIVIENDAS</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">24+</div>
+        <div class="stat-label">AÑOS APOYANDO A CARABOBO</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">350+</div>
+        <div class="stat-label">CLIENTES</div>
+      </div>
+    </div>
+
+    <!-- Sección why us? -->
+    <div class="content">
+      <!-- Imagen de la persona -->
+      <div class="profile-image">
+        <img src="/profile.png" alt="Perfil" class="profile-img" />
+      </div>
+
+      <!-- Texto descriptivo -->
+      <div class="info-text">
+        <h2 class="section-title">¿Por qué nosotros?</h2>
+        <p class="description">
+          Rifat Richani is an artful mosaic of luxury residences that blend
+          minimalist details with modern living. A serene community where
+          thoughtful design and exceptional amenities invites you to embrace an
+          elevated lifestyle in Long Island City.
+        </p>
+      </div>
+    
+      <!-- Botón flotante opcional (si aplica en la sección) -->
+      <button class="next-btn" aria-label="Siguiente">
+          <img src="/arrow.png" alt="Siguiente" />
+      </button>
+    </div>
+  </section>
+
 </template>
  
 <script setup>
