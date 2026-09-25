@@ -323,12 +323,12 @@
           thoughtful design and exceptional amenities invites you to embrace an
           elevated lifestyle in Long Island City.
         </p>
-      </div>
-    
-      <!-- Botón flotante opcional (si aplica en la sección) -->
+
+        <!-- Botón flotante opcional (si aplica en la sección) -->
       <button class="next-btn" aria-label="Siguiente">
           <img src="/arrow.png" alt="Siguiente" />
       </button>
+      </div>
     </div>
   </section>
 

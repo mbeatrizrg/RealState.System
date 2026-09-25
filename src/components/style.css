@@ -508,20 +508,4 @@
   margin-right: 80px;
 }
 
-.next-btn {
-  background-color: #0b1f46;
-  color: #ffffff;
-  position: absolute;
-  right: 45px;
-  z-index: 10;
-  padding: 6px 14px;
-  margin-top: 25px;
-  font-size: 12px;
-  cursor: pointer;
-  height: 40px;
-  width: 40px;
-  border-radius: 50px;
-  border: none;
-  overflow: hidden;
-  cursor: pointer;
-}
+
