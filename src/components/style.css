@@ -58,7 +58,6 @@
 }
 
 
-
 .imagen {
   width: 100%;
   height: 480px;
@@ -529,23 +528,3 @@
 
 
 
-/* page 8 */
-
-.home-search{
-  height: 600px;
-  background-color: #EDF2F3;
-  padding-bottom: 40px;
-}
-
-.CommonHeader{
-  box-sizing: border-box;
-  display: flex;
-  align-items: center;
-}
-
-.filter-bar{
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-top: 60px;
-}
