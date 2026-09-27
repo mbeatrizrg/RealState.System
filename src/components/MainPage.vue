@@ -60,12 +60,12 @@
               <option value="apartamento">Apartamento</option>
               <option value="townhouse">Townhouse</option>
               <option value="terreno">Terreno</option>
-              <option value="local comercial">local comercial</option>
-              <option value="galpon">galpon</option>
-              <option value="oficina">oficina</option>
-              <option value="consultorio medico">consultorio medico</option>
-              <option value="club">club</option>
-              <option value="negocio">negocio</option>
+              <option value="local comercial">Local comercial</option>
+              <option value="galpon">Galpon</option>
+              <option value="oficina">Oficina</option>
+              <option value="consultorio medico">Consultorio medico</option>
+              <option value="club">Club</option>
+              <option value="negocio">Negocio</option>
             </select>
           </div>
 

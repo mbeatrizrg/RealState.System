@@ -251,17 +251,6 @@
   gap: 10px;
 }
 
-
-
-.favorite-btn {
-  background-color: #ffffff;
-  border: none;
-  border-radius: 50px;
-  padding: 0px;
-  cursor: pointer;
-  align-self: flex-end;
-}
-
 .card-content {
   display: flex;
   flex-direction: column;
@@ -295,13 +284,17 @@
 }
 
 .favorite-btn {
-  background: transparent;
   border: none;
+  padding: 0px;
+  cursor: pointer;
+  align-self: flex-end;
+  background: transparent;
   padding: 0px;
   cursor: pointer;
   display: flex;
   align-items: center;
 }
+
 
 .favorite-btn img {
   width: 18px;
@@ -441,7 +434,6 @@
 /* page 5 */
 .contaier{
   padding: 40px 20px;
-  background-color: #12c1e4;
   width: 100%;
   padding-bottom: 100px;
   overflow: visible;
