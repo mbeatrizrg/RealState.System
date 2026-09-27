@@ -348,6 +348,4 @@ const Search = ()=> {
 // Lógica de JavaScript / Vue (si es necesaria)
 </script>
 
-<style scoped>
-/* Los estilos específicos pueden ir aquí o importarse desde un archivo global */
-</style>
+<style scoped src= "./style.css"></style>
