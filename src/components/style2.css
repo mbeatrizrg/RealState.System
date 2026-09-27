@@ -72,6 +72,16 @@
   padding-left: 0px;
 }
 
+.filter-input2 {
+  width: 100%;
+  padding: 0px;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 14px;
+}
+
+
 .search-btn {
   background-color: #0b1f46;
   color: #ffffff;
@@ -91,4 +101,37 @@
   object-fit: contain;
   display: inline-block;
   margin-right: 10px;
+}
+
+
+.cards-grid {
+  padding-top: 20px;
+  background-color: transparent;
+  border-radius: 12px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 20px;
+  padding: 0 20px;
+  justify-content: space-between;
+}
+
+.building-img {
+  aspect-ratio: 1/1;
+  margin-top: 0px;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 12px;
+  display: block;
+}
+
+.card {
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 12px;
+  overflow: hidden;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
