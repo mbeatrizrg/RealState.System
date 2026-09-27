@@ -508,4 +508,64 @@
   margin-right: 80px;
 }
 
+/* page 6*/
+.page-6{
+  ackground-color: #EDF2F3;
+  padding: 60px 40px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.login-6{
+  position: absolute;
+  top: 40px;
+  right: 40px;
+}
+
+.footer-content{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.footer-brand-img{
+  width: 200px; 
+  height: auto;
+  object-fit: contain;
+  margin-bottom: 5px;
+}
+
+.footer-address{
+  color: #000000;
+  font-size: 14px;
+  text-align: center;
+  line-height: 1.5; 
+  margin: 0; 
+  font-weight: 500;
+}
+
+.contact-title{
+  font-size: 14px;
+  font-weight: 700;
+  color: #000000;
+  margin-top: 10px; 
+  margin-bottom: 5px;
+}
+
+.social-icons{
+  display: flex;
+  gap: 30px; 
+  align-items: center;
+  justify-content: center;
+}
+
+.social-icons a img {
+  width: 30px;
+  height: 30px;
+  object-fit: contain; 
+  transition: transform 0.2s ease; 
+}
 
