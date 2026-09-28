@@ -110,7 +110,7 @@
         <!-- Contenedor del Grid/Carrusel de tarjetas -->
         <div class="cards-grid">
           <!-- TARJETA 1 -->
-           <article class="card">
+            <article class="card">
             <div class="card-image-wrapper">
               <img src="/building.png" alt="Residencias Altos Del Mirador" class="building-img" />
             </div>
@@ -336,8 +336,42 @@
 
 
 
+  <!-- PÁGINA 6-->
+  <footer class="page-6">
+    <!-- boton superior derecho-->
+    <div class="login-6">  
+      <button class="inc-btn">Iniciar Sesion</button>
+    </div>
+    <!--contenido central-->
+    <div class="footer-content">
+      <div class="logo">
+        <img src="/icon.png" alt="Rifat Richani Bienes Raices" class="footer-brand-img" />
+      </div>
+      <!-- Direccion-->
+      <p class="footer-address">
+        C.C.P. Otama, urb. El Viñedo, PB<br />
+        Local 10, Valencia, Carabobo
+      </p>
+      <!--Titulo de contacto-->
+      <h3 class="contact-title">CONTACTANOS</h3>
+      <!-- aqui estuvo Batman-->
+      <!--Iconos de redes sociales-->
+      <div class="social-icons">
+        <a href="#"><img src="/x.png" alt="X (Twitter)" /></a>
+        <a href="#"><img src="/instagram.png" alt="Instagram" /></a>
+        <a href="#"><img src="/facebook.png" alt="Facebook" /></a>
+        <a href="#"><img src="/whatsapp2.png" alt="WhatsApp"></a>
+      </div>
+
+
+
+    </div>
+
+
+  </footer>
+
 </template>
- 
+
 <script setup>
 import {useRouter} from 'vue-router'
 
