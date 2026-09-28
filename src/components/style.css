@@ -28,6 +28,10 @@
   width: auto;
   object-fit: contain;
   justify-content: space-between;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: 25px;
 }
 
 .primary-nav {
@@ -37,6 +41,7 @@
 }
 
 .menu-btn{
+  text-decoration: none;
   background: trasparent;
   color: #0b1f46;
   border: none;

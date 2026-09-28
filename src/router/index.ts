@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import MainPage from '@/components/MainPage.vue'
 import SearchHome from '@/components/SearchHome.vue'
-
+import Menu from '@/components/Menu.vue'
 const routes = [
   {
     path: '/',
@@ -12,6 +12,11 @@ const routes = [
     path: '/search',
     name: 'SearchHome',
     component: SearchHome
+  },
+  {
+    path: '/menu',
+    name: 'menu',
+    component: Menu
   }
 ]
 

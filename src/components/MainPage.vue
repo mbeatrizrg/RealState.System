@@ -8,7 +8,8 @@
       </div>
       
       <nav class="primary-nav">
-        <button class="menu-btn">Menu</button>
+        <!-- cambiar para que se vea como el search btn -->
+        <router-link to="/menu" class="menu-btn">Menu</router-link> 
         <button class="inc-btn">Iniciar Sesión</button>
 
       </nav>
