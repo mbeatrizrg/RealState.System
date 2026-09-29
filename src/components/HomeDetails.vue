@@ -6,16 +6,16 @@
     <!-- Galería de imágenes -->
     <section class="gallery-grid">
       <div class="gallery-item">
-        <img src="/foto1.jpg" alt="Cocina" />
+        <img src="/innerbuilding.png" alt="Cocina" />
       </div>
       <div class="gallery-item">
-        <img src="/foto2.jpg" alt="Comedor" />
+        <img src="/innerbuilding2.png" alt="Comedor" />
       </div>
       <div class="gallery-item">
-        <img src="/foto3.jpg" alt="Fachada del edificio" />
+        <img src="/building.png" alt="Fachada del edificio" />
       </div>
       <div class="gallery-item main-thumb">
-        <img src="/foto4.jpg" alt="Piscina y fachada" />
+        <img src="/innerbuilding4.png" alt="Piscina y fachada" />
         <button class="gallery-next-btn">&gt;</button>
       </div>
     </section>
@@ -48,7 +48,7 @@
 
     <!-- Mapa -->
     <section class="map-section">
-      <img src="/mapa-valencia.jpg" alt="Ubicación en el mapa" class="map-image" />
+      <!-- Mapa /* <img src="/mapa-valencia.jpg" alt="Ubicación en el mapa" class="map-image" /> */-->
     </section>
 
     <!-- Pie de página / Footer -->

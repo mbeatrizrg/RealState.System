@@ -362,9 +362,9 @@
       <!--Iconos de redes sociales-->
       <div class="social-icons">
         <a href="#"><img src="/x.png" alt="X (Twitter)" /></a>
-        <a href="#"><img src="/instagram.png" alt="Instagram" /></a>
+        <a href="#"><img src="/inst.png" alt="Instagram" /></a>
         <a href="#"><img src="/facebook.png" alt="Facebook" /></a>
-        <a href="#"><img src="/whatsapp2.png" alt="WhatsApp"></a>
+        <a href="#"><img src="/whatsapp.png" alt="WhatsApp"></a>
       </div>
 
 
