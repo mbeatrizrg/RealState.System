@@ -7,6 +7,12 @@
   background-color: #0b1442;
   color: #ffffff;
   font-family: Arial, sans-serif; /* Fuente por defecto para la barra superior */
+  position: relative;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  min-height: 100vh;
 }
 
 /* Estilos de la barra de navegación superior */

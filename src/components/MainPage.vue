@@ -9,7 +9,9 @@
       
       <nav class="primary-nav">
         <!-- cambiar para que se vea como el search btn -->
-        <router-link to="/menu" class="menu-btn">Menu</router-link> 
+        <button @click="Menu" class="menu-btn">
+          <span>Menu</span>
+        </button> 
         <button class="inc-btn">Iniciar Sesión</button>
 
       </nav>
@@ -34,9 +36,9 @@
         <!-- Barra de filtros -->
         <div class="filter-bar">
           <div class="filter-group">
-            <label for="locacion">Selecciona tu locación</label>
+            <label for="locacion">Locación</label>
             <select id="locacion" name="locacion">
-              <option value="" disabled selected>Todas las ciudades</option>
+              <option value="" disabled selected>Ciudades</option>
               <option value="valencia">Valencia</option>
               <option value="naguanagua">Naguanagua</option>
               <option value="san_diego">San Diego</option>
@@ -245,7 +247,9 @@
           </div>
       
           <nav class="primary-nav">
-            <button class="menu-btn">Menu</button>
+            <button @click="Menu" class="menu-btn">
+              <span>Menu</span>
+            </button> 
             <button class="inc-btn">Iniciar Sesión</button>
 
           </nav>
@@ -255,7 +259,7 @@
           <h1 class="principal-text">24 Años Transformando Espacios</h1>
           
           <p class="little-text">
-            "Durante más de 15 años hemos trabajado para que tus proyectos sean materializados. Logrando consolidar cientos de hogares y establecimientos comerciales, atendiendo sus requerimientos de la mano de nuestro equipo de trabajo."
+            "Brindar asesoría inmobiliaria de alto nivel en la compra, venta y alquiler de propiedades , resguardando el patrimonio de nuestros clientes con transparencia, criterio estratégico y una estricta seguridad jurídica, garantizando que cada operación sea una decisión rentable y segura."
           </p>
         </div>
       </section>
@@ -269,7 +273,9 @@
           </div>
       
           <nav class="primary-nav">
-            <button class="menu-btn">Menu</button>
+            <button @click="Menu" class="menu-btn">
+              <span>Menu</span>
+            </button> 
             <button class="inc-btn">Iniciar Sesión</button>
           </nav>
       </header>
@@ -282,11 +288,8 @@
           <article class="text-article">
             <h1 class="text-4">Nuestra vision</h1>
             <p class="text-little-4">
-            "Durante más de 15 años hemos trabajado para que tus proyectos sean materializados. Logrando consolidar cientos de hogares y establecimientos comerciales, atendiendo sus requerimientos de la mano de nuestro equipo de trabajo."
+            "Consolidarnos como la firma inmobiliaria referente y de mayor confianza en, reconocida por nuestra trayectoria, innovación y excelencia en la gestión personalizada de activos residenciales y comerciales en las zonas de mayor valorización en el estado."
             </p>
-            <button class="next-btn" aria-label="Siguiente">
-              <img src="/arrow.png" alt="Siguiente" />
-            </button>
           </article>
         </div>
   </section>
@@ -377,8 +380,13 @@
 import {useRouter} from 'vue-router'
 
 const router = useRouter()
+
 const Search = ()=> {
   router.push('/search')
+}
+
+const Menu = ()=> {
+  router.push('/menu')
 }
 // Lógica de JavaScript / Vue (si es necesaria)
 </script>

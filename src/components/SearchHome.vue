@@ -19,9 +19,9 @@
       <section class="background">
         <div class="filter-bar2">
           <div class="filter-group2">
-            <label for="locacion">Selecciona tu locación</label>
+            <label for="locacion">Locación</label>
             <select id="locacion" name="locacion">
-              <option value="" disabled selected>Todas las ciudades</option>
+              <option value="" disabled selected>Ciudades</option>
               <option value="valencia">Valencia</option>
               <option value="naguanagua">Naguanagua</option>
               <option value="san_diego">San Diego</option>
