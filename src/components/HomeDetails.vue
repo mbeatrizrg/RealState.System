@@ -1,22 +1,24 @@
 <template>
 <div class="details-container">
     <!-- Enlace de regreso -->
-    <a href="#" class="back-link" @click.prevent="goBack">Atras</a>
+    <button @click="Search" class="back-btn">
+      <span>Atras</span>
+    </button> 
 
     <!-- Galería de imágenes -->
-    <section class="gallery-grid">
-      <div class="gallery-item">
+    <section class="carousel">
+      <div class="carousel-item">
         <img src="/innerbuilding.png" alt="Cocina" />
       </div>
-      <div class="gallery-item">
+      <div class="carousel-item">
         <img src="/innerbuilding2.png" alt="Comedor" />
       </div>
-      <div class="gallery-item">
+      <div class="carousel-item">
         <img src="/building.png" alt="Fachada del edificio" />
       </div>
-      <div class="gallery-item main-thumb">
+      <div class="carousel-item">
         <img src="/innerbuilding4.png" alt="Piscina y fachada" />
-        <button class="gallery-next-btn">&gt;</button>
+        <button class="next-btn">&gt;</button>
       </div>
     </section>
 
@@ -85,8 +87,9 @@
 import {useRouter} from 'vue-router'
 
 const router = useRouter()
+
 const Search = ()=> {
-  router.push('/details')
+  router.push('/search')
 }
 // Lógica de JavaScript / Vue (si es necesaria)
 </script>

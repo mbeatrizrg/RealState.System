@@ -9,7 +9,9 @@
 
       <nav class="primary-nav">
         <!-- cambiar para que se vea como el search btn -->
-        <router-link to="/menu" class="menu-btn">Menu</router-link> 
+        <button @click="Menu" class="menu-btn">
+          <span>Menu</span>
+        </button> 
         <button class="inc-btn">Iniciar Sesion</button>
       </nav>
     </header>
@@ -76,8 +78,8 @@
             </select>
           </div>
 
-          <button class="search-btn">
-            <img src="/lupa.svg" alt="Buscar" />
+          <button @click="Search" class="search-btn">
+            <img src="/lupa.svg" alt="" />
             <span>Buscar Propiedad</span>
           </button>
         </div> 
@@ -207,5 +209,20 @@
       </section>
   </div>
 </template>
+
+<script setup>
+import {useRouter} from 'vue-router'
+
+const router = useRouter()
+
+const Search = ()=> {
+  router.push('/search')
+}
+
+const Menu = ()=> {
+  router.push('/menu')
+}
+
+</script>
 
 <style scoped src= "./style2.css"></style>
