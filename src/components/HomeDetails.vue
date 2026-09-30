@@ -23,7 +23,7 @@
     </section>
 
     <!-- Información principal del inmueble -->
-    <section class="property-info-section">
+    <section class="info-section">
       <div class="info-left">
         <h1 class="property-title">Residencias Altos Del Mirador</h1>
         <p class="property-location">
@@ -54,26 +54,34 @@
     </section>
 
     <!-- Pie de página / Footer -->
-    <footer class="property-footer">
-      <div class="brand-logo">
-        <img src="/brand.png" alt="Rifat Richani Bienes Raíces" />
-      </div>
-      
-      <address class="footer-address">
+    <footer class="page-6">
+    <!--contenido central-->
+      <div class="footer-content">
+        <div class="logo">
+          <img src="/icon.png" alt="Rifat Richani Bienes Raices" class="footer-brand-img" />
+        </div>
+      <!-- Direccion-->
+      <p class="footer-address">
         C.C.P. Otama, urb. El Viñedo, PB<br />
         Local 10, Valencia, Carabobo
-      </address>
+      </p>
+      <!--Titulo de contacto-->
+      <h3 class="contact-title">CONTACTANOS</h3>
+      <!-- aqui estuvo Batman-->
+      <!--Iconos de redes sociales-->
+      <div class="social-icons">
+        <a href="#"><img src="/x.png" alt="X (Twitter)" /></a>
+        <a href="#"><img src="/inst.png" alt="Instagram" /></a>
+        <a href="#"><img src="/facebook.png" alt="Facebook" /></a>
+        <a href="#"><img src="/whatsapp.png" alt="WhatsApp"></a>
+      </div>
 
-      <p class="footer-contact-label">CONTACTANOS</p>
 
-      <div class="social-links">
-        <a href="#" aria-label="X (Twitter)"><i class="icon-x"></i></a>
-        <a href="#" aria-label="Instagram"><i class="icon-instagram"></i></a>
-        <a href="#" aria-label="Facebook"><i class="icon-facebook"></i></a>
-        <a href="#" aria-label="WhatsApp"><i class="icon-whatsapp"></i></a>
+
       </div>
     </footer>
-  </div>
+</div>
+
 
 
 

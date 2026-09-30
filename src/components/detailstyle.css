@@ -10,7 +10,9 @@
     border-radius: 0px;
     font-size: 18px;
     font-weight: 700;
+    margin-top: 10px;
     cursor: pointer;
+    display: inline-block;
 }
 
 .carousel{
@@ -20,6 +22,7 @@
     scroll-snap-type: x mandatory;
     padding-bottom: 12px;
     -webkit-overflow-scrolling: touch;
+    margin-top: 30px;
 
 }
 
@@ -38,4 +41,9 @@
     object-fit: cover;
     border-radius: none;
     display: block;
+}
+
+.info-left{
+    color: #0b1f46;
+    font-size: 10px;
 }
