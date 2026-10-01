@@ -19,16 +19,17 @@
 }
 
 .carousel{
-    display: flex;
+    position: relative;
+    display: inline-flex;
     gap: 16px;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     padding-bottom: 12px;
     -webkit-overflow-scrolling: touch;
     margin-top: 30px;
-
     
 }
+
 
 .carousel-item{
     width: 100%;
@@ -47,12 +48,34 @@
     display: block;
 }
 
-.info-left{
-    color: #0b1f46;
-    font-size: 13px;
-    margin-left: 20px;
-    margin-top: 15px;
+.next-btn {
+  background-color: #0b1f46;
+  color: #ffffff;
+  position: absolute;
+  right: 45px;
+  z-index: 10;
+  padding: 6px 14px;
+  margin-top: 25px;
+  font-size: 12px;
+  cursor: pointer;
+  height: 40px;
+  width: 40px;
+  border-radius: 50px;
+  border: none;
+  overflow: hidden;
+  cursor: pointer;
 }
+
+.info-section{
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    max-width: 1000px;
+    align-items:flex-start;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
 
 .property-location span{
     align-items: center;
@@ -67,6 +90,41 @@
     width: 20px;
     height: 20px;
     object-fit: contain;
+}
+
+.info-left{
+    flex: 1;
+    max-width: 450px;
+    color: #0b1f46;
+    font-size: 13px;
+    margin-left: 50px;
+    margin-top: 15px;
+    gap: 10px;
+}
+
+.info-left p{
+    display: flex;
+    margin-top: 10px;
+    line-height: 1.5;
+    display: flex;
+    margin: 8px 0 16px 0;
+    line-height: 1.8;
+}
+
+.info-right{
+    display: flex;
+    width: 300px;
+    color: #0b1f46;
+    font-size: 13px;
+    margin-right: 20px;
+    margin-top: 15px;
+}
+
+.details-list{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
 }
 
 .contact-btn{

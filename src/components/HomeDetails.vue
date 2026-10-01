@@ -33,7 +33,7 @@
         <p class="property-description">
           Rifat Richani is an artful mosaic of luxury residences that blend minimalist details with modern living. A serene community where thoughtful design and exceptional amenities invites you to embrace an elevated lifestyle in Long Island City.
         </p>
-          <a href="#" class="details-btn">Contactanos &gt;</a>
+          <a href="#" class="contact-btn">Contactanos &gt;</a>
       </div>
 
       <div class="info-right">
