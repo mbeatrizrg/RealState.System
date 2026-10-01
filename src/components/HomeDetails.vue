@@ -27,12 +27,13 @@
       <div class="info-left">
         <h1 class="property-title">Residencias Altos Del Mirador</h1>
         <p class="property-location">
-          <span class="location-icon">📍</span> Valencia, Via Guataparo
+          <img src="/location.png" alt="Ubicación" class="location-icon" />
+          <span>Valencia, Via Guataparo</span>
         </p>
         <p class="property-description">
           Rifat Richani is an artful mosaic of luxury residences that blend minimalist details with modern living. A serene community where thoughtful design and exceptional amenities invites you to embrace an elevated lifestyle in Long Island City.
         </p>
-        <button class="contact-btn">Contactanos &gt;</button>
+          <a href="#" class="details-btn">Contactanos &gt;</a>
       </div>
 
       <div class="info-right">
@@ -67,7 +68,6 @@
       </p>
       <!--Titulo de contacto-->
       <h3 class="contact-title">CONTACTANOS</h3>
-      <!-- aqui estuvo Batman-->
       <!--Iconos de redes sociales-->
       <div class="social-icons">
         <a href="#"><img src="/x.png" alt="X (Twitter)" /></a>
