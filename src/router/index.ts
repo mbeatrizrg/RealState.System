@@ -2,13 +2,9 @@ import { createRouter, createWebHistory } from 'vue-router'
 import MainPage from '@/components/MainPage.vue'
 import SearchHome from '@/components/SearchHome.vue'
 import Menu from '@/components/Menu.vue'
-<<<<<<< HEAD
 import HomeDetails from '@/components/HomeDetails.vue'
-
-=======
 import Create from '@/components/create.vue'
 import signIn from '@/components/sign-in.vue'
->>>>>>> origin/crear-cuenta
 const routes = [
   {
     path: '/',
@@ -26,11 +22,12 @@ const routes = [
     component: Menu
   },
   {
-<<<<<<< HEAD
     path: '/details',
     name: 'details',
     component: HomeDetails
-=======
+
+  },
+  {
     path: '/create',
     name: 'create',
     component: Create
@@ -39,7 +36,6 @@ const routes = [
     path: '/signin',
     name: 'signIn',
     component: signIn
->>>>>>> origin/crear-cuenta
   }
 ]
 
