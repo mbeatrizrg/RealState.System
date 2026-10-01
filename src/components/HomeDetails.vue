@@ -51,7 +51,7 @@
 
     <!-- Mapa -->
     <section class="map-section">
-      <!-- Mapa /* <img src="/mapa-valencia.jpg" alt="Ubicación en el mapa" class="map-image" /> */-->
+      <img src="/reference-img.png" alt="Ubicación en el mapa" class="map-image" /> 
     </section>
 
     <!-- Pie de página / Footer -->
