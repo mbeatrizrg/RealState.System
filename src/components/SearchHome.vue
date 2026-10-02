@@ -12,7 +12,9 @@
         <button @click="Menu" class="menu-btn">
           <span>Menu</span>
         </button> 
-        <button class="inc-btn">Iniciar Sesion</button>
+        <button @click="signIn" class="inc-btn">
+          <span>Iniciar Sesión</span>
+        </button> 
       </nav>
     </header>
 
@@ -223,6 +225,10 @@ const Menu = ()=> {
   router.push('/menu')
 }
 
+const signIn = ()=> {
+  router.push('/signin')
+}
+// Lógica de JavaScript / Vue (si es necesaria)
 </script>
 
 <style scoped src= "./style2.css"></style>

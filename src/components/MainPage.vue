@@ -139,7 +139,9 @@
 
               <div class="card-footer">
                 <span class="card-price">$150,000</span>
-                <a href="#" class="details-btn">Ver Detalles &gt;</a>
+                <button @click="HomeDetails" class="details-btn">
+                  <span>Ver Detalles &gt;</span>
+                </button> 
               </div>
             </div>
           </article>
@@ -169,7 +171,9 @@
 
               <div class="card-footer">
                 <span class="card-price">$150,000</span>
-                <a href="#" class="details-btn">Ver Detalles &gt;</a>
+                <button @click="HomeDetails" class="details-btn">
+                  <span>Ver Detalles &gt;</span>
+                </button> 
               </div>
             </div>
           </article>
@@ -198,7 +202,9 @@
 
               <div class="card-footer">
                 <span class="card-price">$150,000</span>
-                <a href="#" class="details-btn">Ver Detalles &gt;</a>
+                <button @click="HomeDetails" class="details-btn">
+                  <span>Ver Detalles &gt;</span>
+                </button> 
               </div>
             </div>
           </article>
@@ -228,7 +234,9 @@
 
               <div class="card-footer">
                 <span class="card-price">$150,000</span>
-                <a href="#" class="details-btn">Ver Detalles &gt;</a>
+                <button @click="HomeDetails" class="details-btn">
+                  <span>Ver Detalles &gt;</span>
+                </button>
               </div>
             </div>
           </article>
@@ -252,7 +260,9 @@
             <button @click="Menu" class="menu-btn">
               <span>Menu</span>
             </button> 
-            <button class="inc-btn" @click="signIn">Iniciar Sesión</button>
+            <button class="inc-btn" @click="signIn">
+              <span>Iniciar Sesión</span>
+            </button>
 
           </nav>
         </header>
@@ -392,6 +402,9 @@ const Menu = ()=> {
   router.push('/menu')
 }
 
+const HomeDetails = ()=> {
+  router.push('/details')
+}
 const signIn = ()=> {
   router.push('/signin')
 }
