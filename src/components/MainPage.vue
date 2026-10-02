@@ -12,7 +12,9 @@
         <button @click="Menu" class="menu-btn">
           <span>Menu</span>
         </button> 
-        <button class="inc-btn">Iniciar Sesión</button>
+        <button @click="signIn" class="inc-btn">
+          <span>Iniciar Sesión</span>
+        </button> 
 
       </nav>
     </header>
@@ -250,7 +252,7 @@
             <button @click="Menu" class="menu-btn">
               <span>Menu</span>
             </button> 
-            <button class="inc-btn">Iniciar Sesión</button>
+            <button class="inc-btn" @click="signIn">Iniciar Sesión</button>
 
           </nav>
         </header>
@@ -276,7 +278,7 @@
             <button @click="Menu" class="menu-btn">
               <span>Menu</span>
             </button> 
-            <button class="inc-btn">Iniciar Sesión</button>
+            <button class="inc-btn" @click="signIn">Iniciar Sesión</button>
           </nav>
       </header>
         <div class="vision-container">
@@ -344,7 +346,7 @@
   <footer class="page-6">
     <!-- boton superior derecho-->
     <div class="login-6">  
-      <button class="inc-btn">Iniciar Sesion</button>
+      <button class="inc-btn" @click="signIn">Iniciar Sesion</button>
     </div>
     <!--contenido central-->
     <div class="footer-content">
@@ -378,6 +380,7 @@
 
 <script setup>
 import {useRouter} from 'vue-router'
+import SignIn from './sign-in.vue'
 
 const router = useRouter()
 
@@ -387,6 +390,10 @@ const Search = ()=> {
 
 const Menu = ()=> {
   router.push('/menu')
+}
+
+const signIn = ()=> {
+  router.push('/signin')
 }
 // Lógica de JavaScript / Vue (si es necesaria)
 </script>
