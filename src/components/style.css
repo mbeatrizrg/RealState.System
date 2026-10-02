@@ -86,11 +86,13 @@
   background-color: transparent;
   border: 200px;
   position: absolute;
-  top: 80px;
+  top: 180px;
   right: 50px;
   display: flex;
   flex-direction: column;
   gap: 10px;
+  transform: translateY(-50%);
+  z-index: 100;
 }
 
 .icon-btn {
@@ -110,6 +112,33 @@
   object-fit: contain;
   display: block;
   margin: 0 auto;
+  transition: transform 0.3s ease;
+}
+
+.extra-btn {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-height: 200px;
+  opacity: 1;
+  overflow: hidden;
+  transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+  top: 100%;
+}
+
+.extra-btn.is-closed {
+  max-height: 0;
+  opacity: 0;
+}
+
+.icon-arrow.rotated {
+  transform: rotate(90deg);
+}
+
+.toggle-btn{
+  position: relative;
+  z-index: 2;
+  margin-bottom: 12px;
 }
 
 .filter-bar {

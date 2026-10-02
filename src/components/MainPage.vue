@@ -29,10 +29,14 @@
 
         <!-- Menú flotante -->
         <aside class="side-menu">
-            <button class="icon-btn"><img src="/arrow.png" alt="flecha" class="icon-arrow" /></button>
+            <button class="icon-btn toggle-btn" @click="toggleSidemenu">
+              <img src="/arrow.png" alt="flecha" class="icon-arrow" :class="{ 'rotated': !isOpen }"/>
+            </button>
+          <div class="extra-btn" :class="{ 'is-closed': !isOpen }">
             <button class="icon-btn"><img src="/phone.png" alt="telefono" class="icon-phone" /></button>
             <button class="icon-btn"><img src="/gmail.png" alt="gmail" class="icon-gmail" /></button>
             <button class="icon-btn"><img src="/whatsapp.svg" alt="whatsapp" class="icon-whatsapp" /></button>
+          </div>
         </aside>
 
         <!-- Barra de filtros -->
@@ -389,8 +393,8 @@
 </template>
 
 <script setup>
+import {ref} from 'vue'
 import {useRouter} from 'vue-router'
-import SignIn from './sign-in.vue'
 
 const router = useRouter()
 
@@ -408,7 +412,16 @@ const HomeDetails = ()=> {
 const signIn = ()=> {
   router.push('/signin')
 }
+
+const isOpen = ref(true) // Estado para controlar la visibilidad del menú
+const toggleSidemenu = () => {
+  isOpen.value = !isOpen.value // Cambia el estado al hacer clic
+}
 // Lógica de JavaScript / Vue (si es necesaria)
+
+
+
+
 </script>
 
 <style scoped src= "./style.css"></style>
