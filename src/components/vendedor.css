@@ -1,0 +1,145 @@
+/* Contenedor principal que divide la pantalla */
+.dashboard-layout {
+  display: flex;
+  min-height: 100vh;
+  background-color: #f1f4f6; /* Fondo gris muy claro del área principal */
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  margin: 0;
+}
+
+/* Barra lateral oscura */
+.sidebar {
+  width: 260px;
+  background-color: #12195a; /* Azul oscuro característico del panel izquierdo[cite: 3] */
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  padding-top: 50px;
+  border-top-right-radius: 8px; /* Ligero borde redondeado si el frame lo requiere */
+  border-bottom-right-radius: 8px;
+}
+
+/* Contenedor del logo */
+.logo2-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+  width: 90px;  /* Aumenta o disminuye este valor para el ancho */
+  height: 90px;
+  padding-left: 80px;
+  padding-bottom: 30px;
+}
+
+/* Navegación y menú */
+.menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px; /* Espaciado entre elementos del menú[cite: 3] */
+}
+
+.menu-item {
+  padding: 16px 32px;
+  font-size: 16px;
+  font-weight: 400;
+  transition: background-color 0.2s ease;
+}
+
+/* Resaltado del ítem activo (Inventario)[cite: 3] */
+.menu-item.active {
+  background-color: #004cb5; /* Tono azul intermedio para la selección[cite: 3] */
+  border-radius: 0 4px 4px 0; /* Suaviza el borde derecho */
+}
+
+.menu-item a {
+  color: #ffffff; /* Texto blanco en el menú[cite: 3] */
+  text-decoration: none;
+  display: block;
+  width: 100%;
+}
+
+.menu-item:hover:not(.active) {
+  background-color: rgba(255, 255, 255, 0.05);
+  cursor: pointer;
+}
+
+/* Área de contenido principal */
+.main-content {
+  flex: 1;
+  padding: 50px 60px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px; /* Separación vertical entre el header y el buscador */
+}
+
+/* Cabecera (Saludo y botón) */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+/* Tipografía del saludo */
+.greeting {
+  font-family: 'Playfair Display', 'Merriweather', serif; /* Se asemeja a la fuente con serifa del diseño[cite: 3] */
+  font-size: 32px;
+  font-weight: 700;
+  color: #12195a; /* Mismo azul oscuro de la barra lateral[cite: 3] */
+  margin: 0;
+}
+
+/* Botón de Filtros */
+.btn-filtros {
+  background-color: #12195a; /* Fondo azul oscuro del botón[cite: 3] */
+  color: #ffffff; /* Texto blanco[cite: 3] */
+  padding: 12px 24px;
+  border-radius: 8px; /* Bordes redondeados del botón[cite: 3] */
+  border: none;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.btn-filtros:hover {
+  opacity: 0.9;
+}
+
+/* Sección de la barra de búsqueda */
+.search-section {
+  width: 100%;
+}
+
+.search-input-wrapper {
+  display: flex;
+  align-items: center;
+  background-color: #12195a; /* Fondo azul oscuro del buscador[cite: 3] */
+  border-radius: 8px; /* Bordes redondeados del contenedor de búsqueda[cite: 3] */
+  padding: 16px 20px;
+  gap: 12px;
+}
+
+.search-input {
+  background: none;
+  border: none;
+  color: #ffffff;
+  font-size: 16px;
+  width: 100%;
+  outline: none;
+}
+
+.search-input::placeholder {
+  color: rgba(255, 255, 255, 0.7); /* Texto blanco con transparencia para el placeholder[cite: 3] */
+}
+
+/* Íconos SVG */
+.icon-search, .icon-chevron {
+  width: 20px;
+  height: 20px;
+  color: #ffffff;
+}
