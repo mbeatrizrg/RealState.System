@@ -25,7 +25,7 @@ public class Inmueble {
     private String titulo;
     @Column 
     private BigDecimal precio;
-    @Column 
+    @Column (unique = true)
     private String rrbr;
     @ManyToMany (fetch = FetchType.LAZY)
     @JoinTable (name =  "extra_inmueble",
