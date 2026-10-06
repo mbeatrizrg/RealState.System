@@ -5,6 +5,7 @@ import Menu from '@/components/Menu.vue'
 import HomeDetails from '@/components/HomeDetails.vue'
 import Create from '@/components/create.vue'
 import signIn from '@/components/sign-in.vue'
+import menuVendedor from '@/components/menu-vendedor.vue'
 const routes = [
   {
     path: '/',
@@ -36,7 +37,13 @@ const routes = [
     path: '/signin',
     name: 'signIn',
     component: signIn
+  },
+  {
+    path: '/menu-vendedor',
+    name: 'menuVendedor',
+    component: menuVendedor
   }
+
 ]
 
 const router = createRouter({
