@@ -1,7 +1,4 @@
 package com.rifatrichani.backendinmobiliaria.models;
-
-import java.math.BigInteger;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -14,7 +11,7 @@ import jakarta.persistence.Table;
 public class Usuario {
     @Id 
     @GeneratedValue (strategy = GenerationType.IDENTITY)
-    private BigInteger id;
+    private Long id;
     @Column (length = 255)
     private String nombre;
     @Column (length = 255)
@@ -29,10 +26,10 @@ public class Usuario {
         this.telefono = telefono;
         this.correo = correo;
     }
-    public BigInteger getId() {
+    public Long getId() {
         return id;
     }
-    public void setId(BigInteger id) {
+    public void setId(Long id) {
         this.id = id;
     }
     public String getNombre() {
