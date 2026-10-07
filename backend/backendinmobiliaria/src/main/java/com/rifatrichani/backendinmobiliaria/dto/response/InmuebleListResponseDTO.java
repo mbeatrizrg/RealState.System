@@ -9,6 +9,7 @@ public class InmuebleListResponseDTO {
     private String titulo;
     private BigDecimal precio;
     private String urlImagenPrincipal;
+    private String ciudad;
     public Integer getId() {
         return id;
     }
@@ -32,6 +33,12 @@ public class InmuebleListResponseDTO {
     }
     public void setUrlImagenPrincipal(String urlImagenPrincipal) {
         this.urlImagenPrincipal = urlImagenPrincipal;
+    }
+    public String getCiudad() {
+        return ciudad;
+    }
+    public void setCiudad(String ciudad) {
+        this.ciudad = ciudad;
     }
     
 }

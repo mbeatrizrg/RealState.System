@@ -44,6 +44,9 @@ public class Inmueble {
     private Empleado empleado;
     @Column (columnDefinition = "TEXT")
     private String descripcion;
+    @ManyToOne (fetch = FetchType.LAZY)
+    @JoinColumn (name = "id_ciudad")
+    private Ciudad ciudad;
     public Integer getId() {
         return id;
     }

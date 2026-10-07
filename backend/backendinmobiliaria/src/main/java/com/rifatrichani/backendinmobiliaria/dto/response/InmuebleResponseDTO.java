@@ -9,8 +9,8 @@ public class InmuebleResponseDTO {
     private String descripcion;
     private BigDecimal precio;
     private Set<String> extras;
-    private Integer tipoInmuebleId; 
-
+    private String tipoInmueble; 
+    private String ciudad;
     private Set<String> urlFoto;
     private String nombreVendedor;
     private String correoEmpleado;
@@ -20,6 +20,7 @@ public class InmuebleResponseDTO {
     public void setId(Integer id) {
         this.id = id;
     }
+    
     public String getTitulo() {
         return titulo;
     }
@@ -44,11 +45,11 @@ public class InmuebleResponseDTO {
     public void setExtras(Set<String> extras) {
         this.extras = extras;
     }
-    public Integer getTipoInmuebleId() {
-        return tipoInmuebleId;
+    public String getTipoInmueble() {
+        return tipoInmueble;
     }
-    public void setTipoInmuebleId(Integer tipoInmuebleId) {
-        this.tipoInmuebleId = tipoInmuebleId;
+    public void setTipoInmueble(String tipoInmueble) {
+        this.tipoInmueble = tipoInmueble;
     }
     public Set<String> getUrlFoto() {
         return urlFoto;
@@ -67,6 +68,12 @@ public class InmuebleResponseDTO {
     }
     public void setCorreoEmpleado(String correoEmpleado) {
         this.correoEmpleado = correoEmpleado;
+    }
+    public String getCiudad() {
+        return ciudad;
+    }
+    public void setCiudad(String ciudad) {
+        this.ciudad = ciudad;
     }
     
 }

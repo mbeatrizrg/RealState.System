@@ -19,6 +19,8 @@ public class InmuebleRequestDTO {
     private Integer empleadoId;
     @NotBlank (message = "Proporcione una descripción del inmueble")
     private String descripcion;
+    @NotNull (message = "Seleccione la ciudad del inmueble")
+    private Integer ciudadId;
     //Getters y setters DTO
     public String getTitulo() {
         return titulo;
