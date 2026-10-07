@@ -5,7 +5,7 @@ import java.util.Set;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
-public class InmuebleRegistroDTO {
+public class InmuebleRequestDTO {
     @NotBlank (message = "Nombre del inmueble obligatorio")
     private String titulo;
     @NotNull  (message = "Precio del inmueble obligatorio")
