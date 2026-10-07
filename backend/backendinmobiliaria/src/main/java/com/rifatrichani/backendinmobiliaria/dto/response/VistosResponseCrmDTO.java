@@ -11,6 +11,7 @@ public class VistosResponseCrmDTO {
     private String apellido;
     private String correo;
     private LocalDateTime fechaVista;
+    private boolean isFavoritoFromUser;
     public Long getId() {
         return id;
     }
@@ -58,6 +59,12 @@ public class VistosResponseCrmDTO {
     }
     public void setFechaVista(LocalDateTime fechaVista) {
         this.fechaVista = fechaVista;
+    }
+    public boolean isFavoritoFromUser() {
+        return isFavoritoFromUser;
+    }
+    public void setFavoritoFromUser(boolean isFavoritoFromUser) {
+        this.isFavoritoFromUser = isFavoritoFromUser;
     }
     
 }
