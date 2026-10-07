@@ -100,6 +100,9 @@
   width: 40px;
   background-color: #0b1f46;
   border-radius: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border: none;
   color: #ffffff;
   overflow: hidden;
@@ -437,7 +440,7 @@
 .image-article {
   margin-left: 10px;
 }
-.card-image-4 img{
+.image-4 img{
   width: 350px;
   height: 400px;
   object-fit: cover;

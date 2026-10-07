@@ -18,14 +18,14 @@
   margin-bottom: 60px;
 }
 
-.brand-name {
+.brand {
   font-family: 'Brush Script MT', cursive, sans-serif;
   font-size: 13px;
   color: #0b1f46;
   margin-left: 20px;
 }
 
-.header-actions {
+.header {
   display: flex;
   align-items: center;
   gap: 20px;

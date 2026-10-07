@@ -18,7 +18,6 @@
     <!-- Contenido principal-->
     <main class="main-content">
       <div class="image-section">
-        <img 
           <img class="hero-image"  src="/PhotoPrincipal.png" alt="foto de portada" /> 
       </div>
 

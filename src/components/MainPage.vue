@@ -33,9 +33,15 @@
               <img src="/arrow.png" alt="flecha" class="icon-arrow" :class="{ 'rotated': !isOpen }"/>
             </button>
           <div class="extra-btn" :class="{ 'is-closed': !isOpen }">
-            <button class="icon-btn"><img src="/phone.png" alt="telefono" class="icon-phone" /></button>
-            <button class="icon-btn"><img src="/gmail.png" alt="gmail" class="icon-gmail" /></button>
-            <button class="icon-btn"><img src="/whatsapp.svg" alt="whatsapp" class="icon-whatsapp" /></button>
+            <a href="tel:+584145936070" class="icon-btn">
+              <img src="/phone.png" alt="telefono" class="icon-phone" />
+            </a>
+            <a href="mailto:rrbrventas01@gmail.com" class="icon-btn">
+              <img src="/gmail.png" alt="gmail" class="icon-gmail" />
+            </a>
+            <a href="https://wa.me/584145936070" target="_blank" rel="noopener noreferrer" class="icon-btn">
+              <img src="/whatsapp.svg" alt="whatsapp" class="icon-whatsapp" />
+            </a>
           </div>
         </aside>
 
@@ -297,7 +303,7 @@
       </header>
         <div class="vision-container">
           <article class="image-article">
-            <div class="card-image-4">
+            <div class="image-4">
               <img src="/building.png" alt="Residencias Altos Del Mirador" class="building-img" />
             </div>
           </article>
@@ -377,10 +383,10 @@
       <!-- aqui estuvo Batman-->
       <!--Iconos de redes sociales-->
       <div class="social-icons">
-        <a href="#"><img src="/x.png" alt="X (Twitter)" /></a>
-        <a href="#"><img src="/inst.png" alt="Instagram" /></a>
-        <a href="#"><img src="/facebook.png" alt="Facebook" /></a>
-        <a href="#"><img src="/whatsapp.png" alt="WhatsApp"></a>
+        <a href="https://x.com/rifatrichanibr"><img src="/x.png" alt="X (Twitter)" /></a>
+        <a href="https://www.instagram.com/rifatrichanibienesraices?stkn=c2YydWl4c3Q4anNr"><img src="/inst.png" alt="Instagram" /></a>
+        <a href="https://www.facebook.com/share/19A5MuKs4X/?mibextid=wwXIfr"><img src="/facebook.png" alt="Facebook" /></a>
+        <a href="https://wa.me/584145936070"><img src="/whatsapp.png" alt="WhatsApp"></a>
       </div>
 
 
