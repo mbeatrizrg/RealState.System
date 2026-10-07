@@ -20,12 +20,7 @@ public class Usuario {
     private String telefono;
     @Column (length = 255)
     private String correo;
-    public Usuario(String nombre, String apellido, String telefono, String correo) {
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.telefono = telefono;
-        this.correo = correo;
-    }
+    public Usuario(){}
     public Long getId() {
         return id;
     }

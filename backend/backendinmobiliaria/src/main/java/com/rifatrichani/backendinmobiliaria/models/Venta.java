@@ -20,7 +20,7 @@ import jakarta.persistence.FetchType;
 public class Venta {
     @Id 
     @GeneratedValue (strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
     @OneToOne (fetch = FetchType.LAZY)
     @JoinColumn (name = "id_inmueble")
     private Inmueble inmueble;
@@ -34,10 +34,10 @@ public class Venta {
     @CreationTimestamp 
     @Column(name = "fecha_venta",updatable = false) 
     private LocalDateTime fechaVenta;
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
     public Inmueble getInmueble() {
@@ -69,7 +69,6 @@ public class Venta {
     }
     public void setFechaVenta(LocalDateTime fechaVenta) {
         this.fechaVenta = fechaVenta;
-    }
-    
+    }    
 
 }
