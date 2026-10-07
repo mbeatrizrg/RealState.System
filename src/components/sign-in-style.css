@@ -67,18 +67,17 @@
   height: calc(100vh - 150px);
 }
 
-.image-section {
-  flex: 1;
-  max-width: 50%;
+.image-article {
+  margin-top: 40px;
+  margin-left: 10px;
 }
 
-.hero-image {
-  width: 100%;
-  height: 100%;
+.image-4 img{
+  width: 350px;
+  height: 400px;
   object-fit: cover;
-  border-radius: 8px;
+  border-radius: 0px;
 }
-
 /* Estilos del Formulario */
 .form-section {
   flex: 1;

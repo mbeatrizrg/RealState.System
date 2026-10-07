@@ -9,17 +9,25 @@
       
       <nav class="primary-nav">
         <!-- cambiar para que se vea como el search btn -->
-        <router-link to="/menu" class="menu-btn">Menu</router-link> 
-        <button class="inc-btn">Crear cuenta</button>
+        <button @click="Menu" class="menu-btn">
+          <span>Menu</span>
+        </button> 
+        <button @click="Create" class="inc-btn">
+          <span>Crear cuenta</span>
+        </button>
 
       </nav>
     </header>
 
     <!-- Contenido principal-->
     <main class="main-content">
-      <div class="image-section">
-          <img class="hero-image"  src="/PhotoPrincipal.png" alt="foto de portada" /> 
-      </div>
+      <div class="vision-container">
+          <article class="image-article">
+            <div class="image-4">
+              <img src="/building.png" alt="Residencias Altos Del Mirador" class="building-img" />
+            </div>
+          </article>
+        </div>
 
       <div class="form-section">
         <h1 class="form-title">Iniciar sesion</h1>
@@ -50,4 +58,24 @@
   </div>
 </template>
 
+<script setup>
+import {useRouter} from 'vue-router'
+
+const router = useRouter()
+
+const Menu = ()=> {
+  router.push('/menu')
+}
+
+const Create = ()=> {
+  router.push('/create')
+}
+
+
+// Lógica de JavaScript / Vue (si es necesaria)
+
+
+
+
+</script>
 <style scoped src= "./sign-in-style.css"></style>
