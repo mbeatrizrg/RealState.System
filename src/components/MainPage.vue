@@ -7,7 +7,6 @@
         <img src="/brand.png" alt="Rifat Richani" class="brand" />
       </div>
       
-      
       <nav class="primary-nav">
         <!-- cambiar para que se vea como el search btn -->
         <button @click="Menu" class="menu-btn">
