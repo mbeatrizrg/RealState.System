@@ -15,7 +15,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 @Entity 
 @Table (name = "comunicaciones")
-public class Comunicaciones {
+public class Comunicacion {
     @Id 
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Integer id;
