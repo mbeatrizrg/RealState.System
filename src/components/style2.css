@@ -177,12 +177,15 @@
 }
 
 .favorite-btn img {
+  padding-right: 5px;
   width: 18px;
   height: 18px;
   object-fit: contain;
 }
 
-.title-card {
+
+.card-title {
+  padding-left: 10px;
   padding-top: 15px;
   margin-bottom: 5px;
   font-size: 15px;
@@ -192,6 +195,7 @@
 }
 
 .details-card {
+  padding-left: 10px;
   display: flex;
   font-size: 12px;
   font-weight: 400;
@@ -210,6 +214,7 @@
 }
 
 .card-price {
+  padding-left: 10px;
   font-size: 14px;
   font-weight: 700;
   color: #1c1c1c;
