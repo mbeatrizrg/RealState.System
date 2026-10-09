@@ -34,11 +34,11 @@
 
         <form class="login-form">
           <div class="form-group">
-            <label for="phone">teléfono</label>
+            <label for="gmail">Gmail</label>
             <input 
-              type="tel" 
-              id="phone" 
-              placeholder="+58 414-555 5555" 
+              type="email" 
+              id="gmail" 
+              placeholder="example@gmail.com" 
             />
           </div>
 

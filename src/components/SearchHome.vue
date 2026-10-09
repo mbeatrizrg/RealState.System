@@ -101,8 +101,8 @@
                 <span>Valencia, Via Guataparo</span>
               </div>
 
-              <button class="favorite-btn" aria-label="Añadir a favoritos">
-                <img src="/heart.png" alt="Favorito" />
+              <button class="favorite-btn" :class="{ 'active': isFavorite }" @click="toggleFavorite" aria-label="Añadir a favoritos">
+                <img :src="isFavorite ? '/filledheart.png' : '/heart.png'" alt="Favorito" />
               </button>
 
               <h3 class="card-title">Residencias Altos Del Mirador</h3>
@@ -131,8 +131,8 @@
                 <span>Valencia, Via Guataparo</span>
               </div>
 
-              <button class="favorite-btn" aria-label="Añadir a favoritos">
-                <img src="/heart.png" alt="Favorito" />
+              <button class="favorite-btn" :class="{ 'active': isFavorite }" @click="toggleFavorite" aria-label="Añadir a favoritos">
+                <img :src="isFavorite ? '/filledheart.png' : '/heart.png'" alt="Favorito" />
               </button>
 
               <h3 class="card-title">Residencias Altos Del Mirador</h3>
@@ -161,8 +161,8 @@
                 <span>Valencia, Via Guataparo</span>
               </div>
 
-              <button class="favorite-btn" aria-label="Añadir a favoritos">
-                <img src="/heart.png" alt="Favorito" />
+              <button class="favorite-btn" :class="{ 'active': isFavorite }" @click="toggleFavorite" aria-label="Añadir a favoritos">
+                <img :src="isFavorite ? '/filledheart.png' : '/heart.png'" alt="Favorito" />
               </button>
 
               <h3 class="card-title">Residencias Altos Del Mirador</h3>
@@ -191,8 +191,8 @@
                 <span>Valencia, Via Guataparo</span>
               </div>
 
-              <button class="favorite-btn" aria-label="Añadir a favoritos">
-                <img src="/heart.png" alt="Favorito" />
+              <button class="favorite-btn" :class="{ 'active': isFavorite }" @click="toggleFavorite" aria-label="Añadir a favoritos">
+                <img :src="isFavorite ? '/filledheart.png' : '/heart.png'" alt="Favorito" />
               </button>
 
               <h3 class="card-title">Residencias Altos Del Mirador</h3>
@@ -216,6 +216,11 @@
 import {useRouter} from 'vue-router'
 
 const router = useRouter()
+
+const isFavorite = ref(false)
+const toggleFavorite = () => {
+  isFavorite.value = !isFavorite.value
+}
 
 const Search = ()=> {
   router.push('/search')

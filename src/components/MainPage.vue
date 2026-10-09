@@ -125,30 +125,30 @@
         <!-- Contenedor del Grid/Carrusel de tarjetas -->
         <div class="cards-grid">
           <!-- TARJETA 1 -->
-            <article class="card">
+            <article class="card" v-for="property in properties" :key="property.id">
             <div class="card-image-wrapper">
-              <img src="/building.png" alt="Residencias Altos Del Mirador" class="building-img" />
+              <img :src="property.image" :alt="property.title" class="building-img" />
             </div>
 
             <div class="card-content">
               <div class="card-location">
                 <img src="/location.png" alt="Ubicación" />
-                <span>Valencia, Via Guataparo</span>
+                <span>{{ property.location }}</span>
               </div>
 
-              <button class="favorite-btn" aria-label="Añadir a favoritos">
-                <img src="/heart.png" alt="Favorito" />
+              <button class="favorite-btn" :class="{ 'active': isFavorite }" @click="property.isFavorite = !property.isFavorite" aria-label="Añadir a favoritos">
+                <img :src="property.isFavorite ? '/filledheart.png' : '/heart.png'" alt="Favorito" />
               </button>
 
-              <h3 class="card-title">Residencias Altos Del Mirador</h3>
+              <h3 class="card-title">{{ property.title }}</h3>
 
               <div class="card-details">
-                <span>4 habitaciones | 3 baños</span>
-                <span>67 m² Totales</span>
+                <span>{{ property.bedrooms }} habitaciones | {{ property.bathrooms }} baños</span>
+                <span>{{ property.area }} m² Totales</span>
               </div>
 
               <div class="card-footer">
-                <span class="card-price">$150,000</span>
+                <span class="card-price">${{ property.price }}</span>
                 <button @click="HomeDetails" class="details-btn">
                   <span>Ver Detalles &gt;</span>
                 </button> 
@@ -156,100 +156,6 @@
             </div>
           </article>
 
-          <!-- TARJETA 2 -->
-          <article class="card">
-            <div class="card-image-wrapper">
-              <img src="/building.png" alt="Residencias Altos Del Mirador" class="building-img" />
-            </div>
-
-            <div class="card-content">
-              <div class="card-location">
-                <img src="/location.png" alt="Ubicación" />
-                <span>Valencia, Via Guataparo</span>
-              </div>
-
-              <button class="favorite-btn" aria-label="Añadir a favoritos">
-                <img src="/heart.png" alt="Favorito" />
-              </button>
-
-              <h3 class="card-title">Residencias Altos Del Mirador</h3>
-
-              <div class="card-details">
-                <span>4 habitaciones | 3 baños</span>
-                <span>67 m² Totales</span>
-              </div>
-
-              <div class="card-footer">
-                <span class="card-price">$150,000</span>
-                <button @click="HomeDetails" class="details-btn">
-                  <span>Ver Detalles &gt;</span>
-                </button> 
-              </div>
-            </div>
-          </article>
-
-          <!-- TARJETA 3 -->
-          <article class="card">
-            <div class="card-image-wrapper">
-              <img src="/building.png" alt="Residencias Altos Del Mirador" class="building-img" />
-            </div>
-
-            <div class="card-content">
-              <div class="card-location">
-                <img src="/location.png" alt="Ubicación" />
-                <span>Valencia, Via Guataparo</span>
-              </div>
-
-              <button class="favorite-btn" aria-label="Añadir a favoritos">
-                <img src="/heart.png" alt="Favorito" />
-              </button>
-              <h3 class="card-title">Residencias Altos Del Mirador</h3>
-
-              <div class="card-details">
-                <span>4 habitaciones | 3 baños</span>
-                <span>67 m² Totales</span>
-              </div>
-
-              <div class="card-footer">
-                <span class="card-price">$150,000</span>
-                <button @click="HomeDetails" class="details-btn">
-                  <span>Ver Detalles &gt;</span>
-                </button> 
-              </div>
-            </div>
-          </article>
-
-          <!-- TARJETA 4 -->
-          <article class="card">
-            <div class="card-image-wrapper">
-              <img src="/building.png" alt="Residencias Altos Del Mirador" class="building-img" />
-            </div>
-
-            <div class="card-content">
-              <div class="card-location">
-                <img src="/location.png" alt="Ubicación" />
-                <span>Valencia, Via Guataparo</span>
-              </div>
-
-              <button class="favorite-btn" aria-label="Añadir a favoritos">
-                <img src="/heart.png" alt="Favorito" />
-              </button>
-
-              <h3 class="card-title">Residencias Altos Del Mirador</h3>
-
-              <div class="card-details">
-                <span>4 habitaciones | 3 baños</span>
-                <span>67 m² Totales</span>
-              </div>
-
-              <div class="card-footer">
-                <span class="card-price">$150,000</span>
-                <button @click="HomeDetails" class="details-btn">
-                  <span>Ver Detalles &gt;</span>
-                </button>
-              </div>
-            </div>
-          </article>
         </div>
 
         <!-- Botón de Navegación del Carrusel -->
@@ -401,6 +307,57 @@
 <script setup>
 import {ref} from 'vue'
 import {useRouter} from 'vue-router'
+
+const isFavorite = ref(false)
+const toggleFavorite = () => {
+  isFavorite.value = !isFavorite.value
+}
+const properties = ref([
+  {
+    id: 1,
+    title: 'Residencias Altos Del Mirador',
+    location: 'Valencia, Via Guataparo',
+    bedrooms: 4,
+    bathrooms: 3,
+    area: 67,
+    price: 150000,
+    image: '/building.png',
+    isFavorite: false,
+  },
+  {
+    id: 2,
+    title: 'Residencias Altos Del Mirador',
+    location: 'Valencia, Via Guataparo',
+    bedrooms: 4,
+    bathrooms: 3,
+    area: 67,
+    price: 150000,
+    image: '/building.png',
+    isFavorite: false,
+  },
+  {
+    id: 3,
+    title: 'Residencias Altos Del Mirador',
+    location: 'Valencia, Via Guataparo',
+    bedrooms: 4,
+    bathrooms: 3,
+    area: 67,
+    price: 150000,
+    image: '/building.png',
+    isFavorite: false,
+  },
+  {
+    id: 4,
+    title: 'Residencias Altos Del Mirador',
+    location: 'Valencia, Via Guataparo',
+    bedrooms: 4,
+    bathrooms: 3,
+    area: 67,
+    price: 150000,
+    image: '/building.png',
+    isFavorite: false,
+  },
+])
 
 const router = useRouter()
 

@@ -336,6 +336,12 @@
   width: 18px;
   height: 18px;
   object-fit: contain;
+  transition: transform 0.3s ease;
+}
+
+.favorite-btn.active img {
+  filter: brightness(0) saturate(100%) invert(11%) sepia(80%) saturate(3015%) hue-rotate(210deg) brightness(92%) contrast(98%);
+  transform: scale(1.1);
 }
 
 .card-title {
