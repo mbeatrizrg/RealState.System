@@ -70,10 +70,10 @@
       <h3 class="contact-title">CONTACTANOS</h3>
       <!--Iconos de redes sociales-->
       <div class="social-icons">
-        <a href="#"><img src="/x.png" alt="X (Twitter)" /></a>
-        <a href="#"><img src="/inst.png" alt="Instagram" /></a>
-        <a href="#"><img src="/facebook.png" alt="Facebook" /></a>
-        <a href="#"><img src="/whatsapp.png" alt="WhatsApp"></a>
+        <a href="https://x.com/rifatrichanibr"><img src="/x.png" alt="X (Twitter)" /></a>
+        <a href="https://www.instagram.com/rifatrichanibienesraices?stkn=c2YydWl4c3Q4anNr"><img src="/inst.png" alt="Instagram" /></a>
+        <a href="https://www.facebook.com/share/19A5MuKs4X/?mibextid=wwXIfr"><img src="/facebook.png" alt="Facebook" /></a>
+        <a href="https://wa.me/584145936070"><img src="/whatsapp.png" alt="WhatsApp"></a>
       </div>
 
 
