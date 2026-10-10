@@ -603,18 +603,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 .menu-container {
   position: fixed;
   flex-direction: column;
@@ -678,13 +666,13 @@
 
 /* Contenedor del menú para centrar vertical y horizontalmente */
 .menu-content {
+  margin-top: 30px;
   flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
   margin-bottom: 20px;
 }
-
 
 .menu-list {
   display: flex;
@@ -718,8 +706,3 @@
     transform: translateX(-50%);
     margin-top: 25px;
 }
-
-
-
-
-

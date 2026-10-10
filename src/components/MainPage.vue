@@ -121,7 +121,7 @@
       <img src="/brand2.png" alt="Rifat Richani" class="brand" />
       <button @click="signIn" class="inc-btn">
           <span>Iniciar Sesión</span>
-      </button> 
+        </button>
     </header>
 
     <!-- Menú principal centrado -->

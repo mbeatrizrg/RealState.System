@@ -9,9 +9,9 @@
       
       <nav class="primary-nav">
         <!-- cambiar para que se vea como el search btn -->
-        <button @click="Menu" class="menu-btn">
-          <span>Menu</span>
-        </button> 
+        <button @click="toggleMenu" class="menu-btn">
+          <span>{{ isMenuOpen ? 'Cerrar' : 'Menu' }}</span>
+        </button>  
         <button @click="Create" class="inc-btn">
           <span>Crear cuenta</span>
         </button>
@@ -55,16 +55,44 @@
         </form>
       </div>
     </main>
+
+
+      <div class="menu-container" :class="{ 'open': isMenuOpen }">
+    <!-- Navegación superior -->
+    <header class="navbar">
+      <button @click="toggleMenu" class="nav-link">
+        Salir
+      </button>
+      <img src="/brand2.png" alt="Rifat Richani" class="brand" />
+      <button @click="signIn" class="inc-btn">
+          <span>Iniciar Sesión</span>
+      </button> 
+    </header>
+
+    <!-- Menú principal centrado -->
+    <main class="menu-content">
+      <nav class="menu-list">
+        <a href="#" class="menu-item active">Principal</a>
+        <a href="#" class="menu-item">Disponibles</a>
+        <a href="#" class="menu-item">Favoritos</a>
+        <a href="#" class="menu-item">Contactanos</a>
+      </nav>
+    </main>
+  </div>
   </div>
 </template>
 
 <script setup>
 import {useRouter} from 'vue-router'
-
+import { ref } from 'vue';
 const router = useRouter()
 
-const Menu = ()=> {
-  router.push('/menu')
+const isMenuOpen = ref(false)
+const toggleMenu = () => {
+  isMenuOpen.value = !isMenuOpen.value
+}
+const signIn = ()=> {
+  router.push('/signin')
 }
 
 const Create = ()=> {

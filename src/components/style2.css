@@ -285,6 +285,7 @@
 
 /* Contenedor del menú para centrar vertical y horizontalmente */
 .menu-content {
+  margin-top: 30px;
   flex: 1;
   display: flex;
   justify-content: center;
