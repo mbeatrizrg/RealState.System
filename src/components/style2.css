@@ -293,8 +293,8 @@
   margin-bottom: 20px;
 }
 
-
 .menu-list {
+  background: trasparent;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -303,6 +303,8 @@
 
 /* Estilos de los enlaces del menú principal */
 .menu-item {
+  border: none;
+  background-color: transparent;
   text-decoration: none;
   color: #ffffff;
   font-size: 2.8rem;
