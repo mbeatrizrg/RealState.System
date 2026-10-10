@@ -128,18 +128,24 @@
 }
 
 .map-section{
+    margin-top: -200px;
     display: flex;
     justify-content: center;
-    margin-top: -250px;
-    margin-bottom: 20px;
+    height: 400px;
+    width: 100%;
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0;
+    border-radius: 0px;
+    overflow: hidden;
+    box-shadow: 0;
 }
 
-.map-image{
+.map-section iframe{
     width: 100%;
-    max-width: 1000px;
-    height: auto;
-    margin-bottom: 20px;
-    padding-bottom: 0px;
+    height: 600px;
+    border: none;
+    display: block;
 }
 
 .contact-btn{
