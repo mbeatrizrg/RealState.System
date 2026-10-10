@@ -136,8 +136,8 @@
     <!-- Menú principal centrado -->
     <main class="menu-content">
       <nav class="menu-list">
-        <a href="#" class="menu-item active">Principal</a>
-        <a href="#" class="menu-item">Disponibles</a>
+        <button @click="Home" class="menu-item active"><span>Principal</span></button> 
+        <button @click="Search" class="menu-item"><span>Disponibles</span></button> 
         <a href="#" class="menu-item">Favoritos</a>
         <a href="#" class="menu-item">Contactanos</a>
       </nav>
@@ -207,6 +207,10 @@ const properties = ref([
 
 const Search = ()=> {
   router.push('/search')
+}
+
+const Home = ()=> {
+  router.push('/')
 }
 
 const isMenuOpen = ref(false)

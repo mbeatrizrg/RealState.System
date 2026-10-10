@@ -91,8 +91,8 @@
     <!-- Menú principal centrado -->
     <main class="menu-content">
       <nav class="menu-list">
-        <a href="#" class="menu-item active">Principal</a>
-        <a href="#" class="menu-item">Disponibles</a>
+        <button @click="Home" class="menu-item active"><span>Principal</span></button> 
+        <button @click="Search" class="menu-item"><span>Disponibles</span></button> 
         <a href="#" class="menu-item">Favoritos</a>
         <a href="#" class="menu-item">Contactanos</a>
       </nav>
@@ -114,6 +114,12 @@ const signIn = ()=> {
   router.push('/signin')
 }
 
+const Home = ()=> {
+  router.push('/')
+}
+const Search = ()=> {
+  router.push('/search')
+}
 // Lógica de JavaScript / Vue (si es necesaria)
 
 
