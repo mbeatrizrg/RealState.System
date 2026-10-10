@@ -2,7 +2,9 @@
   <div class="menu-container">
     <!-- Navegación superior -->
     <header class="navbar">
-      <router-link to="/" class="nav-link">Salir</router-link>
+      <button @click="toggleMenu" class="nav-link">
+        {{ isMenuOpen ? 'Cerrar' : 'Salir' }}
+      </button>
       <img src="/brand2.png" alt="Rifat Richani" class="brand" />
       <button @click="signIn" class="inc-btn">
           <span>Iniciar Sesión</span>
@@ -23,7 +25,12 @@
 
 <script setup>
 import {useRouter} from 'vue-router'
-import SignIn from './sign-in.vue'
+import {ref} from 'vue'
+
+const isMenuOpen = ref(false)
+const toggleMenu = () => {
+  isMenuOpen.value = !isMenuOpen.value
+}
 
 const router = useRouter()
 const signIn = ()=> {
