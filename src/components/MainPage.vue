@@ -9,7 +9,7 @@
       
       <nav class="primary-nav">
         <!-- cambiar para que se vea como el search btn -->
-        <button @click="Menu" class="menu-btn">
+        <button @click="toggleMenu" class="menu-btn">
           <span>{{ isMenuOpen ? 'Cerrar' : 'Menu' }}</span>
         </button> 
         <button @click="signIn" class="inc-btn">
@@ -116,7 +116,7 @@
     <!-- Navegación superior -->
     <header class="navbar">
       <button @click="toggleMenu" class="nav-link">
-        {{ isMenuOpen ? 'Cerrar' : 'Salir' }}
+        Salir
       </button>
       <img src="/brand2.png" alt="Rifat Richani" class="brand" />
       <button @click="signIn" class="inc-btn">
@@ -196,8 +196,8 @@
           </div>
       
           <nav class="primary-nav">
-            <button @click="Menu" class="menu-btn">
-              <span>Menu</span>
+            <button @click="toggleMenu" class="menu-btn">
+              <span>{{ isMenuOpen ? 'Cerrar' : 'Menu' }}</span>
             </button> 
             <button class="inc-btn" @click="signIn">
               <span>Iniciar Sesión</span>
@@ -224,9 +224,9 @@
           </div>
       
           <nav class="primary-nav">
-            <button @click="Menu" class="menu-btn">
-              <span>Menu</span>
-            </button> 
+            <button @click="toggleMenu" class="menu-btn">
+              <span>{{ isMenuOpen ? 'Cerrar' : 'Menu' }}</span>
+            </button>
             <button class="inc-btn" @click="signIn">Iniciar Sesión</button>
           </nav>
       </header>
@@ -388,8 +388,9 @@ const Search = ()=> {
   router.push('/search')
 }
 
-const Menu = ()=> {
-  router.push('/menu')
+const isMenuOpen = ref(false)
+const toggleMenu = () => {
+  isMenuOpen.value = !isMenuOpen.value
 }
 
 const HomeDetails = ()=> {
