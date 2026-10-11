@@ -1,15 +1,11 @@
 package com.rifatrichani.backendinmobiliaria.controllers;
-
 import java.util.List;
-
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.rifatrichani.backendinmobiliaria.dto.response.CiudadResponseDTO;
 import com.rifatrichani.backendinmobiliaria.services.CiudadService;
 import org.springframework.web.bind.annotation.GetMapping;
-
-
 
 @RestController //Este es el primer controlador de peticiones HTTP del sistema, voy a documentarlo para que vean como funciona cada cosa
 @RequestMapping ("/api/ciudades") //El request mapping es la ruta en donde va a estar este objeto controlador de ciudades
@@ -23,8 +19,7 @@ public class CiudadController {
 
     @GetMapping /*El get mapping se usa para peticiones GET, puede tener parametros para definir rutas especificas 
     ejemplo @Get('/1'), entonces la ruta completa sería (blahblah.com/api/ciudades/1) y ahi ejemplo obtenemos una ciudad*/
-    public List<CiudadResponseDTO> getCiudades() {
+    public List<CiudadResponseDTO> obtenerTodos() {
         return ciudadService.obtenerCiudades();
     }
-    
 }

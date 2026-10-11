@@ -18,7 +18,7 @@ public class CanalServiceImpl implements  CanalService{
     }
     @Transactional 
     @Override 
-    public List<CanalResponseDTO> getAll(){
+    public List<CanalResponseDTO> obtenerTodos(){
         List<Canal> canales = canalRepository.findAll();  
         return canales.stream().map(canal -> {
             CanalResponseDTO dto = new CanalResponseDTO();
