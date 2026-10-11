@@ -38,6 +38,5 @@ public class VentaService {
         EstatusInmueble estatusVendido = estatusInmuebleRepository.findByNombre("Vendido").orElseThrow(() -> new IllegalArgumentException("Error interno: Estatus 'Vendido' no configurado en los catálogos."));
         inmueble.setEstatusInmueble(estatusVendido);
         inmuebleRepository.save(inmueble);
-
     }
 }
