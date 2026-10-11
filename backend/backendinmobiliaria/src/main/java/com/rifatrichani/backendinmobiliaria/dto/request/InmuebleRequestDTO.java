@@ -64,6 +64,12 @@ public class InmuebleRequestDTO {
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
+    public Integer getCiudadId() {
+        return ciudadId;
+    }
+    public void setCiudadId(Integer ciudadId) {
+        this.ciudadId = ciudadId;
+    }
     
     
 }

@@ -101,5 +101,12 @@ public class Inmueble {
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
+    public Ciudad getCiudad() {
+        return ciudad;
+    }
+    public void setCiudad(Ciudad ciudad) {
+        this.ciudad = ciudad;
+    }
+    
     
 }
