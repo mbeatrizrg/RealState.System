@@ -8,7 +8,7 @@ import com.rifatrichani.backendinmobiliaria.services.CiudadService;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @RestController //Este es el primer controlador de peticiones HTTP del sistema, voy a documentarlo para que vean como funciona cada cosa
-@RequestMapping ("/api/ciudades") //El request mapping es la ruta en donde va a estar este objeto controlador de ciudades
+@RequestMapping ("/api/ciudad") //El request mapping es la ruta en donde va a estar este objeto controlador de ciudades
 @CrossOrigin (origins = "*") //El cross origin lo que hace es definir desde donde puede ser 'invocado' este objeto
 
 public class CiudadController {
