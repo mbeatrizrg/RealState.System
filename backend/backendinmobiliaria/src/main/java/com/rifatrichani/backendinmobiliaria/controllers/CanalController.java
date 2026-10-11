@@ -11,7 +11,7 @@ import com.rifatrichani.backendinmobiliaria.dto.response.CanalResponseDTO;
 import com.rifatrichani.backendinmobiliaria.services.CanalService;
 
 @RestController 
-@RequestMapping ("api/canal")
+@RequestMapping ("/api/canal")
 @CrossOrigin (origins = "*")
 public class CanalController {
     private final CanalService canalService;

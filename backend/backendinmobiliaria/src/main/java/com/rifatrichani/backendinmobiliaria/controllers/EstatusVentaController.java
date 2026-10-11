@@ -11,7 +11,7 @@ import com.rifatrichani.backendinmobiliaria.dto.response.EstatusVentaResponseDTO
 import com.rifatrichani.backendinmobiliaria.services.EstatusVentaService;
 
 @RestController 
-@RequestMapping ("api/estatus_venta") 
+@RequestMapping ("/api/estatus_venta") 
 @CrossOrigin (origins = "*")
 public class EstatusVentaController {
     private final EstatusVentaService estatusVentaService;

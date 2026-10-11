@@ -5,5 +5,5 @@ import com.rifatrichani.backendinmobiliaria.dto.request.UsuarioRegistroDTO;
 
 public interface  UsuarioService {
     public void registrarUsuario(UsuarioRegistroDTO dto);
-    public void actualizarCorreo(Long idUsuario, UsuarioCorreoRequestDTO dto);
+    public void actualizarCorreo(Long idObjetivo, Long idUsuario, UsuarioCorreoRequestDTO dto);
 }

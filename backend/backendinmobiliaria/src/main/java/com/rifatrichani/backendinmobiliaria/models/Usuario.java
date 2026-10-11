@@ -1,4 +1,5 @@
 package com.rifatrichani.backendinmobiliaria.models;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -18,7 +19,7 @@ public class Usuario {
     private String apellido;
     @Column (length = 255)
     private String telefono;
-    @Column (length = 255)
+    @Column (length = 255, unique = true,nullable = false)
     private String correo;
     public Usuario(){}
     public Long getId() {

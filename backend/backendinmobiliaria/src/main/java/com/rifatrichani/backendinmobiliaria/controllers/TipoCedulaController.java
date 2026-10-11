@@ -10,7 +10,7 @@ import com.rifatrichani.backendinmobiliaria.dto.response.TipoCedulaResponseDTO;
 import com.rifatrichani.backendinmobiliaria.services.TipoCedulaService;
 
 @RestController 
-@RequestMapping ("api/tipo_cedula")
+@RequestMapping ("/api/tipo_cedula")
 @CrossOrigin (origins = "*")
 public class TipoCedulaController {
     private final TipoCedulaService tipoCedulaService;

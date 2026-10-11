@@ -35,11 +35,14 @@ public class UsuarioServiceImpl implements UsuarioService{
     //Metodo para actualizar correo
     @Transactional
     @Override 
-    public void actualizarCorreo(Long idUsuario, UsuarioCorreoRequestDTO dto) {
+    public void actualizarCorreo(Long idUsuarioObjetivo, Long idUsuarioAutenticado, UsuarioCorreoRequestDTO dto) {
+        if(!idUsuarioObjetivo.equals(idUsuarioAutenticado)){
+            throw new SecurityException("Acceso denegado: No tienes permisos para modificar este perfil.");
+        }
         if (usuarioRepository.existsByCorreo(dto.getCorreo())) {
             throw new IllegalArgumentException("El nuevo correo ya está en uso por otra cuenta.");
         }
-        Usuario usuario = usuarioRepository.findById(idUsuario)
+        Usuario usuario = usuarioRepository.findById(idUsuarioAutenticado)
             .orElseThrow(() -> new IllegalArgumentException("Usuario no encontrado"));
             
         usuario.setCorreo(dto.getCorreo());

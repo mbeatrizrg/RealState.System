@@ -10,7 +10,7 @@ import com.rifatrichani.backendinmobiliaria.dto.response.ExtraResponseDTO;
 import com.rifatrichani.backendinmobiliaria.services.ExtraService;
 
 @RestController 
-@RequestMapping ("api/extras")
+@RequestMapping ("/api/extras")
 @CrossOrigin (origins = "*")
 public class ExtraController {
     private final ExtraService extraService;
