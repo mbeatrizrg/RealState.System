@@ -19,7 +19,7 @@ public class EstatusInmuebleServiceImpl implements EstatusInmuebleService{
     
     //Obtener estatus de Empleados
     @Override 
-    public List<EstatusInmuebleResponseDTO> obtenerTodos(){
+    public List<EstatusInmuebleResponseDTO> obtenerEstatusInmuebles(){
         List<EstatusInmueble> estatusInmuebles = estatusInmuebleRepository.findAll();
         return estatusInmuebles.stream().map(estatus -> {
             EstatusInmuebleResponseDTO dto = new EstatusInmuebleResponseDTO();

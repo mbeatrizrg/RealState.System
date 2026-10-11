@@ -7,5 +7,5 @@ import com.rifatrichani.backendinmobiliaria.dto.response.EstatusInmuebleResponse
 
 
 public interface  EstatusInmuebleService {
-    public List<EstatusInmuebleResponseDTO> obtenerTodos();
+    public List<EstatusInmuebleResponseDTO> obtenerEstatusInmuebles();
 }
