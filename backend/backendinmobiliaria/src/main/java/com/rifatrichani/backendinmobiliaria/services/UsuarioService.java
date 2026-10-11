@@ -1,44 +1,9 @@
 package com.rifatrichani.backendinmobiliaria.services;
 
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import com.rifatrichani.backendinmobiliaria.dto.request.UsuarioRegistroDTO;
 import com.rifatrichani.backendinmobiliaria.dto.request.UsuarioCorreoRequestDTO;
-import com.rifatrichani.backendinmobiliaria.models.Usuario;
-import com.rifatrichani.backendinmobiliaria.repositories.UsuarioRepository;
+import com.rifatrichani.backendinmobiliaria.dto.request.UsuarioRegistroDTO;
 
-@Service
-public class UsuarioService {
-    private final UsuarioRepository usuarioRepository;
-    public UsuarioService(UsuarioRepository usuarioRepository) {
-        this.usuarioRepository = usuarioRepository;
-    }
-    //Metodo para registrar usuario
-    @Transactional
-    public void registrarUsuario(UsuarioRegistroDTO dto) {
-        if (usuarioRepository.existsByCorreo(dto.getCorreo())) {
-            throw new IllegalArgumentException("El correo ya se encuentra registrado.");
-        }
-        Usuario usuario = new Usuario();
-        usuario.setNombre(dto.getNombre());
-        usuario.setApellido(dto.getApellido());
-        usuario.setTelefono(dto.getTelefono());
-        usuario.setCorreo(dto.getCorreo());
-        // HAY QUE METERLE UN ENCRIPTADO A LA CONTRAÑA DEL USUARIO (OSCAR)
-        // usuario.setContrasena(passwordEncoder.encode(dto.getContrasena()));
-        usuarioRepository.save(usuario);
-    }
-
-    //Metodo para actualizar correo
-    @Transactional
-    public void actualizarCorreo(Long idUsuario, UsuarioCorreoRequestDTO dto) {
-        if (usuarioRepository.existsByCorreo(dto.getCorreo())) {
-            throw new IllegalArgumentException("El nuevo correo ya está en uso por otra cuenta.");
-        }
-        Usuario usuario = usuarioRepository.findById(idUsuario)
-            .orElseThrow(() -> new IllegalArgumentException("Usuario no encontrado"));
-            
-        usuario.setCorreo(dto.getCorreo());
-        usuarioRepository.save(usuario);
-    }
+public interface  UsuarioService {
+    public void registrarUsuario(UsuarioRegistroDTO dto);
+    public void actualizarCorreo(Long idUsuario, UsuarioCorreoRequestDTO dto);
 }
