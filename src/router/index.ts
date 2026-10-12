@@ -4,8 +4,9 @@ import SearchHome from '@/components/SearchHome.vue'
 import HomeDetails from '@/components/HomeDetails.vue'
 import Create from '@/components/create.vue'
 import signIn from '@/components/sign-in.vue'
-import menuVendedor from '@/components/menu-vendedor.vue'
 import ContactUs from '@/components/ContactUs.vue'
+import menuVendedor from '@/components/vendedor/menu-vendedor.vue'
+import Contact from '@/components/vendedor/Contact.vue'
 
 const routes = [
   {
@@ -35,14 +36,19 @@ const routes = [
     component: signIn
   },
   {
-    path: '/menu-vendedor',
+    path: '/vendedor',
     name: 'menuVendedor',
     component: menuVendedor
   },
   {
-    path: '/contact',
+    path: '/contacts',
     name: 'ContactUs',
     component: ContactUs
+  },
+  {
+    path: '/contact',
+    name: 'Contact',
+    component: Contact
   }
 
 ]

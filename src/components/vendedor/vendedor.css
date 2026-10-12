@@ -5,12 +5,13 @@
   background-color: #f1f4f6; /* Fondo gris muy claro del área principal */
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   margin: 0;
+  overflow: hidden;
 }
 
 /* Barra lateral oscura */
 .sidebar {
   width: 260px;
-  background-color: #12195a; /* Azul oscuro característico del panel izquierdo[cite: 3] */
+  background-color: #0b1f46; /* Azul oscuro característico del panel izquierdo[cite: 3] */
   color: #ffffff;
   display: flex;
   flex-direction: column;
@@ -87,13 +88,13 @@
   font-family: 'Playfair Display', 'Merriweather', serif; /* Se asemeja a la fuente con serifa del diseño[cite: 3] */
   font-size: 32px;
   font-weight: 700;
-  color: #12195a; /* Mismo azul oscuro de la barra lateral[cite: 3] */
+  color: #0b1f46; /* Mismo azul oscuro de la barra lateral[cite: 3] */
   margin: 0;
 }
 
 /* Botón de Filtros */
 .btn-filtros {
-  background-color: #12195a; /* Fondo azul oscuro del botón[cite: 3] */
+  background-color: #0b1f46; /* Fondo azul oscuro del botón[cite: 3] */
   color: #ffffff; /* Texto blanco[cite: 3] */
   padding: 12px 24px;
   border-radius: 8px; /* Bordes redondeados del botón[cite: 3] */
@@ -118,7 +119,7 @@
 .search-input-wrapper {
   display: flex;
   align-items: center;
-  background-color: #12195a; /* Fondo azul oscuro del buscador[cite: 3] */
+  background-color: #0b1f46; /* Fondo azul oscuro del buscador[cite: 3] */
   border-radius: 8px; /* Bordes redondeados del contenedor de búsqueda[cite: 3] */
   padding: 16px 20px;
   gap: 12px;
@@ -142,4 +143,165 @@
   width: 20px;
   height: 20px;
   color: #ffffff;
+}
+
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  width: 100%;
+  padding-top: 20px;
+  background-color: transparent;
+  border-radius: 12px;
+  gap: 20px;
+  padding: 0 24px;
+  box-sizing: border-box;
+  justify-content: space-between;
+}
+
+.building-img {
+  aspect-ratio: 1/1;
+  margin-top: 0px;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 12px;
+  display: block;
+}
+
+.card {
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 12px;
+  overflow: hidden;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.card-content {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.location-header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center; 
+  width: 100%;
+}
+.card-location {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 300;
+  color: #0b1f46;
+  margin-bottom: -24px;
+}
+
+.card-location img {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}
+
+.card-location span {
+  flex-grow: 1;
+}
+
+.favorite-btn {
+  border: none;
+  padding: 0px;
+  cursor: pointer;
+  align-self: flex-end;
+  background: transparent;
+  padding: 0px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+
+.favorite-btn img {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+}
+
+.favorite-btn.active img {
+  filter: brightness(0) saturate(100%) invert(11%) sepia(80%) saturate(3015%) hue-rotate(210deg) brightness(92%) contrast(98%);
+  transform: scale(1.1);
+}
+
+.card-title {
+  padding-top: 15px;
+  margin-bottom: 5px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #000000;
+  margin: 0;
+}
+
+.card-details {
+  display: flex;
+  font-size: 12px;
+  font-weight: 400;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 5px;
+}
+
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.card-price {
+  font-size: 14px;
+  font-weight: 700;
+  color: #1c1c1c;
+}
+
+
+.details-btn {
+  background-color: #0b1f46;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 14px;
+  font-size: 12px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.next-btn {
+  background-color: #0b1f46;
+  color: #ffffff;
+  position: absolute;
+  left: 320px;
+  z-index: 10;
+  padding: 6px 14px;
+  margin-top: 5px;
+  font-size: 12px;
+  cursor: pointer;
+  height: 40px;
+  width: 40px;
+  border-radius: 50px;
+  border: none;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.next-btn img {
+  width: 15px;
+  height: 15px;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto;
 }

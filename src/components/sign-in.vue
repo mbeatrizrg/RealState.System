@@ -104,7 +104,7 @@ const Home = ()=> {
 }
 
 const Contact = ()=> {
-  router.push('/contact')
+  router.push('/contacts')
 }
 
 const Search = ()=> {

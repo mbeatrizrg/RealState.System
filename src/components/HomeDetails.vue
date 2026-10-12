@@ -84,16 +84,9 @@
         <a href="https://wa.me/584145936070"><img src="/whatsapp.png" alt="WhatsApp"></a>
       </div>
 
-
-
       </div>
     </footer>
 </div>
-
-
-
-
-
 
 </template>
 
