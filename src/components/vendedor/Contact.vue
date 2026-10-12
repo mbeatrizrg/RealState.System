@@ -70,6 +70,7 @@
                     <th>Vendedor</th>
                 </tr>
             </thead>
+        </table>
       </section>
 
     </main>
