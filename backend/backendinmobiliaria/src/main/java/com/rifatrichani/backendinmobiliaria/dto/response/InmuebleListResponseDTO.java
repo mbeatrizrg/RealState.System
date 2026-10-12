@@ -10,6 +10,8 @@ public class InmuebleListResponseDTO {
     private BigDecimal precio;
     private String urlImagenPrincipal;
     private String ciudad;
+    private Integer tipoInmuebleId;
+    private String tipoInmueble;
     public Integer getId() {
         return id;
     }
@@ -39,6 +41,18 @@ public class InmuebleListResponseDTO {
     }
     public void setCiudad(String ciudad) {
         this.ciudad = ciudad;
+    }
+    public Integer getTipoInmuebleId() {
+        return tipoInmuebleId;
+    }
+    public void setTipoInmuebleId(Integer tipoInmuebleId) {
+        this.tipoInmuebleId = tipoInmuebleId;
+    }
+    public String getTipoInmueble() {
+        return tipoInmueble;
+    }
+    public void setTipoInmueble(String tipoInmueble) {
+        this.tipoInmueble = tipoInmueble;
     }
     
 }

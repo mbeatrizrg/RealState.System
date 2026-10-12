@@ -13,4 +13,6 @@ import com.rifatrichani.backendinmobiliaria.models.Inmueble;
 public interface InmuebleRepository extends JpaRepository<Inmueble,Integer>{
     @Query("SELECT inm FROM Inmueble inm WHERE(LOWER(inm.titulo) LIKE LOWER(CONCAT('%', :titulo, '%')) OR LOWER(inm.ciudad.nombre) LIKE LOWER (CONCAT('%', :titulo, '%'))) AND inm.precio <= :maxPrecio AND inm.precio >= :minPrecio")
     List<InmuebleListResponseDTO> getByFilter(@Param("titulo") String titulo, @Param("maxPrecio") BigDecimal maxPrecio,@Param ("minPrecio") BigDecimal minPrecio);
+    @Query("SELECT i FROM Inmueble i WHERE " +"(:ciudadId IS NULL OR i.ciudad.id = :ciudadId) AND " +"(:tipoInmuebleId IS NULL OR i.tipoInmueble.id = :tipoInmuebleId) AND " + "(:minPrecio IS NULL OR i.precio >= :minPrecio) AND " +"(:maxPrecio IS NULL OR i.precio <= :maxPrecio)")
+    List<Inmueble> buscarPorFiltrosMultiples(@Param("ciudadId") Integer ciudadId, @Param("tipoInmuebleId") Integer tipoInmuebleId, @Param("minPrecio") BigDecimal minPrecio, @Param("maxPrecio") BigDecimal maxPrecio);
 }
