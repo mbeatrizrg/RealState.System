@@ -308,7 +308,7 @@
       </p>
       <!--Titulo de contacto-->
       <h3 class="contact-title">CONTACTANOS</h3>
-      <!-- aqui estuvo Batman-->
+
       <!--Iconos de redes sociales-->
       <div class="social-icons">
         <a href="https://x.com/rifatrichanibr"><img src="/x.png" alt="X (Twitter)" /></a>
