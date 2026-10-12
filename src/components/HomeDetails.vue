@@ -60,9 +60,11 @@
       </iframe>
     </section>
 
-    <!-- Pie de página / Footer -->
+    <!-- Pie de página hola mundo -->
     <footer class="page-6">
+
     <!--contenido central-->
+    
       <div class="footer-content">
         <div class="logo">
           <img src="/icon.png" alt="Rifat Richani Bienes Raices" class="footer-brand-img" />

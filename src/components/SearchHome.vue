@@ -136,10 +136,10 @@
     <!-- Menú principal centrado -->
     <main class="menu-content">
       <nav class="menu-list">
-        <button @click="Home" class="menu-item"><span>Principal</span></button> 
-        <button @click="Search" class="menu-item active"><span>Disponibles</span></button> 
+        <button @click="Home" class="menu-item active"><span>Principal</span></button> 
+        <button @click="Search" class="menu-item"><span>Disponibles</span></button> 
         <a href="#" class="menu-item">Favoritos</a>
-        <a href="#" class="menu-item">Contactanos</a>
+        <button @click="Contact" class="menu-item"><span>Contactanos</span></button> 
       </nav>
     </main>
   </div>
@@ -216,6 +216,10 @@ const Home = ()=> {
 const isMenuOpen = ref(false)
 const toggleMenu = () => {
   isMenuOpen.value = !isMenuOpen.value
+}
+
+const Contact = ()=> {
+  router.push('/contact')
 }
 
 const signIn = ()=> {

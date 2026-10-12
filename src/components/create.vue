@@ -91,10 +91,10 @@
     <!-- Menú principal centrado -->
     <main class="menu-content">
       <nav class="menu-list">
-        <button @click="Home" class="menu-item"><span>Principal</span></button> 
+        <button @click="Home" class="menu-item active"><span>Principal</span></button> 
         <button @click="Search" class="menu-item"><span>Disponibles</span></button> 
         <a href="#" class="menu-item">Favoritos</a>
-        <a href="#" class="menu-item">Contactanos</a>
+        <button @click="Contact" class="menu-item"><span>Contactanos</span></button> 
       </nav>
     </main>
   </div>
@@ -117,6 +117,11 @@ const signIn = ()=> {
 const Home = ()=> {
   router.push('/')
 }
+
+const Contact = ()=> {
+  router.push('/contact')
+}
+
 const Search = ()=> {
   router.push('/search')
 }

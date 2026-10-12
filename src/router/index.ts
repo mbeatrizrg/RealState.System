@@ -5,6 +5,8 @@ import HomeDetails from '@/components/HomeDetails.vue'
 import Create from '@/components/create.vue'
 import signIn from '@/components/sign-in.vue'
 import menuVendedor from '@/components/menu-vendedor.vue'
+import ContactUs from '@/components/ContactUs.vue'
+
 const routes = [
   {
     path: '/',
@@ -36,6 +38,11 @@ const routes = [
     path: '/menu-vendedor',
     name: 'menuVendedor',
     component: menuVendedor
+  },
+  {
+    path: '/contact',
+    name: 'ContactUs',
+    component: ContactUs
   }
 
 ]
