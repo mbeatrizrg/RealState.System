@@ -60,7 +60,18 @@
             class="search-input"
           >
         </div>
+
+        <table class="user-table">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>ID</th>
+                    <th>Estatus</th>
+                    <th>Vendedor</th>
+                </tr>
+            </thead>
       </section>
+
     </main>
 </div>
 </template>
