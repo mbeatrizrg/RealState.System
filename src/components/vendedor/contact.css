@@ -1,9 +1,11 @@
+/* Contenedor principal que divide la pantalla */
 .dashboard-layout {
   display: flex;
   min-height: 100vh;
   background-color: #f1f4f6; /* Fondo gris muy claro del área principal */
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   margin: 0;
+  overflow: hidden;
 }
 
 /* Barra lateral oscura */
@@ -142,3 +144,4 @@
   height: 20px;
   color: #ffffff;
 }
+
