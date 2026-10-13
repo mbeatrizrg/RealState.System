@@ -60,7 +60,7 @@
             class="search-input"
           >
         </div>
-
+        <div class="table-container">
         <table class="user-table">
             <thead>
                 <tr>
@@ -109,6 +109,7 @@
             </tr>
           </tbody>
         </table>
+        </div>
     </section>
 
     </main>
