@@ -73,6 +73,11 @@
   font-family: 600px;
   cursor: pointer;
   color: #ffffff;
+  border-radius: 0 4px 4px 0; /* Suaviza el borde derecho */
+  text-decoration: none;
+  display: block;
+  width: 100%;
+  text-align: left;
 }
 
 /* Área de contenido principal */
