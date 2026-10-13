@@ -7,6 +7,7 @@ import signIn from '@/components/sign-in.vue'
 import ContactUs from '@/components/ContactUs.vue'
 import menuVendedor from '@/components/vendedor/menu-vendedor.vue'
 import Contact from '@/components/vendedor/Contact.vue'
+import Leads from '@/components/vendedor/Leads.vue'
 
 const routes = [
   {
@@ -49,6 +50,11 @@ const routes = [
     path: '/contact',
     name: 'Contact',
     component: Contact
+  },
+  {
+    path: '/leads',
+    name: 'Leads',
+    component: Leads
   }
 
 ]
