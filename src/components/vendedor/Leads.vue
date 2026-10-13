@@ -2,7 +2,7 @@
   <div class="leads-page">
     <!-- Barra lateral (Sidebar) -->
     <aside class="sidebar">
-      <div class="container-logo">
+      <div class="logo2-container">
         <img src="/Logo2.png" alt="Icono2" class="logo" />
       </div>
 
@@ -10,25 +10,25 @@
         <ul>
           <!-- Elemento activo resaltado -->
           <li class="menu-item">
-            <a href="#">Inventario</a>
+            <button class="btn-menu" @click="vendedor">Inventario</button>
           </li>
           <li class="menu-item">
-            <a href="#">Contactos</a>
+            <button class="btn-menu" @click="contactos">Contactos</button>
           </li>
           <li class="menu-item active">
-            <a href="#">Leads</a>
+            <button class="btn-menu" @click="Leads">Leads</button>
           </li>
           <li class="menu-item">
-            <a href="#">Comunicaciones</a>
+            <button class="btn-menu" @click="Leads">Comunicaciones</button>
           </li>
           <li class="menu-item">
-            <a href="#">Control</a>
+            <button class="btn-menu" @click="Leads">Control</button>
           </li>
           <li class="menu-item">
-            <a href="#">Calendario</a>
+            <button class="btn-menu" @click="Leads">Calendario</button>
           </li>
           <li class="menu-item">
-            <a href="#">Perfil</a>
+            <button class="btn-menu" @click="Leads">Perfil</button>
           </li>
         </ul>
       </nav>
@@ -117,6 +117,22 @@
 </template>
 
 <script setup>
+import {useRouter} from 'vue-router'
+
+const router = useRouter()
+
+const Leads = ()=> {
+  router.push('/leads')
+}
+
+const vendedor = ()=> {
+  router.push('/vendedor')
+}
+
+const contactos = ()=> {
+  router.push('/contact')
+}
+
 </script>
 
 <style scoped src= "./Leads.css"></style>

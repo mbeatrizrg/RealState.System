@@ -66,6 +66,15 @@
   cursor: pointer;
 }
 
+.btn-menu{
+  background: transparent;
+  border: none;
+  font-size: 17px;
+  font-family: 600px;
+  cursor: pointer;
+  color: #ffffff;
+}
+
 /* Área de contenido principal */
 .main-content {
   flex: 1;

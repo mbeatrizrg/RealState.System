@@ -10,25 +10,25 @@
         <ul>
           <!-- Elemento activo resaltado -->
           <li class="menu-item active">
-            <a href="#">Inventario</a>
+            <button class="btn-menu" @click="vendedor">Inventario</button>
           </li>
           <li class="menu-item">
-            <a href="#">Contactos</a>
+            <button class="btn-menu" @click="contactos">Contactos</button>
           </li>
           <li class="menu-item">
-            <a href="#">Leads</a>
+            <button class="btn-menu" @click="Leads">Leads</button>
           </li>
           <li class="menu-item">
-            <a href="#">Comunicaciones</a>
+            <button class="btn-menu" @click="Leads">Comunicaciones</button>
           </li>
           <li class="menu-item">
-            <a href="#">Control</a>
+            <button class="btn-menu" @click="Leads">Control</button>
           </li>
           <li class="menu-item">
-            <a href="#">Calendario</a>
+            <button class="btn-menu" @click="Leads">Calendario</button>
           </li>
           <li class="menu-item">
-            <a href="#">Perfil</a>
+            <button class="btn-menu" @click="Leads">Perfil</button>
           </li>
         </ul>
       </nav>
@@ -109,8 +109,22 @@
 </template>
 
 <script setup>
-import {ref} from 'vue'
 import {useRouter} from 'vue-router'
+import {ref} from 'vue'
+
+const router = useRouter()
+
+const Leads = ()=> {
+  router.push('/leads')
+}
+
+const vendedor = ()=> {
+  router.push('/vendedor')
+}
+
+const contactos = ()=> {
+  router.push('/contact')
+}
 
 const isFavorite = ref(false)
 const toggleFavorite = () => {
@@ -151,6 +165,8 @@ const properties = ref([
     isFavorite: false,
   }
 ])
+
+
 </script>
 
 <style scoped src= "./vendedor.css"></style>
