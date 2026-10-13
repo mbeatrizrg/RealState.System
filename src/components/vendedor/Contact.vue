@@ -9,10 +9,10 @@
       <nav class="menu">
         <ul>
           <!-- Elemento activo resaltado -->
-          <li class="menu-item active">
+          <li class="menu-item">
             <a href="#">Inventario</a>
           </li>
-          <li class="menu-item">
+          <li class="menu-item active">
             <a href="#">Contactos</a>
           </li>
           <li class="menu-item">
@@ -70,8 +70,46 @@
                     <th>Vendedor</th>
                 </tr>
             </thead>
+            <tbody>
+            <tr>
+              <td>Elena</td>
+              <td>167CD</td>
+              <td><span class="badge in-progress">En progreso</span></td>
+              <td>Lucas</td>
+            </tr>
+            <tr>
+              <td>Elena</td>
+              <td>167CD</td>
+              <td><span class="badge finished">Finalizada</span></td>
+              <td>Carlos</td>
+            </tr>
+            <tr>
+              <td>Elena</td>
+              <td>167CD</td>
+              <td><span class="badge starting">Iniciando</span></td>
+              <td>Lucas</td>
+            </tr>
+            <tr>
+               <td>Elena</td>
+                <td>167CD</td>
+                <td><span class="badge in-progress">En progreso</span></td>
+                <td>Lucrecia</td>
+            </tr>
+            <tr>
+                <td>Elena</td>
+                <td>167CD</td>
+                <td><span class="badge in-progress">En progreso</span></td>
+                <td>Miguel</td>
+            </tr>
+            <tr>
+                <td>Elena</td>
+                <td>167CD</td>
+                <td><span class="badge in-progress">En progreso</span></td>
+                <td>Carlos</td>
+            </tr>
+          </tbody>
         </table>
-      </section>
+    </section>
 
     </main>
 </div>
