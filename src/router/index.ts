@@ -9,6 +9,7 @@ import menuVendedor from '@/components/vendedor/menu-vendedor.vue'
 import Contact from '@/components/vendedor/Contact.vue'
 import Leads from '@/components/vendedor/Leads.vue'
 import newLeads from '@/components/vendedor/newLeads.vue'
+import profile from '@/components/vendedor/profile.vue'
 
 const routes = [
   {
@@ -62,6 +63,11 @@ const routes = [
     name: 'newLeads',
     component: newLeads
   },
+  {
+    path: '/profile',
+    name: 'profile',
+    component: profile
+  }
 
 ]
 

@@ -28,7 +28,7 @@
             <button class="btn-menu" @click="Leads">Calendario</button>
           </li>
           <li class="menu-item">
-            <button class="btn-menu" @click="Leads">Perfil</button>
+            <button class="btn-menu" @click="profile">Perfil</button>
           </li>
         </ul>
       </nav>
@@ -131,6 +131,10 @@ const vendedor = ()=> {
 
 const contactos = ()=> {
   router.push('/contact')
+}
+
+const profile = ()=> {
+  router.push('/profile')
 }
 
 </script>

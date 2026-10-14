@@ -28,7 +28,7 @@
             <button class="btn-menu" @click="Leads">Calendario</button>
           </li>
           <li class="menu-item">
-            <button class="btn-menu" @click="Leads">Perfil</button>
+            <button class="btn-menu" @click="profile">Perfil</button>
           </li>
         </ul>
       </nav>
@@ -57,11 +57,13 @@
           <input 
             type="text"
             placeholder="Buscar usuarios"
-            class="search-input"
-          >
+            class="search-input">
         </div>
       </section>
     </main>
+    <section>
+
+    </section>
 </div>
 </template>
 
@@ -81,6 +83,10 @@ const vendedor = ()=> {
 
 const contactos = ()=> {
   router.push('/contact')
+}
+
+const profile = ()=> {
+  router.push('/profile')
 }
 
 </script>
