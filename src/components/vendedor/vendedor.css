@@ -1,5 +1,5 @@
 /* Contenedor principal que divide la pantalla */
-.dashboard-layout {
+.crm-vendedor {
   display: flex;
   min-height: 100vh;
   background-color: #f1f4f6; /* Fondo gris muy claro del área principal */

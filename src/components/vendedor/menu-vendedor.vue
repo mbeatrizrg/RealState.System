@@ -1,5 +1,5 @@
 <template>
-  <div class="dashboard-layout">
+  <div class="crm-vendedor">
     <!-- Barra lateral (Sidebar) -->
     <aside class="sidebar">
       <div class="logo2-container">
