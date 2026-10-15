@@ -36,9 +36,8 @@
 
     <!-- Contenido Principal -->
     <main class="main-content">
-      <!-- Cabecera con saludo y botón de filtros -->
       <header class="header">
-        <!-- Usamos interpolación de Vue para el nombre dinámico -->
+        <!-- nombre del usuario -->
         <h1 class="greeting">Hola, nombreUsuario </h1>
         <button class="btn-filtros">
           Filtros
