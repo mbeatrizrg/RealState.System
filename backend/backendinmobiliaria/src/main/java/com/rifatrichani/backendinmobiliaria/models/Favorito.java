@@ -9,7 +9,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.GenerationType;
@@ -21,8 +20,8 @@ public class Favorito {
     @Id 
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Integer id;
-    @ManyToMany (fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_usuario",nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY) 
+    @JoinColumn(name = "id_usuario", nullable = false)
     private Usuario usuario;
     @ManyToOne (fetch = FetchType.LAZY)
     @JoinColumn (name = "id_inmueble" , nullable = false)
