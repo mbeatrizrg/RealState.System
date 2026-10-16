@@ -37,43 +37,110 @@
     <!-- Contenido Principal -->
     <main class="main-content">
       <!-- Cabecera con saludo y botón de filtros -->
-      <header class="header">
+      <div class="header-top">
         <!-- Usamos interpolación de Vue para el nombre dinámico -->
-        <h1 class="greeting">Hola, nombreUsuario </h1>
+        <div class="profile-avatar"></div>
         <button class="btn-filtros">
           Filtros
           <svg class="icon-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
           </svg>
         </button>
-      </header>
+      </div>
+
+      <h1 class="greeting"> Hola, {{ datosPerfil.saludo }}</h1>
+      <section class="profile-form">
+        <!--Fila 1-->
+        <div class="form-row">
+          <div class="form-group full-width">
+            <label>Nombre</label>
+            <input 
+              type="text" 
+              v-model="datosPerfil.nombre" 
+              class="input-dark" 
+              placeholder="Buscar inmuebles" 
+              readonly
+            />
+          </div>
+        </div>
+
+        <!--FIla 2-->
+        <div class="form-row">
+          <div class="form-group short-width">
+            <label>ID</label>
+            <input
+            type="text"
+            v-model="datosPerfil.id"
+            class="input-dark"/>
+          </div>
+          <div class="form-group flex-grow">
+            <label>Gmail</label>
+            <input 
+              type="text" 
+              v-model="datosPerfil.gmail" 
+              class="input-dark"
+              readonly/>
+        </div>
+      </div>
+
+      <!--Fila 3-->
+      <div class="form-row">
+          <div class="form-group short-width">
+            <label>Telefono</label>
+            <input 
+              type="text" 
+              v-model="datosPerfil.telefono" 
+              class="input-dark" 
+            />
+          </div>
+
+          <div class="form-group short-width">
+            <label>Contraseña</label>
+            <input 
+              type="text" 
+              v-model="datosPerfil.password" 
+              class="input-dark" 
+              readonly
+            />
+          </div>
+        </div>
+      </section>
     </main>
- </div>
+  </div>
 </template>
 
 
 <script setup>
-
-import {useRouter} from 'vue-router'
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 
 const router = useRouter()
 
-const Leads = ()=> {
+// datos iniciales
+const datosPerfil = ref({
+  saludo: 'rifat',
+  nombre: 'Buscar inmuebles',
+  id: '12345',
+  gmail: 'rifatrichani@gmail.com',
+  telefono: '0412-12345678',
+  password: 'Scott'
+})
+
+const Leads = () => {
   router.push('/leads')
 }
 
-const vendedor = ()=> {
+const vendedor = () => {
   router.push('/vendedor')
 }
 
-const contactos = ()=> {
+const contactos = () => {
   router.push('/contact')
 }
 
-const profile = ()=> {
+const profile = () => {
   router.push('/profile')
 }
-
 </script>
 
-<style scoped src= "./profile.css"></style>
+<style scoped src="./profile.css"></style>

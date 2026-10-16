@@ -1,33 +1,35 @@
 .leads-page {
   display: flex;
   min-height: 100vh;
-  background-color: #f1f4f6; /* Fondo gris muy claro del área principal */
+  background-color: #f1f4f6;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   margin: 0;
-  overflow: hidden;
+  overflow-x: hidden;
 }
 
 /* Barra lateral oscura */
 .sidebar {
-  width: 260px;
-  background-color: #0b1f46; /* Azul oscuro característico del panel izquierdo[cite: 3] */
+  width: 240px;
+  background-color: #0b1f51;
   color: #ffffff;
   display: flex;
   flex-direction: column;
-  padding-top: 50px;
-  border-top-right-radius: 8px; /* Ligero borde redondeado si el frame lo requiere */
-  border-bottom-right-radius: 8px;
+  padding-top: 40px;
+  flex-shrink: 0;
 }
 
-/* Contenedor del logo */
-.container-logo {
+/* Contenedor del logo corregido para coincidir con profile.vue */
+.logo2-container {
   display: flex;
   justify-content: center;
-  margin-bottom: 10px;
-  width: 90px;  /* Aumenta o disminuye este valor para el ancho */
-  height: 90px;
-  padding-left: 80px;
-  padding-bottom: 30px;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
+.logo {
+  width: 65px;
+  height: auto;
+  object-fit: contain;
 }
 
 /* Navegación y menú */
@@ -37,27 +39,19 @@
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 8px; /* Espaciado entre elementos del menú[cite: 3] */
+  gap: 12px;
 }
 
 .menu-item {
-  padding: 16px 32px;
-  font-size: 16px;
-  font-weight: 400;
+  padding: 14px 32px;
   transition: background-color 0.2s ease;
 }
 
-/* Resaltado del ítem activo (Inventario)[cite: 3] */
+/* Resaltado del ítem activo (Perfil) */
 .menu-item.active {
-  background-color: #004cb5; /* Tono azul intermedio para la selección[cite: 3] */
-  border-radius: 0 4px 4px 0; /* Suaviza el borde derecho */
-}
-
-.menu-item a {
-  color: #ffffff; /* Texto blanco en el menú[cite: 3] */
-  text-decoration: none;
-  display: block;
-  width: 100%;
+  background-color: #004cb5;
+  border-radius: 0 10px 10px 0;
+  margin-right: 12px;
 }
 
 .menu-item:hover:not(.active) {
@@ -65,57 +59,58 @@
   cursor: pointer;
 }
 
-.btn-menu{
+.btn-menu {
   background: transparent;
   border: none;
-  font-size: 17px;
-  font-family: 600px;
+  font-size: 16px;
+  font-weight: 400;
   cursor: pointer;
   color: #ffffff;
-  border-radius: 0 4px 4px 0; /* Suaviza el borde derecho */
   text-decoration: none;
   display: block;
   width: 100%;
   text-align: left;
+  padding: 0;
 }
 
 /* Área de contenido principal */
 .main-content {
   flex: 1;
-  padding: 50px 60px;
+  padding: 45px 70px;
   display: flex;
   flex-direction: column;
-  gap: 30px; /* Separación vertical entre el header y el buscador */
 }
 
-/* Cabecera (Saludo y botón) */
-.header {
+/* Cabecera superior: Círculo blanco de avatar y botón de Filtros */
+.header-top {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
   width: 100%;
+  max-width: 900px;
+  margin-bottom: 24px;
 }
 
-/* Tipografía del saludo */
-.greeting {
-  font-family: 'Playfair Display', 'Merriweather', serif; /* Se asemeja a la fuente con serifa del diseño[cite: 3] */
-  font-size: 32px;
-  font-weight: 700;
-  color: #0b1f46; /* Mismo azul oscuro de la barra lateral[cite: 3] */
-  margin: 0;
+/* Círculo blanco de la foto de perfil */
+.profile-avatar {
+  width: 155px;
+  height: 155px;
+  background-color: #ffffff;
+  border-radius: 50%;
+  flex-shrink: 0;
 }
 
 /* Botón de Filtros */
 .btn-filtros {
-  background-color: #0b1f46; /* Fondo azul oscuro del botón[cite: 3] */
-  color: #ffffff; /* Texto blanco[cite: 3] */
-  padding: 12px 24px;
-  border-radius: 8px; /* Bordes redondeados del botón[cite: 3] */
+  background-color: #0b1f51;
+  color: #ffffff;
+  padding: 10px 26px;
+  border-radius: 8px;
   border: none;
   display: flex;
   align-items: center;
   gap: 12px;
-  font-size: 16px;
+  font-size: 15px;
   cursor: pointer;
   transition: opacity 0.2s;
 }
@@ -124,8 +119,86 @@
   opacity: 0.9;
 }
 
-.icon-search, .icon-chevron {
-  width: 20px;
-  height: 20px;
+.icon-chevron {
+  width: 16px;
+  height: 16px;
   color: #ffffff;
+}
+
+/* Tipografía del saludo ("Hola, Nombre") */
+.greeting {
+  font-family: 'Playfair Display', 'Merriweather', Georgia, serif;
+  font-size: 28px;
+  font-weight: 700;
+  color: #0b1f51;
+  margin: 0 0 28px 12px;
+}
+
+/* Contenedor de los campos del formulario */
+.profile-form {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  max-width: 820px;
+}
+
+/* Filas del formulario */
+.form-row {
+  display: flex;
+  gap: 80px; /* Separación horizontal entre la columna izquierda y derecha */
+  width: 100%;
+}
+
+/* Grupo de etiqueta + input */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Control de anchos según la imagen */
+.full-width {
+  width: 100%;
+}
+
+.short-width {
+  width: 230px;
+  flex-shrink: 0;
+}
+
+.flex-grow {
+  flex: 1;
+}
+
+/* Etiquetas de texto (Nombre, ID, Gmail, Telefono, Contraseña) */
+.form-group label {
+  font-size: 16px;
+  font-weight: 400;
+  color: #0b1f51;
+  padding-left: 12px;
+}
+
+/* Cajas de texto azul oscuro */
+.input-dark {
+  background-color: #0b1f51;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  padding: 13px 18px;
+  font-size: 16px;
+  font-family: inherit;
+  outline: none;
+  width: 100%;
+  box-sizing: border-box;
+  cursor: default;
+}
+
+.input-dark::placeholder {
+  color: #ffffff;
+  opacity: 0.9;
+}
+
+.input-dark:focus {
+  box-shadow: 0 0 0 2px #004cb5;
+  box-shadow: none;
 }
