@@ -28,6 +28,7 @@ Motor de empaquetado (Build Tool): Vite
 
 requisitos de uso
 version de vue.js 3.5.40 o mayor 
+gestor de paquetes npm
 
 3- variables de entorno
 
