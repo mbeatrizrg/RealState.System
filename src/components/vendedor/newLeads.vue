@@ -98,7 +98,7 @@
 
             <div class="group full-width">
               <label>Gmail</label>
-              <input type="text" placeholder="ej: RifatR@gmail.com" />
+              <input type="text" placeholder="ej: ejemplo@gmail.com" />
             </div>
           </div>
 

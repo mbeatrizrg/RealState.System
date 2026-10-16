@@ -70,16 +70,17 @@
             <label>ID</label>
             <input
             type="text"
-            v-model="datosPerfil.id"
+            placeholder="ID: ET5652"
             class="input-dark"/>
           </div>
           <div class="form-group flex-grow">
-            <label>Gmail</label>
+              <label for="gmail">Gmail</label>
             <input 
-              type="text" 
-              v-model="datosPerfil.gmail" 
               class="input-dark"
-              readonly/>
+              type="email" 
+              id="gmail" 
+              placeholder="ejemplo@gmail.com" 
+            />
         </div>
       </div>
 
@@ -89,18 +90,19 @@
             <label>Telefono</label>
             <input 
               type="text" 
-              v-model="datosPerfil.telefono" 
+              id="phone" 
+              placeholder="414-496577" 
               class="input-dark" 
             />
           </div>
 
           <div class="form-group short-width">
-            <label>Contraseña</label>
-            <input 
-              type="text" 
-              v-model="datosPerfil.password" 
+            <label for="password">Cotraseña</label>
+            <input
               class="input-dark" 
-              readonly
+              type="password" 
+              id="password" 
+              placeholder="8 caracteres" 
             />
           </div>
         </div>

@@ -58,7 +58,7 @@
             <input 
               type="email" 
               id="gmail" 
-              placeholder="example@email.com" 
+              placeholder="ejemplo@gmail.com" 
             />
           </div>
 
