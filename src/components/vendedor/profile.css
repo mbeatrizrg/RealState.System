@@ -5,7 +5,7 @@
   background-color: #f1f4f6;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   margin: 0;
-  overflow-x-x: hidden;
+  overflow-x: hidden;
 }
 
 /* Barra lateral oscura */
@@ -23,8 +23,6 @@
   flex-shrink: 0;
 }
 
-/* Contenedor del logo corregido para coincidir con profile.vue */
-.logo2-container {
 /* Contenedor del logo corregido para coincidir con profile.vue */
 .logo2-container {
   display: flex;
@@ -108,8 +106,6 @@
 
 /* Cabecera superior: Círculo blanco de avatar y botón de Filtros */
 .header-top {
-/* Cabecera superior: Círculo blanco de avatar y botón de Filtros */
-.header-top {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
@@ -121,13 +117,6 @@
   margin-bottom: 24px;
 }
 
-/* Círculo blanco de la foto de perfil */
-.profile-avatar {
-  width: 155px;
-  height: 155px;
-  background-color: #ffffff;
-  border-radius: 50%;
-  flex-shrink: 0;
 /* Círculo blanco de la foto de perfil */
 .profile-avatar {
   width: 155px;
