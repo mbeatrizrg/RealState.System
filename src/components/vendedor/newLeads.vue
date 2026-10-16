@@ -8,7 +8,6 @@
 
       <nav class="menu">
         <ul>
-          <!-- Elemento activo resaltado -->
           <li class="menu-item">
             <button class="btn-menu" @click="vendedor">Inventario</button>
           </li>
@@ -37,7 +36,6 @@
     <!-- Contenido Principal -->
     <main class="main-content">
       <header class="header">
-        <!-- nombre del usuario -->
         <h1 class="greeting">Hola, nombreUsuario </h1>
         <button class="btn-filtros">
           Filtros
@@ -59,17 +57,136 @@
             class="search-input">
         </div>
       </section>
-    </main>
-    <section>
+    
+      <section>
+        <div class="form-container">
+          <!-- Switch de opciones -->
+          <div class="switch">
+            <button 
+              :class="['btn-action', { active: activeSection === 'usuario' }]"
+              @click="activeSection = 'usuario'">
+              Añadir Usuario
+            </button>
+            <button 
+              :class="['btn-action', { active: activeSection === 'inmueble' }]"
+              @click="activeSection = 'inmueble'">
+              Añadir Inmueble
+            </button>
+          </div>
 
-    </section>
-</div>
+          <!-- Formulario Usuario -->
+          <div v-if="activeSection === 'usuario'" class="form-section">
+            <div class="group">
+              <label>Nombre</label>
+              <input type="text" placeholder="Rifat" />
+            </div>
+
+            <div class="group">
+              <label>Apellido</label>
+              <input type="text" placeholder="Richani" />
+            </div>
+
+            <div class="group">
+              <label>Nro de Teléfono</label>
+              <input type="text" placeholder="414-496577" />
+            </div>
+
+            <div class="group">
+              <label>Inmueble deseado</label>
+              <input type="text" placeholder="ID: ET5652" />
+            </div>
+
+            <div class="group full-width">
+              <label>Gmail</label>
+              <input type="text" placeholder="ej: RifatR@gmail.com" />
+            </div>
+          </div>
+
+          <!-- Formulario Inmueble (Añadido) -->
+          <div v-if="activeSection === 'inmueble'" class="inmueble-grid">
+            <!-- Columna 1: Foto y Usuario Vinculado -->
+            <div class="col-foto">
+              <div class="group">
+                <label>Foto</label>
+                <div class="photo-placeholder"></div>
+              </div>
+              <div class="group">
+                <label>Usuario vinculado</label>
+                <input type="text" placeholder="ID" />
+              </div>
+            </div>
+
+            <!-- Columna 2: Tipo, Código RRBR, Dirección -->
+            <div class="col-middle">
+              <div class="group">
+                <label>Tipo</label>
+                <div class="select-wrapper">
+                  <select>
+                    <option value="compra">Compra</option>
+                    <option value="venta">Venta</option>
+                  </select>
+                  <span class="chevron">&#x203A;</span>
+                </div>
+              </div>
+
+              <div class="group">
+                <label>Codigo RRBR</label>
+                <input type="text" placeholder="ej: 414-496577" />
+              </div>
+
+              <div class="group">
+                <label>Direccion</label>
+                <input type="text" placeholder="Informacion" />
+              </div>
+            </div>
+
+            <!-- Columna 3: Inmueble, Precio, Extra -->
+            <div class="col-right">
+              <div class="group">
+                <label>Inmueble</label>
+                <div class="select-wrapper">
+                  <select>
+                    <option value="apartamento">Apartamento</option>
+                    <option value="casa">Casa</option>
+                    <option value="local">Local</option>
+                  </select>
+                  <span class="chevron">&#x203A;</span>
+                </div>
+              </div>
+
+              <div class="group">
+                <label>Precio</label>
+                <input type="text" placeholder="ej: 50000$" />
+              </div>
+
+              <div class="group">
+                <label>Extra</label>
+                <div class="select-wrapper">
+                  <select>
+                    <option value="planta-piscina">Planta, Piscina</option>
+                  </select>
+                  <span class="chevron">&#x203A;</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <button class="btn-añadir">
+        Añadir
+        <svg class="icon-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+        </svg>
+      </button>
+    </main>
+  </div>
 </template>
 
 <script setup>
 
 import {useRouter} from 'vue-router'
-
+import{ref} from 'vue'
 const router = useRouter()
 
 const Leads = ()=> {
@@ -87,6 +204,8 @@ const contactos = ()=> {
 const profile = ()=> {
   router.push('/profile')
 }
+
+const activeSection = ref('usuario')
 
 </script>
 
