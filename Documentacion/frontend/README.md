@@ -35,6 +35,17 @@ version de vue.js 3.5.40 o mayor
 
 5- estructura de las carpetas
 
+REALSTATE.SYSTEM/
+├── public/            # Archivos estáticos (favicons, imágenes públicas)
+├── src/
+│   ├── components/    # Componentes reutilizables de UI (Botones, Modales, Inputs)
+│       ├── vendedor/   
+│           ├── views/ # vistas del sistema y de la pagina principal 
+│   ├── store/         # Manejo de estado global (Pinia, Redux, Zustand)
+│   ├── router/        # Configuración de rutas de navegación
+│   └── utils/         # Funciones auxiliares y helpers
+└── package.json
+
 6- Arquitectura
 
 7-Guia de estilos UI
