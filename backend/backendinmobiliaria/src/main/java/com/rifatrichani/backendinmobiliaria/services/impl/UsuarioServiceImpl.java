@@ -1,5 +1,6 @@
 package com.rifatrichani.backendinmobiliaria.services.impl;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.rifatrichani.backendinmobiliaria.dto.request.UsuarioCorreoRequestDTO;
@@ -12,8 +13,10 @@ import jakarta.transaction.Transactional;
 @Service 
 public class UsuarioServiceImpl implements UsuarioService{
     private final UsuarioRepository usuarioRepository;
-    public UsuarioServiceImpl(UsuarioRepository usuarioRepository) {
+    private final PasswordEncoder passwordEncoder;
+    public UsuarioServiceImpl(UsuarioRepository usuarioRepository, PasswordEncoder passEncoder) {
         this.usuarioRepository = usuarioRepository;
+        this.passwordEncoder =  passEncoder;
     }
     //Metodo para registrar usuario
     @Transactional
@@ -27,8 +30,7 @@ public class UsuarioServiceImpl implements UsuarioService{
         usuario.setApellido(dto.getApellido());
         usuario.setTelefono(dto.getTelefono());
         usuario.setCorreo(dto.getCorreo());
-        // HAY QUE METERLE UN ENCRIPTADO A LA CONTRAÑA DEL USUARIO (OSCAR)
-        // usuario.setContrasena(passwordEncoder.encode(dto.getContrasena()));
+        usuario.setContrasena(passwordEncoder.encode(dto.getContrasena()));
         usuarioRepository.save(usuario);
     }
 

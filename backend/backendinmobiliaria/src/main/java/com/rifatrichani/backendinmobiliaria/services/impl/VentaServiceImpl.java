@@ -1,8 +1,13 @@
 package com.rifatrichani.backendinmobiliaria.services.impl;
 
+import java.math.BigDecimal;
+import java.util.List;
+import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 
 import com.rifatrichani.backendinmobiliaria.dto.request.VentaRequestDTO;
+import com.rifatrichani.backendinmobiliaria.dto.response.VentaResponseDTO;
+import com.rifatrichani.backendinmobiliaria.exceptions.ResourceNotFoundException;
 import com.rifatrichani.backendinmobiliaria.models.EstatusInmueble;
 import com.rifatrichani.backendinmobiliaria.models.Inmueble;
 import com.rifatrichani.backendinmobiliaria.models.Venta;
@@ -14,8 +19,8 @@ import com.rifatrichani.backendinmobiliaria.services.VentaService;
 
 import jakarta.transaction.Transactional;
 
-@Service 
-public class VentaServiceImpl implements VentaService{
+@Service
+public class VentaServiceImpl implements VentaService {
 
     private final VentaRepository ventaRepository;
     private final InmuebleRepository inmuebleRepository;
@@ -29,18 +34,25 @@ public class VentaServiceImpl implements VentaService{
         this.estatusInmuebleRepository = eir;
     }
 
-    //Registro de venta en el sistema cambiando el estatus del inmueble
     @Transactional
-    @Override 
+    @Override
     public void registrarVenta(VentaRequestDTO dto) {
-        Inmueble inmueble = inmuebleRepository.findById(dto.getInmueble()).orElseThrow(() -> new IllegalArgumentException("El inmueble no existe en el sistema."));
+        if (ventaRepository.existsByInmuebleId(dto.getInmueble())) {
+            throw new IllegalArgumentException("Este inmueble ya tiene una venta registrada.");
+        }
+        Inmueble inmueble = inmuebleRepository.findById(dto.getInmueble())
+                .orElseThrow(() -> new ResourceNotFoundException("El inmueble no existe en el sistema."));
+
         Venta venta = new Venta();
-        venta.setInmueble(inmuebleRepository.getReferenceById(dto.getInmueble())); 
-        venta.setUsuario(usuarioRepository.getReferenceById(dto.getUsuario()));     
+        venta.setInmueble(inmueble);
+        venta.setUsuario(usuarioRepository.getReferenceById(dto.getUsuario()));
         venta.setMontoFinal(dto.getMontoFinal());
-        ventaRepository.save(venta);  // La comisión puede ser nula inicialmente hasta que el admin lo decida        
-        EstatusInmueble estatusVendido = estatusInmuebleRepository.findByNombre("Vendido").orElseThrow(() -> new IllegalArgumentException("Error interno: Estatus 'Vendido' no configurado en los catálogos."));
+        ventaRepository.save(venta);
+
+        EstatusInmueble estatusVendido = estatusInmuebleRepository.findByNombre("Vendido")
+                .orElseThrow(() -> new IllegalArgumentException("Error interno: Estatus 'Vendido' no configurado en los catálogos."));
         inmueble.setEstatusInmueble(estatusVendido);
         inmuebleRepository.save(inmueble);
     }
-}
+
+    // Exclusivo del Administrador: asigna o actualiza la comisión de una

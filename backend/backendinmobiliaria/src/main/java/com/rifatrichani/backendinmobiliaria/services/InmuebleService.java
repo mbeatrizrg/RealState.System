@@ -10,7 +10,13 @@ import com.rifatrichani.backendinmobiliaria.dto.response.InmuebleDetalleResponse
 public interface InmuebleService {
     Integer registrarInmueble(InmuebleRequestDTO dto, Integer idEmpleadoAutenticado);
     List<InmuebleListResponseDTO> obtenerTodosCRM();
-    List<InmuebleListResponseDTO> buscarPorFiltros(Integer ciudadId, Integer tipoInmuebleId, BigDecimal minPrecio, BigDecimal maxPrecio);
+    List<InmuebleListResponseDTO> buscarPorFiltros(
+            Integer ciudadId, 
+            Integer tipoInmuebleId, 
+            Integer estatusInmuebleId, 
+            BigDecimal minPrecio, 
+            BigDecimal maxPrecio
+    );    
     InmuebleDetalleResponseDTO obtenerDetalleInmueble(Integer id);
     void actualizarInmueble(Integer id, InmuebleRequestDTO dto, Integer idEmpleadoAutenticado);
     void cambiarEstatus(Integer id, InmuebleEstatusRequestDTO dto, Integer idEmpleadoAutenticado);
