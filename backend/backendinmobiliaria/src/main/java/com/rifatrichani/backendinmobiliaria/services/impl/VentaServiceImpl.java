@@ -34,6 +34,7 @@ public class VentaServiceImpl implements VentaService {
         this.estatusInmuebleRepository = eir;
     }
 
+    // Registro de venta por el Vendedor cambiando automáticamente el estatus del inmueble a "Vendido"
     @Transactional
     @Override
     public void registrarVenta(VentaRequestDTO dto) {
@@ -47,7 +48,7 @@ public class VentaServiceImpl implements VentaService {
         venta.setInmueble(inmueble);
         venta.setUsuario(usuarioRepository.getReferenceById(dto.getUsuario()));
         venta.setMontoFinal(dto.getMontoFinal());
-        ventaRepository.save(venta);
+        ventaRepository.save(venta); // La comisión queda null inicialmente hasta que el Admin la asigne
 
         EstatusInmueble estatusVendido = estatusInmuebleRepository.findByNombre("Vendido")
                 .orElseThrow(() -> new IllegalArgumentException("Error interno: Estatus 'Vendido' no configurado en los catálogos."));
@@ -55,4 +56,36 @@ public class VentaServiceImpl implements VentaService {
         inmuebleRepository.save(inmueble);
     }
 
-    // Exclusivo del Administrador: asigna o actualiza la comisión de una
+    // Exclusivo del Administrador: asigna o actualiza la comisión de una venta registrada
+    @Transactional
+    @Override
+    public void asignarComisionAdmin(Long ventaId, BigDecimal comision) {
+        if (comision == null || comision.compareTo(BigDecimal.ZERO) < 0) {
+            throw new IllegalArgumentException("La comisión debe ser un monto válido mayor o igual a cero.");
+        }
+        Venta venta = ventaRepository.findById(ventaId)
+                .orElseThrow(() -> new ResourceNotFoundException("Venta no encontrada con ID: " + ventaId));
+        venta.setComision(comision);
+        ventaRepository.save(venta);
+    }
+
+    // Obtiene el historial completo de ventas para el CRM
+    @Override
+    public List<VentaResponseDTO> obtenerTodasLasVentas() {
+        return ventaRepository.obtenerTodasConRelaciones().stream()
+                .map(v -> {
+                    VentaResponseDTO dto = new VentaResponseDTO();
+                    dto.setId(v.getId());
+                    dto.setInmuebleId(v.getInmueble().getId());
+                    dto.setTituloInmueble(v.getInmueble().getTitulo());
+                    dto.setRrbrInmueble(v.getInmueble().getRrbr());
+                    dto.setNombreVendedor(v.getInmueble().getEmpleado().getNombre() + " " + v.getInmueble().getEmpleado().getApellido());
+                    dto.setUsuarioId(v.getUsuario().getId());
+                    dto.setNombreComprador(v.getUsuario().getNombre() + " " + v.getUsuario().getApellido());
+                    dto.setMontoFinal(v.getMontoFinal());
+                    dto.setComision(v.getComision());
+                    dto.setFechaVenta(v.getFechaVenta());
+                    return dto;
+                }).collect(Collectors.toList());
+    }
+}
