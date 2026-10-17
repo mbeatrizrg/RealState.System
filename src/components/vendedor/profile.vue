@@ -106,7 +106,7 @@
               class="input-dark" 
               type="password" 
               id="password" 
-              placeholder="scott" 
+              placeholder="Scott" 
               readonly
             />
           </div>
@@ -127,7 +127,7 @@ const router = useRouter()
 const datosPerfil = ref({
   saludo: 'rifat',
   nombre: 'Rifat Richani',
-  id: '12345',
+  id: 'ET5652',
   gmail: 'rifatrichani@gmail.com',
   telefono: '0412-12345678',
   password: 'Scott'
