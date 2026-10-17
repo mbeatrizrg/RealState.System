@@ -72,7 +72,9 @@
               type="text"  
               class="input-dark" 
               placeholder="ID: ET5652" 
-              class="input-dark"/>
+              class="input-dark"
+              readonly
+            />
           </div>
           <div class="form-group flex-grow">
               <label for="gmail">Gmail</label>
@@ -81,6 +83,7 @@
               placeholder="ejemplo@gmail.com"
               id="gmail" 
               class="input-dark"
+              readonly
             />
         </div>
       </div>
@@ -94,6 +97,7 @@
               id="phone" 
               placeholder="414-496577" 
               class="input-dark" 
+              readonly
             />
           </div>
 
@@ -103,7 +107,8 @@
               class="input-dark" 
               type="password" 
               id="password" 
-              placeholder="8 caracteres" 
+              placeholder="123456" 
+              readonly
             />
           </div>
         </div>
