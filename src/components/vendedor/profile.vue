@@ -70,7 +70,6 @@
             <label>ID</label>
             <input
               type="text"  
-              class="input-dark" 
               placeholder="ID: ET5652" 
               class="input-dark"
               readonly
@@ -80,7 +79,7 @@
               <label for="gmail">Gmail</label>
             <input
               type="email"  
-              placeholder="ejemplo@gmail.com"
+              placeholder="rifatrichani@gmail.com"
               id="gmail" 
               class="input-dark"
               readonly
@@ -95,7 +94,7 @@
             <input 
               type="text" 
               id="phone" 
-              placeholder="414-496577" 
+              placeholder="0412-12345678" 
               class="input-dark" 
               readonly
             />
@@ -107,7 +106,7 @@
               class="input-dark" 
               type="password" 
               id="password" 
-              placeholder="123456" 
+              placeholder="scott" 
               readonly
             />
           </div>
@@ -127,7 +126,7 @@ const router = useRouter()
 // datos iniciales
 const datosPerfil = ref({
   saludo: 'rifat',
-  nombre: 'Buscar inmuebles',
+  nombre: 'Rifat Richani',
   id: '12345',
   gmail: 'rifatrichani@gmail.com',
   telefono: '0412-12345678',
