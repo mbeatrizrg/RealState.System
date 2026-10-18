@@ -161,8 +161,11 @@
 
 .form-container{
   width: 100%;
-  max-width: 1000px;
   margin: 10 auto;
+  max-width: 1200px;
+  padding: 20px;
+  border-radius: none;
+  box-sizing: border-box;
   background-color: #ffffff;
 }
 
