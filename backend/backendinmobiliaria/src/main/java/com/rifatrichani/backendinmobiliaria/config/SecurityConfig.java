@@ -65,7 +65,7 @@ public class SecurityConfig {
                 // 4. Endpoints exclusivos del Administrador
                 .requestMatchers("/api/empleado/**").hasAuthority("ROLE_ADMIN")
                 // 5. Endpoints de CRM (Vendedor y Administrador)
-                .requestMatchers("/api/lead/**", "/api/comunicacion/**", "/api/venta/**", "/api/galeria/**").hasAnyAuthority("ROLE_VENDEDOR", "ROLE_ADMIN")
+                .requestMatchers("/api/lead/**", "/api/comunicacion/**", "/api/venta/**", "/api/galeria/**","/api/ranking/**").hasAnyAuthority("ROLE_VENDEDOR", "ROLE_ADMIN")
                 .requestMatchers(HttpMethod.GET, "/api/visto/crm/**").hasAnyAuthority("ROLE_VENDEDOR", "ROLE_ADMIN")
                 // Cualquier otra petición (como favoritos, editar correo o mutar inmuebles) requiere estar autenticado
                 .anyRequest().authenticated()
