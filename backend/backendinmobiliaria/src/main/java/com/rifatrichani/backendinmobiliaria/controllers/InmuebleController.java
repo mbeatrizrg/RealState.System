@@ -46,12 +46,12 @@ public class InmuebleController {
             @RequestParam(required = false) Integer ciudadId,
             @RequestParam(required = false) Integer tipoInmuebleId,
             @RequestParam(required = false) Integer estatusInmuebleId,
+            @RequestParam(required = false) Boolean isAlquiler,
             @RequestParam(required = false) BigDecimal minPrecio,
             @RequestParam(required = false) BigDecimal maxPrecio) {
-        List<InmuebleListResponseDTO> resultado = inmuebleService.buscarPorFiltros(
-                ciudadId, tipoInmuebleId, estatusInmuebleId, minPrecio, maxPrecio
+        return ResponseEntity.ok(
+                inmuebleService.buscarPorFiltros(ciudadId, tipoInmuebleId, estatusInmuebleId, isAlquiler, minPrecio, maxPrecio)
         );
-        return ResponseEntity.ok(resultado);
     }
 
     /* 2. PÚBLICO (Sitio Web y CRM): Obtiene la vista detallada de un inmueble específico al hacer clic sobre él.
