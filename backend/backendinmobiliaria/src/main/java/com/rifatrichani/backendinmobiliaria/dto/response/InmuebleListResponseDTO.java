@@ -13,6 +13,7 @@ public class InmuebleListResponseDTO {
     private Integer tipoInmuebleId;
     private String tipoInmueble;
     private String estatusInmueble;
+    private Boolean isVendido;
     public Integer getId() { return id; }
     public void setId(Integer id) { this.id = id; }
     public String getTitulo() { return titulo; }
@@ -33,4 +34,6 @@ public class InmuebleListResponseDTO {
     public void setTipoInmueble(String tipoInmueble) { this.tipoInmueble = tipoInmueble; }
     public String getEstatusInmueble() { return estatusInmueble; }
     public void setEstatusInmueble(String estatusInmueble) { this.estatusInmueble = estatusInmueble; }
+    public Boolean getIsVendido() { return isVendido; }
+    public void setIsVendido(Boolean isVendido) { this.isVendido = isVendido; }
 }

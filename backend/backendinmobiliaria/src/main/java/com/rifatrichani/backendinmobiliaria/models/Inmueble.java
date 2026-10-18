@@ -54,40 +54,34 @@ public class Inmueble {
     )
     private Set<Extra> extras;
 
+    @Column(name = "is_vendido", nullable = false)
+    private Boolean isVendido = false;
+
     // Getters y Setters
     public Integer getId() { return id; }
     public void setId(Integer id) { this.id = id; }
-
     public String getTitulo() { return titulo; }
     public void setTitulo(String titulo) { this.titulo = titulo; }
-
     public BigDecimal getPrecio() { return precio; }
     public void setPrecio(BigDecimal precio) { this.precio = precio; }
-
     public String getDescripcion() { return descripcion; }
     public void setDescripcion(String descripcion) { this.descripcion = descripcion; }
-
     public String getRrbr() { return rrbr; }
     public void setRrbr(String rrbr) { this.rrbr = rrbr; }
-
     public String getUbicacion() { return ubicacion; }
     public void setUbicacion(String ubicacion) { this.ubicacion = ubicacion; }
-
     public Boolean getIsAlquiler() { return isAlquiler; }
     public void setIsAlquiler(Boolean isAlquiler) { this.isAlquiler = isAlquiler; }
-
     public Ciudad getCiudad() { return ciudad; }
     public void setCiudad(Ciudad ciudad) { this.ciudad = ciudad; }
-
     public Empleado getEmpleado() { return empleado; }
     public void setEmpleado(Empleado empleado) { this.empleado = empleado; }
-
     public TipoInmueble getTipoInmueble() { return tipoInmueble; }
     public void setTipoInmueble(TipoInmueble tipoInmueble) { this.tipoInmueble = tipoInmueble; }
-
     public EstatusInmueble getEstatusInmueble() { return estatusInmueble; }
     public void setEstatusInmueble(EstatusInmueble estatusInmueble) { this.estatusInmueble = estatusInmueble; }
-
     public Set<Extra> getExtras() { return extras; }
     public void setExtras(Set<Extra> extras) { this.extras = extras; }
+    public Boolean getIsVendido() {return isVendido; }
+    public void setIsVendido(Boolean isVendido) {this.isVendido = isVendido; }
 }

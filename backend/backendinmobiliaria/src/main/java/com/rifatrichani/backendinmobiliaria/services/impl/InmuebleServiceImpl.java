@@ -64,6 +64,7 @@ public class InmuebleServiceImpl implements InmuebleService {
             dto.getExtrasId().forEach(id -> extras.add(extraRepository.getReferenceById(id)));
             inmueble.setExtras(extras);
         }
+        inmueble.setIsVendido(false);
         return inmuebleRepository.save(inmueble).getId();
     }
 
@@ -161,6 +162,7 @@ public class InmuebleServiceImpl implements InmuebleService {
         dto.setTipoInmuebleId(inmueble.getTipoInmueble().getId());
         dto.setTipoInmueble(inmueble.getTipoInmueble().getNombre());
         dto.setEstatusInmueble(inmueble.getEstatusInmueble().getNombre());
+        dto.setIsVendido(inmueble.getIsVendido());
         String imagenPrincipal = galeriaRepository.findFirstByInmuebleIdOrderByIdAsc(inmueble.getId())
                 .map(Galeria::getUrlImagen)
                 .orElse(null);

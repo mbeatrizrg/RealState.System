@@ -17,6 +17,7 @@ public class InmuebleDetalleResponseDTO {
     private String nombreEmpleado;
     private List<String> extras;
     private List<String> urlsGaleria;
+    private Boolean isVendido;
 
     public Integer getId() { return id; }
     public void setId(Integer id) { this.id = id; }
@@ -44,4 +45,6 @@ public class InmuebleDetalleResponseDTO {
     public void setExtras(List<String> extras) { this.extras = extras; }
     public List<String> getUrlsGaleria() { return urlsGaleria; }
     public void setUrlsGaleria(List<String> urlsGaleria) { this.urlsGaleria = urlsGaleria; }
+    public Boolean getIsVendido() { return isVendido; }
+    public void setIsVendido(Boolean isVendido) { this.isVendido = isVendido; }
 }
