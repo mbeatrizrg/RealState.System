@@ -9,11 +9,12 @@
       
       <nav class="primary-nav">
         <!-- cambiar para que se vea como el search btn -->
-        <button @click="Menu" class="menu-btn">
-          <span>Menu</span>
+        <button @click="toggleMenu" class="menu-btn">
+          <span>{{ isMenuOpen ? 'Cerrar' : 'Menu' }}</span>
         </button> 
-        <button class="inc-btn">Iniciar Sesión</button>
-
+        <button @click="signIn" class="inc-btn">
+          <span>Iniciar Sesión</span>
+        </button> 
       </nav>
     </header>
 
@@ -27,10 +28,20 @@
 
         <!-- Menú flotante -->
         <aside class="side-menu">
-            <button class="icon-btn"><img src="/arrow.png" alt="flecha" class="icon-arrow" /></button>
-            <button class="icon-btn"><img src="/phone.png" alt="telefono" class="icon-phone" /></button>
-            <button class="icon-btn"><img src="/gmail.png" alt="gmail" class="icon-gmail" /></button>
-            <button class="icon-btn"><img src="/whatsapp.svg" alt="whatsapp" class="icon-whatsapp" /></button>
+            <button class="icon-btn toggle-btn" @click="toggleSidemenu">
+              <img src="/arrow.png" alt="flecha" class="icon-arrow" :class="{ 'rotated': !isOpen }"/>
+            </button>
+          <div class="extra-btn" :class="{ 'is-closed': !isOpen }">
+            <a href="tel:+584145936070" class="icon-btn">
+              <img src="/phone.png" alt="telefono" class="icon-phone" />
+            </a>
+            <a href="mailto:rrbrventas01@gmail.com" class="icon-btn">
+              <img src="/gmail.png" alt="gmail" class="icon-gmail" />
+            </a>
+            <a href="https://wa.me/584145936070" target="_blank" rel="noopener noreferrer" class="icon-btn">
+              <img src="/whatsapp.svg" alt="whatsapp" class="icon-whatsapp" />
+            </a>
+          </div>
         </aside>
 
         <!-- Barra de filtros -->
@@ -100,6 +111,31 @@
         </div>
       </section>
     </main>
+
+  <div class="menu-container" :class="{ 'open': isMenuOpen }">
+    <!-- Navegación superior -->
+    <header class="navbar">
+      <button @click="toggleMenu" class="nav-link">
+        Salir
+      </button>
+      <img src="/brand2.png" alt="Rifat Richani" class="brand" />
+      <button @click="signIn" class="inc-btn">
+        <span>Iniciar Sesión</span>
+      </button>
+    </header>
+
+    <!-- Menú principal centrado -->
+    <main class="menu-content">
+      <nav class="menu-list">
+        <button @click="Home" class="menu-item active"><span>Principal</span></button> 
+        <button @click="Search" class="menu-item"><span>Disponibles</span></button> 
+        <a href="#" class="menu-item">Favoritos</a>
+        <button @click="Contact" class="menu-item"><span>Contactanos</span></button> 
+
+      </nav>
+    </main>
+  </div>
+
   </div>
 
       <!-- DESTACADOS 2DA PAGINA -->
@@ -113,123 +149,37 @@
         <!-- Contenedor del Grid/Carrusel de tarjetas -->
         <div class="cards-grid">
           <!-- TARJETA 1 -->
-            <article class="card">
+            <article class="card" v-for="property in properties" :key="property.id">
             <div class="card-image-wrapper">
-              <img src="/building.png" alt="Residencias Altos Del Mirador" class="building-img" />
+              <img :src="property.image" :alt="property.title" class="building-img" />
             </div>
 
             <div class="card-content">
               <div class="card-location">
                 <img src="/location.png" alt="Ubicación" />
-                <span>Valencia, Via Guataparo</span>
+                <span>{{ property.location }}</span>
               </div>
 
-              <button class="favorite-btn" aria-label="Añadir a favoritos">
-                <img src="/heart.png" alt="Favorito" />
+              <button class="favorite-btn" :class="{ 'active': isFavorite }" @click="property.isFavorite = !property.isFavorite" aria-label="Añadir a favoritos">
+                <img :src="property.isFavorite ? '/filledheart.png' : '/heart.png'" alt="Favorito" />
               </button>
 
-              <h3 class="card-title">Residencias Altos Del Mirador</h3>
+              <h3 class="card-title">{{ property.title }}</h3>
 
               <div class="card-details">
-                <span>4 habitaciones | 3 baños</span>
-                <span>67 m² Totales</span>
+                <span>{{ property.bedrooms }} habitaciones | {{ property.bathrooms }} baños</span>
+                <span>{{ property.area }} m² Totales</span>
               </div>
 
               <div class="card-footer">
-                <span class="card-price">$150,000</span>
-                <a href="#" class="details-btn">Ver Detalles &gt;</a>
+                <span class="card-price">${{ property.price }}</span>
+                <button @click="HomeDetails" class="details-btn">
+                  <span>Ver Detalles &gt;</span>
+                </button> 
               </div>
             </div>
           </article>
 
-          <!-- TARJETA 2 -->
-          <article class="card">
-            <div class="card-image-wrapper">
-              <img src="/building.png" alt="Residencias Altos Del Mirador" class="building-img" />
-            </div>
-
-            <div class="card-content">
-              <div class="card-location">
-                <img src="/location.png" alt="Ubicación" />
-                <span>Valencia, Via Guataparo</span>
-              </div>
-
-              <button class="favorite-btn" aria-label="Añadir a favoritos">
-                <img src="/heart.png" alt="Favorito" />
-              </button>
-
-              <h3 class="card-title">Residencias Altos Del Mirador</h3>
-
-              <div class="card-details">
-                <span>4 habitaciones | 3 baños</span>
-                <span>67 m² Totales</span>
-              </div>
-
-              <div class="card-footer">
-                <span class="card-price">$150,000</span>
-                <a href="#" class="details-btn">Ver Detalles &gt;</a>
-              </div>
-            </div>
-          </article>
-
-          <!-- TARJETA 3 -->
-          <article class="card">
-            <div class="card-image-wrapper">
-              <img src="/building.png" alt="Residencias Altos Del Mirador" class="building-img" />
-            </div>
-
-            <div class="card-content">
-              <div class="card-location">
-                <img src="/location.png" alt="Ubicación" />
-                <span>Valencia, Via Guataparo</span>
-              </div>
-
-              <button class="favorite-btn" aria-label="Añadir a favoritos">
-                <img src="/heart.png" alt="Favorito" />
-              </button>
-              <h3 class="card-title">Residencias Altos Del Mirador</h3>
-
-              <div class="card-details">
-                <span>4 habitaciones | 3 baños</span>
-                <span>67 m² Totales</span>
-              </div>
-
-              <div class="card-footer">
-                <span class="card-price">$150,000</span>
-                <a href="#" class="details-btn">Ver Detalles &gt;</a>
-              </div>
-            </div>
-          </article>
-
-          <!-- TARJETA 4 -->
-          <article class="card">
-            <div class="card-image-wrapper">
-              <img src="/building.png" alt="Residencias Altos Del Mirador" class="building-img" />
-            </div>
-
-            <div class="card-content">
-              <div class="card-location">
-                <img src="/location.png" alt="Ubicación" />
-                <span>Valencia, Via Guataparo</span>
-              </div>
-
-              <button class="favorite-btn" aria-label="Añadir a favoritos">
-                <img src="/heart.png" alt="Favorito" />
-              </button>
-
-              <h3 class="card-title">Residencias Altos Del Mirador</h3>
-
-              <div class="card-details">
-                <span>4 habitaciones | 3 baños</span>
-                <span>67 m² Totales</span>
-              </div>
-
-              <div class="card-footer">
-                <span class="card-price">$150,000</span>
-                <a href="#" class="details-btn">Ver Detalles &gt;</a>
-              </div>
-            </div>
-          </article>
         </div>
 
         <!-- Botón de Navegación del Carrusel -->
@@ -247,10 +197,12 @@
           </div>
       
           <nav class="primary-nav">
-            <button @click="Menu" class="menu-btn">
-              <span>Menu</span>
+            <button @click="toggleMenu" class="menu-btn">
+              <span>{{ isMenuOpen ? 'Cerrar' : 'Menu' }}</span>
             </button> 
-            <button class="inc-btn">Iniciar Sesión</button>
+            <button class="inc-btn" @click="signIn">
+              <span>Iniciar Sesión</span>
+            </button>
 
           </nav>
         </header>
@@ -273,15 +225,15 @@
           </div>
       
           <nav class="primary-nav">
-            <button @click="Menu" class="menu-btn">
-              <span>Menu</span>
-            </button> 
-            <button class="inc-btn">Iniciar Sesión</button>
+            <button @click="toggleMenu" class="menu-btn">
+              <span>{{ isMenuOpen ? 'Cerrar' : 'Menu' }}</span>
+            </button>
+            <button class="inc-btn" @click="signIn">Iniciar Sesión</button>
           </nav>
       </header>
         <div class="vision-container">
           <article class="image-article">
-            <div class="card-image-4">
+            <div class="image-4">
               <img src="/building.png" alt="Residencias Altos Del Mirador" class="building-img" />
             </div>
           </article>
@@ -338,13 +290,11 @@
   </section>
   
 
-
-
   <!-- PÁGINA 6-->
   <footer class="page-6">
     <!-- boton superior derecho-->
     <div class="login-6">  
-      <button class="inc-btn">Iniciar Sesion</button>
+      <button class="inc-btn" @click="signIn">Iniciar Sesion</button>
     </div>
     <!--contenido central-->
     <div class="footer-content">
@@ -358,13 +308,13 @@
       </p>
       <!--Titulo de contacto-->
       <h3 class="contact-title">CONTACTANOS</h3>
-      <!-- aqui estuvo Batman-->
+
       <!--Iconos de redes sociales-->
       <div class="social-icons">
-        <a href="#"><img src="/x.png" alt="X (Twitter)" /></a>
-        <a href="#"><img src="/inst.png" alt="Instagram" /></a>
-        <a href="#"><img src="/facebook.png" alt="Facebook" /></a>
-        <a href="#"><img src="/whatsapp.png" alt="WhatsApp"></a>
+        <a href="https://x.com/rifatrichanibr"><img src="/x.png" alt="X (Twitter)" /></a>
+        <a href="https://www.instagram.com/rifatrichanibienesraices?stkn=c2YydWl4c3Q4anNr"><img src="/inst.png" alt="Instagram" /></a>
+        <a href="https://www.facebook.com/share/19A5MuKs4X/?mibextid=wwXIfr"><img src="/facebook.png" alt="Facebook" /></a>
+        <a href="https://wa.me/584145936070"><img src="/whatsapp.png" alt="WhatsApp"></a>
       </div>
 
 
@@ -377,7 +327,59 @@
 </template>
 
 <script setup>
+import {ref} from 'vue'
 import {useRouter} from 'vue-router'
+
+const isFavorite = ref(false)
+const toggleFavorite = () => {
+  isFavorite.value = !isFavorite.value
+}
+const properties = ref([
+  {
+    id: 1,
+    title: 'Residencias Altos Del Mirador',
+    location: 'Valencia, Via Guataparo',
+    bedrooms: 4,
+    bathrooms: 3,
+    area: 67,
+    price: 150000,
+    image: '/building.png',
+    isFavorite: false,
+  },
+  {
+    id: 2,
+    title: 'Residencias Altos Del Mirador',
+    location: 'Valencia, Via Guataparo',
+    bedrooms: 4,
+    bathrooms: 3,
+    area: 67,
+    price: 150000,
+    image: '/building.png',
+    isFavorite: false,
+  },
+  {
+    id: 3,
+    title: 'Residencias Altos Del Mirador',
+    location: 'Valencia, Via Guataparo',
+    bedrooms: 4,
+    bathrooms: 3,
+    area: 67,
+    price: 150000,
+    image: '/building.png',
+    isFavorite: false,
+  },
+  {
+    id: 4,
+    title: 'Residencias Altos Del Mirador',
+    location: 'Valencia, Via Guataparo',
+    bedrooms: 4,
+    bathrooms: 3,
+    area: 67,
+    price: 150000,
+    image: '/building.png',
+    isFavorite: false,
+  },
+])
 
 const router = useRouter()
 
@@ -385,10 +387,36 @@ const Search = ()=> {
   router.push('/search')
 }
 
-const Menu = ()=> {
-  router.push('/menu')
+const isMenuOpen = ref(false)
+const toggleMenu = () => {
+  isMenuOpen.value = !isMenuOpen.value
+}
+
+const HomeDetails = ()=> {
+  router.push('/details')
+}
+
+const Home = ()=> {
+  router.push('/')
+}
+
+const Contact = ()=> {
+  router.push('/contacts')
+}
+
+const signIn = ()=> {
+  router.push('/signin')
+}
+
+const isOpen = ref(true) // Estado para controlar la visibilidad del menú
+const toggleSidemenu = () => {
+  isOpen.value = !isOpen.value // Cambia el estado al hacer clic
 }
 // Lógica de JavaScript / Vue (si es necesaria)
+
+
+
+
 </script>
 
 <style scoped src= "./style.css"></style>

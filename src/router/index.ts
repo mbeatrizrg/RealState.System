@@ -1,10 +1,16 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import MainPage from '@/components/MainPage.vue'
 import SearchHome from '@/components/SearchHome.vue'
-import Menu from '@/components/Menu.vue'
 import HomeDetails from '@/components/HomeDetails.vue'
 import Create from '@/components/create.vue'
 import signIn from '@/components/sign-in.vue'
+import ContactUs from '@/components/ContactUs.vue'
+import menuVendedor from '@/components/vendedor/menu-vendedor.vue'
+import Contact from '@/components/vendedor/Contact.vue'
+import Leads from '@/components/vendedor/Leads.vue'
+import newLeads from '@/components/vendedor/newLeads.vue'
+import profile from '@/components/vendedor/profile.vue'
+
 const routes = [
   {
     path: '/',
@@ -15,11 +21,6 @@ const routes = [
     path: '/search',
     name: 'SearchHome',
     component: SearchHome
-  },
-  {
-    path: '/menu',
-    name: 'menu',
-    component: Menu
   },
   {
     path: '/details',
@@ -36,7 +37,38 @@ const routes = [
     path: '/signin',
     name: 'signIn',
     component: signIn
+  },
+  {
+    path: '/vendedor',
+    name: 'menuVendedor',
+    component: menuVendedor
+  },
+  {
+    path: '/contacts',
+    name: 'ContactUs',
+    component: ContactUs
+  },
+  {
+    path: '/contact',
+    name: 'Contact',
+    component: Contact
+  },
+  {
+    path: '/leads',
+    name: 'Leads',
+    component: Leads
+  },
+  {
+    path: '/newleads',
+    name: 'newLeads',
+    component: newLeads
+  },
+  {
+    path: '/profile',
+    name: 'profile',
+    component: profile
   }
+
 ]
 
 const router = createRouter({

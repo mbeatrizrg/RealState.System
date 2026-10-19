@@ -51,12 +51,20 @@
 
     <!-- Mapa -->
     <section class="map-section">
-      <img src="/reference-img.png" alt="Ubicación en el mapa" class="map-image" /> 
+      <iframe 
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3929.091187882168!2d-68.0681556847226!3d10.1740420928704!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8c2a5e7b8e5b8e5b%3A0x8c2a5e7b8e5b8e5b!2sResidencias%20Altos%20Del%20Mirador!5e0!3m2!1ses-419!2sve!4v1697040000000">
+        style="border:0;"
+        allowfullscreen=""
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade">
+      </iframe>
     </section>
 
-    <!-- Pie de página / Footer -->
+    <!-- Pie de página hola mundo -->
     <footer class="page-6">
+
     <!--contenido central-->
+    
       <div class="footer-content">
         <div class="logo">
           <img src="/icon.png" alt="Rifat Richani Bienes Raices" class="footer-brand-img" />
@@ -70,22 +78,15 @@
       <h3 class="contact-title">CONTACTANOS</h3>
       <!--Iconos de redes sociales-->
       <div class="social-icons">
-        <a href="#"><img src="/x.png" alt="X (Twitter)" /></a>
-        <a href="#"><img src="/inst.png" alt="Instagram" /></a>
-        <a href="#"><img src="/facebook.png" alt="Facebook" /></a>
-        <a href="#"><img src="/whatsapp.png" alt="WhatsApp"></a>
+        <a href="https://x.com/rifatrichanibr"><img src="/x.png" alt="X (Twitter)" /></a>
+        <a href="https://www.instagram.com/rifatrichanibienesraices?stkn=c2YydWl4c3Q4anNr"><img src="/inst.png" alt="Instagram" /></a>
+        <a href="https://www.facebook.com/share/19A5MuKs4X/?mibextid=wwXIfr"><img src="/facebook.png" alt="Facebook" /></a>
+        <a href="https://wa.me/584145936070"><img src="/whatsapp.png" alt="WhatsApp"></a>
       </div>
-
-
 
       </div>
     </footer>
 </div>
-
-
-
-
-
 
 </template>
 
