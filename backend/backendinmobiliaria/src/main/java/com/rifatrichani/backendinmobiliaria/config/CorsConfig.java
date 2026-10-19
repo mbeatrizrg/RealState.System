@@ -3,6 +3,7 @@ package com.rifatrichani.backendinmobiliaria.config;
 import java.util.Arrays;
 import java.util.List;
 
+import org.springframework.context.annotation.Primary;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,6 +22,7 @@ public class CorsConfig {
     y permite el uso de credenciales y el UrlBasedCorsConfigurationSource y el patrón "/**", aplica toda esta configuracion a todos los endpoints
     */
     @Bean
+    @Primary
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOriginPatterns(Arrays.asList(allowedOrigins.trim().split("\\s*,\\s*")));
