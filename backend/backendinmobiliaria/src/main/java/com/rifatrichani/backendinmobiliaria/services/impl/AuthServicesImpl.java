@@ -11,7 +11,10 @@ public class AuthServicesImpl implements AuthServices {
 
     @Override
     public Map<String, Object> loginUsuarioWeb(UsuarioLogeoDTO dto) {
-        return new HashMap<>();
+        Map<String, Object> response = new HashMap<>();
+        response.put("mensaje", "¡Conexión exitosa desde el Backend!");
+        response.put("status", "OK");
+        return response;
     }
 
     @Override
