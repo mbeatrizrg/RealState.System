@@ -253,22 +253,64 @@
   gap: 24px;
 }
 
-.col-foto,
-.col-middle,
-.col-right {
+
+/* Círculo blanco de la foto de perfil */
+.profile-avatar-container {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  align-items: center;
+  margin-bottom: 20px;
 }
 
-/* Área de precarga para la Foto */
-.photo-placeholder {
-  width: 100%;
-  height: 180px;
-  background-color: #0c1452;
-  border-radius: 16px;
+.profile-avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 15px;
+  background-color: #2b3660;
+  border: 3px solid #3b82f6;
+  overflow: hidden;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease, border-color 0.2s ease;
 }
+
+.profile-avatar:hover {
+  transform: scale(1.03);
+  border-color: #60a5fa;
+}
+
+.avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.avatar-placeholder {
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 500;
+  text-align: center;
+}
+
+.btn-remove-photo {
+  margin-top: 10px;
+  background-color: #ef4444;
+  color: white;
+  border: none;
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.btn-remove-photo:hover {
+  background-color: #dc2626;
+}
+
+
 
 /* Inputs y Selects */
 .group {

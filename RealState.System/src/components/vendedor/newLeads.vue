@@ -65,12 +65,12 @@
             <button 
               :class="['btn-action', { active: activeSection === 'usuario' }]"
               @click="activeSection = 'usuario'">
-              Añadir Usuario
+              Datos del Cliente
             </button>
             <button 
               :class="['btn-action', { active: activeSection === 'inmueble' }]"
               @click="activeSection = 'inmueble'">
-              Añadir Inmueble
+              Datos del Inmueble
             </button>
           </div>
 
@@ -105,27 +105,45 @@
           <!-- Formulario Inmueble (Añadido) -->
           <div v-if="activeSection === 'inmueble'" class="inmueble-grid">
             <!-- Columna 1: Foto y Usuario Vinculado -->
-            <div class="col-foto">
-              <div class="group">
-                <label>Foto</label>
-                <div class="photo-placeholder"></div>
-              </div>
-              <div class="group">
-                <label>Usuario vinculado</label>
-                <input type="text" placeholder="ID" />
+
+            <!-- Círculo de la foto -->
+            <div class="profile-avatar" @click="seleccionarFoto">
+              <img v-if="fotoUrl" :src="fotoUrl" alt="Foto de perfil" class="avatar-img" />
+              <div v-else class="avatar-placeholder">
+                <span>Subir foto</span>
               </div>
             </div>
 
-            <!-- Columna 2: Tipo, Código RRBR, Dirección -->
-            <div class="col-middle">
-              <div class="group">
-                <label>Tipo</label>
-                <div class="select-wrapper">
-                  <select>
-                    <option value="compra">Compra</option>
-                    <option value="venta">Venta</option>
-                  </select>
-                  <span class="chevron">&#x203A;</span>
+              <!-- Botón para quitar la foto (solo se muestra si hay foto) -->
+            <div class="img-btn">
+              <button 
+                v-if="fotoUrl" 
+                type="button" 
+                class="btn-remove-photo" 
+                @click="eliminarFoto"
+              >
+                Quitar foto
+              </button>
+              <!-- Input oculto para cargar archivo de imagen -->
+              <input 
+                ref="fileInput" 
+                type="file" 
+                accept="image/*" 
+                style="display: none;" 
+                @change="alCambiarFoto" 
+                />
+            </div>
+              <!-- Columna 2: Tipo, Código RRBR, Dirección -->
+              <div class="col-middle">
+                <div class="group">
+                  <label>Tipo</label>
+                  <div class="select-wrapper">
+                    <select>
+                      <option value="compra">Compra</option>
+                      <option value="venta">Venta</option>
+                    </select>
+                    <span class="chevron">&#x203A;</span>
+                  </div>
                 </div>
               </div>
 
@@ -138,7 +156,6 @@
                 <label>Direccion</label>
                 <input type="text" placeholder="Informacion" />
               </div>
-            </div>
 
             <!-- Columna 3: Inmueble, Precio, Extra -->
             <div class="col-right">
@@ -150,7 +167,7 @@
                     <option value="casa">Casa</option>
                     <option value="local">Local</option>
                   </select>
-                  <span class="chevron">&#x203A;</span>
+                    <span class="chevron">&#x203A;</span>
                 </div>
               </div>
 
@@ -165,7 +182,7 @@
                   <select>
                     <option value="planta-piscina">Planta, Piscina</option>
                   </select>
-                  <span class="chevron">&#x203A;</span>
+                    <span class="chevron">&#x203A;</span>
                 </div>
               </div>
             </div>
@@ -174,7 +191,7 @@
       </section>
 
       <button class="btn-añadir">
-        Añadir
+        Editar
         <svg class="icon-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
         </svg>
@@ -206,6 +223,34 @@ const profile = ()=> {
 }
 
 const activeSection = ref('usuario')
+
+const fotoUrl = ref(null)
+const fileInput = ref(null)
+
+// Abrir el selector de archivos al hacer clic en el círculo
+const seleccionarFoto = () => {
+  fileInput.value.click()
+}
+
+// Cargar la foto seleccionada
+const alCambiarFoto = (event) => {
+  const file = event.target.files[0]
+  if (file) {
+    const reader = new FileReader()
+    reader.onload = (e) => {
+      fotoUrl.value = e.target.result
+    }
+    reader.readAsDataURL(file)
+  }
+}
+
+// Quitar / borrar la foto
+const eliminarFoto = () => {
+  fotoUrl.value = null
+  if (fileInput.value) {
+    fileInput.value.value = ''
+  }
+}
 
 </script>
 
