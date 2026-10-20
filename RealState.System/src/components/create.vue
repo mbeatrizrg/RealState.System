@@ -63,7 +63,7 @@
           </div>
 
           <div class="form-group">
-            <label for="password">Cotraseña</label>
+            <label for="password">Contraseña</label>
             <div class="password-container">
               <input 
                 :type="showPassword ? 'text' : 'password'" 

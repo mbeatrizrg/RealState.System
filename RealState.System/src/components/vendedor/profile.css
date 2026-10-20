@@ -9,40 +9,27 @@
 }
 
 /* Barra lateral oscura */
+/* Barra lateral oscura */
 .sidebar {
-  width: 240px;
-  background-color: #0b1f51;
-  width: 240px;
-  background-color: #0b1f51;
+  width: 260px;
+  background-color: #0b1f46; /* Azul oscuro característico del panel izquierdo[cite: 3] */
   color: #ffffff;
   display: flex;
   flex-direction: column;
-  padding-top: 40px;
-  flex-shrink: 0;
-  padding-top: 40px;
-  flex-shrink: 0;
+  padding-top: 50px;
+  border-top-right-radius: 8px; /* Ligero borde redondeado si el frame lo requiere */
+  border-bottom-right-radius: 8px;
 }
 
-/* Contenedor del logo corregido para coincidir con profile.vue */
+/* Contenedor del logo */
 .logo2-container {
   display: flex;
   justify-content: center;
-  align-items: center;
-  margin-bottom: 40px;
-}
-
-.logo {
-  width: 65px;
-  height: auto;
-  object-fit: contain;
-  align-items: center;
-  margin-bottom: 40px;
-}
-
-.logo {
-  width: 65px;
-  height: auto;
-  object-fit: contain;
+  margin-bottom: 10px;
+  width: 90px;  /* Aumenta o disminuye este valor para el ancho */
+  height: 90px;
+  padding-left: 80px;
+  padding-bottom: 30px;
 }
 
 /* Navegación y menú */
@@ -52,25 +39,27 @@
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  gap: 12px;
+  gap: 8px; /* Espaciado entre elementos del menú[cite: 3] */
 }
 
 .menu-item {
-  padding: 14px 32px;
-  padding: 14px 32px;
+  padding: 16px 32px;
+  font-size: 16px;
+  font-weight: 400;
   transition: background-color 0.2s ease;
 }
 
-/* Resaltado del ítem activo (Perfil) */
-/* Resaltado del ítem activo (Perfil) */
+/* Resaltado del ítem activo (Inventario)[cite: 3] */
 .menu-item.active {
-  background-color: #004cb5;
-  border-radius: 0 10px 10px 0;
-  margin-right: 12px;
-  background-color: #004cb5;
-  border-radius: 0 10px 10px 0;
-  margin-right: 12px;
+  background-color: #004cb5; /* Tono azul intermedio para la selección[cite: 3] */
+  border-radius: 0 4px 4px 0; /* Suaviza el borde derecho */
+}
+
+.menu-item a {
+  color: #ffffff; /* Texto blanco en el menú[cite: 3] */
+  text-decoration: none;
+  display: block;
+  width: 100%;
 }
 
 .menu-item:hover:not(.active) {
@@ -78,23 +67,19 @@
   cursor: pointer;
 }
 
-.btn-menu  {
+.btn-menu{
   background: transparent;
   border: none;
-  font-size: 16px;
-  font-weight: 400;
-  font-size: 16px;
-  font-weight: 400;
+  font-size: 17px;
+  font-family: 600px;
   cursor: pointer;
   color: #ffffff;
+  border-radius: 0 4px 4px 0; /* Suaviza el borde derecho */
   text-decoration: none;
   display: block;
   width: 100%;
   text-align: left;
-  padding: 0;
-  padding: 0;
 }
-
 /* Área de contenido principal */
 .main-content {
   flex: 1;

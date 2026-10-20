@@ -43,18 +43,18 @@
           </div>
 
           <div class="form-group">
-            <label for="password">Cotraseña</label>
+            <label for="password">Contraseña</label>
             <div class="password-container">
-              <input 
-                :type="showPassword ? 'text' : 'password'" 
-                v-model="password" 
-                placeholder="8 caracteres" 
-                class="password-field"
-              />
-              <span class="box-password"
-                :class="{active: showPassword }"
-                @click="togglePassword">
-              </span>
+            <input 
+              :type="showPassword ? 'text' : 'password'" 
+              v-model="password" 
+              placeholder="8 caracteres" 
+              class="password-field"
+            />
+            <span class="box-password"
+              :class="{active: showPassword }"
+              @click="togglePassword">
+            </span>
             </div>
           </div>
 

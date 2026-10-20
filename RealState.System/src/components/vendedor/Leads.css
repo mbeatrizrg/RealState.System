@@ -9,6 +9,7 @@
 }
 
 /* Barra lateral oscura */
+/* Barra lateral oscura */
 .sidebar {
   width: 260px;
   background-color: #0b1f46; /* Azul oscuro característico del panel izquierdo[cite: 3] */
@@ -21,7 +22,7 @@
 }
 
 /* Contenedor del logo */
-.container-logo {
+.logo2-container {
   display: flex;
   justify-content: center;
   margin-bottom: 10px;

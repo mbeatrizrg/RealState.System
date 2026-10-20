@@ -115,7 +115,7 @@
       <!--Fila 3-->
       <div class="form-row">
           <div class="form-group short-width">
-            <label>Telefono</label>
+            <label>Teléfono</label>
             <input 
               type="text" 
               id="phone" 
@@ -126,7 +126,7 @@
           </div>
 
           <div class="form-group short-width">
-            <label for="password">Cotraseña</label>
+            <label for="password">Contraseña</label>
             <input
               class="input-dark" 
               type="password" 

@@ -40,12 +40,9 @@
       <header class="header">
         <!-- Usamos interpolación de Vue para el nombre dinámico -->
         <h1 class="greeting">Hola, nombreUsuario </h1>
-        <button class="btn-filtros">
-          Filtros
-          <svg class="icon-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-          </svg>
-        </button>
+        <button @click="signIn" class="btn-filtros">
+          <span>Iniciar Sesión</span>
+        </button> 
       </header>
 
       <!-- Barra de búsqueda -->
@@ -139,6 +136,14 @@ const control = ()=> {
 
 const profile = ()=> {
   router.push('/profile')
+}
+
+const signIn = ()=> {
+  router.push('/signin')
+}
+
+const Create = ()=> {
+  router.push('/create')
 }
 
 </script>
