@@ -1,6 +1,6 @@
 <template>
   <div class="layout-container">
-    <!-- Encabezado[cite: 1] -->
+    <!-- Encabezado -->
     <header class="CommonHeader">
       <div class="logo">
         <img src="/icon.png" alt="Icono" class="icon" />
@@ -15,7 +15,6 @@
         <button @click="Create" class="inc-btn">
           <span>Crear cuenta</span>
         </button>
-
       </nav>
     </header>
 
@@ -58,7 +57,6 @@
       </div>
     </main>
 
-
       <div class="menu-container" :class="{ 'open': isMenuOpen }">
     <!-- Navegación superior -->
     <header class="navbar">
@@ -85,8 +83,10 @@
 </template>
 
 <script setup>
-import {useRouter} from 'vue-router'
-import { ref } from 'vue';
+import { useRouter } from 'vue-router'
+import { ref } from 'vue'
+import api from '@/api' // Asegúrate de haber creado el archivo src/api.ts
+
 const router = useRouter()
 
 const isMenuOpen = ref(false)
@@ -95,58 +95,50 @@ const password = ref('')
 
 const handleLogin = async () => {
   try {
-    // Enviamos la petición al backend de Spring Boot
-    const response = await fetch('http://localhost:8080/api/auth/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        email: email.value,
-        password: password.value
-      })
+    // Apuntamos al endpoint del Vendedor en el CRM
+    const response = await api.post('/auth/login/empleado', {
+      correo: email.value,       // Mapeado a DTO de Spring Boot
+      contrasena: password.value // Mapeado a DTO de Spring Boot
     })
     
-    const data = await response.json()
-    console.log("¡Respuesta del backend recibida!", data)
+    console.log("¡Respuesta del backend recibida!", response.data)
     
-    // Mostramos una alerta visual si responde correctamente
-    if (data.mensaje) {
-      alert(data.mensaje)
+    // Si el backend nos envía un token, lo guardamos para mantener la sesión
+    if (response.data.token) {
+      localStorage.setItem('token_crm', response.data.token)
     }
+    
+    // Redirigimos al vendedor directamente a su panel
+    router.push('/leads')
     
   } catch (error) {
     console.error("Error de conexión:", error)
-    alert("Error: No se pudo conectar con el servidor Backend")
+    if (error.response && error.response.status === 401) {
+      alert("Credenciales incorrectas. Verifica tu correo y contraseña.")
+    } else {
+      alert("Error: No se pudo conectar con el servidor Backend")
+    }
   }
 }
+
 const toggleMenu = () => {
   isMenuOpen.value = !isMenuOpen.value
 }
 const signIn = ()=> {
   router.push('/signin')
 }
-
 const Create = ()=> {
   router.push('/create')
 }
-
 const Home = ()=> {
   router.push('/')
 }
-
 const Contact = ()=> {
   router.push('/contacts')
 }
-
 const Search = ()=> {
   router.push('/search')
 }
-
-// Lógica de JavaScript / Vue (si es necesaria)
-
-
-
-
 </script>
+
 <style scoped src= "./sign-in-style.css"></style>

@@ -117,9 +117,14 @@
 </template>
 
 <script setup>
-import {useRouter} from 'vue-router'
+import { ref, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
+import api from '@/api' // Conexión automática con el backend y el Token
 
 const router = useRouter()
+
+// Variable reactiva para almacenar los datos que llegan del backend
+const listaLeads = ref([])
 
 const Leads = ()=> {
   router.push('/leads')
@@ -137,6 +142,16 @@ const profile = ()=> {
   router.push('/profile')
 }
 
+// Se ejecuta automáticamente al abrir la página
+onMounted(async () => {
+  try {
+    const response = await api.get('/lead/crm');
+    listaLeads.value = response.data;
+    console.log("Datos recibidos del backend:", listaLeads.value);
+  } catch (error) {
+    console.error("Error al cargar los leads desde Spring Boot:", error);
+  }
+})
 </script>
 
 <style scoped src= "./Leads.css"></style>

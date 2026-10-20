@@ -12,4 +12,5 @@ public interface AuthServices {
     
     // ESTA ES LA LÍNEA QUE FALTA PARA QUITAR EL ERROR DE @Override
     Map<String, Object> confirmarCuenta(String token);
+    Map<String, Object> crearVendedorPrueba();
 }

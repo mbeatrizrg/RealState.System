@@ -52,4 +52,9 @@ public class AuthController {
         String codigo = body.get("codigo");
         return ResponseEntity.ok(authServices.confirmarCuenta(codigo));
     }
+
+    @PostMapping("/crear-vendedor-prueba")
+    public ResponseEntity<Map<String, Object>> crearVendedorPrueba() {
+        return ResponseEntity.ok(authServices.crearVendedorPrueba());
+    }
 }
