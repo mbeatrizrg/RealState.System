@@ -32,12 +32,13 @@
       <div class="form-section">
         <h1 class="form-title">Iniciar sesion</h1>
 
-        <form class="login-form">
+        <form class="login-form" @submit.prevent="handleLogin">
           <div class="form-group">
             <label for="gmail">Gmail</label>
             <input 
               type="email" 
               id="gmail" 
+              v-model="email"
               placeholder="example@gmail.com" 
             />
           </div>
@@ -47,6 +48,7 @@
             <input 
               type="password" 
               id="password" 
+              v-model="password"
               placeholder="8 caracteres" 
             />
           </div>
@@ -88,6 +90,36 @@ import { ref } from 'vue';
 const router = useRouter()
 
 const isMenuOpen = ref(false)
+const email = ref('')
+const password = ref('')
+
+const handleLogin = async () => {
+  try {
+    // Enviamos la petición al backend de Spring Boot
+    const response = await fetch('http://localhost:8080/api/auth/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        email: email.value,
+        password: password.value
+      })
+    })
+    
+    const data = await response.json()
+    console.log("¡Respuesta del backend recibida!", data)
+    
+    // Mostramos una alerta visual si responde correctamente
+    if (data.mensaje) {
+      alert(data.mensaje)
+    }
+    
+  } catch (error) {
+    console.error("Error de conexión:", error)
+    alert("Error: No se pudo conectar con el servidor Backend")
+  }
+}
 const toggleMenu = () => {
   isMenuOpen.value = !isMenuOpen.value
 }
