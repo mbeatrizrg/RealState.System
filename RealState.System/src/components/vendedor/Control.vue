@@ -57,7 +57,7 @@
             class="search-input">
         </div>
       </section>
-    </main>
+
     <section>
       <div class="form-container">
       <!-- Switch de opciones -->
@@ -72,7 +72,7 @@
             @click="activeSection = 'inmueble'">
             Añadir Inmueble
           </button>
-          </div>
+        </div>
 
           <!-- Formulario Usuario -->
           <div v-if="activeSection === 'usuario'" class="form-section">
@@ -185,15 +185,16 @@
             </div>
           </div>
         </div>
-
+      </div>
+    </section>
         <button class="btn-añadir">
           Añadir
           <svg class="icon-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
           </svg>
         </button>
-      </div>
-    </section>
+
+    </main>
   </div>
 </template>
 
