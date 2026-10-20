@@ -8,18 +8,22 @@ public class UsuarioRegistroDTO {
 
     @NotBlank(message = "El nombre es obligatorio")
     private String nombre;
+
     @NotBlank(message = "El apellido es obligatorio")
     private String apellido;
+
     @Size(min = 10, max = 15, message = "El teléfono debe tener entre 10 y 15 dígitos")
     private String telefono;
+
     @NotBlank(message = "El correo es obligatorio")
     @Email(message = "Debe enviar un formato de correo electrónico válido")
     private String correo;
+
     @NotBlank(message = "La contraseña es obligatoria")
     @Size(min = 8, message = "La contraseña debe tener al menos 8 caracteres por seguridad")
     private String contrasena;
 
-    //Getters y Setters DTO
+    // --- GETTERS Y SETTERS MANUALES (A PRUEBA DE FALLOS) ---
     public String getNombre() { return nombre; }
     public void setNombre(String nombre) { this.nombre = nombre; }
 
