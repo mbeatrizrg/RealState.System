@@ -64,11 +64,18 @@
 
           <div class="form-group">
             <label for="password">Cotraseña</label>
-            <input 
-              type="password" 
-              id="password" 
-              placeholder="8 caracteres" 
-            />
+            <div class="password-container">
+              <input 
+                :type="showPassword ? 'text' : 'password'" 
+                v-model="password" 
+                placeholder="8 caracteres" 
+                class="password-field"
+              />
+              <span class="box-password"
+                :class="{active: showPassword }"
+                @click="togglePassword">
+              </span>
+            </div>
           </div>
 
           <button type="submit" class="btn btn-submit">Crear Cuenta</button>
@@ -124,6 +131,13 @@ const Contact = ()=> {
 
 const Search = ()=> {
   router.push('/search')
+}
+
+const password = ref('')
+const showPassword = ref(false)
+
+const togglePassword = ()=> {
+  showPassword.value = !showPassword.value
 }
 // Lógica de JavaScript / Vue (si es necesaria)
 

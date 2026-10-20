@@ -242,3 +242,29 @@
     transform: translateX(-50%);
     margin-top: 25px;
 }
+
+.password-container{
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.box-password{
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 16px;
+  height: 16px;
+  border: 2px solid #ffffff;
+  border-radius: none;
+  background-color: transparent;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.box-password.active{
+  background-color: #ffffff;
+}
+
