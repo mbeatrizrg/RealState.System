@@ -22,7 +22,7 @@
             <button class="btn-menu" @click="Leads">Comunicaciones</button>
           </li>
           <li class="menu-item">
-            <button class="btn-menu" @click="Leads">Control</button>
+            <button class="btn-menu" @click="control">Control</button>
           </li>
           <li class="menu-item">
             <button class="btn-menu" @click="Leads">Calendario</button>
@@ -131,6 +131,10 @@ const vendedor = ()=> {
 
 const contactos = ()=> {
   router.push('/contact')
+}
+
+const control = ()=> {
+  router.push('/control')
 }
 
 const profile = ()=> {

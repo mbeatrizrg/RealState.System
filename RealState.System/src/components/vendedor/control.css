@@ -247,14 +247,8 @@
   cursor: pointer;
 }
 
-.inmueble-grid {
-  display: grid;
-  grid-template-columns: 200px 1fr 1fr;
-  gap: 24px;
-}
-
-
-/* Círculo blanco de la foto de perfil */
+/* inmueble */
+/* foto de perfil */
 .profile-avatar-container {
   display: flex;
   flex-direction: column;
@@ -311,7 +305,6 @@
 }
 
 
-
 /* Inputs y Selects */
 .group {
   display: flex;
@@ -339,8 +332,17 @@
 }
 
 .group input::placeholder {
-  color: #8fa0dd;
+  color: #92abde;
 }
+
+.right-form{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px 90px;
+  align-items: start;
+}
+
+
 
 /* Selects personalizados con icono Chevron */
 .select-wrapper {
