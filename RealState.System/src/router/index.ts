@@ -11,6 +11,7 @@ import Leads from '@/components/vendedor/Leads.vue'
 import Control from '@/components/vendedor/Control.vue'
 import profile from '@/components/vendedor/profile.vue'
 import ClientProfile from '@/components/vendedor/ClientProfile.vue'
+import Comunication from '@/components/vendedor/Comunication.vue'
 
 const routes = [
   {
@@ -73,7 +74,12 @@ const routes = [
     path: '/clientProfile',
     name: 'clientProfile',
     component: ClientProfile
-  }
+  },
+  {
+    path: '/comunication',
+    name: 'comunication',
+    component: Comunication
+  },
 
 ]
 

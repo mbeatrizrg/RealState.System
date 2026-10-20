@@ -19,7 +19,7 @@
             <button class="btn-menu" @click="Leads">Leads</button>
           </li>
           <li class="menu-item">
-            <button class="btn-menu" @click="Leads">Comunicaciones</button>
+            <button class="btn-menu" @click="comunication">Comunicaciones</button>
           </li>
           <li class="menu-item">
             <button class="btn-menu" @click="control">Control</button>
@@ -159,6 +159,9 @@ const contactos = ()=> {
 
 const control = ()=> {
   router.push('/control')
+}
+const comunication = ()=> {
+  router.push('/comunication')
 }
 
 const profile = ()=> {
