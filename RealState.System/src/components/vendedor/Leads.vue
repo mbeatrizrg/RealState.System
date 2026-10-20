@@ -72,37 +72,61 @@
             </thead>
             <tbody>
             <tr>
-              <td>Elena</td>
+              <td>
+                <router-link to="/clientProfile" class="link-page">
+                  Elena
+                </router-link>
+              </td>
               <td>167CD</td>
               <td><span class="badge in-progress">En progreso</span></td>
               <td>190V2</td>
             </tr>
             <tr>
-              <td>Elena</td>
+              <td>
+                <router-link to="/clientProfile" class="link-page">
+                Elena
+                </router-link>
+              </td>
               <td>167CD</td>
               <td><span class="badge finished">Finalizada</span></td>
               <td>2OED5</td>
             </tr>
             <tr>
-              <td>Elena</td>
+              <td>
+                <router-link to="/clientProfile" class="link-page">
+                Elena
+                </router-link>
+              </td>
               <td>167CD</td>
               <td><span class="badge starting">Iniciando</span></td>
               <td>U876J</td>
             </tr>
             <tr>
-               <td>Elena</td>
-                <td>167CD</td>
-                <td><span class="badge in-progress">En progreso</span></td>
-                <td>B3EF</td>
+              <td>
+                <router-link to="/clientProfile" class="link-page">
+                Elena
+                </router-link>
+              </td>
+              <td>167CD</td>
+              <td><span class="badge in-progress">En progreso</span></td>
+              <td>B3EF</td>
             </tr>
             <tr>
-                <td>Elena</td>
+                <td>
+                <router-link to="/clientProfile" class="link-page">
+                Elena
+                </router-link>
+              </td>
                 <td>167CD</td>
                 <td><span class="badge in-progress">En progreso</span></td>
                 <td>235TD</td>
             </tr>
             <tr>
-                <td>Elena</td>
+              <td>
+                <router-link to="/clientProfile" class="link-page">
+                Elena
+                </router-link>
+              </td>
                 <td>167CD</td>
                 <td><span class="badge in-progress">En progreso</span></td>
                 <td>GSC56</td>
@@ -140,6 +164,11 @@ const control = ()=> {
 const profile = ()=> {
   router.push('/profile')
 }
+
+const clientProfile = ()=> {
+  router.push('/clientProfile')
+}
+
 
 </script>
 

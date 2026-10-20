@@ -208,3 +208,8 @@
 .badge.finished {
   background-color: #3dbb17; /* Un tono ligeramente más sobrio o corporativo */
 }
+
+.link-page{
+  text-decoration: none;
+  color: #0b1f46;
+}

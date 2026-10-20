@@ -10,6 +10,7 @@ import Contact from '@/components/vendedor/Contact.vue'
 import Leads from '@/components/vendedor/Leads.vue'
 import Control from '@/components/vendedor/Control.vue'
 import profile from '@/components/vendedor/profile.vue'
+import ClientProfile from '@/components/vendedor/ClientProfile.vue'
 
 const routes = [
   {
@@ -67,6 +68,11 @@ const routes = [
     path: '/profile',
     name: 'profile',
     component: profile
+  },
+  {
+    path: '/clientProfile',
+    name: 'clientProfile',
+    component: ClientProfile
   }
 
 ]
