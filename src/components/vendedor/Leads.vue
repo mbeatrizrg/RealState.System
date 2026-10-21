@@ -19,10 +19,10 @@
             <button class="btn-menu" @click="Leads">Leads</button>
           </li>
           <li class="menu-item">
-            <button class="btn-menu" @click="Leads">Comunicaciones</button>
+            <button class="btn-menu" @click="comunication">Comunicaciones</button>
           </li>
           <li class="menu-item">
-            <button class="btn-menu" @click="Leads">Control</button>
+            <button class="btn-menu" @click="control">Control</button>
           </li>
           <li class="menu-item">
             <button class="btn-menu" @click="Leads">Calendario</button>
@@ -72,37 +72,61 @@
             </thead>
             <tbody>
             <tr>
-              <td>Elena</td>
+              <td>
+                <router-link to="/clientProfile" class="link-page">
+                  Elena
+                </router-link>
+              </td>
               <td>167CD</td>
               <td><span class="badge in-progress">En progreso</span></td>
               <td>190V2</td>
             </tr>
             <tr>
-              <td>Elena</td>
+              <td>
+                <router-link to="/clientProfile" class="link-page">
+                Elena
+                </router-link>
+              </td>
               <td>167CD</td>
               <td><span class="badge finished">Finalizada</span></td>
               <td>2OED5</td>
             </tr>
             <tr>
-              <td>Elena</td>
+              <td>
+                <router-link to="/clientProfile" class="link-page">
+                Elena
+                </router-link>
+              </td>
               <td>167CD</td>
               <td><span class="badge starting">Iniciando</span></td>
               <td>U876J</td>
             </tr>
             <tr>
-               <td>Elena</td>
-                <td>167CD</td>
-                <td><span class="badge in-progress">En progreso</span></td>
-                <td>B3EF</td>
+              <td>
+                <router-link to="/clientProfile" class="link-page">
+                Elena
+                </router-link>
+              </td>
+              <td>167CD</td>
+              <td><span class="badge in-progress">En progreso</span></td>
+              <td>B3EF</td>
             </tr>
             <tr>
-                <td>Elena</td>
+                <td>
+                <router-link to="/clientProfile" class="link-page">
+                Elena
+                </router-link>
+              </td>
                 <td>167CD</td>
                 <td><span class="badge in-progress">En progreso</span></td>
                 <td>235TD</td>
             </tr>
             <tr>
-                <td>Elena</td>
+              <td>
+                <router-link to="/clientProfile" class="link-page">
+                Elena
+                </router-link>
+              </td>
                 <td>167CD</td>
                 <td><span class="badge in-progress">En progreso</span></td>
                 <td>GSC56</td>
@@ -117,14 +141,9 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
-import { useRouter } from 'vue-router'
-import api from '@/api' // Conexión automática con el backend y el Token
+import {useRouter} from 'vue-router'
 
 const router = useRouter()
-
-// Variable reactiva para almacenar los datos que llegan del backend
-const listaLeads = ref([])
 
 const Leads = ()=> {
   router.push('/leads')
@@ -138,20 +157,22 @@ const contactos = ()=> {
   router.push('/contact')
 }
 
+const control = ()=> {
+  router.push('/control')
+}
+const comunication = ()=> {
+  router.push('/comunication')
+}
+
 const profile = ()=> {
   router.push('/profile')
 }
 
-// Se ejecuta automáticamente al abrir la página
-onMounted(async () => {
-  try {
-    const response = await api.get('/lead/crm');
-    listaLeads.value = response.data;
-    console.log("Datos recibidos del backend:", listaLeads.value);
-  } catch (error) {
-    console.error("Error al cargar los leads desde Spring Boot:", error);
-  }
-})
+const clientProfile = ()=> {
+  router.push('/clientProfile')
+}
+
+
 </script>
 
 <style scoped src= "./Leads.css"></style>

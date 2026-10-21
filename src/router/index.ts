@@ -8,8 +8,10 @@ import ContactUs from '@/components/ContactUs.vue'
 import menuVendedor from '@/components/vendedor/menu-vendedor.vue'
 import Contact from '@/components/vendedor/Contact.vue'
 import Leads from '@/components/vendedor/Leads.vue'
-import newLeads from '@/components/vendedor/newLeads.vue'
+import Control from '@/components/vendedor/Control.vue'
 import profile from '@/components/vendedor/profile.vue'
+import ClientProfile from '@/components/vendedor/ClientProfile.vue'
+import Comunication from '@/components/vendedor/Comunication.vue'
 
 const routes = [
   {
@@ -59,15 +61,25 @@ const routes = [
     component: Leads
   },
   {
-    path: '/newleads',
-    name: 'newLeads',
-    component: newLeads
+    path: '/control',
+    name: 'control',
+    component: Control
   },
   {
     path: '/profile',
     name: 'profile',
     component: profile
-  }
+  },
+  {
+    path: '/clientProfile',
+    name: 'clientProfile',
+    component: ClientProfile
+  },
+  {
+    path: '/comunication',
+    name: 'comunication',
+    component: Comunication
+  },
 
 ]
 
