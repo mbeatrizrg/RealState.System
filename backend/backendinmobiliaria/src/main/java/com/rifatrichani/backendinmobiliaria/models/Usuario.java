@@ -1,5 +1,7 @@
 package com.rifatrichani.backendinmobiliaria.models;
 
+import java.time.LocalDateTime;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -7,6 +9,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
+//Cliente del portal web. Las columnas contrasena, verificado y codverif_* se agregan con db/migraciones/001_autenticacion.sql
 @Entity
 @Table (name = "\"Usuario\"")
 public class Usuario {
@@ -24,9 +27,18 @@ public class Usuario {
     //Tipo de operacion que busca el cliente (compra, alquiler, venta)
     @Column (nullable = false)
     private String tipoNegocio;
-    //Codigo de verificacion del correo
+    //Codigo de verificacion del correo, se borra al confirmar la cuenta
     @Column (name = "codverif")
     private Integer codVerif;
+    @Column (name = "codverif_expira")
+    private LocalDateTime codVerifExpira;
+    @Column (name = "codverif_intentos", nullable = false)
+    private Integer codVerifIntentos = 0;
+    //Hash BCrypt, nunca la contraseña en texto plano
+    @Column
+    private String contrasena;
+    @Column (nullable = false)
+    private Boolean verificado = false;
     public Usuario(){}
     public Integer getId() {
         return id;
@@ -69,5 +81,29 @@ public class Usuario {
     }
     public void setCodVerif(Integer codVerif) {
         this.codVerif = codVerif;
+    }
+    public LocalDateTime getCodVerifExpira() {
+        return codVerifExpira;
+    }
+    public void setCodVerifExpira(LocalDateTime codVerifExpira) {
+        this.codVerifExpira = codVerifExpira;
+    }
+    public Integer getCodVerifIntentos() {
+        return codVerifIntentos;
+    }
+    public void setCodVerifIntentos(Integer codVerifIntentos) {
+        this.codVerifIntentos = codVerifIntentos;
+    }
+    public String getContrasena() {
+        return contrasena;
+    }
+    public void setContrasena(String contrasena) {
+        this.contrasena = contrasena;
+    }
+    public Boolean getVerificado() {
+        return verificado;
+    }
+    public void setVerificado(Boolean verificado) {
+        this.verificado = verificado;
     }
 }

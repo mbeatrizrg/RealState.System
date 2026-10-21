@@ -1,47 +1,23 @@
 package com.rifatrichani.backendinmobiliaria.dto.request;
 
 import jakarta.validation.constraints.NotNull;
-import java.time.LocalDate;
+import jakarta.validation.constraints.Positive;
 
+//Lead creado manualmente desde el CRM. El vendedor encargado es el del inmueble (en Supabase el lead no tiene vendedor propio)
 public class LeadRequestDTO {
-    //Puede ser nulo, aun no se ha validado la fecha de visita o si es visitado
-    private LocalDate fechaVisita;
-    private Boolean esVisitado;
     @NotNull(message = "El ID del usuario/cliente es obligatorio")
-    private Long usuarioId;
-    @NotNull(message = "Debe asignar un vendedor a este lead")
-    private Integer empleadoId;
-    @NotNull(message = "El estatus de venta es obligatorio")
-    private Integer estatusVentaId;
-    public Long getUsuarioId() {
-        return usuarioId;
-    }
-    public void setUsuarioId(Long usuarioId) {
-        this.usuarioId = usuarioId;
-    }
-    public Integer getEmpleadoId() {
-        return empleadoId;
-    }
-    public void setEmpleadoId(Integer empleadoId) {
-        this.empleadoId = empleadoId;
-    }
-    public Integer getEstatusVentaId() {
-        return estatusVentaId;
-    }
-    public void setEstatusVentaId(Integer estatusVentaId) {
-        this.estatusVentaId = estatusVentaId;
-    }
-    public LocalDate getFechaVisita() {
-        return fechaVisita;
-    }
-    public void setFechaVisita(LocalDate fechaVisita) {
-        this.fechaVisita = fechaVisita;
-    }
-    public Boolean getEsVisitado() {
-        return esVisitado;
-    }
-    public void setEsVisitado(Boolean esVisitado) {
-        this.esVisitado = esVisitado;
-    }
-    
+    private Integer usuarioId;
+    @NotNull(message = "Debe indicar el inmueble de interés")
+    private Integer inmuebleId;
+    //Etapa del embudo (columna numerica id_estatus, en Supabase no hay tabla de catalogo)
+    @NotNull(message = "El estatus del lead es obligatorio")
+    @Positive(message = "El estatus del lead debe ser un número positivo")
+    private Integer estatus;
+
+    public Integer getUsuarioId() { return usuarioId; }
+    public void setUsuarioId(Integer usuarioId) { this.usuarioId = usuarioId; }
+    public Integer getInmuebleId() { return inmuebleId; }
+    public void setInmuebleId(Integer inmuebleId) { this.inmuebleId = inmuebleId; }
+    public Integer getEstatus() { return estatus; }
+    public void setEstatus(Integer estatus) { this.estatus = estatus; }
 }

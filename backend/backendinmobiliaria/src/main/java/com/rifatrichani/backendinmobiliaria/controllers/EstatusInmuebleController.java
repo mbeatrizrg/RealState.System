@@ -2,7 +2,6 @@ package com.rifatrichani.backendinmobiliaria.controllers;
 
 import java.util.List;
 
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,7 +11,6 @@ import com.rifatrichani.backendinmobiliaria.services.EstatusInmuebleService;
 
 @RestController 
 @RequestMapping("/api/estatus_inmueble") 
-@CrossOrigin (origins = "*")
 public class EstatusInmuebleController {
     private final EstatusInmuebleService estatusInmuebleService;
     public EstatusInmuebleController(EstatusInmuebleService eis){

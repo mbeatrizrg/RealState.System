@@ -18,6 +18,7 @@ export interface InmuebleDetalle {
   precio: number
   descripcion: string | null
   rrbr: string
+  ubicacion: string | null
   nombreCiudad: string | null
   nombreTipoInmueble: string
   nombreEstatus: string

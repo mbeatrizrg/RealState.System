@@ -1,52 +1,63 @@
 package com.rifatrichani.backendinmobiliaria.services.impl;
 
-import org.springframework.stereotype.Service;
+import java.util.List;
+import java.util.stream.Collectors;
 
-import com.rifatrichani.backendinmobiliaria.dto.request.UsuarioCorreoRequestDTO;
-import com.rifatrichani.backendinmobiliaria.dto.request.UsuarioRegistroDTO;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.rifatrichani.backendinmobiliaria.dto.response.UsuarioResponseDTO;
+import com.rifatrichani.backendinmobiliaria.exceptions.ResourceNotFoundException;
 import com.rifatrichani.backendinmobiliaria.models.Usuario;
 import com.rifatrichani.backendinmobiliaria.repositories.UsuarioRepository;
 import com.rifatrichani.backendinmobiliaria.services.UsuarioService;
 
-import jakarta.transaction.Transactional;
-@Service 
-public class UsuarioServiceImpl implements UsuarioService{
+@Service
+public class UsuarioServiceImpl implements UsuarioService {
     private final UsuarioRepository usuarioRepository;
+
     public UsuarioServiceImpl(UsuarioRepository usuarioRepository) {
         this.usuarioRepository = usuarioRepository;
     }
-    //Metodo para registrar usuario
-    @Transactional
-    @Override 
-    public void registrarUsuario(UsuarioRegistroDTO dto) {
-        if (usuarioRepository.existsByCorreo(dto.getCorreo())) {
-            throw new IllegalArgumentException("El correo ya se encuentra registrado.");
-        }
-        Usuario usuario = new Usuario();
-        usuario.setNombre(dto.getNombre());
-        usuario.setApellido(dto.getApellido());
-        usuario.setTelefono(dto.getTelefono());
-        usuario.setCorreo(dto.getCorreo());
-        // HAY QUE METERLE UN ENCRIPTADO A LA CONTRAÑA DEL USUARIO (OSCAR)
-        // usuario.setContrasena(passwordEncoder.encode(dto.getContrasena()));
-        usuarioRepository.save(usuario);
+
+    @Override
+    @Transactional(readOnly = true)
+    public UsuarioResponseDTO obtenerPerfil(Integer idUsuario) {
+        return usuarioRepository.findById(idUsuario)
+                .map(this::mapearAUsuarioResponseDTO)
+                .orElseThrow(() -> new ResourceNotFoundException("Usuario no encontrado."));
     }
 
-    //Metodo para actualizar correo
-    @Transactional
-    @Override 
-    public void actualizarCorreo(Long idUsuarioObjetivo, Long idUsuarioAutenticado, UsuarioCorreoRequestDTO dto) {
-        if(!idUsuarioObjetivo.equals(idUsuarioAutenticado)){
-            throw new SecurityException("Acceso denegado: No tienes permisos para modificar este perfil.");
-        }
-        if (usuarioRepository.existsByCorreo(dto.getCorreo())) {
-            throw new IllegalArgumentException("El nuevo correo ya está en uso por otra cuenta.");
-        }
-        Usuario usuario = usuarioRepository.findById(idUsuarioAutenticado)
-            .orElseThrow(() -> new IllegalArgumentException("Usuario no encontrado"));
-            
-        usuario.setCorreo(dto.getCorreo());
-        usuarioRepository.save(usuario);
+    // CRM: Lista todos los clientes registrados para seleccionarlos al crear un Lead
+    @Override
+    @Transactional(readOnly = true)
+    public List<UsuarioResponseDTO> obtenerTodosLosUsuariosCrm() {
+        return usuarioRepository.findAll().stream()
+                .map(this::mapearAUsuarioResponseDTO)
+                .collect(Collectors.toList());
     }
-    
+
+    // CRM: Busca clientes por coincidencia en nombre, apellido o correo
+    @Override
+    @Transactional(readOnly = true)
+    public List<UsuarioResponseDTO> buscarUsuariosPorTerminoCrm(String termino) {
+        if (termino == null || termino.isBlank()) {
+            return obtenerTodosLosUsuariosCrm();
+        }
+        return usuarioRepository.buscarPorTermino(termino.trim()).stream()
+                .map(this::mapearAUsuarioResponseDTO)
+                .collect(Collectors.toList());
+    }
+
+    private UsuarioResponseDTO mapearAUsuarioResponseDTO(Usuario u) {
+        UsuarioResponseDTO dto = new UsuarioResponseDTO();
+        dto.setId(u.getId());
+        dto.setNombre(u.getNombre());
+        dto.setApellido(u.getApellido());
+        dto.setCorreo(u.getCorreo());
+        dto.setTelefono(u.getTelefono());
+        dto.setTipoNegocio(u.getTipoNegocio());
+        dto.setVerificado(u.getVerificado());
+        return dto;
+    }
 }

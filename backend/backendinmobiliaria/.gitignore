@@ -34,3 +34,6 @@ build/
 
 ### Variables de entorno (credenciales de Supabase) ###
 .env
+
+### Copias de respaldo del codigo (pueden contener credenciales) ###
+*.zip

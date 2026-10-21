@@ -2,22 +2,11 @@ package com.rifatrichani.backendinmobiliaria.dto.request;
 
 import jakarta.validation.constraints.NotNull;
 
+//El usuario se toma del token, solo se envia el inmueble
 public class FavoritoRequestDTO {
-    @NotNull 
-    private Long usuarioId;
-    @NotNull 
+    @NotNull(message = "Debe indicar el inmueble")
     private Integer inmuebleId;
-    public Long getUsuarioId() {
-        return usuarioId;
-    }
-    public void setUsuarioId(Long usuarioId) {
-        this.usuarioId = usuarioId;
-    }
-    public Integer getInmuebleId() {
-        return inmuebleId;
-    }
-    public void setInmuebleId(Integer inmuebleId) {
-        this.inmuebleId = inmuebleId;
-    }
-    
+
+    public Integer getInmuebleId() { return inmuebleId; }
+    public void setInmuebleId(Integer inmuebleId) { this.inmuebleId = inmuebleId; }
 }

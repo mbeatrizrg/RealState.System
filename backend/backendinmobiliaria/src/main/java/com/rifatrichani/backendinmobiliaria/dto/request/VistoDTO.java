@@ -2,18 +2,11 @@ package com.rifatrichani.backendinmobiliaria.dto.request;
 
 import jakarta.validation.constraints.NotNull;
 
+//El usuario NO se recibe en el cuerpo: se toma del token, asi nadie puede registrar vistas a nombre de otro
 public class VistoDTO {
-    //Este no es NotNull, porque por ejemplo el usuario no esta registrado
-    private Long usuario;
-    @NotNull 
+    @NotNull
     private Integer inmueble;
-    //Getters y Setters DTO
-    public Long getUsuario() {
-        return usuario;
-    }
-    public void setUsuario(Long usuario) {
-        this.usuario = usuario;
-    }
+
     public Integer getInmueble() {
         return inmueble;
     }

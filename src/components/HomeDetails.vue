@@ -45,12 +45,25 @@
 
     <!-- Mapa -->
     <section class="map-section">
-      <img src="/reference-img.png" alt="Ubicación en el mapa" class="map-image" />
+      <!-- El mapa se genera con la ubicacion del inmueble; sin ubicacion se muestra la imagen de referencia -->
+      <iframe
+        v-if="urlMapa"
+        :src="urlMapa"
+        class="map-image"
+        style="border:0;"
+        allowfullscreen=""
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        title="Ubicación en el mapa">
+      </iframe>
+      <img v-else src="/reference-img.png" alt="Ubicación en el mapa" class="map-image" />
     </section>
 
-    <!-- Pie de página / Footer -->
+    <!-- Pie de página hola mundo -->
     <footer class="page-6">
+
     <!--contenido central-->
+    
       <div class="footer-content">
         <div class="logo">
           <img src="/icon.png" alt="Rifat Richani Bienes Raices" class="footer-brand-img" />
@@ -64,22 +77,15 @@
       <h3 class="contact-title">CONTACTANOS</h3>
       <!--Iconos de redes sociales-->
       <div class="social-icons">
-        <a href="#"><img src="/x.png" alt="X (Twitter)" /></a>
-        <a href="#"><img src="/inst.png" alt="Instagram" /></a>
-        <a href="#"><img src="/facebook.png" alt="Facebook" /></a>
-        <a href="#"><img src="/whatsapp.png" alt="WhatsApp"></a>
+        <a href="https://x.com/rifatrichanibr"><img src="/x.png" alt="X (Twitter)" /></a>
+        <a href="https://www.instagram.com/rifatrichanibienesraices?stkn=c2YydWl4c3Q4anNr"><img src="/inst.png" alt="Instagram" /></a>
+        <a href="https://www.facebook.com/share/19A5MuKs4X/?mibextid=wwXIfr"><img src="/facebook.png" alt="Facebook" /></a>
+        <a href="https://wa.me/584145936070"><img src="/whatsapp.png" alt="WhatsApp"></a>
       </div>
-
-
 
       </div>
     </footer>
 </div>
-
-
-
-
-
 
 </template>
 
@@ -103,6 +109,11 @@ const error = ref('')
 const imagenes = computed(() =>
   inmueble.value?.urlsGaleria?.length ? inmueble.value.urlsGaleria : [IMAGEN_POR_DEFECTO]
 )
+
+const urlMapa = computed(() => {
+  const ubicacion = [inmueble.value?.ubicacion, inmueble.value?.nombreCiudad].filter(Boolean).join(', ')
+  return ubicacion ? `https://www.google.com/maps?q=${encodeURIComponent(ubicacion)}&output=embed` : null
+})
 
 watch(() => route.params.id, async (id) => {
   if (!id) return

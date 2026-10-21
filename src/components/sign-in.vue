@@ -9,28 +9,36 @@
 
       <nav class="primary-nav">
         <!-- cambiar para que se vea como el search btn -->
-        <router-link to="/menu" class="menu-btn">Menu</router-link>
-        <router-link to="/create" class="inc-btn">Crear cuenta</router-link>
+        <button @click="toggleMenu" class="menu-btn">
+          <span>{{ isMenuOpen ? 'Cerrar' : 'Menu' }}</span>
+        </button>
+        <button @click="Create" class="inc-btn">
+          <span>Crear cuenta</span>
+        </button>
 
       </nav>
     </header>
 
     <!-- Contenido principal-->
     <main class="main-content">
-      <div class="image-section">
-        <img class="hero-image" src="/PhotoPrincipal.png" alt="foto de portada" />
-      </div>
+      <div class="vision-container">
+          <article class="image-article">
+            <div class="image-4">
+              <img src="/building.png" alt="Residencias Altos Del Mirador" class="building-img" />
+            </div>
+          </article>
+        </div>
 
       <div class="form-section">
         <h1 class="form-title">Iniciar sesion</h1>
 
         <form class="login-form" @submit.prevent="IniciarSesion">
           <div class="form-group">
-            <label for="email">Correo</label>
+            <label for="gmail">Gmail</label>
             <input
               type="email"
-              id="email"
-              placeholder="correo@ejemplo.com"
+              id="gmail"
+              placeholder="ejemplo@gmail.com"
               v-model.trim="credenciales.correo"
               required
             />
@@ -38,13 +46,20 @@
 
           <div class="form-group">
             <label for="password">Contraseña</label>
+            <div class="password-container">
             <input
-              type="password"
+              :type="showPassword ? 'text' : 'password'"
               id="password"
-              placeholder="8 caracteres"
               v-model="credenciales.contrasena"
+              placeholder="8 caracteres"
+              class="password-field"
               required
             />
+            <span class="box-password"
+              :class="{active: showPassword }"
+              @click="togglePassword">
+            </span>
+            </div>
           </div>
 
           <p v-if="mensaje" class="form-mensaje">{{ mensaje }}</p>
@@ -53,20 +68,75 @@
         </form>
       </div>
     </main>
+
+
+      <div class="menu-container" :class="{ 'open': isMenuOpen }">
+    <!-- Navegación superior -->
+    <header class="navbar">
+      <button @click="toggleMenu" class="nav-link">
+        Salir
+      </button>
+      <img src="/brand2.png" alt="Rifat Richani" class="brand" />
+      <button @click="signIn" class="inc-btn">
+          <span>Iniciar Sesión</span>
+      </button>
+    </header>
+
+    <!-- Menú principal centrado -->
+        <main class="menu-content">
+      <nav class="menu-list">
+        <button @click="Home" class="menu-item active"><span>Principal</span></button>
+        <button @click="Search" class="menu-item"><span>Disponibles</span></button>
+        <a href="#" class="menu-item">Favoritos</a>
+        <button @click="Contact" class="menu-item"><span>Contactanos</span></button>
+      </nav>
+    </main>
+  </div>
   </div>
 </template>
 
 <script setup>
 import { reactive, ref } from 'vue'
+import { useRouter } from 'vue-router'
+const router = useRouter()
+
+const showPassword = ref(false)
+
+const togglePassword = ()=> {
+  showPassword.value = !showPassword.value
+}
+
+const isMenuOpen = ref(false)
+const toggleMenu = () => {
+  isMenuOpen.value = !isMenuOpen.value
+}
+const signIn = ()=> {
+  router.push('/signin')
+}
+
+const Create = ()=> {
+  router.push('/create')
+}
+
+const Home = ()=> {
+  router.push('/')
+}
+
+const Contact = ()=> {
+  router.push('/contacts')
+}
+
+const Search = ()=> {
+  router.push('/search')
+}
 
 // Coincide con UsuarioLogeoDTO del backend
 const credenciales = reactive({ correo: '', contrasena: '' })
 const mensaje = ref('')
 
-// PENDIENTE: conectar con POST /api/auth/login cuando el backend tenga autenticacion JWT
+// PENDIENTE: conectar con POST /api/auth/login/usuario (el backend ya lo expone)
 const IniciarSesion = ()=> {
   mensaje.value = 'El inicio de sesión estará disponible muy pronto.'
 }
 </script>
-
 <style scoped src= "./sign-in-style.css"></style>

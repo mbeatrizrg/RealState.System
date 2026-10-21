@@ -1,12 +1,11 @@
 package com.rifatrichani.backendinmobiliaria.dto.request;
 
-public class InmuebleEstatusRequestDTO {
-    private Integer estatusInmuebleId;
-    public Integer getEstatusInmuebleId() {
-        return estatusInmuebleId;
-    }
+import jakarta.validation.constraints.NotNull;
 
-    public void setEstatusInmuebleId(Integer estatusInmuebleId) {
-        this.estatusInmuebleId = estatusInmuebleId;
-    }
+public class InmuebleEstatusRequestDTO {
+    @NotNull(message = "Debe indicar el nuevo estatus del inmueble")
+    private Integer estatusInmuebleId;
+
+    public Integer getEstatusInmuebleId() { return estatusInmuebleId; }
+    public void setEstatusInmuebleId(Integer estatusInmuebleId) { this.estatusInmuebleId = estatusInmuebleId; }
 }

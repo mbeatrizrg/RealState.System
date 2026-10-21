@@ -1,7 +1,14 @@
 package com.rifatrichani.backendinmobiliaria.services;
 
-import com.rifatrichani.backendinmobiliaria.dto.request.EmpleadoRequestDTO;
+import java.util.List;
 
-public interface  EmpleadoService {
-    public void registrarEmpleado(EmpleadoRequestDTO dto);
+import com.rifatrichani.backendinmobiliaria.dto.request.EmpleadoRequestDTO;
+import com.rifatrichani.backendinmobiliaria.dto.response.EmpleadoAdminResponseDTO;
+
+public interface EmpleadoService {
+    Integer registrarEmpleado(EmpleadoRequestDTO dto);
+    List<EmpleadoAdminResponseDTO> obtenerTodosConMetricasAdmin();
+    List<EmpleadoAdminResponseDTO> obtenerEmpleadosConSesionAbierta();
+    void cambiarEstadoActivo(Integer empleadoId, boolean activo, Integer idAdminAutenticado);
+    void restablecerContrasena(Integer empleadoId, String contrasenaProvisional);
 }

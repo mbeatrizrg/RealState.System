@@ -9,10 +9,12 @@
 
       <nav class="primary-nav">
         <!-- cambiar para que se vea como el search btn -->
-        <button @click="Menu" class="menu-btn">
-          <span>Menu</span>
+        <button @click="toggleMenu" class="menu-btn">
+          <span>{{ isMenuOpen ? 'Cerrar' : 'Menu' }}</span>
         </button> 
-        <button @click="IniciarSesion" class="inc-btn">Iniciar Sesión</button>
+        <button @click="signIn" class="inc-btn">
+          <span>Iniciar Sesión</span>
+        </button> 
       </nav>
     </header>
 
@@ -100,6 +102,31 @@
             </div>
           </article>
       </section>
+
+        <div class="menu-container" :class="{ 'open': isMenuOpen }">
+    <!-- Navegación superior -->
+    <header class="navbar">
+      <button @click="toggleMenu" class="nav-link">
+        Salir
+      </button>
+      <img src="/brand2.png" alt="Rifat Richani" class="brand" />
+      <button @click="signIn" class="inc-btn">
+          <span>Iniciar Sesión</span>
+      </button> 
+    </header>
+
+    <!-- Menú principal centrado -->
+    <main class="menu-content">
+      <nav class="menu-list">
+        <button @click="Home" class="menu-item active"><span>Principal</span></button> 
+        <button @click="Search" class="menu-item"><span>Disponibles</span></button> 
+        <a href="#" class="menu-item">Favoritos</a>
+        <button @click="Contact" class="menu-item"><span>Contactanos</span></button> 
+      </nav>
+    </main>
+  </div>
+
+
   </div>
 </template>
 
@@ -134,13 +161,27 @@ watch(() => route.query, async () => {
   }
 }, { immediate: true })
 
-const Menu = ()=> {
-  router.push('/menu')
+const Home = ()=> {
+  router.push('/')
 }
 
-const IniciarSesion = ()=> {
+const Search = ()=> {
+  router.push('/search')
+}
+
+const isMenuOpen = ref(false)
+const toggleMenu = () => {
+  isMenuOpen.value = !isMenuOpen.value
+}
+
+const Contact = ()=> {
+  router.push('/contacts')
+}
+
+const signIn = ()=> {
   router.push('/signin')
 }
+// Lógica de JavaScript / Vue (si es necesaria)
 </script>
 
 <style scoped src= "./style2.css"></style>

@@ -31,6 +31,12 @@ public class Empleado {
     private LocalDateTime fechaEntrada;
     @Column (name = "fecha_salida", nullable = false)
     private LocalDateTime salidaSistema;
+    //Hash BCrypt de la contraseña (columna agregada en db/migraciones/001_autenticacion.sql). Null = aun no puede iniciar sesion
+    @Column
+    private String contrasena;
+    //Un empleado inactivo no puede iniciar sesion y sus tokens dejan de ser validos
+    @Column (nullable = false)
+    private Boolean activo = true;
     public Integer getId() {
         return id;
     }
@@ -78,5 +84,17 @@ public class Empleado {
     }
     public void setSalidaSistema(LocalDateTime salidaSistema) {
         this.salidaSistema = salidaSistema;
+    }
+    public String getContrasena() {
+        return contrasena;
+    }
+    public void setContrasena(String contrasena) {
+        this.contrasena = contrasena;
+    }
+    public Boolean getActivo() {
+        return activo;
+    }
+    public void setActivo(Boolean activo) {
+        this.activo = activo;
     }
 }
