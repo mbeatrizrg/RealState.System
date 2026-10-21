@@ -1,0 +1,75 @@
+/* Complemento de sign-in-style.css para las pantallas de cuenta (verificar, recuperar, login CRM y Mi cuenta) */
+
+.form-mensaje-error {
+  color: #b00020;
+}
+
+.btn-submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Enlaces de texto debajo de los formularios ("¿Olvidaste tu contraseña?", "Reenviar código"...) */
+.enlaces-cuenta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.5rem;
+  margin-top: 0.5rem;
+}
+
+.enlace {
+  background: none;
+  border: none;
+  padding: 0;
+  color: #214f96;
+  font-size: 0.9rem;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.enlace:disabled {
+  color: #8a8a8a;
+  cursor: not-allowed;
+}
+
+.texto-ayuda {
+  color: #0b1f46;
+  font-size: 0.95rem;
+  max-width: 450px;
+  margin: 0 0 1rem;
+}
+
+/* Mi cuenta: varios formularios apilados */
+.bloque-cuenta {
+  max-width: 450px;
+  margin-bottom: 2.5rem;
+}
+
+.subtitulo {
+  color: #0b1f46;
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin: 0 0 1rem;
+}
+
+.btn-secundario {
+  background-color: transparent;
+  color: #0b1f46;
+  border: 2px solid #0b1f46;
+}
+
+.form-group select {
+  background-color: #0b1f46;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 1rem;
+  font-size: 1rem;
+}
+
+/* Las pantallas de Mi cuenta son mas altas que el login: se permite el desplazamiento */
+.form-section.con-scroll {
+  justify-content: flex-start;
+  overflow-y: auto;
+  padding-top: 1rem;
+}

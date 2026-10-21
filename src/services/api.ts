@@ -1,3 +1,5 @@
+import { limpiarSesion, tokenVigente } from './sesion'
+
 // Cliente HTTP base: todas las llamadas al backend pasan por aqui
 const BASE_URL = import.meta.env.VITE_API_URL ?? ''
 
@@ -10,11 +12,16 @@ export class ApiError extends Error {
 }
 
 async function request<T>(ruta: string, opciones: RequestInit = {}): Promise<T> {
+  // Si hay sesion se envia el token; el backend decide si la ruta lo necesita
+  const token = tokenVigente()
+  const headers: Record<string, string> = { 'Content-Type': 'application/json' }
+  if (token) headers.Authorization = `Bearer ${token}`
+
   let respuesta: Response
   try {
     respuesta = await fetch(`${BASE_URL}${ruta}`, {
       ...opciones,
-      headers: { 'Content-Type': 'application/json', ...opciones.headers },
+      headers: { ...headers, ...(opciones.headers as Record<string, string> | undefined) },
     })
   } catch {
     throw new ApiError('No se pudo conectar con el servidor', 0)
@@ -30,6 +37,11 @@ async function request<T>(ruta: string, opciones: RequestInit = {}): Promise<T> 
   }
 
   if (!respuesta.ok) {
+    // 401 con token: la sesion expiro o fue cerrada en otro lugar (logout, cambio de contraseña)
+    if (respuesta.status === 401 && token) {
+      limpiarSesion()
+      window.dispatchEvent(new CustomEvent('sesion-expirada'))
+    }
     // GlobalExceptionHandler responde {"mensaje": "..."}, algunos controladores responden texto
     let mensaje = `Error ${respuesta.status}`
     if (datos && typeof datos === 'object' && 'mensaje' in datos) {
@@ -44,8 +56,12 @@ async function request<T>(ruta: string, opciones: RequestInit = {}): Promise<T> 
 
 export const api = {
   get: <T>(ruta: string) => request<T>(ruta),
-  post: <T>(ruta: string, cuerpo: unknown) =>
-    request<T>(ruta, { method: 'POST', body: JSON.stringify(cuerpo) }),
+  post: <T>(ruta: string, cuerpo?: unknown) =>
+    request<T>(ruta, { method: 'POST', body: cuerpo === undefined ? undefined : JSON.stringify(cuerpo) }),
+  put: <T>(ruta: string, cuerpo: unknown) => request<T>(ruta, { method: 'PUT', body: JSON.stringify(cuerpo) }),
+  patch: <T>(ruta: string, cuerpo?: unknown) =>
+    request<T>(ruta, { method: 'PATCH', body: cuerpo === undefined ? undefined : JSON.stringify(cuerpo) }),
+  delete: <T>(ruta: string) => request<T>(ruta, { method: 'DELETE' }),
 }
 
 export function mensajeDeError(error: unknown): string {

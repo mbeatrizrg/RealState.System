@@ -180,7 +180,10 @@ const Registrar = async ()=> {
   try {
     mensaje.value = await registrarUsuario(usuario)
     esError.value = false
-    setTimeout(() => router.push('/signin'), 1500)
+    // Si el backend exige verificar el correo (lo indica en el mensaje) se pasa a ingresar el codigo
+    const correo = usuario.correo
+    const siguiente = mensaje.value.includes('código') ? '/verificar' : '/signin'
+    setTimeout(() => router.push({ path: siguiente, query: { correo } }), 1500)
   } catch (e) {
     mensaje.value = mensajeDeError(e)
     esError.value = true
@@ -190,3 +193,4 @@ const Registrar = async ()=> {
 }
 </script>
 <style scoped src= "./create-style.css"></style>
+<style scoped src= "./cuenta/cuenta-style.css"></style>

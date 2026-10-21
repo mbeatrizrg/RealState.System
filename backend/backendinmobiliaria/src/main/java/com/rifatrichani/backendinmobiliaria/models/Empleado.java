@@ -37,6 +37,13 @@ public class Empleado {
     //Un empleado inactivo no puede iniciar sesion y sus tokens dejan de ser validos
     @Column (nullable = false)
     private Boolean activo = true;
+    //Recuperacion de contraseña: hash SHA-256 del codigo enviado por correo (db/migraciones/003)
+    @Column (name = "reset_codigo")
+    private String resetCodigo;
+    @Column (name = "reset_expira")
+    private LocalDateTime resetExpira;
+    @Column (name = "reset_intentos", nullable = false)
+    private Integer resetIntentos = 0;
     public Integer getId() {
         return id;
     }
@@ -96,5 +103,23 @@ public class Empleado {
     }
     public void setActivo(Boolean activo) {
         this.activo = activo;
+    }
+    public String getResetCodigo() {
+        return resetCodigo;
+    }
+    public void setResetCodigo(String resetCodigo) {
+        this.resetCodigo = resetCodigo;
+    }
+    public LocalDateTime getResetExpira() {
+        return resetExpira;
+    }
+    public void setResetExpira(LocalDateTime resetExpira) {
+        this.resetExpira = resetExpira;
+    }
+    public Integer getResetIntentos() {
+        return resetIntentos;
+    }
+    public void setResetIntentos(Integer resetIntentos) {
+        this.resetIntentos = resetIntentos;
     }
 }

@@ -64,7 +64,7 @@ public class SecurityConfig {
 
                 // 1. Autenticacion y registro del portal (publicos)
                 .requestMatchers(HttpMethod.POST, "/api/auth/login/empleado", "/api/auth/login/usuario",
-                    "/api/auth/confirmar", "/api/auth/reenviar-codigo").permitAll()
+                    "/api/auth/confirmar", "/api/auth/reenviar-codigo", "/api/auth/recuperar", "/api/auth/recuperar/confirmar").permitAll()
                 .requestMatchers(HttpMethod.POST, "/api/usuario/registro").permitAll()
 
                 // 2. CRM: rutas privadas que comparten prefijo con rutas publicas

@@ -10,11 +10,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.rifatrichani.backendinmobiliaria.dto.request.EmpleadoActualizarDTO;
 import com.rifatrichani.backendinmobiliaria.dto.request.EmpleadoRequestDTO;
 import com.rifatrichani.backendinmobiliaria.dto.response.EmpleadoAdminResponseDTO;
 import com.rifatrichani.backendinmobiliaria.security.SesionActual;
@@ -55,6 +57,13 @@ public class EmpleadoController {
     @GetMapping("/activos")
     public ResponseEntity<List<EmpleadoAdminResponseDTO>> obtenerEmpleadosConSesionAbierta() {
         return ResponseEntity.ok(empleadoService.obtenerEmpleadosConSesionAbierta());
+    }
+
+    // Editar los datos de un empleado (nombre, cédula, correo y rol)
+    @PutMapping("/{id}")
+    public ResponseEntity<Map<String, String>> actualizarEmpleado(@PathVariable("id") Integer id, @Valid @RequestBody EmpleadoActualizarDTO dto) {
+        empleadoService.actualizarEmpleado(id, dto, SesionActual.idEmpleado());
+        return ResponseEntity.ok(Map.of("mensaje", "Empleado actualizado correctamente."));
     }
 
     // 4. Activar o desactivar un empleado. Ejemplo: PATCH /api/empleado/3/activo?valor=false

@@ -62,9 +62,16 @@
             </div>
           </div>
 
-          <p v-if="mensaje" class="form-mensaje">{{ mensaje }}</p>
+          <p v-if="mensaje" class="form-mensaje" :class="{ 'form-mensaje-error': esError }">{{ mensaje }}</p>
 
-          <button type="submit" class="btn btn-submit">Iniciar sesion</button>
+          <button type="submit" class="btn btn-submit" :disabled="enviando">
+            {{ enviando ? 'Ingresando...' : 'Iniciar sesion' }}
+          </button>
+
+          <div class="enlaces-cuenta">
+            <router-link :to="{ path: '/recuperar', query: { correo: credenciales.correo || undefined } }" class="enlace">¿Olvidaste tu contraseña?</router-link>
+            <router-link to="/crm/login" class="enlace">Soy asesor</router-link>
+          </div>
         </form>
       </div>
     </main>
@@ -97,7 +104,12 @@
 
 <script setup>
 import { reactive, ref } from 'vue'
-import { useRouter } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
+
+import { mensajeDeError } from '@/services/api'
+import { loginUsuario } from '@/services/auth'
+
+const route = useRoute()
 const router = useRouter()
 
 const showPassword = ref(false)
@@ -130,13 +142,37 @@ const Search = ()=> {
   router.push('/search')
 }
 
-// Coincide con UsuarioLogeoDTO del backend
-const credenciales = reactive({ correo: '', contrasena: '' })
-const mensaje = ref('')
+// Coincide con UsuarioLogeoDTO del backend. El correo puede venir de la verificacion o la recuperacion (?correo=)
+const credenciales = reactive({ correo: typeof route.query.correo === 'string' ? route.query.correo : '', contrasena: '' })
+const mensaje = ref(route.query.expirada ? 'Tu sesión expiró. Inicia sesión de nuevo.' : '')
+const esError = ref(!!route.query.expirada)
+const enviando = ref(false)
 
-// PENDIENTE: conectar con POST /api/auth/login/usuario (el backend ya lo expone)
-const IniciarSesion = ()=> {
-  mensaje.value = 'El inicio de sesión estará disponible muy pronto.'
+// Solo se vuelve a rutas internas del sitio (evita redirecciones a otros dominios)
+const destino = () => {
+  const redirect = route.query.redirect
+  return typeof redirect === 'string' && redirect.startsWith('/') && !redirect.startsWith('//') && !redirect.includes('\\') ? redirect : '/'
+}
+
+const IniciarSesion = async ()=> {
+  enviando.value = true
+  mensaje.value = ''
+  try {
+    await loginUsuario(credenciales)
+    router.replace(destino())
+  } catch (e) {
+    // 403: la contraseña es correcta pero la cuenta aun no confirmo su correo
+    if (e?.status === 403) {
+      router.push({ path: '/verificar', query: { correo: credenciales.correo } })
+      return
+    }
+    mensaje.value = mensajeDeError(e)
+    esError.value = true
+  } finally {
+    credenciales.contrasena = ''
+    enviando.value = false
+  }
 }
 </script>
 <style scoped src= "./sign-in-style.css"></style>
+<style scoped src= "./cuenta/cuenta-style.css"></style>

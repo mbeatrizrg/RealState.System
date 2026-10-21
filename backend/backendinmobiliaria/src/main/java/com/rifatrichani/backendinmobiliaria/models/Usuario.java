@@ -39,6 +39,19 @@ public class Usuario {
     private String contrasena;
     @Column (nullable = false)
     private Boolean verificado = false;
+    //Cambio de correo: la direccion nueva queda pendiente hasta confirmar el codigo enviado a ella
+    @Column (name = "correo_pendiente")
+    private String correoPendiente;
+    //Los tokens emitidos antes de esta fecha se rechazan (logout, cambio o recuperacion de contraseña)
+    @Column (name = "tokens_validos_desde")
+    private LocalDateTime tokensValidosDesde;
+    //Recuperacion de contraseña: hash SHA-256 del codigo enviado por correo (db/migraciones/003)
+    @Column (name = "reset_codigo")
+    private String resetCodigo;
+    @Column (name = "reset_expira")
+    private LocalDateTime resetExpira;
+    @Column (name = "reset_intentos", nullable = false)
+    private Integer resetIntentos = 0;
     public Usuario(){}
     public Integer getId() {
         return id;
@@ -105,5 +118,35 @@ public class Usuario {
     }
     public void setVerificado(Boolean verificado) {
         this.verificado = verificado;
+    }
+    public String getResetCodigo() {
+        return resetCodigo;
+    }
+    public void setResetCodigo(String resetCodigo) {
+        this.resetCodigo = resetCodigo;
+    }
+    public LocalDateTime getResetExpira() {
+        return resetExpira;
+    }
+    public void setResetExpira(LocalDateTime resetExpira) {
+        this.resetExpira = resetExpira;
+    }
+    public Integer getResetIntentos() {
+        return resetIntentos;
+    }
+    public void setResetIntentos(Integer resetIntentos) {
+        this.resetIntentos = resetIntentos;
+    }
+    public String getCorreoPendiente() {
+        return correoPendiente;
+    }
+    public void setCorreoPendiente(String correoPendiente) {
+        this.correoPendiente = correoPendiente;
+    }
+    public LocalDateTime getTokensValidosDesde() {
+        return tokensValidosDesde;
+    }
+    public void setTokensValidosDesde(LocalDateTime tokensValidosDesde) {
+        this.tokensValidosDesde = tokensValidosDesde;
     }
 }

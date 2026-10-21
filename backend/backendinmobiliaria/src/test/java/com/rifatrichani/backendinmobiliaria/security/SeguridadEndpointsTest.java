@@ -75,12 +75,13 @@ class SeguridadEndpointsTest {
         return e;
     }
 
-    private void usuario(int id) {
+    private Usuario usuario(int id) {
         Usuario u = new Usuario();
         u.setId(id);
         u.setVerificado(true);
         u.setContrasena("$2a$10$hash");
         when(usuarioRepository.findById(id)).thenReturn(Optional.of(u));
+        return u;
     }
 
     private String bearer(int id, TipoCuenta tipo, String rol) {
@@ -183,5 +184,20 @@ class SeguridadEndpointsTest {
         mvc.perform(options("/api/inmueble/buscar").header("Origin", "http://localhost:5173")
                         .header("Access-Control-Request-Method", "GET"))
                 .andExpect(status().isOk());
+    }
+
+    @Test
+    void recuperarContrasenaEsPublico() throws Exception {
+        mvc.perform(post("/api/auth/recuperar").contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"correo\": \"ana@correo.com\", \"tipo\": \"USUARIO\"}"))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    void tokenDeUsuarioEmitidoAntesDelLogoutEsRechazado() throws Exception {
+        Usuario u = usuario(6);
+        String token = bearer(6, TipoCuenta.USUARIO, "ROLE_USUARIO");
+        u.setTokensValidosDesde(LocalDateTime.now().plusSeconds(5));
+        mvc.perform(get("/api/favorito").header("Authorization", token)).andExpect(status().isUnauthorized());
     }
 }

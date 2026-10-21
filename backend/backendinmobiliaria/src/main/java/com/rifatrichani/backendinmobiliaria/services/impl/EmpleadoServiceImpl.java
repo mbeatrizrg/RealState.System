@@ -8,6 +8,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.rifatrichani.backendinmobiliaria.dto.request.EmpleadoActualizarDTO;
 import com.rifatrichani.backendinmobiliaria.dto.request.EmpleadoRequestDTO;
 import com.rifatrichani.backendinmobiliaria.dto.response.EmpleadoAdminResponseDTO;
 import com.rifatrichani.backendinmobiliaria.exceptions.ResourceNotFoundException;
@@ -86,6 +87,29 @@ public class EmpleadoServiceImpl implements EmpleadoService {
         Empleado empleado = buscarEmpleado(empleadoId);
         empleado.setContrasena(passwordEncoder.encode(contrasenaProvisional));
         empleado.setSalidaSistema(LocalDateTime.now());
+        empleadoRepository.save(empleado);
+    }
+
+    //Si cambia el rol, el JwtAuthenticationFilter aplica el nuevo en la siguiente peticion (lo lee de la base de datos)
+    @Override
+    @Transactional
+    public void actualizarEmpleado(Integer empleadoId, EmpleadoActualizarDTO dto, Integer idAdminAutenticado) {
+        Empleado empleado = buscarEmpleado(empleadoId);
+        if (empleadoId.equals(idAdminAutenticado) && !Boolean.TRUE.equals(dto.getEsAdmin())) {
+            throw new IllegalArgumentException("No puede quitarse a sí mismo el rol de administrador.");
+        }
+        String correo = dto.getCorreo().trim().toLowerCase();
+        if (!correo.equalsIgnoreCase(empleado.getCorreo()) && empleadoRepository.existsByCorreoIgnoreCase(correo)) {
+            throw new IllegalArgumentException("El correo ya está asignado a otro empleado.");
+        }
+        if (!dto.getCedula().equals(empleado.getCedula()) && empleadoRepository.existsByCedula(dto.getCedula())) {
+            throw new IllegalArgumentException("La cédula ya se encuentra registrada.");
+        }
+        empleado.setNombre(dto.getNombre().trim());
+        empleado.setApellido(dto.getApellido().trim());
+        empleado.setCedula(dto.getCedula());
+        empleado.setCorreo(correo);
+        empleado.setEsAdmin(dto.getEsAdmin());
         empleadoRepository.save(empleado);
     }
 

@@ -348,3 +348,47 @@
   box-shadow: 0 0 0 2px #004cb5;
   box-shadow: none;
 }
+/* Cambio de contraseña y cierre de sesion del perfil */
+.subtitulo-perfil {
+  color: #0b1f46;
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin: 1.5rem 0 1rem;
+}
+
+.acciones-perfil {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.btn-perfil {
+  background-color: #0b1f46;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  padding: 0.7rem 1.4rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.btn-perfil:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btn-perfil-secundario {
+  background-color: transparent;
+  color: #0b1f46;
+  border: 2px solid #0b1f46;
+}
+
+.mensaje-perfil {
+  color: #0b1f46;
+  font-size: 0.95rem;
+  margin: 0.5rem 0 0;
+}
+
+.mensaje-error {
+  color: #b00020;
+}
