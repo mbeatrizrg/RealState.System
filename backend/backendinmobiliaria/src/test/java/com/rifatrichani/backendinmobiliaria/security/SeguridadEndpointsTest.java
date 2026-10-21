@@ -90,7 +90,7 @@ class SeguridadEndpointsTest {
 
     @Test
     void portalPublicoNoRequiereToken() throws Exception {
-        when(inmuebleService.buscarPorFiltros(any(), any(), any(), any(), any(), any())).thenReturn(List.of());
+        when(inmuebleService.buscarPorFiltros(any(), any(), any(), any(), any())).thenReturn(List.of());
         mvc.perform(get("/api/inmueble/buscar")).andExpect(status().isOk());
     }
 

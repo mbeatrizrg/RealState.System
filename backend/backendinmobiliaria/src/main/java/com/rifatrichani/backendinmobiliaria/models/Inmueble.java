@@ -10,7 +10,8 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
-//Los nombres entre comillas respetan mayusculas y tildes de la tabla en Supabase
+//Los nombres entre comillas respetan las mayusculas de la tabla en Supabase.
+//No hay estatus propio: el estado del inmueble sale de isVendido / isAlquiler
 @Entity
 @Table (name = "\"Inmueble\"")
 public class Inmueble {
@@ -23,7 +24,7 @@ public class Inmueble {
     private Integer precio;
     @Column (name = "\"RRBR\"", nullable = false, unique = true)
     private String rrbr;
-    @Column (name = "\"ubicación\"", nullable = false)
+    @Column (name = "ubicacion", nullable = false)
     private String ubicacion;
     //En Supabase cada inmueble tiene un solo extra (columna id_extras)
     @ManyToOne (fetch = FetchType.LAZY)
@@ -32,9 +33,6 @@ public class Inmueble {
     @ManyToOne  (fetch=FetchType.LAZY)
     @JoinColumn (name = "id_tipo", nullable = false)
     private TipoInmueble tipoInmueble;
-    @ManyToOne (fetch = FetchType.LAZY)
-    @JoinColumn (name = "id_estatus_inmueble", nullable = false)
-    private EstatusInmueble estatusInmueble;
     @ManyToOne (fetch = FetchType.LAZY)
     @JoinColumn (name = "id_vendedor", nullable=false)
     private Empleado empleado;
@@ -88,12 +86,6 @@ public class Inmueble {
     }
     public void setTipoInmueble(TipoInmueble tipoInmueble) {
         this.tipoInmueble = tipoInmueble;
-    }
-    public EstatusInmueble getEstatusInmueble() {
-        return estatusInmueble;
-    }
-    public void setEstatusInmueble(EstatusInmueble estatusInmueble) {
-        this.estatusInmueble = estatusInmueble;
     }
     public Empleado getEmpleado() {
         return empleado;

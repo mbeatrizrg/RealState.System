@@ -29,8 +29,6 @@ public class InmuebleRequestDTO {
     private Integer empleadoId;
     @NotNull(message = "Seleccione el tipo de inmueble")
     private Integer tipoInmuebleId;
-    @NotNull(message = "Defina la condición/estatus del inmueble")
-    private Integer estatusInmuebleId;
     //En Supabase cada inmueble tiene un solo extra (columna id_extras)
     @NotNull(message = "Seleccione el extra del inmueble")
     private Integer extraId;
@@ -53,8 +51,6 @@ public class InmuebleRequestDTO {
     public void setEmpleadoId(Integer empleadoId) { this.empleadoId = empleadoId; }
     public Integer getTipoInmuebleId() { return tipoInmuebleId; }
     public void setTipoInmuebleId(Integer tipoInmuebleId) { this.tipoInmuebleId = tipoInmuebleId; }
-    public Integer getEstatusInmuebleId() { return estatusInmuebleId; }
-    public void setEstatusInmuebleId(Integer estatusInmuebleId) { this.estatusInmuebleId = estatusInmuebleId; }
     public Integer getExtraId() { return extraId; }
     public void setExtraId(Integer extraId) { this.extraId = extraId; }
 }

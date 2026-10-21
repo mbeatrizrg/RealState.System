@@ -72,7 +72,7 @@ public class SecurityConfig {
                 .requestMatchers("/api/visto/crm/**").hasAnyAuthority(ROL_VENDEDOR, ROL_ADMIN)
 
                 // 3. Portal publico: catalogos para los filtros y consulta de inmuebles
-                .requestMatchers(HttpMethod.GET, "/api/ciudad/**", "/api/tipo_inmueble/**", "/api/estatus_inmueble/**", "/api/extras/**").permitAll()
+                .requestMatchers(HttpMethod.GET, "/api/ciudad/**", "/api/tipo_inmueble/**", "/api/extras/**").permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/inmueble/buscar", "/api/inmueble/{id}").permitAll()
                 //Telemetria del detalle: se acepta anonima pero solo se guarda si hay un usuario con sesion (ver VistoController)
                 .requestMatchers(HttpMethod.POST, "/api/visto").permitAll()

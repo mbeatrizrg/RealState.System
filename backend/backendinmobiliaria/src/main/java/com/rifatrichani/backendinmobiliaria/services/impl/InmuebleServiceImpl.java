@@ -8,7 +8,6 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.rifatrichani.backendinmobiliaria.dto.request.InmuebleEstatusRequestDTO;
 import com.rifatrichani.backendinmobiliaria.dto.request.InmuebleRequestDTO;
 import com.rifatrichani.backendinmobiliaria.dto.response.InmuebleDetalleResponseDTO;
 import com.rifatrichani.backendinmobiliaria.dto.response.InmuebleListResponseDTO;
@@ -18,7 +17,6 @@ import com.rifatrichani.backendinmobiliaria.models.Galeria;
 import com.rifatrichani.backendinmobiliaria.models.Inmueble;
 import com.rifatrichani.backendinmobiliaria.repositories.CiudadRepository;
 import com.rifatrichani.backendinmobiliaria.repositories.EmpleadoRepository;
-import com.rifatrichani.backendinmobiliaria.repositories.EstatusInmuebleRepository;
 import com.rifatrichani.backendinmobiliaria.repositories.ExtraRepository;
 import com.rifatrichani.backendinmobiliaria.repositories.GaleriaRepository;
 import com.rifatrichani.backendinmobiliaria.repositories.InmuebleRepository;
@@ -32,16 +30,14 @@ public class InmuebleServiceImpl implements InmuebleService {
     private final InmuebleRepository inmuebleRepository;
     private final CiudadRepository ciudadRepository;
     private final TipoInmuebleRepository tipoInmuebleRepository;
-    private final EstatusInmuebleRepository estatusInmuebleRepository;
     private final EmpleadoRepository empleadoRepository;
     private final ExtraRepository extraRepository;
     private final GaleriaRepository galeriaRepository;
 
-    public InmuebleServiceImpl(InmuebleRepository ir, CiudadRepository cr, TipoInmuebleRepository tir, EstatusInmuebleRepository eir, EmpleadoRepository emr, ExtraRepository exr, GaleriaRepository gr) {
+    public InmuebleServiceImpl(InmuebleRepository ir, CiudadRepository cr, TipoInmuebleRepository tir, EmpleadoRepository emr, ExtraRepository exr, GaleriaRepository gr) {
         this.inmuebleRepository = ir;
         this.ciudadRepository = cr;
         this.tipoInmuebleRepository = tir;
-        this.estatusInmuebleRepository = eir;
         this.empleadoRepository = emr;
         this.extraRepository = exr;
         this.galeriaRepository = gr;
@@ -75,8 +71,8 @@ public class InmuebleServiceImpl implements InmuebleService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<InmuebleListResponseDTO> buscarPorFiltros(Integer ciudadId, Integer tipoInmuebleId, Integer estatusInmuebleId, Boolean isAlquiler, Integer minPrecio, Integer maxPrecio) {
-        return mapearListaResponseDTO(inmuebleRepository.buscarPorFiltrosMultiples(ciudadId, tipoInmuebleId, estatusInmuebleId, isAlquiler, minPrecio, maxPrecio));
+    public List<InmuebleListResponseDTO> buscarPorFiltros(Integer ciudadId, Integer tipoInmuebleId, Boolean isAlquiler, Integer minPrecio, Integer maxPrecio) {
+        return mapearListaResponseDTO(inmuebleRepository.buscarPorFiltrosMultiples(ciudadId, tipoInmuebleId, isAlquiler, minPrecio, maxPrecio));
     }
 
     @Override
@@ -94,7 +90,7 @@ public class InmuebleServiceImpl implements InmuebleService {
         dto.setIsVendido(inmueble.getVendido());
         dto.setNombreCiudad(inmueble.getCiudad() != null ? inmueble.getCiudad().getNombre() : null);
         dto.setNombreTipoInmueble(inmueble.getTipoInmueble().getNombre());
-        dto.setNombreEstatus(inmueble.getEstatusInmueble().getNombre());
+        dto.setNombreEstatus(describirEstado(inmueble));
         Empleado vendedor = inmueble.getEmpleado();
         dto.setNombreEmpleado(vendedor.getNombre() + (vendedor.getApellido() != null ? " " + vendedor.getApellido() : ""));
         dto.setExtras(inmueble.getExtra() == null ? List.of() : List.of(inmueble.getExtra().getNombre()));
@@ -124,15 +120,6 @@ public class InmuebleServiceImpl implements InmuebleService {
         inmuebleRepository.save(inmueble);
     }
 
-    @Override
-    @Transactional
-    public void cambiarEstatus(Integer id, InmuebleEstatusRequestDTO dto, CuentaAutenticada empleado) {
-        Inmueble inmueble = buscarInmueble(id);
-        ControlAcceso.verificarEncargado(inmueble, empleado);
-        inmueble.setEstatusInmueble(estatusInmuebleRepository.getReferenceById(dto.getEstatusInmuebleId()));
-        inmuebleRepository.save(inmueble);
-    }
-
     //Si el inmueble tiene fotos, leads o ventas asociadas la base de datos rechaza el borrado (409 desde el GlobalExceptionHandler)
     @Override
     @Transactional
@@ -141,6 +128,14 @@ public class InmuebleServiceImpl implements InmuebleService {
         ControlAcceso.verificarEncargado(inmueble, empleado);
         inmuebleRepository.delete(inmueble);
         inmuebleRepository.flush();
+    }
+
+    //En Supabase no hay tabla de estatus: el texto se deriva de isVendido / isAlquiler
+    private String describirEstado(Inmueble inmueble) {
+        if (Boolean.TRUE.equals(inmueble.getVendido())) {
+            return "Vendido";
+        }
+        return Boolean.TRUE.equals(inmueble.getAlquiler()) ? "En alquiler" : "En venta";
     }
 
     private Inmueble buscarInmueble(Integer id) {
@@ -156,7 +151,6 @@ public class InmuebleServiceImpl implements InmuebleService {
         inmueble.setAlquiler(dto.getIsAlquiler());
         inmueble.setCiudad(ciudadRepository.getReferenceById(dto.getCiudadId()));
         inmueble.setTipoInmueble(tipoInmuebleRepository.getReferenceById(dto.getTipoInmuebleId()));
-        inmueble.setEstatusInmueble(estatusInmuebleRepository.getReferenceById(dto.getEstatusInmuebleId()));
         inmueble.setExtra(extraRepository.getReferenceById(dto.getExtraId()));
     }
 
@@ -201,7 +195,7 @@ public class InmuebleServiceImpl implements InmuebleService {
         dto.setCiudad(inmueble.getCiudad() != null ? inmueble.getCiudad().getNombre() : null);
         dto.setTipoInmuebleId(inmueble.getTipoInmueble().getId());
         dto.setTipoInmueble(inmueble.getTipoInmueble().getNombre());
-        dto.setEstatusInmueble(inmueble.getEstatusInmueble().getNombre());
+        dto.setEstatusInmueble(describirEstado(inmueble));
         dto.setEmpleadoId(inmueble.getEmpleado() != null ? inmueble.getEmpleado().getId() : null);
         return dto;
     }

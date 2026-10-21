@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.rifatrichani.backendinmobiliaria.dto.request.InmuebleEstatusRequestDTO;
 import com.rifatrichani.backendinmobiliaria.dto.request.InmuebleRequestDTO;
 import com.rifatrichani.backendinmobiliaria.dto.response.InmuebleDetalleResponseDTO;
 import com.rifatrichani.backendinmobiliaria.dto.response.InmuebleListResponseDTO;
@@ -41,11 +39,10 @@ public class InmuebleController {
     public ResponseEntity<List<InmuebleListResponseDTO>> buscar(
             @RequestParam(required = false) Integer ciudadId,
             @RequestParam(required = false) Integer tipoInmuebleId,
-            @RequestParam(required = false) Integer estatusInmuebleId,
             @RequestParam(required = false) Boolean isAlquiler,
             @RequestParam(required = false) Integer minPrecio,
             @RequestParam(required = false) Integer maxPrecio) {
-        return ResponseEntity.ok(inmuebleService.buscarPorFiltros(ciudadId, tipoInmuebleId, estatusInmuebleId, isAlquiler, minPrecio, maxPrecio));
+        return ResponseEntity.ok(inmuebleService.buscarPorFiltros(ciudadId, tipoInmuebleId, isAlquiler, minPrecio, maxPrecio));
     }
 
     // 2. PÚBLICO: detalle de un inmueble. Si no existe el GlobalExceptionHandler responde 404
@@ -78,15 +75,7 @@ public class InmuebleController {
         return ResponseEntity.ok(Map.of("mensaje", "Inmueble actualizado exitosamente."));
     }
 
-    // 6. CRM: cambia solo el estatus (Disponible, Reservado, etc.)
-    @PatchMapping("/{id}/estatus")
-    @PreAuthorize("hasAnyAuthority('ROLE_VENDEDOR', 'ROLE_ADMIN')")
-    public ResponseEntity<Map<String, String>> cambiarEstatusInmueble(@PathVariable("id") Integer id, @Valid @RequestBody InmuebleEstatusRequestDTO dto) {
-        inmuebleService.cambiarEstatus(id, dto, SesionActual.empleado());
-        return ResponseEntity.ok(Map.of("mensaje", "Estatus del inmueble actualizado correctamente."));
-    }
-
-    // 7. CRM: elimina un inmueble (solo su vendedor encargado o un admin)
+    // 6. CRM: elimina un inmueble (solo su vendedor encargado o un admin)
     @DeleteMapping("/{id}")
     @PreAuthorize("hasAnyAuthority('ROLE_VENDEDOR', 'ROLE_ADMIN')")
     public ResponseEntity<Map<String, String>> eliminarInmueble(@PathVariable("id") Integer id) {

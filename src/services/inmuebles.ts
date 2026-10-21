@@ -30,7 +30,6 @@ export interface InmuebleDetalle {
 export interface FiltrosBusqueda {
   ciudadId?: string | number | null
   tipoInmuebleId?: string | number | null
-  estatusInmuebleId?: string | number | null
   minPrecio?: string | number | null
   maxPrecio?: string | number | null
 }
