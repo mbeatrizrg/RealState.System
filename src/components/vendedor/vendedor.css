@@ -159,7 +159,6 @@
   color: #ffffff;
 }
 
-
 .cards-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -281,7 +280,6 @@
   font-weight: 700;
   color: #1c1c1c;
 }
-
 
 .details-btn {
   background-color: #0b1f46;
