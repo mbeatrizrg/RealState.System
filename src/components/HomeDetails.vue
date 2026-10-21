@@ -1,57 +1,51 @@
 <template>
 <div class="details-container">
     <!-- Enlace de regreso -->
-    <button @click="Search" class="back-btn">
+    <button @click="Atras" class="back-btn">
       <span>Atras</span>
-    </button> 
+    </button>
 
-    <!-- Galería de imágenes -->
-    <section class="carousel">
-      <div class="carousel-item">
-        <img src="/innerbuilding.png" alt="Cocina" />
-      </div>
-      <div class="carousel-item">
-        <img src="/innerbuilding2.png" alt="Comedor" />
-      </div>
-      <div class="carousel-item">
-        <img src="/building.png" alt="Fachada del edificio" />
-      </div>
-      <div class="carousel-item">
-        <img src="/innerbuilding4.png" alt="Piscina y fachada" />
-        <button class="next-btn">&gt;</button>
-      </div>
-    </section>
+    <p v-if="cargando" class="estado-msg">Cargando propiedad...</p>
+    <p v-else-if="error" class="estado-msg">{{ error }}</p>
 
-    <!-- Información principal del inmueble -->
-    <section class="info-section">
-      <div class="info-left">
-        <h1 class="property-title">Residencias Altos Del Mirador</h1>
-        <p class="property-location">
-          <img src="/location.png" alt="Ubicación" class="location-icon" />
-          <span>Valencia, Via Guataparo</span>
-        </p>
-        <p class="property-description">
-          Rifat Richani is an artful mosaic of luxury residences that blend minimalist details with modern living. A serene community where thoughtful design and exceptional amenities invites you to embrace an elevated lifestyle in Long Island City.
-        </p>
-          <a href="#" class="contact-btn">Contactanos &gt;</a>
-      </div>
+    <template v-else-if="inmueble">
+      <!-- Galería de imágenes -->
+      <section class="carousel">
+        <div v-for="(url, indice) in imagenes" :key="url" class="carousel-item">
+          <img :src="url" :alt="`${inmueble.titulo} - foto ${indice + 1}`" />
+        </div>
+      </section>
 
-      <div class="info-right">
-        <h2 class="details-title">Detalles</h2>
-        <ul class="details-list">
-          <li><strong>2 Habitaciones</strong> | <strong>2 baños</strong></li>
-          <li>1 Puesto de Estacionamiento</li>
-          <li>Aire acondicionado en las habitaciones</li>
-          <li>Cocina empotrada</li>
-          <li>Piscina</li>
-          <li>Edificio | Piso 4</li>
-        </ul>
-      </div>
-    </section>
+      <!-- Información principal del inmueble -->
+      <section class="info-section">
+        <div class="info-left">
+          <h1 class="property-title">{{ inmueble.titulo }}</h1>
+          <p class="property-location">
+            <img src="/location.png" alt="Ubicación" class="location-icon" />
+            <span>{{ inmueble.nombreCiudad || 'Carabobo' }}</span>
+          </p>
+          <p class="property-price">{{ formatearPrecio(inmueble.precio) }}</p>
+          <p class="property-description">
+            {{ inmueble.descripcion || 'Pronto agregaremos la descripción de esta propiedad.' }}
+          </p>
+            <!-- PENDIENTE: este boton debe crear un Lead en el CRM -->
+            <a href="#" class="contact-btn">Contactanos &gt;</a>
+        </div>
+
+        <div class="info-right">
+          <h2 class="details-title">Detalles</h2>
+          <ul class="details-list">
+            <li><strong>{{ inmueble.nombreTipoInmueble }}</strong> | {{ inmueble.nombreEstatus }}</li>
+            <li v-for="extra in inmueble.extras" :key="extra">{{ extra }}</li>
+            <li>Código: {{ inmueble.rrbr }}</li>
+          </ul>
+        </div>
+      </section>
+    </template>
 
     <!-- Mapa -->
     <section class="map-section">
-      <img src="/reference-img.png" alt="Ubicación en el mapa" class="map-image" /> 
+      <img src="/reference-img.png" alt="Ubicación en el mapa" class="map-image" />
     </section>
 
     <!-- Pie de página / Footer -->
@@ -92,14 +86,44 @@
 
 
 <script setup>
-import {useRouter} from 'vue-router'
+import { computed, ref, watch } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 
+import { mensajeDeError } from '@/services/api'
+import { obtenerInmueble, registrarVista } from '@/services/inmuebles'
+import { formatearPrecio, IMAGEN_POR_DEFECTO } from '@/utils/formato'
+
+const route = useRoute()
 const router = useRouter()
 
-const Search = ()=> {
-  router.push('/search')
+const inmueble = ref(null)
+const cargando = ref(true)
+const error = ref('')
+
+const imagenes = computed(() =>
+  inmueble.value?.urlsGaleria?.length ? inmueble.value.urlsGaleria : [IMAGEN_POR_DEFECTO]
+)
+
+watch(() => route.params.id, async (id) => {
+  if (!id) return
+  cargando.value = true
+  error.value = ''
+  try {
+    inmueble.value = await obtenerInmueble(id)
+    // La vista es telemetria para el CRM, si falla no debe afectar al usuario
+    registrarVista(inmueble.value.id).catch(() => {})
+  } catch (e) {
+    error.value = mensajeDeError(e)
+  } finally {
+    cargando.value = false
+  }
+}, { immediate: true })
+
+// Vuelve a los resultados de busqueda (con sus filtros) o a /search si se entro directo al detalle
+const Atras = ()=> {
+  if (window.history.state?.back) router.back()
+  else router.push('/search')
 }
-// Lógica de JavaScript / Vue (si es necesaria)
 </script>
 
 <style scoped src= "./detailstyle.css"></style>

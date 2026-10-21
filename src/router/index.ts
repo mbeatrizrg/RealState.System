@@ -22,10 +22,9 @@ const routes = [
     component: Menu
   },
   {
-    path: '/details',
+    path: '/details/:id',
     name: 'details',
     component: HomeDetails
-
   },
   {
     path: '/create',

@@ -42,7 +42,7 @@
 
 .menu-btn{
   text-decoration: none;
-  background: trasparent;
+  background: transparent;
   color: #0b1f46;
   border: none;
   border-radius: 0px;
@@ -52,6 +52,7 @@
 }
 
 .inc-btn {
+  text-decoration: none;
   background-color: #0b1f46;
   color: #ffffff;
   border: none;
@@ -583,3 +584,13 @@
 
 
 
+
+/* Mensajes de carga, error o lista vacia */
+.estado-msg {
+  width: 100%;
+  margin: 24px 0;
+  text-align: center;
+  color: #0b1f46;
+  font-family: "Inter", sans-serif;
+  font-size: 16px;
+}

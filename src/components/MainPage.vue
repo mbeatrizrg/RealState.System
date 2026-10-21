@@ -12,7 +12,7 @@
         <button @click="Menu" class="menu-btn">
           <span>Menu</span>
         </button> 
-        <button class="inc-btn">Iniciar Sesión</button>
+        <button @click="IniciarSesion" class="inc-btn">Iniciar Sesión</button>
 
       </nav>
     </header>
@@ -37,67 +37,47 @@
         <div class="filter-bar">
           <div class="filter-group">
             <label for="locacion">Locación</label>
-            <select id="locacion" name="locacion">
-              <option value="" disabled selected>Ciudades</option>
-              <option value="valencia">Valencia</option>
-              <option value="naguanagua">Naguanagua</option>
-              <option value="san_diego">San Diego</option>
-              <option value="puerto_cabello">Puerto Cabello</option>
-              <option value="guacara">Guacara</option>
-              <option value="los_guayos">Los Guayos</option>
-              <option value="tocuyito">Tocuyito (Libertador)</option>
-              <option value="san_joaquin">San Joaquín</option>
-              <option value="diego_ibarra">Mariara (Diego Ibarra)</option>
-              <option value="bejuma">Bejuma</option>
-              <option value="montalban">Montalbán</option>
-              <option value="miranda">Miranda</option>
-              <option value="carlos_arvelo">Güigüe (Carlos Arvelo)</option>
-              <option value="juan_jose_mora">Morón (Juan José Mora)</option>
+            <select id="locacion" name="locacion" v-model="filtros.ciudadId">
+              <option value="">Ciudades</option>
+              <option v-for="ciudad in ciudades" :key="ciudad.id" :value="String(ciudad.id)">{{ ciudad.nombre }}</option>
             </select>
           </div>
 
           <div class="filter-group">
             <label for="tipo">Tipo de Propiedad</label>
-            <select id="tipo" name="tipo">
-              <option value="casa">Casa</option>
-              <option value="apartamento">Apartamento</option>
-              <option value="townhouse">Townhouse</option>
-              <option value="terreno">Terreno</option>
-              <option value="local comercial">Local comercial</option>
-              <option value="galpon">Galpon</option>
-              <option value="oficina">Oficina</option>
-              <option value="consultorio medico">Consultorio medico</option>
-              <option value="club">Club</option>
-              <option value="negocio">Negocio</option>
+            <select id="tipo" name="tipo" v-model="filtros.tipoInmuebleId">
+              <option value="">Todos</option>
+              <option v-for="tipo in tiposInmueble" :key="tipo.id" :value="String(tipo.id)">{{ tipo.nombre }}</option>
             </select>
           </div>
 
           <div class="filter-group">
-            <label for="precio">Precio</label>
-            <input 
-            class="filter-input"
-              type="number" 
-              id="precio" 
+            <label for="precio">Precio máximo</label>
+            <input
+              class="filter-input"
+              type="number"
+              id="precio"
               min="0"
               max="100000000"
-              name="precio" 
+              name="precio"
               placeholder="Ej: 15000"
+              v-model="filtros.maxPrecio"
             />
           </div>
 
           <div class="filter-group">
             <label for="modalidad">Alquiler o Compra</label>
-            <select id="modalidad" name="modalidad">
+            <select id="modalidad" name="modalidad" v-model="filtros.modalidad">
               <option value="compra">Compra</option>
               <option value="alquiler">Alquiler</option>
             </select>
           </div>
-          
-          <button @click="Search" class="search-btn">
+          <button @click="buscar" class="search-btn">
             <img src="/lupa.svg" alt="" />
             <span>Buscar Propiedad</span>
           </button>
         </div>
+        <p v-if="errorCatalogos" class="estado-msg">No se pudieron cargar los filtros: {{ errorCatalogos }}</p>
       </section>
     </main>
   </div>
@@ -112,121 +92,35 @@
 
         <!-- Contenedor del Grid/Carrusel de tarjetas -->
         <div class="cards-grid">
-          <!-- TARJETA 1 -->
-            <article class="card">
+          <p v-if="cargando" class="estado-msg">Cargando propiedades...</p>
+          <p v-else-if="error" class="estado-msg">No se pudieron cargar las propiedades: {{ error }}</p>
+          <p v-else-if="destacados.length === 0" class="estado-msg">Aún no hay propiedades publicadas.</p>
+
+          <article v-for="inmueble in destacados" :key="inmueble.id" class="card">
             <div class="card-image-wrapper">
-              <img src="/building.png" alt="Residencias Altos Del Mirador" class="building-img" />
+              <img :src="inmueble.urlImagenPrincipal || IMAGEN_POR_DEFECTO" :alt="inmueble.titulo" class="building-img" />
             </div>
 
             <div class="card-content">
               <div class="card-location">
                 <img src="/location.png" alt="Ubicación" />
-                <span>Valencia, Via Guataparo</span>
+                <span>{{ inmueble.ciudad || 'Carabobo' }}</span>
               </div>
 
+              <!-- PENDIENTE: favoritos requiere inicio de sesion (JWT) -->
               <button class="favorite-btn" aria-label="Añadir a favoritos">
                 <img src="/heart.png" alt="Favorito" />
               </button>
 
-              <h3 class="card-title">Residencias Altos Del Mirador</h3>
+              <h3 class="card-title">{{ inmueble.titulo }}</h3>
 
               <div class="card-details">
-                <span>4 habitaciones | 3 baños</span>
-                <span>67 m² Totales</span>
+                <span>{{ inmueble.tipoInmueble }}</span>
               </div>
 
               <div class="card-footer">
-                <span class="card-price">$150,000</span>
-                <a href="#" class="details-btn">Ver Detalles &gt;</a>
-              </div>
-            </div>
-          </article>
-
-          <!-- TARJETA 2 -->
-          <article class="card">
-            <div class="card-image-wrapper">
-              <img src="/building.png" alt="Residencias Altos Del Mirador" class="building-img" />
-            </div>
-
-            <div class="card-content">
-              <div class="card-location">
-                <img src="/location.png" alt="Ubicación" />
-                <span>Valencia, Via Guataparo</span>
-              </div>
-
-              <button class="favorite-btn" aria-label="Añadir a favoritos">
-                <img src="/heart.png" alt="Favorito" />
-              </button>
-
-              <h3 class="card-title">Residencias Altos Del Mirador</h3>
-
-              <div class="card-details">
-                <span>4 habitaciones | 3 baños</span>
-                <span>67 m² Totales</span>
-              </div>
-
-              <div class="card-footer">
-                <span class="card-price">$150,000</span>
-                <a href="#" class="details-btn">Ver Detalles &gt;</a>
-              </div>
-            </div>
-          </article>
-
-          <!-- TARJETA 3 -->
-          <article class="card">
-            <div class="card-image-wrapper">
-              <img src="/building.png" alt="Residencias Altos Del Mirador" class="building-img" />
-            </div>
-
-            <div class="card-content">
-              <div class="card-location">
-                <img src="/location.png" alt="Ubicación" />
-                <span>Valencia, Via Guataparo</span>
-              </div>
-
-              <button class="favorite-btn" aria-label="Añadir a favoritos">
-                <img src="/heart.png" alt="Favorito" />
-              </button>
-              <h3 class="card-title">Residencias Altos Del Mirador</h3>
-
-              <div class="card-details">
-                <span>4 habitaciones | 3 baños</span>
-                <span>67 m² Totales</span>
-              </div>
-
-              <div class="card-footer">
-                <span class="card-price">$150,000</span>
-                <a href="#" class="details-btn">Ver Detalles &gt;</a>
-              </div>
-            </div>
-          </article>
-
-          <!-- TARJETA 4 -->
-          <article class="card">
-            <div class="card-image-wrapper">
-              <img src="/building.png" alt="Residencias Altos Del Mirador" class="building-img" />
-            </div>
-
-            <div class="card-content">
-              <div class="card-location">
-                <img src="/location.png" alt="Ubicación" />
-                <span>Valencia, Via Guataparo</span>
-              </div>
-
-              <button class="favorite-btn" aria-label="Añadir a favoritos">
-                <img src="/heart.png" alt="Favorito" />
-              </button>
-
-              <h3 class="card-title">Residencias Altos Del Mirador</h3>
-
-              <div class="card-details">
-                <span>4 habitaciones | 3 baños</span>
-                <span>67 m² Totales</span>
-              </div>
-
-              <div class="card-footer">
-                <span class="card-price">$150,000</span>
-                <a href="#" class="details-btn">Ver Detalles &gt;</a>
+                <span class="card-price">{{ formatearPrecio(inmueble.precio) }}</span>
+                <router-link :to="`/details/${inmueble.id}`" class="details-btn">Ver Detalles &gt;</router-link>
               </div>
             </div>
           </article>
@@ -250,7 +144,7 @@
             <button @click="Menu" class="menu-btn">
               <span>Menu</span>
             </button> 
-            <button class="inc-btn">Iniciar Sesión</button>
+            <button @click="IniciarSesion" class="inc-btn">Iniciar Sesión</button>
 
           </nav>
         </header>
@@ -276,7 +170,7 @@
             <button @click="Menu" class="menu-btn">
               <span>Menu</span>
             </button> 
-            <button class="inc-btn">Iniciar Sesión</button>
+            <button @click="IniciarSesion" class="inc-btn">Iniciar Sesión</button>
           </nav>
       </header>
         <div class="vision-container">
@@ -344,7 +238,7 @@
   <footer class="page-6">
     <!-- boton superior derecho-->
     <div class="login-6">  
-      <button class="inc-btn">Iniciar Sesion</button>
+      <button @click="IniciarSesion" class="inc-btn">Iniciar Sesión</button>
     </div>
     <!--contenido central-->
     <div class="footer-content">
@@ -377,18 +271,39 @@
 </template>
 
 <script setup>
-import {useRouter} from 'vue-router'
+import { onMounted, ref } from 'vue'
+import { useRouter } from 'vue-router'
+
+import { useFiltros } from '@/composables/useFiltros'
+import { mensajeDeError } from '@/services/api'
+import { buscarInmuebles } from '@/services/inmuebles'
+import { formatearPrecio, IMAGEN_POR_DEFECTO } from '@/utils/formato'
 
 const router = useRouter()
+const { ciudades, tiposInmueble, errorCatalogos, filtros, buscar } = useFiltros()
 
-const Search = ()=> {
-  router.push('/search')
-}
+// Destacados: las 4 propiedades disponibles mas recientes
+const destacados = ref([])
+const cargando = ref(true)
+const error = ref('')
+
+onMounted(async () => {
+  try {
+    destacados.value = (await buscarInmuebles()).slice(0, 4)
+  } catch (e) {
+    error.value = mensajeDeError(e)
+  } finally {
+    cargando.value = false
+  }
+})
 
 const Menu = ()=> {
   router.push('/menu')
 }
-// Lógica de JavaScript / Vue (si es necesaria)
+
+const IniciarSesion = ()=> {
+  router.push('/signin')
+}
 </script>
 
 <style scoped src= "./style.css"></style>
