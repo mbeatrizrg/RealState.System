@@ -13,7 +13,7 @@ public class TipoInmueble {
     @Id 
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Column (length = 255,nullable = false)
+    @Column (name = "tipo", nullable = false) //En Supabase la columna se llama "tipo"
     private String nombre;
     public Integer getId() {
         return id;

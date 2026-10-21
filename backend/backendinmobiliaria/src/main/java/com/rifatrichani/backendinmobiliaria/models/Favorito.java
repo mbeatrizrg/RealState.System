@@ -1,9 +1,5 @@
 package com.rifatrichani.backendinmobiliaria.models;
 
-import java.time.LocalDateTime;
-
-import org.hibernate.annotations.CreationTimestamp;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -14,10 +10,10 @@ import jakarta.persistence.Table;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.FetchType;
 
-@Entity 
-@Table (name = "favorito")
+@Entity
+@Table (name = "favoritos")
 public class Favorito {
-    @Id 
+    @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Integer id;
     @ManyToOne (fetch = FetchType.LAZY)
@@ -26,10 +22,9 @@ public class Favorito {
     @ManyToOne (fetch = FetchType.LAZY)
     @JoinColumn (name = "id_inmueble" , nullable = false)
     private Inmueble inmueble;
-    @CreationTimestamp 
-    @Column (name = "fecha_creacion" ,updatable = false)
-    private LocalDateTime fechaCreacion; //Le agregue este campo porque considero que esta informacion podria ser util
-    //luego explico si no se me olvida
+    //Indica si el favorito sigue activo
+    @Column (nullable = false)
+    private Boolean favorito;
     public Integer getId() {
         return id;
     }
@@ -48,11 +43,10 @@ public class Favorito {
     public void setInmueble(Inmueble inmueble) {
         this.inmueble = inmueble;
     }
-    public LocalDateTime getFechaCreacion() {
-        return fechaCreacion;
+    public Boolean getFavorito() {
+        return favorito;
     }
-    public void setFechaCreacion(LocalDateTime fechaCreacion) {
-        this.fechaCreacion = fechaCreacion;
+    public void setFavorito(Boolean favorito) {
+        this.favorito = favorito;
     }
-    
 }

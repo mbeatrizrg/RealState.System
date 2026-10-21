@@ -1,8 +1,5 @@
 package com.rifatrichani.backendinmobiliaria.models;
 
-import java.math.BigDecimal;
-import java.util.Set;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -10,31 +7,30 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
-@Entity 
-@Table (name = "inmueble")
+//Los nombres entre comillas respetan mayusculas y tildes de la tabla en Supabase
+@Entity
+@Table (name = "\"Inmueble\"")
 public class Inmueble {
-    @Id 
+    @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Column (length = 500)
+    @Column (nullable = false)
     private String titulo;
-    @Column 
-    private BigDecimal precio;
-    @Column (unique = true)
+    @Column (nullable = false)
+    private Integer precio;
+    @Column (name = "\"RRBR\"", nullable = false, unique = true)
     private String rrbr;
-    @ManyToMany (fetch = FetchType.LAZY)
-    @JoinTable (name =  "extra_inmueble",
-        joinColumns = @JoinColumn (name = "id_inmueble"),
-        inverseJoinColumns = @JoinColumn (name = "id_extras")
-    )
-    private Set<Extra> extras;
+    @Column (name = "\"ubicación\"", nullable = false)
+    private String ubicacion;
+    //En Supabase cada inmueble tiene un solo extra (columna id_extras)
+    @ManyToOne (fetch = FetchType.LAZY)
+    @JoinColumn (name = "id_extras", nullable = false)
+    private Extra extra;
     @ManyToOne  (fetch=FetchType.LAZY)
-    @JoinColumn (name = "id_tipo_inmueble", nullable = false)
+    @JoinColumn (name = "id_tipo", nullable = false)
     private TipoInmueble tipoInmueble;
     @ManyToOne (fetch = FetchType.LAZY)
     @JoinColumn (name = "id_estatus_inmueble", nullable = false)
@@ -42,11 +38,15 @@ public class Inmueble {
     @ManyToOne (fetch = FetchType.LAZY)
     @JoinColumn (name = "id_vendedor", nullable=false)
     private Empleado empleado;
-    @Column (columnDefinition = "TEXT")
+    @Column (columnDefinition = "TEXT", nullable = false)
     private String descripcion;
     @ManyToOne (fetch = FetchType.LAZY)
-    @JoinColumn (name = "id_ciudad")
+    @JoinColumn (name = "id_ciudad", nullable = false)
     private Ciudad ciudad;
+    @Column (name = "\"isVendido\"", nullable = false)
+    private Boolean vendido;
+    @Column (name = "\"isAlquiler\"", nullable = false)
+    private Boolean alquiler;
     public Integer getId() {
         return id;
     }
@@ -59,10 +59,10 @@ public class Inmueble {
     public void setTitulo(String titulo) {
         this.titulo = titulo;
     }
-    public BigDecimal getPrecio() {
+    public Integer getPrecio() {
         return precio;
     }
-    public void setPrecio(BigDecimal precio) {
+    public void setPrecio(Integer precio) {
         this.precio = precio;
     }
     public String getRrbr() {
@@ -71,11 +71,17 @@ public class Inmueble {
     public void setRrbr(String rrbr) {
         this.rrbr = rrbr;
     }
-    public Set<Extra> getExtras() {
-        return extras;
+    public String getUbicacion() {
+        return ubicacion;
     }
-    public void setExtras(Set<Extra> extras) {
-        this.extras = extras;
+    public void setUbicacion(String ubicacion) {
+        this.ubicacion = ubicacion;
+    }
+    public Extra getExtra() {
+        return extra;
+    }
+    public void setExtra(Extra extra) {
+        this.extra = extra;
     }
     public TipoInmueble getTipoInmueble() {
         return tipoInmueble;
@@ -107,6 +113,16 @@ public class Inmueble {
     public void setCiudad(Ciudad ciudad) {
         this.ciudad = ciudad;
     }
-    
-    
+    public Boolean getVendido() {
+        return vendido;
+    }
+    public void setVendido(Boolean vendido) {
+        this.vendido = vendido;
+    }
+    public Boolean getAlquiler() {
+        return alquiler;
+    }
+    public void setAlquiler(Boolean alquiler) {
+        this.alquiler = alquiler;
+    }
 }

@@ -19,7 +19,7 @@ public class Galeria {
     @ManyToOne (fetch = FetchType.LAZY)
     @JoinColumn (name = "id_inmueble",nullable = false)
     private Inmueble inmueble;
-    @Column (unique = true,length = 500)
+    @Column (name = "foto", nullable = false) //URL de la imagen, en Supabase la columna se llama "foto"
     private String urlImagen;
     public Integer getId() {
         return id;

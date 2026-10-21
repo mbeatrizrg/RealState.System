@@ -26,9 +26,9 @@ public class Comunicacion {
     @JoinColumn (name = "id_lead",nullable = false)
     private Lead lead;
     @CreationTimestamp 
-    @Column (name = "fecha_creacion",updatable = false)
+    @Column (name = "fecha_comunicacion", nullable = false, updatable = false)
     private LocalDateTime fechaCreacion;
-    @Column (columnDefinition = "TEXT")
+    @Column (columnDefinition = "TEXT", nullable = false)
     private String descripcion;
     public Integer getId() {
         return id;

@@ -10,25 +10,28 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-@Entity 
+@Entity
 @Table (name = "vistos")
 public class Visto {
-    @Id 
+    @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
-    private Long id;
-    @ManyToOne(fetch = FetchType.LAZY) 
-    @JoinColumn  (name = "id_usuario",nullable = true)
+    private Integer id;
+    //En Supabase id_usuario es NOT NULL: solo se registran vistas de usuarios con sesion iniciada
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn  (name = "id_usuario",nullable = false)
     private Usuario usuario;
     @ManyToOne (fetch = FetchType.LAZY)
     @JoinColumn (name = "id_inmueble",nullable = false)
     private Inmueble inmueble;
-    @CreationTimestamp 
-    @Column (name = "fecha_vista", updatable = false)
+    @CreationTimestamp
+    @Column (name = "fecha_visto", updatable = false)
     private LocalDateTime fechaVista;
-    public Long getId() {
+    @Column (nullable = false)
+    private Boolean visto;
+    public Integer getId() {
         return id;
     }
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
     public Usuario getUsuario() {
@@ -49,6 +52,10 @@ public class Visto {
     public void setFechaVista(LocalDateTime fechaVista) {
         this.fechaVista = fechaVista;
     }
-    
-
+    public Boolean getVisto() {
+        return visto;
+    }
+    public void setVisto(Boolean visto) {
+        this.visto = visto;
+    }
 }

@@ -8,24 +8,30 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table (name = "usuario") 
+@Table (name = "\"Usuario\"")
 public class Usuario {
-    @Id 
+    @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
-    private Long id;
-    @Column (length = 255)
+    private Integer id;
+    @Column (nullable = false)
     private String nombre;
-    @Column (length = 255)
+    @Column (nullable = false)
     private String apellido;
-    @Column (length = 255)
+    @Column (nullable = false)
     private String telefono;
-    @Column (length = 255, unique = true,nullable = false)
+    @Column (unique = true,nullable = false)
     private String correo;
+    //Tipo de operacion que busca el cliente (compra, alquiler, venta)
+    @Column (nullable = false)
+    private String tipoNegocio;
+    //Codigo de verificacion del correo
+    @Column (name = "codverif")
+    private Integer codVerif;
     public Usuario(){}
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
     public String getNombre() {
@@ -52,6 +58,16 @@ public class Usuario {
     public void setCorreo(String correo) {
         this.correo = correo;
     }
-    
-
+    public String getTipoNegocio() {
+        return tipoNegocio;
+    }
+    public void setTipoNegocio(String tipoNegocio) {
+        this.tipoNegocio = tipoNegocio;
+    }
+    public Integer getCodVerif() {
+        return codVerif;
+    }
+    public void setCodVerif(Integer codVerif) {
+        this.codVerif = codVerif;
+    }
 }

@@ -12,7 +12,7 @@ public class Ciudad {
     @Id 
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Column (length = 255, nullable = false)
+    @Column (name = "ciudad", nullable = false) //En Supabase la columna se llama "ciudad"
     private String nombre;
     public Integer getId() {
         return id;

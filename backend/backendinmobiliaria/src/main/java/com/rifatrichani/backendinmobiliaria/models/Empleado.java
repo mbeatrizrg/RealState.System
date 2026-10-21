@@ -1,45 +1,35 @@
 package com.rifatrichani.backendinmobiliaria.models;
 
-import java.math.BigInteger;
 import java.time.LocalDateTime;
-
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
-@Entity 
-@Table 
+@Entity
+@Table (name = "\"Empleado\"")
 public class Empleado {
-    @Id 
+    @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Column (length = 255)
+    @Column (nullable = false)
     private String nombre;
-    @Column (length = 255)
-    private String apellido;
-    @Column (unique = true)
-    private BigInteger cedula;
-    @ManyToOne (fetch = FetchType.LAZY)
-    @JoinColumn (name = "id_tipo_cedula")
-    private TipoCedula tipoCedula;
-    @Column (length = 255)
-    private String contrasena;
-    @Column (length = 500)
-    private String correo;
     @Column
-    private Boolean esAdmin; 
-    @Column (name = "ultima_entrada")
-    private LocalDateTime fechaEntrada; 
+    private String apellido;
+    @Column (name = "ci", unique = true, nullable = false)
+    private Integer cedula;
+    @Column (nullable = false)
+    private String correo;
+    @Column (name = "administrador", nullable = false)
+    private Boolean esAdmin;
     // Se obvia el @CreationTimeStamp ya que esto lo hace siempre que se cree la entidad del sistema, y no se actualiza
     //por lo que es mejor controlarla manualmente
-    @Column (name = "ultima_salida")
+    @Column (name = "fecha_entrada", nullable = false)
+    private LocalDateTime fechaEntrada;
+    @Column (name = "fecha_salida", nullable = false)
     private LocalDateTime salidaSistema;
     public Integer getId() {
         return id;
@@ -59,23 +49,11 @@ public class Empleado {
     public void setApellido(String apellido) {
         this.apellido = apellido;
     }
-    public BigInteger getCedula() {
+    public Integer getCedula() {
         return cedula;
     }
-    public void setCedula(BigInteger cedula) {
+    public void setCedula(Integer cedula) {
         this.cedula = cedula;
-    }
-    public TipoCedula getTipoCedula() {
-        return tipoCedula;
-    }
-    public void setTipoCedula(TipoCedula tipoCedula) {
-        this.tipoCedula = tipoCedula;
-    }
-    public String getContrasena() {
-        return contrasena;
-    }
-    public void setContrasena(String contrasena) {
-        this.contrasena = contrasena;
     }
     public String getCorreo() {
         return correo;
@@ -101,6 +79,4 @@ public class Empleado {
     public void setSalidaSistema(LocalDateTime salidaSistema) {
         this.salidaSistema = salidaSistema;
     }
-    
-    
 }
