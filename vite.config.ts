@@ -8,7 +8,11 @@ import vueDevTools from 'vite-plugin-vue-devtools'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [
-    vue(),
+    vue({
+      // En los tests (Vitest) las rutas absolutas como /icon.png no deben convertirse en imports,
+      // porque el runner no resuelve la carpeta public/ y la suite falla al cargar
+      template: { transformAssetUrls: { includeAbsolute: !process.env.VITEST } },
+    }),
     vueJsx(),
     vueDevTools(),
   ],
