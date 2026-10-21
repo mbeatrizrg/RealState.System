@@ -32,7 +32,5 @@ build/
 ### VS Code ###
 .vscode/
 
-*.cmd
-mvnw
 ### Variables de entorno (credenciales de Supabase) ###
 .env
