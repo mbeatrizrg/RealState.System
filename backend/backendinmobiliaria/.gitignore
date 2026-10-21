@@ -34,3 +34,5 @@ build/
 
 *.cmd
 mvnw
+### Variables de entorno (credenciales de Supabase) ###
+.env

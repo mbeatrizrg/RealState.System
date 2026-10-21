@@ -1,5 +1,7 @@
 package com.rifatrichani.backendinmobiliaria.services.impl;
 
+import org.springframework.stereotype.Service;
+
 import com.rifatrichani.backendinmobiliaria.dto.request.LeadRequestDTO;
 import com.rifatrichani.backendinmobiliaria.models.Lead;
 import com.rifatrichani.backendinmobiliaria.repositories.EmpleadoRepository;
@@ -9,6 +11,7 @@ import com.rifatrichani.backendinmobiliaria.repositories.UsuarioRepository;
 import com.rifatrichani.backendinmobiliaria.services.LeadService;
 import jakarta.transaction.Transactional;
 
+@Service 
 public class LeadServiceImpl implements LeadService{
     private final LeadRepository leadRepository;
     private final UsuarioRepository usuarioRepository;

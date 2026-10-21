@@ -3,6 +3,7 @@ package com.rifatrichani.backendinmobiliaria.controllers;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -17,6 +18,7 @@ public class ExtraController {
     public ExtraController(ExtraService es){
         this.extraService = es;
     }
+    @GetMapping 
     public List<ExtraResponseDTO> obtenerTodos(){
         return extraService.obtenerExtras();
     }
