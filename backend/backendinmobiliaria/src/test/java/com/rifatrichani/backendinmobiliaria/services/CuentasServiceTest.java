@@ -27,6 +27,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import com.rifatrichani.backendinmobiliaria.dto.request.CambioCorreoDTO;
 import com.rifatrichani.backendinmobiliaria.dto.request.RecuperarContrasenaDTO;
 import com.rifatrichani.backendinmobiliaria.dto.request.RestablecerContrasenaDTO;
+import com.rifatrichani.backendinmobiliaria.dto.request.UsuarioRegistroDTO;
 import com.rifatrichani.backendinmobiliaria.models.Usuario;
 import com.rifatrichani.backendinmobiliaria.repositories.EmpleadoRepository;
 import com.rifatrichani.backendinmobiliaria.repositories.UsuarioRepository;
@@ -147,5 +148,30 @@ class CuentasServiceTest {
         usuarioService.confirmarCambioCorreo(1, codigoEnviado.get());
         assertEquals("nuevo@correo.com", usuario.getCorreo());
         assertNull(usuario.getCorreoPendiente());
+    }
+
+    private UsuarioRegistroDTO registro(int cedula) {
+        UsuarioRegistroDTO dto = new UsuarioRegistroDTO();
+        dto.setNombre("Luis");
+        dto.setApellido("Pérez");
+        dto.setTelefono("04145555555");
+        dto.setCorreo("luis@correo.com");
+        dto.setCedula(cedula);
+        dto.setContrasena("ClaveSegura123");
+        return dto;
+    }
+
+    @Test
+    void elRegistroGuardaLaCedula() {
+        authServices.registrarUsuario(registro(12345678));
+        verify(usuarioRepository).save(org.mockito.ArgumentMatchers.argThat(u -> Integer.valueOf(12345678).equals(u.getCedula())));
+    }
+
+    @Test
+    void elRegistroRechazaUnaCedulaRepetida() {
+        when(usuarioRepository.existsByCedula(12345678)).thenReturn(true);
+        IllegalArgumentException error = assertThrows(IllegalArgumentException.class, () -> authServices.registrarUsuario(registro(12345678)));
+        assertEquals("La cédula ya se encuentra registrada.", error.getMessage());
+        verify(usuarioRepository, never()).save(any());
     }
 }

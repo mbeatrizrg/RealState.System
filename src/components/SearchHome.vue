@@ -22,6 +22,20 @@
       <!-- Barra de Filtros / Búsqueda -->
       <section class="background">
         <div class="filter-bar2">
+          <div class="filter-group2 filter-texto">
+            <label for="q">Buscar</label>
+            <input
+              class="filter-input2"
+              type="search"
+              id="q"
+              name="q"
+              maxlength="100"
+              placeholder="Título, zona o código RRBR"
+              v-model="filtros.q"
+              @keyup.enter="buscar"
+            />
+          </div>
+
           <div class="filter-group2">
             <label for="locacion">Locación</label>
             <select id="locacion" name="locacion" v-model="filtros.ciudadId">
@@ -39,22 +53,9 @@
           </div>
 
           <div class="filter-group2">
-            <label for="precio">Precio máximo</label>
-            <input
-              class="filter-input2"
-              type="number"
-              id="precio"
-              min="0"
-              max="100000000"
-              name="precio"
-              placeholder="Ej: 15000"
-              v-model="filtros.maxPrecio"
-            />
-          </div>
-
-          <div class="filter-group2">
             <label for="modalidad">Alquiler o Compra</label>
             <select id="modalidad" name="modalidad" v-model="filtros.modalidad">
+              <option value="">Todas</option>
               <option value="compra">Compra</option>
               <option value="alquiler">Alquiler</option>
             </select>
@@ -64,6 +65,27 @@
             <span>Buscar Propiedad</span>
           </button>
         </div>
+
+        <!-- Filtros secundarios: rango de precio y orden -->
+        <div class="filter-extra">
+          <div class="filter-group2">
+            <label for="precio-min">Precio mínimo</label>
+            <input class="filter-input2" type="number" id="precio-min" min="0" placeholder="Ej: 5000" v-model="filtros.minPrecio" @keyup.enter="buscar" />
+          </div>
+          <div class="filter-group2">
+            <label for="precio">Precio máximo</label>
+            <input class="filter-input2" type="number" id="precio" min="0" max="100000000" name="precio" placeholder="Ej: 15000" v-model="filtros.maxPrecio" @keyup.enter="buscar" />
+          </div>
+          <div class="filter-group2">
+            <label for="orden">Ordenar por</label>
+            <select id="orden" v-model="filtros.orden" @change="buscar">
+              <option value="recientes">Más recientes</option>
+              <option value="precio_asc">Menor precio</option>
+              <option value="precio_desc">Mayor precio</option>
+            </select>
+          </div>
+          <button class="clear-btn" @click="limpiarFiltros">Limpiar filtros</button>
+        </div>
         <p v-if="errorCatalogos" class="estado-msg">No se pudieron cargar los filtros: {{ errorCatalogos }}</p> 
       </section>
     </main>
@@ -72,10 +94,11 @@
         <p v-if="cargando" class="estado-msg">Buscando propiedades...</p>
         <p v-else-if="error" class="estado-msg">No se pudo realizar la búsqueda: {{ error }}</p>
         <p v-else-if="inmuebles.length === 0" class="estado-msg">No encontramos propiedades con esos filtros.</p>
+        <p v-else class="estado-msg resumen">{{ totalElementos }} {{ totalElementos === 1 ? 'propiedad encontrada' : 'propiedades encontradas' }}</p>
 
         <article v-for="inmueble in inmuebles" :key="inmueble.id" class="card2">
             <div class="img-card">
-              <img :src="inmueble.urlImagenPrincipal || IMAGEN_POR_DEFECTO" :alt="inmueble.titulo" class="building2-img" />
+              <img :src="urlImagen(inmueble.urlImagenPrincipal)" :alt="inmueble.titulo" class="building2-img" />
             </div>
 
             <div class="content2">
@@ -92,7 +115,7 @@
               <h3 class="card-title">{{ inmueble.titulo }}</h3>
 
               <div class="details-card">
-                <span>{{ inmueble.tipoInmueble }}</span>
+                <span>{{ inmueble.tipoInmueble }} | {{ inmueble.estatusInmueble }}</span>
               </div>
 
               <div class="footer-card">
@@ -102,6 +125,13 @@
             </div>
           </article>
       </section>
+
+      <Paginacion
+        v-if="!cargando && !error"
+        :pagina="pagina"
+        :total-paginas="totalPaginas"
+        @cambiar="irAPagina"
+      />
 
         <div class="menu-container" :class="{ 'open': isMenuOpen }">
     <!-- Navegación superior -->
@@ -134,26 +164,33 @@
 import { ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 
+import Paginacion from '@/components/Paginacion.vue'
 import { useFiltros } from '@/composables/useFiltros'
 import { mensajeDeError } from '@/services/api'
 import { buscarInmuebles } from '@/services/inmuebles'
-import { formatearPrecio, IMAGEN_POR_DEFECTO } from '@/utils/formato'
+import { formatearPrecio, urlImagen } from '@/utils/formato'
 
 const route = useRoute()
 const router = useRouter()
-const { ciudades, tiposInmueble, errorCatalogos, filtros, leerFiltrosDeUrl, filtrosParaApi, buscar } = useFiltros()
+const { ciudades, tiposInmueble, errorCatalogos, filtros, pagina, leerFiltrosDeUrl, filtrosParaApi, buscar, irAPagina, limpiarFiltros } = useFiltros()
 
 const inmuebles = ref([])
+const totalPaginas = ref(0)
+const totalElementos = ref(0)
 const cargando = ref(false)
 const error = ref('')
 
-// Cada vez que cambian los filtros en la URL se repite la busqueda
+// Cada vez que cambian los filtros o la pagina en la URL se repite la busqueda
 watch(() => route.query, async () => {
   leerFiltrosDeUrl()
   cargando.value = true
   error.value = ''
   try {
-    inmuebles.value = await buscarInmuebles(filtrosParaApi())
+    const resultado = await buscarInmuebles(filtrosParaApi())
+    inmuebles.value = resultado.contenido
+    totalPaginas.value = resultado.totalPaginas
+    totalElementos.value = resultado.totalElementos
+    window.scrollTo?.({ top: 0, behavior: 'smooth' })
   } catch (e) {
     error.value = mensajeDeError(e)
   } finally {

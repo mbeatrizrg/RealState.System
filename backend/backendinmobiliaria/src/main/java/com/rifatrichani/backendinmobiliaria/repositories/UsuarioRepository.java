@@ -15,5 +15,6 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
            "OR LOWER(us.nombre) LIKE LOWER(CONCAT('%', :termino, '%')) OR LOWER(us.apellido) LIKE LOWER(CONCAT('%', :termino, '%'))")
     List<Usuario> buscarPorTermino(@Param("termino") String termino);
     boolean existsByCorreoIgnoreCase(String correo);
+    boolean existsByCedula(Integer cedula);
     Optional<Usuario> findByCorreoIgnoreCase(String correo);
 }

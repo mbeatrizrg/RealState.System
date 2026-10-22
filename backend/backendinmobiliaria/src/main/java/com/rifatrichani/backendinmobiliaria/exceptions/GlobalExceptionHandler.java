@@ -18,6 +18,8 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
+import org.springframework.web.multipart.MultipartException;
 
 import com.rifatrichani.backendinmobiliaria.security.LimitadorIntentosLogin.IntentosExcedidosException;
 
@@ -77,6 +79,17 @@ public class GlobalExceptionHandler {
     @ExceptionHandler({HttpMessageNotReadableException.class, MethodArgumentTypeMismatchException.class})
     public ResponseEntity<Map<String, Object>> manejarPeticionMalFormada(Exception ex) {
         return construirRespuesta(HttpStatus.BAD_REQUEST, "La petición tiene un formato inválido.");
+    }
+
+    //Fotos de la galeria: archivo o peticion mas grande que spring.servlet.multipart.max-file-size / max-request-size
+    @ExceptionHandler(MaxUploadSizeExceededException.class)
+    public ResponseEntity<Map<String, Object>> manejarArchivoGrande(MaxUploadSizeExceededException ex) {
+        return construirRespuesta(HttpStatus.CONTENT_TOO_LARGE, "Las imágenes son demasiado grandes: máximo 5 MB cada una.");
+    }
+
+    @ExceptionHandler(MultipartException.class)
+    public ResponseEntity<Map<String, Object>> manejarMultipart(MultipartException ex) {
+        return construirRespuesta(HttpStatus.BAD_REQUEST, "No se pudieron leer los archivos enviados.");
     }
 
     //Ej. una llave foranea que no existe o un valor unico repetido. No se expone el detalle SQL al cliente

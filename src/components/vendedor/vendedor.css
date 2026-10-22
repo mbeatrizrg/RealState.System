@@ -319,3 +319,95 @@
   display: block;
   margin: 0 auto;
 }
+
+/* ===== Inventario: filtros, estados y acciones ===== */
+.icon-chevron {
+  transition: transform 0.2s ease;
+}
+
+.icon-chevron.abierto {
+  transform: rotate(90deg);
+}
+
+.filtros-panel {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 16px 20px;
+  align-items: end;
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 20px 24px;
+}
+
+.filtro {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.filtro label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #0b1f46;
+}
+
+.filtro select,
+.filtro input {
+  background-color: #0c1452;
+  color: #ffffff;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 12px;
+  font-size: 14px;
+  outline: none;
+}
+
+.filtro input::placeholder {
+  color: #92abde;
+}
+
+.filtro-check {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: #0b1f46;
+  cursor: pointer;
+  padding-bottom: 10px;
+}
+
+.btn-limpiar {
+  background: transparent;
+  color: #0b1f46;
+  border: 1px solid #0b1f46;
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.estado-msg {
+  text-align: center;
+  color: #0b1f46;
+  font-size: 16px;
+}
+
+.estatus {
+  font-weight: 600;
+  color: #166534;
+}
+
+.estatus.vendido {
+  color: #991b1b;
+}
+
+.card-acciones {
+  display: flex;
+  gap: 6px;
+}
+
+.details-btn.secundario {
+  background-color: transparent;
+  color: #0b1f46;
+  border: 1px solid #0b1f46;
+}

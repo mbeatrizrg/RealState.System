@@ -12,6 +12,8 @@ public interface GaleriaRepository extends JpaRepository<Galeria,Integer>{
     List<Galeria> findByInmuebleIdOrderByIdAsc(Integer inmuebleId);
     //Trae las imagenes de varios inmuebles en una sola consulta (para las tarjetas)
     List<Galeria> findByInmuebleIdInOrderByIdAsc(Collection<Integer> inmuebleIds);
+    //Para validar el maximo de fotos por inmueble
+    long countByInmuebleId(Integer inmuebleId);
     //Imagen principal de un solo inmueble (favoritos)
     Optional<Galeria> findFirstByInmuebleIdOrderByIdAsc(Integer inmuebleId);
 }

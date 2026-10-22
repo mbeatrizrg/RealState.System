@@ -7,6 +7,7 @@ public class UsuarioResponseDTO {
     private String apellido;
     private String correo;
     private String telefono;
+    private Integer cedula;
     private String tipoNegocio;
     private Boolean verificado;
 
@@ -24,4 +25,6 @@ public class UsuarioResponseDTO {
     public void setTipoNegocio(String tipoNegocio) { this.tipoNegocio = tipoNegocio; }
     public Boolean getVerificado() { return verificado; }
     public void setVerificado(Boolean verificado) { this.verificado = verificado; }
+    public Integer getCedula() { return cedula; }
+    public void setCedula(Integer cedula) { this.cedula = cedula; }
 }

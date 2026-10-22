@@ -5,12 +5,18 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.rifatrichani.backendinmobiliaria.dto.request.FiltroInmuebleDTO;
 import com.rifatrichani.backendinmobiliaria.dto.request.InmuebleRequestDTO;
+import com.rifatrichani.backendinmobiliaria.dto.response.ImagenResponseDTO;
 import com.rifatrichani.backendinmobiliaria.dto.response.InmuebleDetalleResponseDTO;
 import com.rifatrichani.backendinmobiliaria.dto.response.InmuebleListResponseDTO;
+import com.rifatrichani.backendinmobiliaria.dto.response.PaginaResponseDTO;
 import com.rifatrichani.backendinmobiliaria.exceptions.ResourceNotFoundException;
 import com.rifatrichani.backendinmobiliaria.models.Empleado;
 import com.rifatrichani.backendinmobiliaria.models.Galeria;
@@ -19,6 +25,7 @@ import com.rifatrichani.backendinmobiliaria.repositories.CiudadRepository;
 import com.rifatrichani.backendinmobiliaria.repositories.EmpleadoRepository;
 import com.rifatrichani.backendinmobiliaria.repositories.ExtraRepository;
 import com.rifatrichani.backendinmobiliaria.repositories.GaleriaRepository;
+import com.rifatrichani.backendinmobiliaria.repositories.InmuebleEspecificaciones;
 import com.rifatrichani.backendinmobiliaria.repositories.InmuebleRepository;
 import com.rifatrichani.backendinmobiliaria.repositories.TipoInmuebleRepository;
 import com.rifatrichani.backendinmobiliaria.security.ControlAcceso;
@@ -59,20 +66,34 @@ public class InmuebleServiceImpl implements InmuebleService {
         return inmuebleRepository.save(inmueble).getId();
     }
 
-    //CRM: todos los inmuebles, o solo los de un vendedor si se indica
+    //CRM: todos los inmuebles (incluidos los vendidos) con los filtros recibidos
     @Override
     @Transactional(readOnly = true)
-    public List<InmuebleListResponseDTO> obtenerTodosCRM(Integer soloDelEmpleadoId) {
-        List<Inmueble> inmuebles = soloDelEmpleadoId == null
-                ? inmuebleRepository.obtenerTodosCrm()
-                : inmuebleRepository.findByEmpleadoIdOrderByIdDesc(soloDelEmpleadoId);
-        return mapearListaResponseDTO(inmuebles);
+    public PaginaResponseDTO<InmuebleListResponseDTO> buscarCrm(FiltroInmuebleDTO filtro) {
+        return buscar(filtro);
     }
 
+    //Portal publico: nunca muestra inmuebles vendidos ni permite filtrar por vendedor
     @Override
     @Transactional(readOnly = true)
-    public List<InmuebleListResponseDTO> buscarPorFiltros(Integer ciudadId, Integer tipoInmuebleId, Boolean isAlquiler, Integer minPrecio, Integer maxPrecio) {
-        return mapearListaResponseDTO(inmuebleRepository.buscarPorFiltrosMultiples(ciudadId, tipoInmuebleId, isAlquiler, minPrecio, maxPrecio));
+    public PaginaResponseDTO<InmuebleListResponseDTO> buscarPublico(FiltroInmuebleDTO filtro) {
+        filtro.setVendido(false);
+        filtro.setEmpleadoId(null);
+        return buscar(filtro);
+    }
+
+    private PaginaResponseDTO<InmuebleListResponseDTO> buscar(FiltroInmuebleDTO filtro) {
+        int tamano = Math.min(Math.max(filtro.getTamano(), 1), FiltroInmuebleDTO.TAMANO_MAXIMO);
+        PageRequest pagina = PageRequest.of(Math.max(filtro.getPagina(), 0), tamano, ordenar(filtro.getOrden()));
+        Page<Inmueble> resultado = inmuebleRepository.findAll(InmuebleEspecificaciones.conFiltros(filtro), pagina);
+        return PaginaResponseDTO.de(resultado, this::mapearListaResponseDTO);
+    }
+
+    //El id desempata para que la paginacion sea estable (sin repetidos ni saltos entre paginas)
+    private Sort ordenar(String orden) {
+        if ("precio_asc".equals(orden)) return Sort.by(Sort.Order.asc("precio"), Sort.Order.desc("id"));
+        if ("precio_desc".equals(orden)) return Sort.by(Sort.Order.desc("precio"), Sort.Order.desc("id"));
+        return Sort.by(Sort.Order.desc("id"));
     }
 
     @Override
@@ -94,9 +115,10 @@ public class InmuebleServiceImpl implements InmuebleService {
         Empleado vendedor = inmueble.getEmpleado();
         dto.setNombreEmpleado(vendedor.getNombre() + (vendedor.getApellido() != null ? " " + vendedor.getApellido() : ""));
         dto.setExtras(inmueble.getExtra() == null ? List.of() : List.of(inmueble.getExtra().getNombre()));
-        dto.setUrlsGaleria(galeriaRepository.findByInmuebleIdOrderByIdAsc(id).stream()
-                .map(Galeria::getUrlImagen)
-                .collect(Collectors.toList()));
+        List<Galeria> galeria = galeriaRepository.findByInmuebleIdOrderByIdAsc(id);
+        dto.setUrlsGaleria(galeria.stream().map(Galeria::getUrlImagen).collect(Collectors.toList()));
+        dto.setImagenes(galeria.stream().map(g -> new ImagenResponseDTO(g.getId(), g.getUrlImagen())).collect(Collectors.toList()));
+        dto.setEmpleadoId(vendedor.getId());
         return dto;
     }
 

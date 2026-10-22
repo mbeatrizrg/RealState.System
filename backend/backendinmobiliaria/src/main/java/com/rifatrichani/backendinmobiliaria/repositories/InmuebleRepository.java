@@ -1,38 +1,34 @@
 package com.rifatrichani.backendinmobiliaria.repositories;
 
-import java.util.List;
+import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.jpa.repository.Lock;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import com.rifatrichani.backendinmobiliaria.models.Inmueble;
 
-public interface InmuebleRepository extends JpaRepository<Inmueble,Integer>{
+import jakarta.persistence.LockModeType;
+
+public interface InmuebleRepository extends JpaRepository<Inmueble,Integer>, JpaSpecificationExecutor<Inmueble> {
 
     boolean existsByRrbr(String rrbr);
     boolean existsByRrbrAndIdNot(String rrbr, Integer id);
 
-    //Busqueda del portal publico, todos los filtros son opcionales. Nunca muestra inmuebles vendidos
+    //Listados paginados del portal y del CRM (los filtros se arman en InmuebleEspecificaciones)
+    @Override
     @EntityGraph(attributePaths = {"ciudad", "tipoInmueble"})
-    @Query("SELECT i FROM Inmueble i WHERE " +
-            "(:ciudadId IS NULL OR i.ciudad.id = :ciudadId) AND " +
-            "(:tipoInmuebleId IS NULL OR i.tipoInmueble.id = :tipoInmuebleId) AND " +
-            "(:isAlquiler IS NULL OR i.alquiler = :isAlquiler) AND " +
-            "(:minPrecio IS NULL OR i.precio >= :minPrecio) AND " +
-            "(:maxPrecio IS NULL OR i.precio <= :maxPrecio) AND " +
-            "i.vendido = false ORDER BY i.id DESC")
-    List<Inmueble> buscarPorFiltrosMultiples(@Param("ciudadId") Integer ciudadId, @Param("tipoInmuebleId") Integer tipoInmuebleId,
-            @Param("isAlquiler") Boolean isAlquiler,
-            @Param("minPrecio") Integer minPrecio, @Param("maxPrecio") Integer maxPrecio);
+    Page<Inmueble> findAll(Specification<Inmueble> spec, Pageable pageable);
 
-    //CRM: todos los inmuebles (incluidos los vendidos)
-    @EntityGraph(attributePaths = {"ciudad", "tipoInmueble"})
-    @Query("SELECT i FROM Inmueble i ORDER BY i.id DESC")
-    List<Inmueble> obtenerTodosCrm();
-
-    //CRM: inmuebles a cargo de un vendedor
-    @EntityGraph(attributePaths = {"ciudad", "tipoInmueble"})
-    List<Inmueble> findByEmpleadoIdOrderByIdDesc(Integer empleadoId);
+    /* Bloquea la fila del inmueble hasta el fin de la transaccion. Se usa al agregar fotos: dos subidas simultaneas
+       no pueden contar las fotos al mismo tiempo y pasarse del maximo permitido */
+    @Lock(LockModeType.PESSIMISTIC_WRITE)
+    @Query("SELECT i FROM Inmueble i WHERE i.id = :id")
+    Optional<Inmueble> bloquearPorId(@Param("id") Integer id);
 }

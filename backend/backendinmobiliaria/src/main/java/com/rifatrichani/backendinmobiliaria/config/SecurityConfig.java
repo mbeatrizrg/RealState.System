@@ -13,6 +13,8 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -36,6 +38,15 @@ public class SecurityConfig {
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    /* La autenticacion la hace el JwtAuthenticationFilter contra la base de datos. Sin este bean Spring Boot crea un
+       usuario "user" en memoria con una contraseña aleatoria que aparece en el log */
+    @Bean
+    public UserDetailsService sinUsuariosEnMemoria() {
+        return nombre -> {
+            throw new UsernameNotFoundException("Autenticación solo por token JWT");
+        };
     }
 
     //El filtro JWT es un @Component; sin esto Spring Boot lo registraria tambien como filtro global del servidor (fuera de Spring Security)
@@ -74,6 +85,8 @@ public class SecurityConfig {
                 // 3. Portal publico: catalogos para los filtros y consulta de inmuebles
                 .requestMatchers(HttpMethod.GET, "/api/ciudad/**", "/api/tipo_inmueble/**", "/api/extras/**").permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/inmueble/buscar", "/api/inmueble/{id}").permitAll()
+                //Fotos subidas desde el CRM (solo lectura; subirlas requiere /api/galeria)
+                .requestMatchers(HttpMethod.GET, "/uploads/inmuebles/**").permitAll()
                 //Telemetria del detalle: se acepta anonima pero solo se guarda si hay un usuario con sesion (ver VistoController)
                 .requestMatchers(HttpMethod.POST, "/api/visto").permitAll()
 

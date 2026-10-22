@@ -145,6 +145,7 @@ public class UsuarioServiceImpl implements UsuarioService {
         dto.setApellido(u.getApellido());
         dto.setCorreo(u.getCorreo());
         dto.setTelefono(u.getTelefono());
+        dto.setCedula(u.getCedula());
         dto.setTipoNegocio(u.getTipoNegocio());
         dto.setVerificado(u.getVerificado());
         return dto;

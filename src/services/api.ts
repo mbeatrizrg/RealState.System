@@ -1,7 +1,7 @@
 import { limpiarSesion, tokenVigente } from './sesion'
 
 // Cliente HTTP base: todas las llamadas al backend pasan por aqui
-const BASE_URL = import.meta.env.VITE_API_URL ?? ''
+export const BASE_URL = import.meta.env.VITE_API_URL ?? ''
 
 export class ApiError extends Error {
   status: number
@@ -14,7 +14,8 @@ export class ApiError extends Error {
 async function request<T>(ruta: string, opciones: RequestInit = {}): Promise<T> {
   // Si hay sesion se envia el token; el backend decide si la ruta lo necesita
   const token = tokenVigente()
-  const headers: Record<string, string> = { 'Content-Type': 'application/json' }
+  // Con FormData (subida de archivos) el navegador pone el Content-Type con el boundary del multipart
+  const headers: Record<string, string> = opciones.body instanceof FormData ? {} : { 'Content-Type': 'application/json' }
   if (token) headers.Authorization = `Bearer ${token}`
 
   let respuesta: Response
@@ -44,7 +45,10 @@ async function request<T>(ruta: string, opciones: RequestInit = {}): Promise<T> 
     }
     // GlobalExceptionHandler responde {"mensaje": "..."}, algunos controladores responden texto
     let mensaje = `Error ${respuesta.status}`
-    if (datos && typeof datos === 'object' && 'mensaje' in datos) {
+    if (respuesta.status === 403 && datos === 'Invalid CORS request') {
+      // Spring rechaza el dominio desde el que se abrio la pagina (no esta en CORS_ALLOWED_ORIGINS del backend)
+      mensaje = `El servidor no acepta peticiones desde ${window.location.origin}. Agrega este dominio a CORS_ALLOWED_ORIGINS en el backend.`
+    } else if (datos && typeof datos === 'object' && 'mensaje' in datos) {
       mensaje = String(datos.mensaje)
     } else if (typeof datos === 'string' && datos) {
       mensaje = datos
@@ -62,6 +66,7 @@ export const api = {
   patch: <T>(ruta: string, cuerpo?: unknown) =>
     request<T>(ruta, { method: 'PATCH', body: cuerpo === undefined ? undefined : JSON.stringify(cuerpo) }),
   delete: <T>(ruta: string) => request<T>(ruta, { method: 'DELETE' }),
+  postForm: <T>(ruta: string, formulario: FormData) => request<T>(ruta, { method: 'POST', body: formulario }),
 }
 
 export function mensajeDeError(error: unknown): string {

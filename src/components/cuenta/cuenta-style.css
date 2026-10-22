@@ -1,20 +1,12 @@
 /* Complemento de sign-in-style.css para las pantallas de cuenta (verificar, recuperar, login CRM y Mi cuenta) */
 
-.form-mensaje-error {
-  color: #b00020;
-}
-
-.btn-submit:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-}
-
 /* Enlaces de texto debajo de los formularios ("¿Olvidaste tu contraseña?", "Reenviar código"...) */
 .enlaces-cuenta {
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-between;
   gap: 0.5rem 1.5rem;
-  margin-top: 0.5rem;
+  margin-top: 0.25rem;
 }
 
 .enlace {
@@ -23,53 +15,56 @@
   padding: 0;
   color: #214f96;
   font-size: 0.9rem;
-  text-decoration: underline;
+  font-weight: 500;
+  font-family: inherit;
+  text-decoration: none;
   cursor: pointer;
+}
+
+.enlace:hover {
+  text-decoration: underline;
 }
 
 .enlace:disabled {
   color: #8a8a8a;
   cursor: not-allowed;
+  text-decoration: none;
 }
 
 .texto-ayuda {
-  color: #0b1f46;
+  color: #5b6478;
   font-size: 0.95rem;
-  max-width: 450px;
+  line-height: 1.5;
   margin: 0 0 1rem;
 }
 
 /* Mi cuenta: varios formularios apilados */
 .bloque-cuenta {
-  max-width: 450px;
-  margin-bottom: 2.5rem;
+  margin-bottom: 2rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid #e3e8f0;
+}
+
+.bloque-cuenta:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
 }
 
 .subtitulo {
   color: #0b1f46;
   font-size: 1.1rem;
-  font-weight: bold;
+  font-weight: 700;
   margin: 0 0 1rem;
 }
 
 .btn-secundario {
-  background-color: transparent;
+  background: transparent;
   color: #0b1f46;
   border: 2px solid #0b1f46;
+  box-shadow: none;
 }
 
-.form-group select {
-  background-color: #0b1f46;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  padding: 1rem;
-  font-size: 1rem;
-}
-
-/* Las pantallas de Mi cuenta son mas altas que el login: se permite el desplazamiento */
+/* Mi cuenta tiene mas contenido que el login: el formulario empieza arriba */
 .form-section.con-scroll {
   justify-content: flex-start;
-  overflow-y: auto;
-  padding-top: 1rem;
 }

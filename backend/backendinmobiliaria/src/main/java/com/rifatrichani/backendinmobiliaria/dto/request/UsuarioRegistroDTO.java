@@ -1,7 +1,10 @@
 package com.rifatrichani.backendinmobiliaria.dto.request;
 
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 
 public class UsuarioRegistroDTO {
@@ -18,6 +21,12 @@ public class UsuarioRegistroDTO {
     @NotBlank(message = "El teléfono es obligatorio")
     @Size(min = 10, max = 20, message = "El teléfono debe tener entre 10 y 20 caracteres")
     private String telefono;
+
+    //Numero de cedula sin prefijo V/E ni puntos (ej. 12345678), igual que la cedula de los empleados
+    @NotNull(message = "La cédula es obligatoria")
+    @Positive(message = "La cédula debe ser un número válido")
+    @Max(value = 999999999, message = "La cédula no es válida")
+    private Integer cedula;
 
     @NotBlank(message = "El correo es obligatorio")
     @Email(message = "Debe enviar un formato de correo electrónico válido")
@@ -41,6 +50,9 @@ public class UsuarioRegistroDTO {
 
     public String getTelefono() { return telefono; }
     public void setTelefono(String telefono) { this.telefono = telefono; }
+
+    public Integer getCedula() { return cedula; }
+    public void setCedula(Integer cedula) { this.cedula = cedula; }
 
     public String getCorreo() { return correo; }
     public void setCorreo(String correo) { this.correo = correo; }

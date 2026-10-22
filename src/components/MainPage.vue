@@ -79,6 +79,7 @@
           <div class="filter-group">
             <label for="modalidad">Alquiler o Compra</label>
             <select id="modalidad" name="modalidad" v-model="filtros.modalidad">
+              <option value="">Todas</option>
               <option value="compra">Compra</option>
               <option value="alquiler">Alquiler</option>
             </select>
@@ -134,7 +135,7 @@
 
           <article v-for="inmueble in destacados" :key="inmueble.id" class="card">
             <div class="card-image-wrapper">
-              <img :src="inmueble.urlImagenPrincipal || IMAGEN_POR_DEFECTO" :alt="inmueble.titulo" class="building-img" />
+              <img :src="urlImagen(inmueble.urlImagenPrincipal)" :alt="inmueble.titulo" class="building-img" />
             </div>
 
             <div class="card-content">
@@ -313,7 +314,7 @@ import { useRouter } from 'vue-router'
 import { useFiltros } from '@/composables/useFiltros'
 import { mensajeDeError } from '@/services/api'
 import { buscarInmuebles } from '@/services/inmuebles'
-import { formatearPrecio, IMAGEN_POR_DEFECTO } from '@/utils/formato'
+import { formatearPrecio, urlImagen } from '@/utils/formato'
 
 const router = useRouter()
 const { ciudades, tiposInmueble, errorCatalogos, filtros, buscar } = useFiltros()
@@ -325,7 +326,7 @@ const error = ref('')
 
 onMounted(async () => {
   try {
-    destacados.value = (await buscarInmuebles()).slice(0, 4)
+    destacados.value = (await buscarInmuebles({ tamano: 4 })).contenido
   } catch (e) {
     error.value = mensajeDeError(e)
   } finally {

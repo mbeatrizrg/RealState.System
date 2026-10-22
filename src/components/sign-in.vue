@@ -1,111 +1,68 @@
 <template>
-  <div class="layout-container">
-    <!-- Encabezado -->
-    <header class="CommonHeader">
-      <div class="logo">
-        <img src="/icon.png" alt="Icono" class="icon" />
-        <img src="/brand.png" alt="Rifat Richani" class="brand" />
+  <PlantillaCuenta
+    titulo="Bienvenido de nuevo"
+    subtitulo="Inicia sesión para guardar tus propiedades favoritas y hablar con un asesor."
+    :accion="{ texto: 'Crear cuenta', ruta: '/create' }"
+  >
+    <form class="login-form" novalidate @submit.prevent="IniciarSesion">
+      <div class="form-group">
+        <label for="gmail">Correo electrónico</label>
+        <input
+          type="email"
+          id="gmail"
+          placeholder="ejemplo@gmail.com"
+          autocomplete="email"
+          v-model.trim="credenciales.correo"
+          required
+        />
       </div>
 
-      <nav class="primary-nav">
-        <!-- cambiar para que se vea como el search btn -->
-        <button @click="toggleMenu" class="menu-btn">
-          <span>{{ isMenuOpen ? 'Cerrar' : 'Menu' }}</span>
-        </button>
-        <button @click="Create" class="inc-btn">
-          <span>Crear cuenta</span>
-        </button>
-
-      </nav>
-    </header>
-
-    <!-- Contenido principal-->
-    <main class="main-content">
-      <div class="vision-container">
-          <article class="image-article">
-            <div class="image-4">
-              <img src="/building.png" alt="Residencias Altos Del Mirador" class="building-img" />
-            </div>
-          </article>
+      <div class="form-group">
+        <label for="password">Contraseña</label>
+        <div class="password-container">
+          <input
+            :type="showPassword ? 'text' : 'password'"
+            id="password"
+            v-model="credenciales.contrasena"
+            placeholder="Tu contraseña"
+            autocomplete="current-password"
+            class="password-field"
+            required
+          />
+          <button
+            type="button"
+            class="box-password"
+            :class="{ active: showPassword }"
+            :aria-label="showPassword ? 'Ocultar contraseña' : 'Mostrar contraseña'"
+            @click="togglePassword"
+          ></button>
         </div>
-
-      <div class="form-section">
-        <h1 class="form-title">Iniciar sesion</h1>
-
-        <form class="login-form" @submit.prevent="IniciarSesion">
-          <div class="form-group">
-            <label for="gmail">Gmail</label>
-            <input
-              type="email"
-              id="gmail"
-              placeholder="ejemplo@gmail.com"
-              v-model.trim="credenciales.correo"
-              required
-            />
-          </div>
-
-          <div class="form-group">
-            <label for="password">Contraseña</label>
-            <div class="password-container">
-            <input
-              :type="showPassword ? 'text' : 'password'"
-              id="password"
-              v-model="credenciales.contrasena"
-              placeholder="8 caracteres"
-              class="password-field"
-              required
-            />
-            <span class="box-password"
-              :class="{active: showPassword }"
-              @click="togglePassword">
-            </span>
-            </div>
-          </div>
-
-          <p v-if="mensaje" class="form-mensaje" :class="{ 'form-mensaje-error': esError }">{{ mensaje }}</p>
-
-          <button type="submit" class="btn btn-submit" :disabled="enviando">
-            {{ enviando ? 'Ingresando...' : 'Iniciar sesion' }}
-          </button>
-
-          <div class="enlaces-cuenta">
-            <router-link :to="{ path: '/recuperar', query: { correo: credenciales.correo || undefined } }" class="enlace">¿Olvidaste tu contraseña?</router-link>
-            <router-link to="/crm/login" class="enlace">Soy asesor</router-link>
-          </div>
-        </form>
       </div>
-    </main>
 
+      <div class="enlaces-cuenta">
+        <router-link to="/crm/login" class="enlace">Soy asesor</router-link>
+        <router-link :to="{ path: '/recuperar', query: { correo: credenciales.correo || undefined } }" class="enlace">¿Olvidaste tu contraseña?</router-link>
+      </div>
 
-      <div class="menu-container" :class="{ 'open': isMenuOpen }">
-    <!-- Navegación superior -->
-    <header class="navbar">
-      <button @click="toggleMenu" class="nav-link">
-        Salir
+      <p v-if="mensaje" class="form-mensaje" :class="{ 'form-mensaje-error': esError }" role="alert">{{ mensaje }}</p>
+
+      <button type="submit" class="btn btn-submit" :disabled="enviando">
+        {{ enviando ? 'Ingresando...' : 'Iniciar sesión' }}
       </button>
-      <img src="/brand2.png" alt="Rifat Richani" class="brand" />
-      <button @click="signIn" class="inc-btn">
-          <span>Iniciar Sesión</span>
-      </button>
-    </header>
 
-    <!-- Menú principal centrado -->
-        <main class="menu-content">
-      <nav class="menu-list">
-        <button @click="Home" class="menu-item active"><span>Principal</span></button>
-        <button @click="Search" class="menu-item"><span>Disponibles</span></button>
-        <a href="#" class="menu-item">Favoritos</a>
-        <button @click="Contact" class="menu-item"><span>Contactanos</span></button>
-      </nav>
-    </main>
-  </div>
-  </div>
+      <p class="separador">¿Primera vez aquí?</p>
+      <p class="pie-form">
+        <router-link to="/create" class="enlace-destacado">Crea una cuenta gratis</router-link>
+      </p>
+    </form>
+  </PlantillaCuenta>
 </template>
 
 <script setup>
 import { reactive, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 
+import PlantillaCuenta from '@/components/cuenta/PlantillaCuenta.vue'
 import { mensajeDeError } from '@/services/api'
 import { loginUsuario } from '@/services/auth'
 
@@ -116,30 +73,6 @@ const showPassword = ref(false)
 
 const togglePassword = ()=> {
   showPassword.value = !showPassword.value
-}
-
-const isMenuOpen = ref(false)
-const toggleMenu = () => {
-  isMenuOpen.value = !isMenuOpen.value
-}
-const signIn = ()=> {
-  router.push('/signin')
-}
-
-const Create = ()=> {
-  router.push('/create')
-}
-
-const Home = ()=> {
-  router.push('/')
-}
-
-const Contact = ()=> {
-  router.push('/contacts')
-}
-
-const Search = ()=> {
-  router.push('/search')
 }
 
 // Coincide con UsuarioLogeoDTO del backend. El correo puede venir de la verificacion o la recuperacion (?correo=)
@@ -155,14 +88,20 @@ const destino = () => {
 }
 
 const IniciarSesion = async ()=> {
+  if (!credenciales.correo || !credenciales.contrasena) {
+    mensaje.value = 'Ingresa tu correo y tu contraseña.'
+    esError.value = true
+    return
+  }
   enviando.value = true
   mensaje.value = ''
   try {
     await loginUsuario(credenciales)
     router.replace(destino())
   } catch (e) {
-    // 403: la contraseña es correcta pero la cuenta aun no confirmo su correo
-    if (e?.status === 403) {
+    // 403 "Debe confirmar su correo...": la contraseña es correcta pero la cuenta aun no confirmo su correo.
+    // Otros 403 (ej. el servidor rechaza el origen por CORS) se muestran como error
+    if (e?.status === 403 && /confirmar/i.test(e.message)) {
       router.push({ path: '/verificar', query: { correo: credenciales.correo } })
       return
     }

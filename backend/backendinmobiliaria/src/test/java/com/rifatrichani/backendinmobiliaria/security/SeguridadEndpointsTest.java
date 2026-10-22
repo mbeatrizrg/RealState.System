@@ -1,6 +1,8 @@
 package com.rifatrichani.backendinmobiliaria.security;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.options;
@@ -8,7 +10,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
@@ -27,6 +28,7 @@ import com.rifatrichani.backendinmobiliaria.controllers.EmpleadoController;
 import com.rifatrichani.backendinmobiliaria.controllers.FavoritoController;
 import com.rifatrichani.backendinmobiliaria.controllers.InmuebleController;
 import com.rifatrichani.backendinmobiliaria.controllers.VistoController;
+import com.rifatrichani.backendinmobiliaria.dto.response.PaginaResponseDTO;
 import com.rifatrichani.backendinmobiliaria.models.Empleado;
 import com.rifatrichani.backendinmobiliaria.models.Usuario;
 import com.rifatrichani.backendinmobiliaria.repositories.EmpleadoRepository;
@@ -90,8 +92,23 @@ class SeguridadEndpointsTest {
 
     @Test
     void portalPublicoNoRequiereToken() throws Exception {
-        when(inmuebleService.buscarPorFiltros(any(), any(), any(), any(), any())).thenReturn(List.of());
+        when(inmuebleService.buscarPublico(any())).thenReturn(new PaginaResponseDTO<>());
         mvc.perform(get("/api/inmueble/buscar")).andExpect(status().isOk());
+    }
+
+    @Test
+    void busquedaRechazaParametrosInvalidos() throws Exception {
+        mvc.perform(get("/api/inmueble/buscar").param("tamano", "500")).andExpect(status().isBadRequest());
+        mvc.perform(get("/api/inmueble/buscar").param("orden", "titulo; DROP TABLE x")).andExpect(status().isBadRequest());
+        mvc.perform(get("/api/inmueble/buscar").param("q", "a".repeat(101))).andExpect(status().isBadRequest());
+    }
+
+    @Test
+    void portalNoPuedeVerVendidosNiFiltrarPorVendedor() throws Exception {
+        when(inmuebleService.buscarPublico(any())).thenReturn(new PaginaResponseDTO<>());
+        mvc.perform(get("/api/inmueble/buscar").param("vendido", "true").param("empleadoId", "3")).andExpect(status().isOk());
+        //El controlador delega en buscarPublico, que fuerza vendido=false (ver InmuebleServiceImpl); nunca en buscarCrm
+        verify(inmuebleService, never()).buscarCrm(any());
     }
 
     @Test

@@ -97,7 +97,7 @@ import { useRoute, useRouter } from 'vue-router'
 
 import { mensajeDeError } from '@/services/api'
 import { obtenerInmueble, registrarVista } from '@/services/inmuebles'
-import { formatearPrecio, IMAGEN_POR_DEFECTO } from '@/utils/formato'
+import { formatearPrecio, IMAGEN_POR_DEFECTO, urlImagen } from '@/utils/formato'
 
 const route = useRoute()
 const router = useRouter()
@@ -106,8 +106,9 @@ const inmueble = ref(null)
 const cargando = ref(true)
 const error = ref('')
 
+// Hasta 6 fotos por inmueble; sin fotos se muestra la imagen por defecto
 const imagenes = computed(() =>
-  inmueble.value?.urlsGaleria?.length ? inmueble.value.urlsGaleria : [IMAGEN_POR_DEFECTO]
+  inmueble.value?.urlsGaleria?.length ? inmueble.value.urlsGaleria.map(urlImagen) : [IMAGEN_POR_DEFECTO]
 )
 
 const urlMapa = computed(() => {

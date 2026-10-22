@@ -24,6 +24,9 @@ public class Usuario {
     private String telefono;
     @Column (unique = true,nullable = false)
     private String correo;
+    //Cedula de identidad, mismo formato que Empleado (columna ci). Nula solo en cuentas anteriores a 004_cedula_usuario.sql
+    @Column (name = "ci", unique = true)
+    private Integer cedula;
     //Tipo de operacion que busca el cliente (compra, alquiler, venta)
     @Column (nullable = false)
     private String tipoNegocio;
@@ -82,6 +85,12 @@ public class Usuario {
     }
     public void setCorreo(String correo) {
         this.correo = correo;
+    }
+    public Integer getCedula() {
+        return cedula;
+    }
+    public void setCedula(Integer cedula) {
+        this.cedula = cedula;
     }
     public String getTipoNegocio() {
         return tipoNegocio;

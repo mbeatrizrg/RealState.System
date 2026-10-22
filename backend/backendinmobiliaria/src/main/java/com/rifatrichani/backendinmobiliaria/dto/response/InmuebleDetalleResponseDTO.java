@@ -19,6 +19,10 @@ public class InmuebleDetalleResponseDTO {
     //Lista para mantener el formato del frontend, aunque en Supabase cada inmueble tiene un solo extra
     private List<String> extras;
     private List<String> urlsGaleria;
+    //Las mismas fotos con su id, para que el CRM pueda eliminarlas una por una
+    private List<ImagenResponseDTO> imagenes;
+    //Vendedor encargado: el CRM lo usa para saber si el empleado conectado puede editar el inmueble
+    private Integer empleadoId;
 
     public Integer getId() { return id; }
     public void setId(Integer id) { this.id = id; }
@@ -48,4 +52,8 @@ public class InmuebleDetalleResponseDTO {
     public void setExtras(List<String> extras) { this.extras = extras; }
     public List<String> getUrlsGaleria() { return urlsGaleria; }
     public void setUrlsGaleria(List<String> urlsGaleria) { this.urlsGaleria = urlsGaleria; }
+    public List<ImagenResponseDTO> getImagenes() { return imagenes; }
+    public void setImagenes(List<ImagenResponseDTO> imagenes) { this.imagenes = imagenes; }
+    public Integer getEmpleadoId() { return empleadoId; }
+    public void setEmpleadoId(Integer empleadoId) { this.empleadoId = empleadoId; }
 }

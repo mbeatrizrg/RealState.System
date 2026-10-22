@@ -7,6 +7,7 @@
       <!-- Datos personales -->
       <section class="bloque-cuenta">
         <h2 class="subtitulo">Mis datos</h2>
+        <p v-if="perfil.cedula" class="texto-ayuda">Cédula: <strong>{{ perfil.cedula }}</strong></p>
         <form class="login-form" @submit.prevent="GuardarDatos">
           <div class="form-group">
             <label for="nombre">Nombre</label>

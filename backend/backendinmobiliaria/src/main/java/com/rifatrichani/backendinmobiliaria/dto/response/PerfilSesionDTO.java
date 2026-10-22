@@ -12,7 +12,6 @@ public class PerfilSesionDTO {
     private String telefono;
     private String tipoNegocio;
     private String correoPendiente;
-    //Solo empleados
     private Integer cedula;
     private Boolean esAdmin;
 
