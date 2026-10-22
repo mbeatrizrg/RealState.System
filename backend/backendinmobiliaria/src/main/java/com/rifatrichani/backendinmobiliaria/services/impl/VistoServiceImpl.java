@@ -45,6 +45,7 @@ public class VistoServiceImpl implements VistoService {
         visto.setUsuario(usuarioRepository.getReferenceById(idUsuario));
         visto.setVisto(true);
         vistoRepository.save(visto);
+        usuarioRepository.registrarActividad(idUsuario);
     }
 
     @Override

@@ -1,0 +1,294 @@
+/* Ficha del contacto (ContactoDetalle.vue). Se suma a contact.css */
+.volver {
+  color: #004cb5;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  align-self: flex-start;
+}
+
+.volver:hover {
+  text-decoration: underline;
+}
+
+.ficha-cabecera {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  flex-wrap: wrap;
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 22px 24px;
+}
+
+.avatar.grande {
+  width: 64px;
+  height: 64px;
+  font-size: 22px;
+}
+
+.ficha-titulo {
+  flex: 1;
+  min-width: 220px;
+}
+
+.ficha-meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 8px;
+  font-size: 14px;
+  color: #4a5670;
+}
+
+.ficha-acciones {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.ficha-acciones a {
+  text-decoration: none;
+  font-size: 14px;
+  padding: 10px 16px;
+}
+
+.aviso {
+  margin: 0;
+  background-color: #e3e8f4;
+  color: #0b1f46;
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 14px;
+}
+
+.ficha-grid {
+  display: grid;
+  grid-template-columns: minmax(260px, 1fr) minmax(0, 2fr);
+  gap: 20px;
+  align-items: start;
+}
+
+.columna {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  min-width: 0;
+}
+
+.tarjeta {
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 20px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.tarjeta h2 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  font-size: 17px;
+  color: #0b1f46;
+}
+
+.datos {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 10px 16px;
+  margin: 0;
+  font-size: 14px;
+}
+
+.datos dt {
+  color: #636363;
+}
+
+.datos dd {
+  margin: 0;
+  color: #1c1c1c;
+  font-weight: 500;
+  overflow-wrap: anywhere;
+}
+
+.texto {
+  margin: 0;
+  font-size: 14px;
+  color: #636363;
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+}
+
+.campo span {
+  font-size: 13px;
+  font-weight: 600;
+  color: #0b1f46;
+}
+
+.campo select,
+.campo textarea {
+  background-color: #0c1452;
+  color: #ffffff;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 12px;
+  font-size: 14px;
+  font-family: inherit;
+  outline: none;
+  resize: vertical;
+}
+
+.campo textarea::placeholder {
+  color: #92abde;
+}
+
+.tarjeta .btn-filtros,
+.tarjeta .btn-secundario {
+  align-self: flex-start;
+  padding: 10px 18px;
+  font-size: 14px;
+}
+
+.tabla-scroll {
+  overflow-x: auto;
+}
+
+.tabla-simple {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.tabla-simple th {
+  text-align: left;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #636363;
+  padding: 8px 10px;
+  border-bottom: 1px solid #e3e8f4;
+}
+
+.tabla-simple td {
+  padding: 10px;
+  border-bottom: 1px solid #eef1f5;
+  white-space: nowrap;
+}
+
+.tabla-simple a,
+.lista-inmuebles a {
+  color: #0b1f46;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.tabla-simple a:hover,
+.lista-inmuebles a:hover {
+  text-decoration: underline;
+}
+
+.select-estatus {
+  border: 1px solid #c9d2e3;
+  border-radius: 6px;
+  padding: 6px 8px;
+  font-size: 13px;
+  background-color: #ffffff;
+  color: #0b1f46;
+}
+
+.form-comunicacion {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid #e3e8f4;
+}
+
+.fila-campos {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.linea-tiempo {
+  list-style: none;
+  margin: 0;
+  padding: 0 0 0 16px;
+  border-left: 2px solid #d5dbe6;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.linea-tiempo li {
+  position: relative;
+}
+
+.linea-tiempo li::before {
+  content: '';
+  position: absolute;
+  left: -23px;
+  top: 4px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: #004cb5;
+  border: 2px solid #ffffff;
+}
+
+.evento-cabecera {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+  font-size: 13px;
+  color: #636363;
+}
+
+.evento-cabecera strong {
+  color: #0b1f46;
+  font-size: 14px;
+}
+
+.linea-tiempo p {
+  margin: 6px 0 0;
+  font-size: 14px;
+  color: #1c1c1c;
+  white-space: pre-line;
+}
+
+.lista-inmuebles {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.lista-inmuebles li {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid #eef1f5;
+  font-size: 14px;
+}
+
+.lista-inmuebles li span {
+  color: #636363;
+  white-space: nowrap;
+}
+
+@media (max-width: 1100px) {
+  .ficha-grid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -18,4 +18,9 @@ public interface ComunicacionRepository extends JpaRepository<Comunicacion, Inte
     @Query("SELECT c FROM Comunicacion c JOIN FETCH c.canal JOIN FETCH c.lead l JOIN FETCH l.usuario JOIN FETCH l.inmueble i JOIN FETCH i.empleado e " +
            "WHERE e.id = :empleadoId ORDER BY c.fechaCreacion DESC")
     List<Comunicacion> obtenerPorEmpleadoId(@Param("empleadoId") Integer empleadoId);
+
+    // Comunicaciones de todos los leads de un contacto (usuario)
+    @Query("SELECT c FROM Comunicacion c JOIN FETCH c.canal JOIN FETCH c.lead l JOIN FETCH l.usuario JOIN FETCH l.inmueble i JOIN FETCH i.empleado " +
+           "WHERE l.usuario.id = :usuarioId ORDER BY c.fechaCreacion DESC")
+    List<Comunicacion> obtenerPorUsuarioId(@Param("usuarioId") Integer usuarioId);
 }

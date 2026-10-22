@@ -23,6 +23,10 @@ public interface VistoRepository extends JpaRepository<Visto, Integer> {
     @Query("SELECT v FROM Visto v JOIN FETCH v.inmueble i JOIN FETCH v.usuario u WHERE i.id = :inmuebleId ORDER BY v.fechaVista DESC")
     List<Visto> obtenerPorInmuebleParaCrm(@Param("inmuebleId") Integer inmuebleId);
 
+    // Últimas vistas de un contacto (usuario)
+    @Query("SELECT v FROM Visto v JOIN FETCH v.inmueble i WHERE v.usuario.id = :usuarioId ORDER BY v.fechaVista DESC")
+    List<Visto> obtenerRecientesPorUsuario(@Param("usuarioId") Integer usuarioId, Pageable pageable);
+
     // Ranking de inmuebles más vistos
     @Query("SELECT new com.rifatrichani.backendinmobiliaria.dto.response.RankingItemResponseDTO(" +
         "CAST(i.id AS long), i.titulo, i.ciudad.nombre, COUNT(v.id), CAST(i.precio AS bigdecimal)) " +

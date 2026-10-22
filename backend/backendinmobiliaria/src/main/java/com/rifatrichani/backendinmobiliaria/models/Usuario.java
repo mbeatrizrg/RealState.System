@@ -2,11 +2,16 @@ package com.rifatrichani.backendinmobiliaria.models;
 
 import java.time.LocalDateTime;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 //Cliente del portal web. Las columnas contrasena, verificado y codverif_* se agregan con db/migraciones/001_autenticacion.sql
@@ -55,6 +60,17 @@ public class Usuario {
     private LocalDateTime resetExpira;
     @Column (name = "reset_intentos", nullable = false)
     private Integer resetIntentos = 0;
+    //Modulo de Contactos (db/migraciones/005): fecha de registro, ultima actividad y vendedor dueño del contacto
+    @CreationTimestamp
+    @Column (name = "fecha_creacion", nullable = false, updatable = false)
+    private LocalDateTime fechaCreacion;
+    //Ultimo lead, cambio de estatus, comunicacion, vista o favorito (ver UsuarioRepository.registrarActividad)
+    @Column (name = "ultima_actividad")
+    private LocalDateTime ultimaActividad;
+    //Null = contacto sin asignar
+    @ManyToOne (fetch = FetchType.LAZY)
+    @JoinColumn (name = "id_propietario")
+    private Empleado propietario;
     public Usuario(){}
     public Integer getId() {
         return id;
@@ -157,5 +173,23 @@ public class Usuario {
     }
     public void setTokensValidosDesde(LocalDateTime tokensValidosDesde) {
         this.tokensValidosDesde = tokensValidosDesde;
+    }
+    public LocalDateTime getFechaCreacion() {
+        return fechaCreacion;
+    }
+    public void setFechaCreacion(LocalDateTime fechaCreacion) {
+        this.fechaCreacion = fechaCreacion;
+    }
+    public LocalDateTime getUltimaActividad() {
+        return ultimaActividad;
+    }
+    public void setUltimaActividad(LocalDateTime ultimaActividad) {
+        this.ultimaActividad = ultimaActividad;
+    }
+    public Empleado getPropietario() {
+        return propietario;
+    }
+    public void setPropietario(Empleado propietario) {
+        this.propietario = propietario;
     }
 }

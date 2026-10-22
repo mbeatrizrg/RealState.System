@@ -46,6 +46,7 @@ public class FavoritoServiceImpl implements FavoritoService {
         });
         favorito.setFavorito(true);
         favoritoRepository.save(favorito);
+        usuarioRepository.registrarActividad(idUsuario);
     }
 
     @Override

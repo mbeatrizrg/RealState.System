@@ -11,7 +11,13 @@ export class ApiError extends Error {
   }
 }
 
-async function request<T>(ruta: string, opciones: RequestInit = {}): Promise<T> {
+// Archivo descargado (exportaciones): el contenido y el nombre que propone el backend en Content-Disposition
+export interface ArchivoDescargado {
+  blob: Blob
+  nombre: string | null
+}
+
+async function request<T>(ruta: string, opciones: RequestInit = {}, comoArchivo = false): Promise<T> {
   // Si hay sesion se envia el token; el backend decide si la ruta lo necesita
   const token = tokenVigente()
   // Con FormData (subida de archivos) el navegador pone el Content-Type con el boundary del multipart
@@ -26,6 +32,12 @@ async function request<T>(ruta: string, opciones: RequestInit = {}): Promise<T> 
     })
   } catch {
     throw new ApiError('No se pudo conectar con el servidor', 0)
+  }
+
+  if (comoArchivo && respuesta.ok) {
+    const disposicion = respuesta.headers.get('Content-Disposition') ?? ''
+    const nombre = /filename="?([^";]+)"?/.exec(disposicion)?.[1] ?? null
+    return { blob: await respuesta.blob(), nombre } as T
   }
 
   // El backend responde JSON o texto plano segun el endpoint
@@ -67,6 +79,8 @@ export const api = {
     request<T>(ruta, { method: 'PATCH', body: cuerpo === undefined ? undefined : JSON.stringify(cuerpo) }),
   delete: <T>(ruta: string) => request<T>(ruta, { method: 'DELETE' }),
   postForm: <T>(ruta: string, formulario: FormData) => request<T>(ruta, { method: 'POST', body: formulario }),
+  // GET de un archivo binario (Excel, PDF). Los errores llegan como JSON igual que en las demas rutas
+  archivo: (ruta: string) => request<ArchivoDescargado>(ruta, {}, true),
 }
 
 export function mensajeDeError(error: unknown): string {

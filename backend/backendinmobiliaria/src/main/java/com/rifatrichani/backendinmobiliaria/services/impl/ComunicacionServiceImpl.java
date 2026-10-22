@@ -15,6 +15,7 @@ import com.rifatrichani.backendinmobiliaria.models.Lead;
 import com.rifatrichani.backendinmobiliaria.repositories.CanalRepository;
 import com.rifatrichani.backendinmobiliaria.repositories.ComunicacionRepository;
 import com.rifatrichani.backendinmobiliaria.repositories.LeadRepository;
+import com.rifatrichani.backendinmobiliaria.repositories.UsuarioRepository;
 import com.rifatrichani.backendinmobiliaria.security.ControlAcceso;
 import com.rifatrichani.backendinmobiliaria.security.CuentaAutenticada;
 import com.rifatrichani.backendinmobiliaria.services.ComunicacionService;
@@ -24,11 +25,13 @@ public class ComunicacionServiceImpl implements ComunicacionService {
     private final ComunicacionRepository comunicacionRepository;
     private final CanalRepository canalRepository;
     private final LeadRepository leadRepository;
+    private final UsuarioRepository usuarioRepository;
 
-    public ComunicacionServiceImpl(ComunicacionRepository cr, CanalRepository canalRepo, LeadRepository lr) {
+    public ComunicacionServiceImpl(ComunicacionRepository cr, CanalRepository canalRepo, LeadRepository lr, UsuarioRepository ur) {
         this.comunicacionRepository = cr;
         this.canalRepository = canalRepo;
         this.leadRepository = lr;
+        this.usuarioRepository = ur;
     }
 
     @Override
@@ -42,6 +45,7 @@ public class ComunicacionServiceImpl implements ComunicacionService {
                 .orElseThrow(() -> new ResourceNotFoundException("Canal no encontrado con ID: " + dto.getCanalId())));
         comunicacion.setLead(lead);
         comunicacionRepository.save(comunicacion);
+        usuarioRepository.registrarActividad(lead.getUsuario().getId());
     }
 
     @Override
@@ -49,7 +53,7 @@ public class ComunicacionServiceImpl implements ComunicacionService {
     public List<ComunicacionResponseDTO> obtenerPorLead(Integer leadId, CuentaAutenticada empleado) {
         ControlAcceso.verificarEncargado(buscarLead(leadId), empleado);
         return comunicacionRepository.obtenerPorLeadId(leadId).stream()
-                .map(this::mapearAComunicacionDTO)
+                .map(ComunicacionServiceImpl::mapearAComunicacionDTO)
                 .collect(Collectors.toList());
     }
 
@@ -60,7 +64,7 @@ public class ComunicacionServiceImpl implements ComunicacionService {
             throw new SecurityException("Solo puede consultar sus propias comunicaciones.");
         }
         return comunicacionRepository.obtenerPorEmpleadoId(empleadoId).stream()
-                .map(this::mapearAComunicacionDTO)
+                .map(ComunicacionServiceImpl::mapearAComunicacionDTO)
                 .collect(Collectors.toList());
     }
 
@@ -69,7 +73,8 @@ public class ComunicacionServiceImpl implements ComunicacionService {
                 .orElseThrow(() -> new ResourceNotFoundException("Lead no encontrado con ID: " + leadId));
     }
 
-    private ComunicacionResponseDTO mapearAComunicacionDTO(Comunicacion c) {
+    //Tambien lo usa la ficha de contactos (ContactoServiceImpl)
+    static ComunicacionResponseDTO mapearAComunicacionDTO(Comunicacion c) {
         ComunicacionResponseDTO dto = new ComunicacionResponseDTO();
         Empleado vendedor = c.getLead().getInmueble().getEmpleado();
         dto.setId(c.getId());

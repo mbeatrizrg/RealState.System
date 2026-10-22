@@ -21,6 +21,8 @@ public class CorsConfig {
         config.setAllowedOrigins(origenesPermitidos.stream().map(String::trim).filter(o -> !o.isEmpty()).toList());
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("Authorization", "Content-Type", "Accept"));
+        //Nombre del archivo en las exportaciones (ej. /api/contactos/exportar); sin esto el navegador no deja leerlo
+        config.setExposedHeaders(List.of("Content-Disposition"));
         config.setAllowCredentials(false);
         config.setMaxAge(3600L);
 

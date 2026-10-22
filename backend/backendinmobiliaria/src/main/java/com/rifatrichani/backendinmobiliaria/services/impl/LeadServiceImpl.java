@@ -13,6 +13,7 @@ import com.rifatrichani.backendinmobiliaria.models.Empleado;
 import com.rifatrichani.backendinmobiliaria.models.Inmueble;
 import com.rifatrichani.backendinmobiliaria.models.Lead;
 import com.rifatrichani.backendinmobiliaria.models.Usuario;
+import com.rifatrichani.backendinmobiliaria.repositories.EstatusLeadRepository;
 import com.rifatrichani.backendinmobiliaria.repositories.InmuebleRepository;
 import com.rifatrichani.backendinmobiliaria.repositories.LeadRepository;
 import com.rifatrichani.backendinmobiliaria.repositories.UsuarioRepository;
@@ -22,17 +23,19 @@ import com.rifatrichani.backendinmobiliaria.services.LeadService;
 
 @Service
 public class LeadServiceImpl implements LeadService {
-    //Estatus con el que entra un lead generado desde el portal (PENDIENTE: confirmar el catalogo de estatus con el equipo)
+    //Estatus con el que entra un lead generado desde el portal ("Nuevo" en el catalogo estatus_lead)
     public static final int ESTATUS_INICIAL = 1;
 
     private final LeadRepository leadRepository;
     private final UsuarioRepository usuarioRepository;
     private final InmuebleRepository inmuebleRepository;
+    private final EstatusLeadRepository estatusLeadRepository;
 
-    public LeadServiceImpl(LeadRepository lr, UsuarioRepository ur, InmuebleRepository ir) {
+    public LeadServiceImpl(LeadRepository lr, UsuarioRepository ur, InmuebleRepository ir, EstatusLeadRepository elr) {
         this.leadRepository = lr;
         this.usuarioRepository = ur;
         this.inmuebleRepository = ir;
+        this.estatusLeadRepository = elr;
     }
 
     //CRM: un vendedor solo puede crear leads de sus propios inmuebles
@@ -47,11 +50,14 @@ public class LeadServiceImpl implements LeadService {
         if (leadRepository.existsByUsuarioIdAndInmuebleId(usuario.getId(), inmueble.getId())) {
             throw new IllegalArgumentException("Este cliente ya tiene un lead para este inmueble.");
         }
+        verificarEstatus(dto.getEstatus());
         Lead lead = new Lead();
         lead.setUsuario(usuario);
         lead.setInmueble(inmueble);
         lead.setEstatus(dto.getEstatus());
-        return leadRepository.save(lead).getId();
+        Integer id = leadRepository.save(lead).getId();
+        actualizarContacto(usuario.getId(), inmueble);
+        return id;
     }
 
     //Portal: "Contáctanos" en el detalle de un inmueble. Si ya existe el lead no se duplica
@@ -71,6 +77,7 @@ public class LeadServiceImpl implements LeadService {
         lead.setInmueble(inmueble);
         lead.setEstatus(ESTATUS_INICIAL);
         leadRepository.save(lead);
+        actualizarContacto(idUsuario, inmueble);
         return true;
     }
 
@@ -80,7 +87,7 @@ public class LeadServiceImpl implements LeadService {
         List<Lead> leads = empleado.esAdmin()
                 ? leadRepository.obtenerTodosConRelaciones()
                 : leadRepository.obtenerPorEmpleadoId(empleado.id());
-        return leads.stream().map(this::mapearALeadResponseDTO).collect(Collectors.toList());
+        return leads.stream().map(LeadServiceImpl::mapearALeadResponseDTO).collect(Collectors.toList());
     }
 
     //Un vendedor solo puede consultar sus propios leads; el admin los de cualquier vendedor
@@ -91,7 +98,7 @@ public class LeadServiceImpl implements LeadService {
             throw new SecurityException("Solo puede consultar sus propios leads.");
         }
         return leadRepository.obtenerPorEmpleadoId(empleadoId).stream()
-                .map(this::mapearALeadResponseDTO)
+                .map(LeadServiceImpl::mapearALeadResponseDTO)
                 .collect(Collectors.toList());
     }
 
@@ -108,8 +115,25 @@ public class LeadServiceImpl implements LeadService {
     public void actualizarEstatus(Integer leadId, Integer estatus, CuentaAutenticada empleado) {
         Lead lead = buscarLead(leadId);
         ControlAcceso.verificarEncargado(lead, empleado);
+        verificarEstatus(estatus);
         lead.setEstatus(estatus);
         leadRepository.save(lead);
+        usuarioRepository.registrarActividad(lead.getUsuario().getId());
+    }
+
+    //Modulo de Contactos: un lead nuevo es actividad del contacto y, si no tenia propietario, queda a cargo del vendedor del inmueble
+    private void actualizarContacto(Integer idUsuario, Inmueble inmueble) {
+        usuarioRepository.registrarActividad(idUsuario);
+        if (inmueble.getEmpleado() != null) {
+            usuarioRepository.asignarPropietarioSiNoTiene(idUsuario, inmueble.getEmpleado());
+        }
+    }
+
+    //Catalogo estatus_lead (db/migraciones/005_contactos.sql)
+    private void verificarEstatus(Integer estatus) {
+        if (estatus == null || !estatusLeadRepository.existsById(estatus)) {
+            throw new IllegalArgumentException("Estatus de lead inválido: " + estatus);
+        }
     }
 
     private Lead buscarLead(Integer leadId) {
@@ -117,7 +141,8 @@ public class LeadServiceImpl implements LeadService {
                 .orElseThrow(() -> new ResourceNotFoundException("Lead no encontrado con ID: " + leadId));
     }
 
-    private LeadResponseDTO mapearALeadResponseDTO(Lead l) {
+    //Tambien lo usa la ficha de contactos (ContactoServiceImpl)
+    static LeadResponseDTO mapearALeadResponseDTO(Lead l) {
         LeadResponseDTO dto = new LeadResponseDTO();
         Usuario cliente = l.getUsuario();
         Inmueble inmueble = l.getInmueble();

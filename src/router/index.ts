@@ -7,6 +7,7 @@ import signIn from '@/components/sign-in.vue'
 import ContactUs from '@/components/ContactUs.vue'
 import menuVendedor from '@/components/vendedor/menu-vendedor.vue'
 import Contact from '@/components/vendedor/Contact.vue'
+import ContactoDetalle from '@/components/vendedor/ContactoDetalle.vue'
 import Leads from '@/components/vendedor/Leads.vue'
 import Control from '@/components/vendedor/Control.vue'
 import profile from '@/components/vendedor/profile.vue'
@@ -92,9 +93,16 @@ const routes: RouteRecordRaw[] = [
     component: ContactUs
   },
   {
+    // Modulo de Contactos: ?vista=mios | sin_asignar (sin vista = todos los contactos)
     path: '/contact',
     name: 'Contact',
     component: Contact,
+    meta: { acceso: 'empleado' }
+  },
+  {
+    path: '/contact/:id(\\d+)',
+    name: 'ContactoDetalle',
+    component: ContactoDetalle,
     meta: { acceso: 'empleado' }
   },
   {

@@ -24,6 +24,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import com.rifatrichani.backendinmobiliaria.config.CorsConfig;
 import com.rifatrichani.backendinmobiliaria.config.SecurityConfig;
 import com.rifatrichani.backendinmobiliaria.controllers.AuthController;
+import com.rifatrichani.backendinmobiliaria.controllers.ContactoController;
 import com.rifatrichani.backendinmobiliaria.controllers.EmpleadoController;
 import com.rifatrichani.backendinmobiliaria.controllers.FavoritoController;
 import com.rifatrichani.backendinmobiliaria.controllers.InmuebleController;
@@ -35,6 +36,7 @@ import com.rifatrichani.backendinmobiliaria.repositories.EmpleadoRepository;
 import com.rifatrichani.backendinmobiliaria.repositories.UsuarioRepository;
 import com.rifatrichani.backendinmobiliaria.security.CuentaAutenticada.TipoCuenta;
 import com.rifatrichani.backendinmobiliaria.services.AuthServices;
+import com.rifatrichani.backendinmobiliaria.services.ContactoService;
 import com.rifatrichani.backendinmobiliaria.services.EmpleadoService;
 import com.rifatrichani.backendinmobiliaria.services.FavoritoService;
 import com.rifatrichani.backendinmobiliaria.services.InmuebleService;
@@ -45,7 +47,8 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 
 //Verifica las reglas de acceso y el filtro JWT sin base de datos (los repositorios y servicios son simulados)
-@WebMvcTest(controllers = {InmuebleController.class, AuthController.class, EmpleadoController.class, FavoritoController.class, VistoController.class})
+@WebMvcTest(controllers = {InmuebleController.class, AuthController.class, EmpleadoController.class, FavoritoController.class, VistoController.class,
+        ContactoController.class})
 @Import({SecurityConfig.class, CorsConfig.class, JwtTokenProvider.class, JwtAuthenticationEntryPoint.class})
 @TestPropertySource(properties = {
         "app.jwt.secret=c2VjcmV0by1kZS1wcnVlYmFzLXNvbG8tcGFyYS10ZXN0cy0xMjM0NTY3ODkwYWJjZGVm",
@@ -63,6 +66,7 @@ class SeguridadEndpointsTest {
     @MockitoBean EmpleadoService empleadoService;
     @MockitoBean FavoritoService favoritoService;
     @MockitoBean VistoService vistoService;
+    @MockitoBean ContactoService contactoService;
 
     private Empleado empleado(int id, boolean admin) {
         Empleado e = new Empleado();
@@ -88,6 +92,28 @@ class SeguridadEndpointsTest {
 
     private String bearer(int id, TipoCuenta tipo, String rol) {
         return "Bearer " + jwt.generarToken(id, tipo, rol);
+    }
+
+    @Test
+    void contactosSoloParaElCrm() throws Exception {
+        mvc.perform(get("/api/contactos")).andExpect(status().isUnauthorized());
+        usuario(5);
+        mvc.perform(get("/api/contactos").header("Authorization", bearer(5, TipoCuenta.USUARIO, "ROLE_USUARIO")))
+                .andExpect(status().isForbidden());
+        empleado(6, false);
+        when(contactoService.buscar(any(), any())).thenReturn(new PaginaResponseDTO<>());
+        mvc.perform(get("/api/contactos").param("vista", "mios").header("Authorization", bearer(6, TipoCuenta.EMPLEADO, "ROLE_VENDEDOR")))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    void contactosRechazaFiltrosInvalidos() throws Exception {
+        empleado(6, false);
+        String token = bearer(6, TipoCuenta.EMPLEADO, "ROLE_VENDEDOR");
+        mvc.perform(get("/api/contactos").param("vista", "otros").header("Authorization", token)).andExpect(status().isBadRequest());
+        mvc.perform(get("/api/contactos").param("orden", "contrasena").header("Authorization", token)).andExpect(status().isBadRequest());
+        mvc.perform(get("/api/contactos").param("creadoDesde", "ayer").header("Authorization", token)).andExpect(status().isBadRequest());
+        mvc.perform(get("/api/contactos/exportar").param("formato", "csv").header("Authorization", token)).andExpect(status().isBadRequest());
     }
 
     @Test
