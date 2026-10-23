@@ -7,6 +7,7 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.InvalidDataAccessResourceUsageException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -81,10 +82,10 @@ public class GlobalExceptionHandler {
         return construirRespuesta(HttpStatus.BAD_REQUEST, "La petición tiene un formato inválido.");
     }
 
-    //Fotos de la galeria: archivo o peticion mas grande que spring.servlet.multipart.max-file-size / max-request-size
+    //Fotos de la galeria, adjuntos y documentos: archivo o peticion mas grande que spring.servlet.multipart.max-file-size / max-request-size
     @ExceptionHandler(MaxUploadSizeExceededException.class)
     public ResponseEntity<Map<String, Object>> manejarArchivoGrande(MaxUploadSizeExceededException ex) {
-        return construirRespuesta(HttpStatus.CONTENT_TOO_LARGE, "Las imágenes son demasiado grandes: máximo 5 MB cada una.");
+        return construirRespuesta(HttpStatus.CONTENT_TOO_LARGE, "Los archivos son demasiado grandes: máximo 5 MB por imagen y 10 MB por documento o adjunto.");
     }
 
     @ExceptionHandler(MultipartException.class)
@@ -97,6 +98,14 @@ public class GlobalExceptionHandler {
     public ResponseEntity<Map<String, Object>> manejarIntegridad(DataIntegrityViolationException ex) {
         log.warn("Violacion de integridad de datos: {}", ex.getMostSpecificCause().getMessage());
         return construirRespuesta(HttpStatus.CONFLICT, "Los datos enviados entran en conflicto con registros existentes.");
+    }
+
+    //Una columna o tabla que no existe: casi siempre falta ejecutar una migracion de db/migraciones (ver VerificacionEsquema)
+    @ExceptionHandler(InvalidDataAccessResourceUsageException.class)
+    public ResponseEntity<Map<String, Object>> manejarEsquemaIncompleto(InvalidDataAccessResourceUsageException ex) {
+        log.error("Error de esquema en la base de datos: {}", ex.getMostSpecificCause().getMessage());
+        return construirRespuesta(HttpStatus.SERVICE_UNAVAILABLE,
+                "La base de datos no está actualizada: falta ejecutar una migración de db/migraciones en Supabase (el log del backend indica cuál).");
     }
 
     //Cualquier otro error: se registra en el log y al cliente se le responde un mensaje generico (sin stacktrace)

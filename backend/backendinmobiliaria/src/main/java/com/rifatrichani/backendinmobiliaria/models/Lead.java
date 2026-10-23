@@ -1,5 +1,9 @@
 package com.rifatrichani.backendinmobiliaria.models;
 
+import java.time.LocalDateTime;
+
+import org.hibernate.annotations.CreationTimestamp;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -26,6 +30,10 @@ public class Lead {
     //Etapa del embudo de venta. En Supabase es un numero sin tabla de catalogo (no existe estatus_venta)
     @Column (name = "id_estatus", nullable = false)
     private Integer estatus;
+    //Fecha de la consulta (db/migraciones/007), para las estadisticas por periodo
+    @CreationTimestamp
+    @Column (name = "fecha_creacion", nullable = false, updatable = false)
+    private LocalDateTime fechaCreacion;
     public Integer getId() {
         return id;
     }
@@ -49,5 +57,11 @@ public class Lead {
     }
     public void setEstatus(Integer estatus) {
         this.estatus = estatus;
+    }
+    public LocalDateTime getFechaCreacion() {
+        return fechaCreacion;
+    }
+    public void setFechaCreacion(LocalDateTime fechaCreacion) {
+        this.fechaCreacion = fechaCreacion;
     }
 }

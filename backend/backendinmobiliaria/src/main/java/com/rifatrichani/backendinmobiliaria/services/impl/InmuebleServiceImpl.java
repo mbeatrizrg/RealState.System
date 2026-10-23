@@ -119,6 +119,11 @@ public class InmuebleServiceImpl implements InmuebleService {
         dto.setUrlsGaleria(galeria.stream().map(Galeria::getUrlImagen).collect(Collectors.toList()));
         dto.setImagenes(galeria.stream().map(g -> new ImagenResponseDTO(g.getId(), g.getUrlImagen())).collect(Collectors.toList()));
         dto.setEmpleadoId(vendedor.getId());
+        dto.setHabitaciones(inmueble.getHabitaciones());
+        dto.setBanos(inmueble.getBanos());
+        dto.setMetrosCuadrados(inmueble.getMetrosCuadrados());
+        dto.setEstacionamientos(inmueble.getEstacionamientos());
+        dto.setPiso(inmueble.getPiso());
         return dto;
     }
 
@@ -174,6 +179,12 @@ public class InmuebleServiceImpl implements InmuebleService {
         inmueble.setCiudad(ciudadRepository.getReferenceById(dto.getCiudadId()));
         inmueble.setTipoInmueble(tipoInmuebleRepository.getReferenceById(dto.getTipoInmuebleId()));
         inmueble.setExtra(extraRepository.getReferenceById(dto.getExtraId()));
+        //Las caracteristicas solo se cambian si vienen: la edicion de datos basicos no las borra (la ficha del CRM las edita)
+        if (dto.getHabitaciones() != null) inmueble.setHabitaciones(dto.getHabitaciones());
+        if (dto.getBanos() != null) inmueble.setBanos(dto.getBanos());
+        if (dto.getMetrosCuadrados() != null) inmueble.setMetrosCuadrados(dto.getMetrosCuadrados());
+        if (dto.getEstacionamientos() != null) inmueble.setEstacionamientos(dto.getEstacionamientos());
+        if (dto.getPiso() != null) inmueble.setPiso(dto.getPiso());
     }
 
     //El encargado es el empleado autenticado. Un administrador puede indicar otro vendedor (que debe existir y estar activo)

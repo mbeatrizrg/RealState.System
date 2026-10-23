@@ -1,173 +1,242 @@
-.details-container{
-    background-color: #EDF2F3;
+/* Detalle de un inmueble en el portal (HomeDetails.vue). Mismos colores del portal (#EDF2F3 y azul #0b1f46) */
+.details-container {
+  background-color: #EDF2F3;
+  min-height: 100vh;
+  font-family: "Inter", sans-serif;
 }
 
-.back-btn{
-    text-decoration: none;
-    background: trasparent;
-    color: #0b1f46;
-    border: none;
-    border-radius: 0px;
-    font-size: 18px;
-    font-weight: 700;
-    margin-top: 10px;
-    margin-left: 20px;
-    margin-top: 15px;
-    cursor: pointer;
-    display: inline-block;
-    align-items: center;
+.detalle-contenido {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 16px 24px 48px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
 }
 
-.carousel{
-    position: relative;
-    display: inline-flex;
-    gap: 16px;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    padding-bottom: 12px;
-    -webkit-overflow-scrolling: touch;
-    margin-top: 30px;
-    
+.back-btn {
+  align-self: flex-start;
+  background: transparent;
+  color: #0b1f46;
+  border: none;
+  padding: 8px 0;
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
 }
 
-
-.carousel-item{
-    width: 100%;
-    height: 220px;
-    object-fit: cover;
-    border-radius: 20px;
+.back-btn:hover {
+  text-decoration: underline;
 }
 
-.carousel-item img{
-    aspect-ratio: 1/1;
-    margin-top: 0px;
-    width: 100%;
-    height: auto;
-    object-fit: cover;
-    border-radius: none;
-    display: block;
+/* ----- Resumen: informacion a la izquierda y detalles a la derecha ----- */
+/* style.css (global, cargado en App.vue) le da 550px de alto y fondo a .info-section de la pagina principal */
+.info-section {
+  height: auto;
+  background-color: transparent;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 400px;
+  gap: 24px;
+  /* Detalles se estira a la altura del resumen: sin huecos al lado */
+  align-items: stretch;
 }
 
-.next-btn {
+.info-section > * {
+  min-width: 0;
+}
+
+.info-left,
+.info-right,
+.map-section {
+  background-color: #ffffff;
+  border-radius: 14px;
+  padding: 28px 32px;
+  color: #0b1f46;
+  box-shadow: 0 2px 10px rgba(11, 31, 70, 0.06);
+}
+
+.property-type {
+  margin: 0 0 6px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #5b6b8c;
+}
+
+.property-title {
+  margin: 0;
+  font-size: 30px;
+  line-height: 1.2;
+  color: #0b1f46;
+}
+
+.property-location {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 12px 0 0;
+  font-size: 15px;
+  color: #4a5670;
+}
+
+.location-icon {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+}
+
+/* Caracteristicas del inmueble (habitaciones, baños, m², estacionamiento, piso) */
+.property-features {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 18px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.property-features li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border-radius: 10px;
+  background-color: #EDF2F3;
+  color: #0b1f46;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.feature-icon {
+  width: 20px;
+  height: 20px;
+}
+
+.property-price {
+  margin: 18px 0 0;
+  font-size: 28px;
+  font-weight: 700;
+  color: #0b1f46;
+}
+
+.property-price small {
+  font-size: 15px;
+  font-weight: 500;
+  color: #5b6b8c;
+}
+
+.property-description {
+  margin: 18px 0 24px;
+  padding-top: 18px;
+  border-top: 1px solid #e3e8f4;
+  font-size: 15px;
+  line-height: 1.7;
+  color: #1c2a47;
+  white-space: pre-line;
+}
+
+.contact-btn {
+  display: inline-block;
   background-color: #0b1f46;
   color: #ffffff;
-  position: absolute;
-  right: 45px;
-  z-index: 10;
-  padding: 6px 14px;
-  margin-top: 25px;
-  font-size: 12px;
-  cursor: pointer;
-  height: 40px;
-  width: 40px;
-  border-radius: 50px;
-  border: none;
-  overflow: hidden;
-  cursor: pointer;
+  border-radius: 8px;
+  padding: 12px 24px;
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: opacity 0.2s;
 }
 
-.info-section{
-    display: flex;
-    justify-content: space-between;
-    gap: 10px;
-    max-width: 1000px;
-    align-items:flex-start;
-    margin-top: 20px;
-    margin-bottom: 0px;
+.contact-btn:hover {
+  opacity: 0.9;
 }
 
 
-.property-location span{
-    align-items: center;
-    gap: 6px;
-    font-weight: 300;
-    color: #0b1f46;
-    flex-grow: 1;
+
+.details-title {
+  margin: 0 0 14px;
+  font-size: 20px;
+  color: #0b1f46;
 }
 
-.location-icon{
-    margin-right: 5px;
-    width: 20px;
-    height: 20px;
-    object-fit: contain;
+.details-list {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  margin: 0;
+  font-size: 14px;
 }
 
-.info-left{
-    flex: 1;
-    max-width: 450px;
-    color: #0b1f46;
-    font-size: 13px;
-    margin-left: 50px;
-    margin-top: 15px;
-    gap: 10px;
+.details-list dt,
+.details-list dd {
+  padding: 10px 0;
+  border-bottom: 1px solid #eef1f6;
 }
 
-.info-left p{
-    display: flex;
-    margin-top: 10px;
-    line-height: 1.5;
-    display: flex;
-    margin: 8px 0 16px 0;
-    line-height: 1.8;
+.details-list dt {
+  color: #5b6b8c;
+  padding-right: 16px;
 }
 
-.info-right{
-    display: flex;
-    width: 300px;
-    color: #0b1f46;
-    font-size: 13px;
-    margin-right: 20px;
-    margin-top: 15px;
+.details-list dd {
+  margin: 0;
+  font-weight: 600;
+  text-align: right;
+  overflow-wrap: anywhere;
 }
 
-.details-list{
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-top: 20px;
+/* La etiqueta se ajusta al texto y el valor ("3 habitaciones | 2 baños") usa el resto en una linea */
+.details-list dt {
+  white-space: nowrap;
 }
 
-.map-section{
-    margin-top: -200px;
-    display: flex;
-    justify-content: center;
-    height: 650px;
-    width: 100%;
-    max-width: 1400px;
-    margin: -250px auto;
-    padding: 0;
-    border-radius: 0px;
-    overflow: hidden;
-    box-shadow: 0;
+.details-list dt:last-of-type,
+.details-list dd:last-of-type {
+  border-bottom: none;
 }
 
-.map-section iframe{
-    width: 100%;
-    height: 600px;
-    border: none;
-    display: block;
+.extras-title {
+  margin: 18px 0 10px;
+  font-size: 14px;
+  color: #0b1f46;
 }
 
-.contact-btn{
-    background-color: #0b1f46;
-    color: #ffffff;
-    border: none;
-    border-radius: 6px;
-    padding: 6px 14px;
-    font-size: 12px;
-    cursor: pointer;
-    text-decoration: none;
+.extras-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
-.info-right{
-    display: flex;
-    flex-direction: column;
-    margin-top: 20px;
-    color: #0b1f46;
-    font-size: 13px;
-    margin-left: 20px;
-    margin-top: 15px;
+.extras-list li {
+  background-color: #EDF2F3;
+  border-radius: 999px;
+  padding: 6px 12px;
+  font-size: 13px;
 }
+
+/* ----- Mapa: dentro de una tarjeta, del ancho del contenido y con un alto razonable ----- */
+.map-section {
+  padding: 24px 28px 28px;
+}
+
+.map-address {
+  margin: -6px 0 14px;
+  font-size: 14px;
+  color: #4a5670;
+}
+
+.map-image {
+  display: block;
+  width: 100%;
+  height: 300px;
+  border: 0;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
 /* Mensajes de carga, error o lista vacia */
 .estado-msg {
   width: 100%;
@@ -178,7 +247,95 @@
   font-size: 16px;
 }
 
-.property-price{
-    font-size: 20px;
-    font-weight: 700;
+/* ----- Pie de pagina (mismo que la pagina principal) ----- */
+.page-6 {
+  background-color: #EDF2F3;
+  padding: 48px 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-top: 1px solid #dde4e6;
+}
+
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.footer-brand-img {
+  width: 200px;
+  height: auto;
+  object-fit: contain;
+}
+
+.footer-address {
+  color: #0b1f46;
+  font-size: 14px;
+  text-align: center;
+  line-height: 1.5;
+  margin: 0;
+  font-weight: 500;
+}
+
+.contact-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #0b1f46;
+  margin: 10px 0 5px;
+}
+
+.social-icons {
+  display: flex;
+  gap: 30px;
+  align-items: center;
+  justify-content: center;
+}
+
+.social-icons a img {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+  transition: transform 0.2s ease;
+}
+
+.social-icons a:hover img {
+  transform: scale(1.1);
+}
+
+@media (max-width: 900px) {
+  /* minmax(0, 1fr): la columna no se ensancha mas que la pantalla por su contenido */
+  .info-section {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .map-image {
+    height: 300px;
+  }
+}
+
+@media (max-width: 600px) {
+  .detalle-contenido {
+    padding: 12px 16px 32px;
+    gap: 16px;
+  }
+
+  .info-left,
+  .info-right,
+  .map-section {
+    padding: 20px;
+  }
+
+  .property-title {
+    font-size: 24px;
+  }
+
+  .property-price {
+    font-size: 24px;
+  }
+
+  .map-image {
+    height: 280px;
+  }
 }

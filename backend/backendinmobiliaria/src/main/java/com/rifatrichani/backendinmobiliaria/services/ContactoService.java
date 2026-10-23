@@ -14,9 +14,22 @@ public interface ContactoService {
     //Maximo de filas de una exportacion (Excel o PDF)
     int MAXIMO_EXPORTACION = 5000;
 
-    enum FormatoExportacion { XLSX, PDF }
+    //Tambien los usan los modulos de Negocios e Inmuebles
+    enum FormatoExportacion {
+        XLSX, PDF;
 
-    record ArchivoExportado(String nombre, String tipoContenido, byte[] contenido) {}
+        public static FormatoExportacion desde(String formato) {
+            return switch (formato.toLowerCase(java.util.Locale.ROOT)) {
+                case "xlsx", "excel" -> XLSX;
+                case "pdf" -> PDF;
+                default -> throw new IllegalArgumentException("Formato inválido (xlsx o pdf)");
+            };
+        }
+    }
+
+    record ArchivoExportado(String nombre, String tipoContenido, byte[] contenido) {
+        public static final String TIPO_XLSX = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+    }
 
     PaginaResponseDTO<ContactoResponseDTO> buscar(FiltroContactoDTO filtro, CuentaAutenticada empleado);
 
@@ -27,6 +40,9 @@ public interface ContactoService {
                               boolean soloPagina, CuentaAutenticada empleado);
 
     ContactoDetalleResponseDTO obtenerDetalle(Integer usuarioId, CuentaAutenticada empleado);
+
+    //Fila del contacto (la usa la pagina del negocio para mostrar al cliente)
+    ContactoResponseDTO obtenerResumen(Integer usuarioId);
 
     void cambiarPropietario(Integer usuarioId, Integer empleadoId, CuentaAutenticada empleado);
 

@@ -58,10 +58,10 @@ public class ContactoServiceImpl implements ContactoService {
     private final ComunicacionRepository comunicacionRepository;
     private final FavoritoRepository favoritoRepository;
     private final VistoRepository vistoRepository;
-    private final ExportadorContactos exportador;
+    private final ExportadorTablas exportador;
 
     public ContactoServiceImpl(UsuarioRepository ur, LeadRepository lr, EmpleadoRepository er, EstatusLeadRepository elr,
-                               ComunicacionRepository cr, FavoritoRepository fr, VistoRepository vr, ExportadorContactos ex) {
+                               ComunicacionRepository cr, FavoritoRepository fr, VistoRepository vr, ExportadorTablas ex) {
         this.usuarioRepository = ur;
         this.leadRepository = lr;
         this.empleadoRepository = er;
@@ -114,10 +114,10 @@ public class ContactoServiceImpl implements ContactoService {
         List<ContactoResponseDTO> contactos = mapear(pagina.getContent());
         String nombreBase = "contactos-" + filtro.getVista().replace('_', '-') + "-" + LocalDate.now();
         return switch (formato) {
-            case XLSX -> new ArchivoExportado(nombreBase + ".xlsx",
-                    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", exportador.excel(contactos, columnas));
+            case XLSX -> new ArchivoExportado(nombreBase + ".xlsx", ArchivoExportado.TIPO_XLSX,
+                    exportador.excel("Contactos", contactos, columnas));
             case PDF -> new ArchivoExportado(nombreBase + ".pdf", "application/pdf",
-                    exportador.pdf(contactos, columnas, tituloVista(filtro.getVista())));
+                    exportador.pdf("Contactos", tituloVista(filtro.getVista()), "contactos", contactos, columnas));
         };
     }
 
@@ -144,6 +144,12 @@ public class ContactoServiceImpl implements ContactoService {
                         v.getInmueble().getPrecio(), v.getInmueble().getVendido(), v.getFechaVista()))
                 .toList());
         return dto;
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public ContactoResponseDTO obtenerResumen(Integer usuarioId) {
+        return mapear(List.of(buscarContacto(usuarioId))).get(0);
     }
 
     /* Reglas de asignacion:

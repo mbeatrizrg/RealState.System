@@ -98,18 +98,20 @@ public final class ContactoEspecificaciones {
         return cb.or(opciones.toArray(Predicate[]::new));
     }
 
-    //Rango de dias completos: desde las 00:00 del primer dia hasta antes de las 00:00 del dia siguiente al ultimo
-    private static void agregarRango(List<Predicate> condiciones, CriteriaBuilder cb, Expression<LocalDateTime> campo,
-                                     LocalDate desde, LocalDate hasta) {
+    //Rango de dias completos: desde las 00:00 del primer dia hasta antes de las 00:00 del dia siguiente al ultimo.
+    //Lo usan tambien NegocioEspecificaciones y PropiedadEspecificaciones
+    static void agregarRango(List<Predicate> condiciones, CriteriaBuilder cb, Expression<LocalDateTime> campo,
+                             LocalDate desde, LocalDate hasta) {
         if (desde != null) condiciones.add(cb.greaterThanOrEqualTo(campo, desde.atStartOfDay()));
         if (hasta != null) condiciones.add(cb.lessThan(campo, hasta.plusDays(1).atStartOfDay()));
     }
 
-    private static boolean tieneTexto(String texto) {
+    static boolean tieneTexto(String texto) {
         return texto != null && !texto.isBlank();
     }
 
-    private static String patron(String texto) {
+    //"%texto%" en minusculas y con los comodines de LIKE escapados (se usa con cb.like(..., '\\'))
+    static String patron(String texto) {
         return "%" + InmuebleEspecificaciones.escaparLike(texto.trim().toLowerCase(Locale.ROOT)) + "%";
     }
 }

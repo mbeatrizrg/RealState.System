@@ -1,5 +1,11 @@
 package com.rifatrichani.backendinmobiliaria.dto.request;
 
+import java.math.BigDecimal;
+
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.Digits;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
@@ -33,6 +39,19 @@ public class InmuebleRequestDTO {
     @NotNull(message = "Seleccione el extra del inmueble")
     private Integer extraId;
 
+    // ----- Caracteristicas (opcionales): se muestran en el portal y en la ficha del CRM -----
+    @Min(value = 0, message = "Las habitaciones no pueden ser negativas") @Max(value = 99, message = "Habitaciones inválidas")
+    private Integer habitaciones;
+    @Min(value = 0, message = "Los baños no pueden ser negativos") @Max(value = 99, message = "Baños inválidos")
+    private Integer banos;
+    @DecimalMin(value = "0", message = "Los metros cuadrados no pueden ser negativos")
+    @Digits(integer = 8, fraction = 2, message = "Metros cuadrados inválidos")
+    private BigDecimal metrosCuadrados;
+    @Min(value = 0, message = "Los puestos de estacionamiento no pueden ser negativos") @Max(value = 99, message = "Estacionamientos inválidos")
+    private Integer estacionamientos;
+    @Min(value = -10, message = "Piso inválido") @Max(value = 200, message = "Piso inválido")
+    private Integer piso;
+
     public String getTitulo() { return titulo; }
     public void setTitulo(String titulo) { this.titulo = titulo; }
     public Integer getPrecio() { return precio; }
@@ -53,4 +72,14 @@ public class InmuebleRequestDTO {
     public void setTipoInmuebleId(Integer tipoInmuebleId) { this.tipoInmuebleId = tipoInmuebleId; }
     public Integer getExtraId() { return extraId; }
     public void setExtraId(Integer extraId) { this.extraId = extraId; }
+    public Integer getHabitaciones() { return habitaciones; }
+    public void setHabitaciones(Integer habitaciones) { this.habitaciones = habitaciones; }
+    public Integer getBanos() { return banos; }
+    public void setBanos(Integer banos) { this.banos = banos; }
+    public BigDecimal getMetrosCuadrados() { return metrosCuadrados; }
+    public void setMetrosCuadrados(BigDecimal metrosCuadrados) { this.metrosCuadrados = metrosCuadrados; }
+    public Integer getEstacionamientos() { return estacionamientos; }
+    public void setEstacionamientos(Integer estacionamientos) { this.estacionamientos = estacionamientos; }
+    public Integer getPiso() { return piso; }
+    public void setPiso(Integer piso) { this.piso = piso; }
 }

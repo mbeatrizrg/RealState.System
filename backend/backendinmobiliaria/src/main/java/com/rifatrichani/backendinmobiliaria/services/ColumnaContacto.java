@@ -1,6 +1,5 @@
 package com.rifatrichani.backendinmobiliaria.services;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.function.Function;
 
@@ -8,7 +7,7 @@ import com.rifatrichani.backendinmobiliaria.dto.response.ContactoResponseDTO;
 
 /* Columnas que se pueden mostrar y exportar en la tabla de contactos. La clave es la misma que usa el frontend
    (src/services/contactos.ts) y el valor puede ser texto, numero o LocalDateTime (Excel guarda las fechas como fecha) */
-public enum ColumnaContacto {
+public enum ColumnaContacto implements ColumnaExportable<ContactoResponseDTO> {
     NOMBRE("nombre", "Nombre", c -> c.getNombre() + " " + c.getApellido()),
     CORREO("correo", "Correo", ContactoResponseDTO::getCorreo),
     TELEFONO("telefono", "Teléfono", ContactoResponseDTO::getTelefono),
@@ -34,17 +33,11 @@ public enum ColumnaContacto {
         this.valor = valor;
     }
 
-    public String getClave() { return clave; }
-    public String getTitulo() { return titulo; }
-    public Object valorDe(ContactoResponseDTO contacto) { return valor.apply(contacto); }
+    @Override public String getClave() { return clave; }
+    @Override public String getTitulo() { return titulo; }
+    @Override public Object valorDe(ContactoResponseDTO contacto) { return valor.apply(contacto); }
 
-    //Convierte las claves recibidas en columnas, en el mismo orden. Una clave desconocida es un error del cliente
     public static List<ColumnaContacto> desdeClaves(List<String> claves) {
-        if (claves == null || claves.isEmpty()) return POR_DEFECTO;
-        return claves.stream().distinct().map(clave -> Arrays.stream(values())
-                .filter(c -> c.clave.equals(clave))
-                .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException("Columna desconocida: " + clave)))
-                .toList();
+        return ColumnaExportable.desdeClaves(ColumnaContacto.class, claves, POR_DEFECTO);
     }
 }

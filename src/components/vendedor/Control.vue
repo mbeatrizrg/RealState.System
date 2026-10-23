@@ -15,6 +15,18 @@
             <button class="btn-menu" @click="contactos">Contactos</button>
           </li>
           <li class="menu-item">
+            <button class="btn-menu" @click="$router.push('/negocios')">Negocios</button>
+          </li>
+          <li class="menu-item">
+            <button class="btn-menu" @click="$router.push('/inmuebles')">Inmuebles</button>
+          </li>
+          <li class="menu-item">
+            <button class="btn-menu" @click="$router.push('/tareas')">Tareas</button>
+          </li>
+          <li class="menu-item">
+            <button class="btn-menu" @click="$router.push('/estadisticas')">Estadísticas</button>
+          </li>
+          <li class="menu-item">
             <button class="btn-menu" @click="Leads">Leads</button>
           </li>
           <li class="menu-item">
@@ -31,6 +43,8 @@
           </li>
         </ul>
       </nav>
+
+      <BotonCerrarSesion />
     </aside>
 
     <!-- Contenido Principal -->
@@ -212,6 +226,31 @@
               </div>
             </div>
 
+            <div class="group">
+              <label for="habitaciones">Habitaciones</label>
+              <input id="habitaciones" v-model="form.habitaciones" type="number" min="0" max="99" step="1" placeholder="ej: 3" />
+            </div>
+
+            <div class="group">
+              <label for="banos">Baños</label>
+              <input id="banos" v-model="form.banos" type="number" min="0" max="99" step="1" placeholder="ej: 2" />
+            </div>
+
+            <div class="group">
+              <label for="metros">Metros cuadrados</label>
+              <input id="metros" v-model="form.metrosCuadrados" type="number" min="0" step="0.01" placeholder="ej: 120" />
+            </div>
+
+            <div class="group">
+              <label for="estacionamientos">Puestos de estacionamiento</label>
+              <input id="estacionamientos" v-model="form.estacionamientos" type="number" min="0" max="99" step="1" placeholder="ej: 1" />
+            </div>
+
+            <div class="group">
+              <label for="piso">Piso</label>
+              <input id="piso" v-model="form.piso" type="number" min="-10" max="200" step="1" placeholder="0 = planta baja" />
+            </div>
+
             <div class="group full-width">
               <label for="descripcion">Descripción</label>
               <textarea id="descripcion" v-model="form.descripcion" rows="4" required placeholder="Describe el inmueble"></textarea>
@@ -249,6 +288,7 @@
 </template>
 
 <script setup>
+import BotonCerrarSesion from './BotonCerrarSesion.vue'
 
 import { useRoute, useRouter } from 'vue-router'
 import { onMounted, reactive, ref, watch } from 'vue'
@@ -283,7 +323,8 @@ const profile = ()=> {
   router.push('/profile')
 }
 
-const activeSection = ref('usuario')
+// /control?seccion=inmueble abre directamente "Añadir inmueble" (boton Registrar inmueble del modulo Inmuebles)
+const activeSection = ref(route.query.seccion === 'inmueble' ? 'inmueble' : 'usuario')
 
 // ----- Catalogos de los selects -----
 const ciudades = ref([])
@@ -317,7 +358,16 @@ const formularioVacio = () => ({
   ciudadId: '',
   descripcion: '',
   usuarioId: '',
+  // Caracteristicas opcionales (vacias = sin registrar)
+  habitaciones: '',
+  banos: '',
+  metrosCuadrados: '',
+  estacionamientos: '',
+  piso: '',
 })
+
+// Campo numerico opcional: vacio = no se envia
+const numeroOpcional = (valor) => (valor === '' || valor === null || valor === undefined ? undefined : Number(valor))
 const form = reactive(formularioVacio())
 // Fotos elegidas que se suben al guardar (maximo 6 por inmueble, ver GaleriaFotos)
 const fotosPendientes = ref([])
@@ -342,6 +392,11 @@ async function guardarInmueble() {
       ciudadId: Number(form.ciudadId),
       tipoInmuebleId: Number(form.tipoInmuebleId),
       extraId: Number(form.extraId),
+      habitaciones: numeroOpcional(form.habitaciones),
+      banos: numeroOpcional(form.banos),
+      metrosCuadrados: numeroOpcional(form.metrosCuadrados),
+      estacionamientos: numeroOpcional(form.estacionamientos),
+      piso: numeroOpcional(form.piso),
     })
     id = respuesta.id
   } catch (e) {

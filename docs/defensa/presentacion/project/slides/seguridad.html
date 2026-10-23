@@ -1,0 +1,22 @@
+<section id="seguridad" data-transition="fade" style="background:#EDF2F3;color:#0B1F46;font-family:'Inter', Arial, sans-serif;padding:128px;display:flex;flex-direction:column;gap:48px">
+<h2 style="font-family:'Playfair Display', Georgia, serif;font-size:64px;font-weight:700;line-height:1.1">Seguridad y calidad desde el diseño</h2>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:28px">
+<div style="display:flex;flex-direction:row;gap:28px;background:#FFFFFF;border-radius:20px;padding:40px">
+<x-icon name="Users" style="color:#1F6FD6;width:56px;height:56px"></x-icon>
+<div style="flex:1;display:flex;flex-direction:column;gap:10px"><h3 style="font-size:34px;font-weight:700">Acceso por roles</h3><p style="font-size:27px;line-height:1.4;color:#44506A">Administrador, vendedor y cliente del portal. El servidor vuelve a validar cada petición.</p></div>
+</div>
+<div style="display:flex;flex-direction:row;gap:28px;background:#FFFFFF;border-radius:20px;padding:40px">
+<x-icon name="Lock" style="color:#1F6FD6;width:56px;height:56px"></x-icon>
+<div style="flex:1;display:flex;flex-direction:column;gap:10px"><h3 style="font-size:34px;font-weight:700">Cuentas protegidas</h3><p style="font-size:27px;line-height:1.4;color:#44506A">Claves cifradas con BCrypt, verificación por código al correo y cierre de sesión que invalida el token.</p></div>
+</div>
+<div style="display:flex;flex-direction:row;gap:28px;background:#FFFFFF;border-radius:20px;padding:40px">
+<x-icon name="Database" style="color:#1F6FD6;width:56px;height:56px"></x-icon>
+<div style="flex:1;display:flex;flex-direction:column;gap:10px"><h3 style="font-size:34px;font-weight:700">Base de datos versionada</h3><p style="font-size:27px;line-height:1.4;color:#44506A">7 migraciones SQL repetibles; el servidor avisa al arrancar si falta alguna.</p></div>
+</div>
+<div style="display:flex;flex-direction:row;gap:28px;background:#FFFFFF;border-radius:20px;padding:40px">
+<x-icon name="CheckCircle" style="color:#1F6FD6;width:56px;height:56px"></x-icon>
+<div style="flex:1;display:flex;flex-direction:column;gap:10px"><h3 style="font-size:34px;font-weight:700">Pruebas automáticas</h3><p style="font-size:27px;line-height:1.4;color:#44506A">93 pruebas entre backend y frontend verifican reglas, filtros, exportaciones y permisos.</p></div>
+</div>
+</div>
+<aside>La seguridad no se agregó al final. Cada pantalla y cada endpoint verifica el rol: un vendedor no puede modificar negocios de otro, y un cliente nunca ve el CRM. Las contraseñas se guardan cifradas, los clientes confirman su correo con un código y al cerrar sesión el token deja de servir. La base de datos se modifica solo con migraciones versionadas. Y hay 93 pruebas automáticas que comprueban que todo esto sigue funcionando.</aside>
+</section>

@@ -16,6 +16,18 @@
             <button class="btn-menu" @click="contactos">Contactos</button>
           </li>
           <li class="menu-item">
+            <button class="btn-menu" @click="$router.push('/negocios')">Negocios</button>
+          </li>
+          <li class="menu-item">
+            <button class="btn-menu" @click="$router.push('/inmuebles')">Inmuebles</button>
+          </li>
+          <li class="menu-item">
+            <button class="btn-menu" @click="$router.push('/tareas')">Tareas</button>
+          </li>
+          <li class="menu-item">
+            <button class="btn-menu" @click="$router.push('/estadisticas')">Estadísticas</button>
+          </li>
+          <li class="menu-item">
             <button class="btn-menu" @click="Leads">Leads</button>
           </li>
           <li class="menu-item">
@@ -32,6 +44,8 @@
           </li>
         </ul>
       </nav>
+
+      <BotonCerrarSesion />
     </aside>
 
     <!-- Contenido Principal -->
@@ -167,6 +181,7 @@
 
 
 <script setup>
+import BotonCerrarSesion from './BotonCerrarSesion.vue'
 import { onMounted, reactive, ref } from 'vue'
 import { useRouter } from 'vue-router'
 

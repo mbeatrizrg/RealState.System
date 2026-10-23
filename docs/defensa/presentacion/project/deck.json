@@ -1,0 +1,21 @@
+{
+  "v": 4,
+  "createdOnFiles": {"v": 1, "at": "2026-10-22T19:30:00Z"},
+  "lists": "css",
+  "title": "CRM Rifat Richani Bienes Raíces",
+  "cover": "cover",
+  "order": ["cover", "agenda", "cliente", "problema", "solucion", "arquitectura", "tecnologias", "seguridad", "metodologia", "embudo", "recorrido", "portal-crm", "contactos", "negocios", "inmuebles", "tareas", "estadisticas", "capacidades", "cierre"],
+  "sections": {
+    "s1": {"description": "Presentación del proyecto y agenda", "start": "cover"},
+    "s2": {"description": "El cliente y la razón por la que construimos el CRM", "start": "cliente"},
+    "s3": {"description": "Tecnologías y arquitectura del sistema", "start": "arquitectura"},
+    "s4": {"description": "Metodología de negocio: inbound y embudo de ventas", "start": "metodologia"},
+    "s5": {"description": "Cómo funciona: del portal al CRM, módulo por módulo", "start": "recorrido"},
+    "s6": {"description": "Resumen de capacidades y cierre", "start": "capacidades"}
+  },
+  "faces": {
+    "playfair-display": {"family": "Playfair Display", "href": "https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500..800&display=swap"},
+    "inter": {"family": "Inter", "href": "https://fonts.googleapis.com/css2?family=Inter:wght@400..700&display=swap"}
+  },
+  "designSystems": []
+}

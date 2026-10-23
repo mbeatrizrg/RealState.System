@@ -1,5 +1,6 @@
 package com.rifatrichani.backendinmobiliaria.repositories;
 
+import java.util.Collection;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -23,4 +24,8 @@ public interface ComunicacionRepository extends JpaRepository<Comunicacion, Inte
     @Query("SELECT c FROM Comunicacion c JOIN FETCH c.canal JOIN FETCH c.lead l JOIN FETCH l.usuario JOIN FETCH l.inmueble i JOIN FETCH i.empleado " +
            "WHERE l.usuario.id = :usuarioId ORDER BY c.fechaCreacion DESC")
     List<Comunicacion> obtenerPorUsuarioId(@Param("usuarioId") Integer usuarioId);
+
+    //Estadisticas: mensajes registrados en los leads de varios inmuebles
+    @Query("SELECT c FROM Comunicacion c JOIN FETCH c.canal JOIN FETCH c.lead l WHERE l.inmueble.id IN :inmuebleIds")
+    List<Comunicacion> obtenerPorInmuebles(@Param("inmuebleIds") Collection<Integer> inmuebleIds);
 }

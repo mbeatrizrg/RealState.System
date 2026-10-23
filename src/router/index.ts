@@ -8,6 +8,13 @@ import ContactUs from '@/components/ContactUs.vue'
 import menuVendedor from '@/components/vendedor/menu-vendedor.vue'
 import Contact from '@/components/vendedor/Contact.vue'
 import ContactoDetalle from '@/components/vendedor/ContactoDetalle.vue'
+import Negocios from '@/components/vendedor/Negocios.vue'
+import NegocioDetalle from '@/components/vendedor/NegocioDetalle.vue'
+import Propiedades from '@/components/vendedor/Propiedades.vue'
+import PropiedadDetalle from '@/components/vendedor/PropiedadDetalle.vue'
+import Tareas from '@/components/vendedor/Tareas.vue'
+import Estadisticas from '@/components/vendedor/Estadisticas.vue'
+import EstadisticaInmueble from '@/components/vendedor/EstadisticaInmueble.vue'
 import Leads from '@/components/vendedor/Leads.vue'
 import Control from '@/components/vendedor/Control.vue'
 import profile from '@/components/vendedor/profile.vue'
@@ -103,6 +110,52 @@ const routes: RouteRecordRaw[] = [
     path: '/contact/:id(\\d+)',
     name: 'ContactoDetalle',
     component: ContactoDetalle,
+    meta: { acceso: 'empleado' }
+  },
+  {
+    // Modulo de Negocios: ?vista=mios | sin_asignar y ?modo=tablero (sin modo = vista de tabla)
+    path: '/negocios',
+    name: 'Negocios',
+    component: Negocios,
+    meta: { acceso: 'empleado' }
+  },
+  {
+    path: '/negocios/:id(\\d+)',
+    name: 'NegocioDetalle',
+    component: NegocioDetalle,
+    meta: { acceso: 'empleado' }
+  },
+  {
+    // Modulo Inmuebles del CRM: ?vista=mios | disponibles
+    path: '/inmuebles',
+    name: 'Propiedades',
+    component: Propiedades,
+    meta: { acceso: 'empleado' }
+  },
+  {
+    path: '/inmuebles/:id(\\d+)',
+    name: 'PropiedadDetalle',
+    component: PropiedadDetalle,
+    meta: { acceso: 'empleado' }
+  },
+  {
+    // Modulo de Tareas: ?vista=mias_pendientes | completadas_vencidas y ?tarea=ID abre el detalle
+    path: '/tareas',
+    name: 'Tareas',
+    component: Tareas,
+    meta: { acceso: 'empleado' }
+  },
+  {
+    // Estadisticas e informes: ?pestana=interaccion | ventas
+    path: '/estadisticas',
+    name: 'Estadisticas',
+    component: Estadisticas,
+    meta: { acceso: 'empleado' }
+  },
+  {
+    path: '/estadisticas/inmuebles/:id(\\d+)',
+    name: 'EstadisticaInmueble',
+    component: EstadisticaInmueble,
     meta: { acceso: 'empleado' }
   },
   {

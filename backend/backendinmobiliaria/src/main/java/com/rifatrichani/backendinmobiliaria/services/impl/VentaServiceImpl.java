@@ -45,7 +45,8 @@ public class VentaServiceImpl implements VentaService {
         venta.setComprobante(dto.getComprobante().trim());
         venta.setComision(BigDecimal.ZERO);
         Integer id = ventaRepository.save(venta).getId();
-        inmueble.setVendido(true);
+        //Tambien marca isVendido (ver Inmueble.cambiarEstado)
+        inmueble.cambiarEstado(Boolean.TRUE.equals(inmueble.getAlquiler()) ? "alquilado" : "vendido");
         inmuebleRepository.save(inmueble);
         return id;
     }

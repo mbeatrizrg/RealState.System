@@ -27,6 +27,10 @@ public interface LeadRepository extends JpaRepository<Lead, Integer> {
     @Query("SELECT l FROM Lead l JOIN FETCH l.inmueble i JOIN FETCH i.empleado WHERE l.usuario.id = :usuarioId ORDER BY l.id DESC")
     List<Lead> obtenerPorUsuarioId(@Param("usuarioId") Integer usuarioId);
 
+    //Inmuebles: clientes interesados (leads del inmueble), el mas reciente primero
+    @Query("SELECT l FROM Lead l JOIN FETCH l.usuario WHERE l.inmueble.id = :inmuebleId ORDER BY l.id DESC")
+    List<Lead> obtenerPorInmuebleId(@Param("inmuebleId") Integer inmuebleId);
+
     //Contactos: [usuarioId, estatus] del lead mas reciente de cada usuario (el estatus del contacto)
     @Query("SELECT l.usuario.id, l.estatus FROM Lead l WHERE l.id IN " +
            "(SELECT MAX(l2.id) FROM Lead l2 WHERE l2.usuario.id IN :usuarioIds GROUP BY l2.usuario.id)")
@@ -35,4 +39,8 @@ public interface LeadRepository extends JpaRepository<Lead, Integer> {
     //Contactos: [usuarioId, cantidad de leads]
     @Query("SELECT l.usuario.id, COUNT(l.id) FROM Lead l WHERE l.usuario.id IN :usuarioIds GROUP BY l.usuario.id")
     List<Object[]> contarPorUsuario(@Param("usuarioIds") Collection<Integer> usuarioIds);
+
+    //Estadisticas: leads (consultas) de varios inmuebles con su cliente
+    @Query("SELECT l FROM Lead l JOIN FETCH l.usuario WHERE l.inmueble.id IN :inmuebleIds")
+    List<Lead> obtenerPorInmuebles(@Param("inmuebleIds") Collection<Integer> inmuebleIds);
 }

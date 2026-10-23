@@ -1,0 +1,218 @@
+/* Modulo de Estadisticas (Estadisticas.vue y sus piezas). Se suma a contact.css */
+.tarjetas {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+}
+
+.tarjeta-metrica {
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 18px 20px;
+}
+
+.tarjeta-metrica h2 {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 600;
+  color: #636363;
+}
+
+.cifra {
+  margin: 6px 0 4px;
+  font-size: 30px;
+  font-weight: 600;
+  color: #0b1f46;
+  font-variant-numeric: proportional-nums;
+}
+
+.detalle {
+  margin: 0;
+  font-size: 12px;
+  color: #636363;
+}
+
+.graficas {
+  display: grid;
+  grid-template-columns: minmax(320px, 1fr) minmax(0, 1.6fr);
+  gap: 16px;
+  align-items: start;
+}
+
+.graficas.dos {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.tarjeta-panel {
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-width: 0;
+}
+
+.panel-cabecera {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.panel-cabecera h2 {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 16px;
+  color: #0b1f46;
+}
+
+.alternar-vista.pequeno button {
+  padding: 6px 10px;
+  font-size: 12px;
+}
+
+.nota,
+.vacio {
+  margin: 0;
+  font-size: 12px;
+  color: #636363;
+}
+
+.filtro-activo {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  background-color: #dbe7ff;
+  color: #0b1f46;
+  font-size: 14px;
+}
+
+.filtro-activo button {
+  background: none;
+  border: none;
+  font: inherit;
+  cursor: pointer;
+}
+
+.num {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.alerta {
+  color: #991b1b;
+  font-weight: 600;
+}
+
+.pipeline {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.pipeline li {
+  display: grid;
+  grid-template-columns: 150px 1fr auto;
+  align-items: center;
+  gap: 12px;
+  font-size: 13px;
+}
+
+.pipeline-etapa {
+  color: #1c1c1c;
+}
+
+.pipeline-barra {
+  height: 14px;
+  border-radius: 0 4px 4px 0;
+  background-color: #eef1f6;
+  overflow: hidden;
+}
+
+.pipeline-barra span {
+  display: block;
+  height: 100%;
+  border-radius: 0 4px 4px 0;
+  background-color: #2a78d6;
+}
+
+.pipeline-valor {
+  color: #0b1f46;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.pipeline-valor small {
+  color: #636363;
+  font-weight: 400;
+}
+
+/* Modales de informe y personalizacion */
+.ayuda-modal {
+  margin: 0 0 12px;
+  font-size: 13px;
+  color: #636363;
+}
+
+.grupo-modal {
+  border: none;
+  margin: 0 0 14px;
+  padding: 0;
+}
+
+.grupo-modal legend {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #636363;
+  margin-bottom: 6px;
+}
+
+.opcion-modal {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 0;
+  font-size: 14px;
+  color: #1c1c1c;
+}
+
+.opcion-modal input {
+  accent-color: #004cb5;
+}
+
+.error-modal {
+  margin: 0;
+  color: #991b1b;
+  font-size: 13px;
+}
+
+@media (max-width: 1100px) {
+  .graficas,
+  .graficas.dos {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 560px) {
+  .pipeline li {
+    grid-template-columns: 1fr auto;
+  }
+
+  .pipeline-barra {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+}

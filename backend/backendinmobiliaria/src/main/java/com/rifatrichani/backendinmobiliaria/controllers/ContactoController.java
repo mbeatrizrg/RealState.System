@@ -1,7 +1,6 @@
 package com.rifatrichani.backendinmobiliaria.controllers;
 
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 import org.springframework.http.ContentDisposition;
@@ -63,16 +62,21 @@ public class ContactoController {
                                            @RequestParam(defaultValue = "xlsx") String formato,
                                            @RequestParam(required = false) List<String> columnas,
                                            @RequestParam(defaultValue = "todos") String alcance) {
-        FormatoExportacion tipo = switch (formato.toLowerCase(Locale.ROOT)) {
-            case "xlsx", "excel" -> FormatoExportacion.XLSX;
-            case "pdf" -> FormatoExportacion.PDF;
-            default -> throw new IllegalArgumentException("Formato inválido (xlsx o pdf)");
-        };
+        ArchivoExportado archivo = contactoService.exportar(filtro, ColumnaContacto.desdeClaves(columnas),
+                FormatoExportacion.desde(formato), soloPagina(alcance), SesionActual.empleado());
+        return descarga(archivo);
+    }
+
+    //alcance=todos|pagina de las exportaciones (tambien en NegocioController y PropiedadController)
+    public static boolean soloPagina(String alcance) {
         if (!alcance.equals("todos") && !alcance.equals("pagina")) {
             throw new IllegalArgumentException("Alcance inválido (todos o pagina)");
         }
-        ArchivoExportado archivo = contactoService.exportar(filtro, ColumnaContacto.desdeClaves(columnas), tipo,
-                alcance.equals("pagina"), SesionActual.empleado());
+        return alcance.equals("pagina");
+    }
+
+    //Respuesta de descarga con el nombre que propone el backend
+    public static ResponseEntity<byte[]> descarga(ArchivoExportado archivo) {
         return ResponseEntity.ok()
                 .contentType(MediaType.parseMediaType(archivo.tipoContenido()))
                 .header(HttpHeaders.CONTENT_DISPOSITION, ContentDisposition.attachment().filename(archivo.nombre()).build().toString())

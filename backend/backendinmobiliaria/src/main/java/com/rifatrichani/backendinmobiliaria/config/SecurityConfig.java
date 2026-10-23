@@ -100,7 +100,9 @@ public class SecurityConfig {
 
                 // 6. CRM (vendedor y administrador)
                 .requestMatchers("/api/inmueble/**", "/api/lead/**", "/api/comunicacion/**", "/api/venta/**",
-                    "/api/galeria/**", "/api/ranking/**", "/api/canal/**", "/api/usuario/crm/**", "/api/contactos/**").hasAnyAuthority(ROL_VENDEDOR, ROL_ADMIN)
+                    "/api/galeria/**", "/api/ranking/**", "/api/canal/**", "/api/usuario/crm/**", "/api/contactos/**",
+                    "/api/negocios/**", "/api/propiedades/**", "/api/actividades/**", "/api/archivos/**",
+                    "/api/tareas/**", "/api/estadisticas/**").hasAnyAuthority(ROL_VENDEDOR, ROL_ADMIN)
 
                 // 7. Lo demas (ej. /api/auth/me, /api/auth/logout) solo requiere un token valido
                 .anyRequest().authenticated())

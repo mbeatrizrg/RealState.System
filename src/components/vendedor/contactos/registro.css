@@ -1,0 +1,244 @@
+/* Registro del contacto y fichas de negocio / inmueble: tres columnas (lateral izquierda, centro, lateral derecha).
+   Se suma a contact.css y detalle.css */
+.registro {
+  padding: 32px 36px;
+}
+
+.registro-grid {
+  display: grid;
+  grid-template-columns: minmax(260px, 300px) minmax(0, 1fr) minmax(260px, 320px);
+  gap: 20px;
+  align-items: start;
+}
+
+.lateral,
+.centro {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 0;
+}
+
+.tarjeta h2 .derecha {
+  margin-left: auto;
+  font-size: 13px;
+}
+
+.subtitulo-tarjeta {
+  margin: 4px 0 0;
+  font-size: 13px;
+  color: #636363;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.datos a {
+  color: #004cb5;
+  text-decoration: none;
+}
+
+.enlace {
+  align-self: flex-start;
+  background: none;
+  border: none;
+  padding: 0;
+  color: #004cb5;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.enlace:hover {
+  text-decoration: underline;
+}
+
+.error {
+  color: #991b1b;
+}
+
+/* ----- Perfil y accesos rapidos ----- */
+.perfil-cabecera {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 12px;
+  align-items: center;
+}
+
+.perfil-nombre {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+}
+
+.perfil-nombre h1 {
+  margin: 0;
+  font-family: 'Playfair Display', 'Merriweather', serif;
+  font-size: 22px;
+  color: #0b1f46;
+  overflow-wrap: anywhere;
+}
+
+.menu-acciones {
+  grid-column: 1 / -1;
+  position: relative;
+}
+
+.btn-acciones {
+  width: 100%;
+  background-color: #ffffff;
+  color: #0b1f46;
+  border: 1px solid #0b1f46;
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.menu-lista {
+  position: absolute;
+  z-index: 30;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  margin: 0;
+  padding: 6px;
+  list-style: none;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 12px 28px rgba(11, 31, 70, 0.18);
+}
+
+.menu-lista button,
+.menu-lista a {
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  padding: 8px 10px;
+  border-radius: 8px;
+  font-size: 14px;
+  color: #0b1f46;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.menu-lista button:hover,
+.menu-lista a:hover {
+  background-color: #eef3fb;
+}
+
+.menu-lista button:disabled {
+  opacity: 0.5;
+}
+
+.accesos {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 6px;
+}
+
+.acceso {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  background: none;
+  border: none;
+  padding: 4px 0;
+  font-size: 11px;
+  color: #0b1f46;
+  cursor: pointer;
+}
+
+.acceso-icono {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background-color: #0b1f46;
+  color: #ffffff;
+  font-size: 16px;
+  transition: background-color 0.15s;
+}
+
+.acceso:hover .acceso-icono,
+.acceso:focus-visible .acceso-icono {
+  background-color: #004cb5;
+}
+
+/* ----- Listas de la barra derecha ----- */
+.lista-asociados {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.lista-asociados li {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eef1f6;
+  font-size: 14px;
+}
+
+.lista-asociados li:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.lista-asociados a {
+  color: #0b1f46;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.lista-asociados a:hover {
+  text-decoration: underline;
+}
+
+.lista-asociados small {
+  color: #636363;
+  font-size: 12px;
+}
+
+.comunicacion summary {
+  cursor: pointer;
+  color: #004cb5;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.comunicacion .form-comunicacion {
+  margin-top: 10px;
+}
+
+@media (max-width: 1280px) {
+  .registro-grid {
+    grid-template-columns: minmax(250px, 300px) minmax(0, 1fr);
+  }
+
+  .registro-grid > .lateral:last-child {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  }
+}
+
+@media (max-width: 900px) {
+  .registro {
+    padding: 20px 16px;
+  }
+
+  .registro-grid {
+    grid-template-columns: 1fr;
+  }
+}

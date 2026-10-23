@@ -64,6 +64,9 @@ async function request<T>(ruta: string, opciones: RequestInit = {}, comoArchivo 
       mensaje = String(datos.mensaje)
     } else if (typeof datos === 'string' && datos) {
       mensaje = datos
+    } else if (respuesta.status === 502 || respuesta.status === 504) {
+      // Respuesta vacia del proxy de Vite: el backend no esta encendido o se esta reiniciando
+      mensaje = 'No se pudo conectar con el backend. Verifique que esté encendido (puerto 8080) e intente de nuevo.'
     }
     throw new ApiError(mensaje, respuesta.status)
   }

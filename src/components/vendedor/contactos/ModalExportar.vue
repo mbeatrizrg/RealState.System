@@ -1,5 +1,5 @@
 <template>
-  <ModalCrm titulo="Exportar contactos" @cerrar="emit('cerrar')">
+  <ModalCrm :titulo="`Exportar ${unidad}`" @cerrar="emit('cerrar')">
     <fieldset class="grupo">
       <legend>Formato</legend>
       <label :class="['opcion', { marcada: formato === 'xlsx' }]">
@@ -13,7 +13,7 @@
     </fieldset>
 
     <fieldset class="grupo">
-      <legend>Contactos</legend>
+      <legend>Filas</legend>
       <label :class="['opcion', { marcada: alcance === 'todos' }]">
         <input v-model="alcance" type="radio" value="todos" />
         <span>Todos los resultados con los filtros actuales ({{ totalElementos }})</span>
@@ -23,7 +23,7 @@
         <span>Solo la página actual ({{ filasPagina }})</span>
       </label>
       <p v-if="alcance === 'todos' && totalElementos > MAXIMO" class="aviso">
-        Se pueden exportar como máximo {{ MAXIMO }} contactos. Agrega filtros o exporta solo la página actual.
+        Se pueden exportar como máximo {{ MAXIMO }} {{ unidad }}. Agrega filtros o exporta solo la página actual.
       </p>
     </fieldset>
 
@@ -40,7 +40,7 @@
 
     <template #pie>
       <button type="button" class="btn-secundario" @click="emit('cerrar')">Cancelar</button>
-      <button type="button" class="btn-primario" :disabled="exportando || bloqueado" @click="exportar">
+      <button type="button" class="btn-primario" :disabled="exportando || bloqueado" @click="ejecutarExportacion">
         {{ exportando ? 'Generando...' : 'Exportar' }}
       </button>
     </template>
@@ -52,17 +52,24 @@ import { computed, ref } from 'vue'
 
 import ModalCrm from './ModalCrm.vue'
 import { mensajeDeError } from '@/services/api'
-import { COLUMNAS, exportarContactos, type ClaveColumna, type FiltrosContactos } from '@/services/contactos'
+import { COLUMNAS, exportarContactos } from '@/services/contactos'
+import { MAXIMO_EXPORTACION as MAXIMO, type ColumnaTabla, type OpcionesExportacion } from '@/services/tablas'
 
-// ContactoService.MAXIMO_EXPORTACION en el backend
-const MAXIMO = 5000
-
-const props = defineProps<{
-  filtros: FiltrosContactos
-  columnas: ClaveColumna[]
+/* Exportacion Excel/PDF de una tabla del CRM con sus filtros. Por defecto exporta contactos; Negocios e Inmuebles
+   pasan sus columnas, la unidad ("negocios") y su funcion de exportacion */
+const props = withDefaults(defineProps<{
+  filtros: object
+  columnas: string[]
   totalElementos: number
   filasPagina: number
-}>()
+  disponibles?: ColumnaTabla[]
+  unidad?: string
+  exportar?: (filtros: any, opciones: OpcionesExportacion<any>) => Promise<void>
+}>(), {
+  disponibles: () => COLUMNAS,
+  unidad: 'contactos',
+  exportar: exportarContactos,
+})
 const emit = defineEmits<{ cerrar: [] }>()
 
 const formato = ref<'xlsx' | 'pdf'>('xlsx')
@@ -71,17 +78,17 @@ const todasLasColumnas = ref(false)
 const exportando = ref(false)
 const error = ref('')
 
-const columnasExportadas = computed(() => (todasLasColumnas.value ? COLUMNAS.map((c) => c.clave) : props.columnas))
+const columnasExportadas = computed(() => (todasLasColumnas.value ? props.disponibles.map((c) => c.clave) : props.columnas))
 const titulosColumnas = computed(() =>
-  columnasExportadas.value.map((clave) => COLUMNAS.find((c) => c.clave === clave)?.titulo).join(' · '),
+  columnasExportadas.value.map((clave) => props.disponibles.find((c) => c.clave === clave)?.titulo).join(' · '),
 )
 const bloqueado = computed(() => alcance.value === 'todos' && props.totalElementos > MAXIMO)
 
-async function exportar() {
+async function ejecutarExportacion() {
   exportando.value = true
   error.value = ''
   try {
-    await exportarContactos(props.filtros, {
+    await props.exportar(props.filtros, {
       formato: formato.value,
       alcance: alcance.value,
       columnas: columnasExportadas.value,

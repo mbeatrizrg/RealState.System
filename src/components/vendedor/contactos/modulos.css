@@ -1,0 +1,76 @@
+/* Complementos de contact.css para los modulos de Negocios e Inmuebles y sus fichas */
+.btn-secundario:disabled,
+.btn-filtros:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.acciones {
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+/* Interruptor "Vista de tabla" / "Vista de tablero" */
+.alternar-vista {
+  display: inline-flex;
+  border: 1px solid #0b1f46;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.alternar-vista button {
+  background-color: #ffffff;
+  color: #0b1f46;
+  border: none;
+  padding: 11px 16px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.alternar-vista button + button {
+  border-left: 1px solid #0b1f46;
+}
+
+.alternar-vista button.activo {
+  background-color: #0b1f46;
+  color: #ffffff;
+}
+
+.enlace-celda {
+  color: #004cb5;
+  text-decoration: none;
+}
+
+.enlace-celda:hover {
+  text-decoration: underline;
+}
+
+.aviso-flotante {
+  margin: 0;
+  padding: 10px 14px;
+  border-radius: 8px;
+  background-color: #dbe7ff;
+  color: #0b1f46;
+  font-size: 14px;
+}
+
+.resumen-tablero {
+  margin: 0 0 12px;
+  color: #4b5563;
+  font-size: 14px;
+}
+
+.miniatura {
+  width: 52px;
+  height: 40px;
+  border-radius: 6px;
+  object-fit: cover;
+  flex-shrink: 0;
+  background-color: #e3e8f4;
+}
+
+.celda-inmueble {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}

@@ -1,0 +1,189 @@
+/* Paginas del negocio y del inmueble (NegocioDetalle.vue, PropiedadDetalle.vue). Se suma a registro.css */
+.valor {
+  color: #004cb5;
+  font-size: 18px;
+}
+
+.btn-secundario.peligro {
+  color: #991b1b;
+  border-color: #991b1b;
+}
+
+.btn-secundario:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+/* Etapas del pipeline */
+.etapas {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 4px;
+  overflow-x: auto;
+}
+
+.etapas li {
+  flex: 1;
+  min-width: 120px;
+}
+
+.etapa {
+  width: 100%;
+  height: 100%;
+  background-color: #e3e8f4;
+  color: #4a5670;
+  border: none;
+  padding: 10px 8px;
+  font-size: 13px;
+  cursor: pointer;
+  clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 50%, calc(100% - 10px) 100%, 0 100%, 10px 50%);
+}
+
+.etapas li:first-child .etapa {
+  clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 50%, calc(100% - 10px) 100%, 0 100%);
+  border-radius: 8px 0 0 8px;
+}
+
+.etapa.pasada {
+  background-color: #c7d5f0;
+  color: #0b1f46;
+}
+
+.etapa.actual {
+  background-color: #0b1f46;
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.etapa.cierre:not(.actual) {
+  background-color: #eceff3;
+}
+
+.etapa:disabled {
+  cursor: default;
+}
+
+.etapa:not(:disabled):hover {
+  background-color: #004cb5;
+  color: #ffffff;
+}
+
+.cliente {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.accesos-fila {
+  grid-template-columns: repeat(5, minmax(0, 72px));
+}
+
+/* Fotos del inmueble */
+.foto-principal {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: 10px;
+  background-color: #e3e8f4;
+}
+
+.miniaturas {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(56px, 1fr));
+  gap: 6px;
+}
+
+.miniaturas button {
+  padding: 0;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
+  background: none;
+}
+
+.miniaturas button.activa {
+  border-color: #004cb5;
+}
+
+.miniaturas img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  display: block;
+}
+
+.descripcion-inmueble {
+  margin: 0;
+  white-space: pre-wrap;
+  font-size: 14px;
+  color: #1c1c1c;
+}
+
+.caracteristicas {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.caracteristica {
+  background-color: #f1f4f6;
+  border-radius: 10px;
+  padding: 12px;
+  text-align: center;
+}
+
+.caracteristica strong {
+  display: block;
+  font-size: 20px;
+  color: #0b1f46;
+}
+
+.caracteristica span {
+  font-size: 12px;
+  color: #636363;
+}
+
+.etiquetas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.etiquetas li {
+  background-color: #e3e8f4;
+  color: #0b1f46;
+  border-radius: 999px;
+  padding: 4px 10px;
+  font-size: 12px;
+}
+
+.tabla-simple a {
+  color: #0b1f46;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.tabla-simple a:hover {
+  text-decoration: underline;
+}
+
+.documento {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-quitar {
+  background: none;
+  border: none;
+  color: #991b1b;
+  cursor: pointer;
+  font-size: 12px;
+}

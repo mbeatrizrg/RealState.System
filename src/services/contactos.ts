@@ -1,6 +1,7 @@
 import { api } from './api'
 import type { Catalogo } from './catalogos'
 import type { Pagina } from './inmuebles'
+import { aQuery, exportarTabla, type ColumnaTabla, type OpcionesExportacion as OpcionesTabla } from './tablas'
 
 // Modulo de Contactos del CRM (ContactoController en el backend)
 
@@ -116,12 +117,8 @@ export type ClaveColumna =
   | 'nombre' | 'correo' | 'telefono' | 'fechaCreacion' | 'propietario' | 'estatus'
   | 'ultimaActividad' | 'cedula' | 'tipoNegocio' | 'leads' | 'verificado'
 
-export interface Columna {
-  clave: ClaveColumna
-  titulo: string
-  // Campo por el que ordena el backend al hacer clic en el encabezado (sin valor = no se puede ordenar)
-  orden?: OrdenContactos
-}
+// orden: campo por el que ordena el backend al hacer clic en el encabezado (sin valor = no se puede ordenar)
+export type Columna = ColumnaTabla<ClaveColumna, OrdenContactos>
 
 export const COLUMNAS: Columna[] = [
   { clave: 'nombre', titulo: 'Nombre', orden: 'nombre' },
@@ -138,21 +135,6 @@ export const COLUMNAS: Columna[] = [
 ]
 
 export const COLUMNAS_POR_DEFECTO: ClaveColumna[] = ['nombre', 'correo', 'telefono', 'fechaCreacion', 'propietario', 'estatus']
-
-// Los filtros vacios no se envian; las listas se envian separadas por coma (propietarioIds=2,3)
-function aQuery(filtros: object) {
-  const params = new URLSearchParams()
-  Object.entries(filtros).forEach(([clave, valor]) => {
-    if (valor === undefined || valor === null || valor === '') return
-    if (Array.isArray(valor)) {
-      if (valor.length) params.append(clave, valor.join(','))
-    } else {
-      params.append(clave, String(valor))
-    }
-  })
-  const query = params.toString()
-  return query ? `?${query}` : ''
-}
 
 export const buscarContactos = (filtros: FiltrosContactos) =>
   api.get<Pagina<Contacto>>(`/api/contactos${aQuery(filtros)}`)
@@ -178,20 +160,8 @@ export const cambiarEstatusLead = (leadId: number, estatus: number) =>
 export const registrarComunicacion = (leadId: number, canalId: number, descripcion: string) =>
   api.post<void>('/api/comunicacion', { leadId, canalId, descripcion })
 
-export interface OpcionesExportacion {
-  formato: 'xlsx' | 'pdf'
-  alcance: 'todos' | 'pagina'
-  columnas: ClaveColumna[]
-}
+export type OpcionesExportacion = OpcionesTabla<ClaveColumna>
 
 // Descarga la exportacion con los mismos filtros de la tabla
-export async function exportarContactos(filtros: FiltrosContactos, opciones: OpcionesExportacion) {
-  const { blob, nombre } = await api.archivo(`/api/contactos/exportar${aQuery({ ...filtros, ...opciones })}`)
-  const enlace = document.createElement('a')
-  enlace.href = URL.createObjectURL(blob)
-  enlace.download = nombre ?? `contactos.${opciones.formato}`
-  document.body.appendChild(enlace)
-  enlace.click()
-  enlace.remove()
-  setTimeout(() => URL.revokeObjectURL(enlace.href), 1000)
-}
+export const exportarContactos = (filtros: FiltrosContactos, opciones: OpcionesExportacion) =>
+  exportarTabla('/api/contactos', 'contactos', filtros, opciones)

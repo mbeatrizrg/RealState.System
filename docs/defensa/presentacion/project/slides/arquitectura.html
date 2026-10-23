@@ -1,0 +1,34 @@
+<section id="arquitectura" data-section="Tecnologías y arquitectura del sistema" data-transition="fade" style="background:#F6F7F4;color:#0B1F46;font-family:'Inter', Arial, sans-serif;padding:128px;display:flex;flex-direction:column;gap:56px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-size:26px;font-weight:600;letter-spacing:4px;text-transform:uppercase;color:#1F6FD6">02 · Tecnologías</p>
+<h2 style="font-family:'Playfair Display', Georgia, serif;font-size:64px;font-weight:700;line-height:1.1">Arquitectura en tres capas</h2>
+</div>
+<div style="display:flex;flex-direction:row;align-items:stretch;gap:24px">
+<div style="flex:1;display:flex;flex-direction:column;gap:16px;background:#FFFFFF;border:2px solid #1F6FD6;border-radius:20px;padding:40px">
+<x-icon name="Globe" style="color:#1F6FD6;width:56px;height:56px"></x-icon>
+<h3 style="font-size:36px;font-weight:700">Frontend</h3>
+<p style="font-size:28px;line-height:1.4;color:#44506A">Portal público y CRM en el navegador.</p>
+<p style="font-size:26px;font-weight:600;color:#0B1F46">Vue 3 · TypeScript · Vite</p>
+</div>
+<x-connector head="end" style="width:72px;height:4px;align-self:center;color:#1F6FD6;border-width:4px"></x-connector>
+<div style="flex:1;display:flex;flex-direction:column;gap:16px;background:#0B1F46;color:#F6F7F4;border-radius:20px;padding:40px">
+<x-icon name="Settings" style="color:#7FB2F0;width:56px;height:56px"></x-icon>
+<h3 style="font-size:36px;font-weight:700;color:#F6F7F4">API REST</h3>
+<p style="font-size:28px;line-height:1.4;color:#C9D3E6">Reglas de negocio, seguridad y reportes.</p>
+<p style="font-size:26px;font-weight:600;color:#F6F7F4">Spring Boot 4 · Java 17</p>
+</div>
+<x-connector head="end" style="width:72px;height:4px;align-self:center;color:#1F6FD6;border-width:4px"></x-connector>
+<div style="flex:1;display:flex;flex-direction:column;gap:16px;background:#FFFFFF;border:2px solid #1F6FD6;border-radius:20px;padding:40px">
+<x-icon name="Database" style="color:#1F6FD6;width:56px;height:56px"></x-icon>
+<h3 style="font-size:36px;font-weight:700">Base de datos</h3>
+<p style="font-size:28px;line-height:1.4;color:#44506A">Una sola fuente de verdad para portal y CRM.</p>
+<p style="font-size:26px;font-weight:600;color:#0B1F46">PostgreSQL en Supabase</p>
+</div>
+</div>
+<div style="display:flex;flex-direction:row;gap:24px">
+<p style="flex:1;font-size:26px;color:#44506A;background:#EDF2F3;border-radius:14px;padding:24px 28px"><b>Correo SMTP:</b> códigos de verificación y correos a clientes</p>
+<p style="flex:1;font-size:26px;color:#44506A;background:#EDF2F3;border-radius:14px;padding:24px 28px"><b>Archivos:</b> fotos públicas y documentos privados</p>
+<p style="flex:1;font-size:26px;color:#44506A;background:#EDF2F3;border-radius:14px;padding:24px 28px"><b>JWT:</b> sesión segura entre navegador y API</p>
+</div>
+<aside>El sistema está separado en tres capas. El frontend, hecho en Vue 3 con TypeScript, es lo que ven el cliente y el vendedor. El frontend habla con una API REST hecha en Spring Boot con Java 17, que contiene todas las reglas de negocio y la seguridad. Y todo se guarda en PostgreSQL, alojado en Supabase. Alrededor hay tres servicios de apoyo: el correo para enviar códigos y mensajes, el almacenamiento de fotos y documentos, y los tokens JWT que mantienen la sesión.</aside>
+</section>

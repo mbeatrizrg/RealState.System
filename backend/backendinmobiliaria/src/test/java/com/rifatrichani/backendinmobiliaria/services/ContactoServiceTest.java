@@ -33,14 +33,14 @@ import com.rifatrichani.backendinmobiliaria.security.CuentaAutenticada;
 import com.rifatrichani.backendinmobiliaria.security.CuentaAutenticada.TipoCuenta;
 import com.rifatrichani.backendinmobiliaria.services.ContactoService.FormatoExportacion;
 import com.rifatrichani.backendinmobiliaria.services.impl.ContactoServiceImpl;
-import com.rifatrichani.backendinmobiliaria.services.impl.ExportadorContactos;
+import com.rifatrichani.backendinmobiliaria.services.impl.ExportadorTablas;
 
 import jakarta.persistence.EntityManager;
 
 //Ejecuta las consultas reales del modulo de Contactos (Criteria, subconsultas y orden) sobre H2 en memoria
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.ANY)
-@Import({ContactoServiceImpl.class, ExportadorContactos.class})
+@Import({ContactoServiceImpl.class, ExportadorTablas.class})
 @TestPropertySource(properties = {
         "spring.jpa.hibernate.ddl-auto=create-drop",
         "spring.datasource.url=jdbc:h2:mem:contactos;MODE=PostgreSQL"

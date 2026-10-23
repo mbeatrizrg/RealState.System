@@ -1,13 +1,13 @@
 <template>
   <ModalCrm titulo="Editar columnas" @cerrar="emit('cerrar')">
-    <p class="ayuda">Marca las columnas que quieres ver y usa las flechas para cambiar su orden. El nombre siempre se muestra.</p>
+    <p class="ayuda">Marca las columnas que quieres ver y usa las flechas para cambiar su orden. La primera columna de la tabla siempre se muestra.</p>
     <ol class="lista-columnas">
       <li v-for="(columna, indice) in orden" :key="columna.clave" :class="{ oculta: !visibles.has(columna.clave) }">
         <label>
           <input
             type="checkbox"
             :checked="visibles.has(columna.clave)"
-            :disabled="columna.clave === 'nombre'"
+            :disabled="columna.clave === fija"
             @change="alternar(columna.clave)"
           />
           {{ columna.titulo }}
@@ -30,22 +30,33 @@
 import { ref } from 'vue'
 
 import ModalCrm from './ModalCrm.vue'
-import { COLUMNAS, COLUMNAS_POR_DEFECTO, type ClaveColumna, type Columna } from '@/services/contactos'
+import { COLUMNAS, COLUMNAS_POR_DEFECTO } from '@/services/contactos'
+import type { ColumnaTabla } from '@/services/tablas'
 
-// Recibe las columnas visibles en su orden y devuelve la nueva seleccion al aplicar
-const props = defineProps<{ seleccion: ClaveColumna[] }>()
-const emit = defineEmits<{ cerrar: []; aplicar: [columnas: ClaveColumna[]] }>()
+/* Recibe las columnas visibles en su orden y devuelve la nueva seleccion al aplicar. Sirve para cualquier tabla del CRM:
+   por defecto usa las columnas de contactos. fija = la columna que no se puede ocultar */
+const props = withDefaults(defineProps<{
+  seleccion: string[]
+  columnas?: ColumnaTabla[]
+  porDefecto?: string[]
+  fija?: string
+}>(), {
+  columnas: () => COLUMNAS,
+  porDefecto: () => COLUMNAS_POR_DEFECTO,
+  fija: 'nombre',
+})
+const emit = defineEmits<{ cerrar: []; aplicar: [columnas: string[]] }>()
 
 // Primero las visibles (en su orden) y despues las ocultas
-function ordenInicial(seleccion: ClaveColumna[]): Columna[] {
-  const visiblesPrimero = seleccion.map((clave) => COLUMNAS.find((c) => c.clave === clave)).filter((c): c is Columna => !!c)
-  return [...visiblesPrimero, ...COLUMNAS.filter((c) => !seleccion.includes(c.clave))]
+function ordenInicial(seleccion: string[]): ColumnaTabla[] {
+  const visiblesPrimero = seleccion.map((clave) => props.columnas.find((c) => c.clave === clave)).filter((c): c is ColumnaTabla => !!c)
+  return [...visiblesPrimero, ...props.columnas.filter((c) => !seleccion.includes(c.clave))]
 }
 
-const orden = ref<Columna[]>(ordenInicial(props.seleccion))
-const visibles = ref(new Set<ClaveColumna>(props.seleccion))
+const orden = ref<ColumnaTabla[]>(ordenInicial(props.seleccion))
+const visibles = ref(new Set<string>(props.seleccion))
 
-function alternar(clave: ClaveColumna) {
+function alternar(clave: string) {
   const nuevas = new Set(visibles.value)
   if (nuevas.has(clave)) nuevas.delete(clave)
   else nuevas.add(clave)
@@ -61,8 +72,8 @@ function mover(indice: number, desplazamiento: number) {
 }
 
 function restablecer() {
-  orden.value = ordenInicial(COLUMNAS_POR_DEFECTO)
-  visibles.value = new Set(COLUMNAS_POR_DEFECTO)
+  orden.value = ordenInicial(props.porDefecto)
+  visibles.value = new Set(props.porDefecto)
 }
 
 function aplicar() {

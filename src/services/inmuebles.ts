@@ -39,7 +39,15 @@ export interface InmuebleDetalle {
   nombreCiudad: string | null
   nombreTipoInmueble: string
   nombreEstatus: string
+  isAlquiler: boolean
+  isVendido: boolean
   nombreEmpleado: string
+  // Caracteristicas (null = sin registrar)
+  habitaciones: number | null
+  banos: number | null
+  metrosCuadrados: number | null
+  estacionamientos: number | null
+  piso: number | null
   empleadoId: number
   extras: string[]
   urlsGaleria: string[]
@@ -91,6 +99,29 @@ export interface InmuebleNuevo {
   tipoInmuebleId: number
   extraId: number
   empleadoId?: number
+  // Caracteristicas opcionales del inmueble
+  habitaciones?: number
+  banos?: number
+  metrosCuadrados?: number
+  estacionamientos?: number
+  piso?: number
+}
+
+// "3 habitaciones", "1 baño", "120 m²"... para mostrar las caracteristicas de un inmueble (sin las que faltan)
+export function textosCaracteristicas(c: {
+  habitaciones?: number | null; banos?: number | null; metrosCuadrados?: number | null
+  estacionamientos?: number | null; piso?: number | null
+}) {
+  const plural = (n: number, uno: string, varios: string) => `${n} ${n === 1 ? uno : varios}`
+  const textos: { clave: string; texto: string }[] = []
+  if (c.habitaciones != null) textos.push({ clave: 'habitaciones', texto: plural(c.habitaciones, 'habitación', 'habitaciones') })
+  if (c.banos != null) textos.push({ clave: 'banos', texto: plural(c.banos, 'baño', 'baños') })
+  if (c.metrosCuadrados != null) textos.push({ clave: 'metros', texto: `${Number(c.metrosCuadrados).toLocaleString('es-VE')} m²` })
+  if (c.estacionamientos != null) {
+    textos.push({ clave: 'estacionamientos', texto: plural(c.estacionamientos, 'puesto de estacionamiento', 'puestos de estacionamiento') })
+  }
+  if (c.piso != null) textos.push({ clave: 'piso', texto: c.piso === 0 ? 'Planta baja' : `Piso ${c.piso}` })
+  return textos
 }
 
 // Los filtros vacios no se envian (false si se envia: isAlquiler=false significa "en venta")

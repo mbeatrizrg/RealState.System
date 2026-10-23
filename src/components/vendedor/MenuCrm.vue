@@ -12,11 +12,15 @@
         </li>
       </ul>
     </nav>
+
+    <BotonCerrarSesion />
   </aside>
 </template>
 
 <script setup lang="ts">
 import { useRouter } from 'vue-router'
+
+import BotonCerrarSesion from './BotonCerrarSesion.vue'
 
 defineProps<{ activo: string }>()
 
@@ -26,6 +30,10 @@ const router = useRouter()
 const opciones = [
   { texto: 'Inventario', ruta: '/vendedor' },
   { texto: 'Contactos', ruta: '/contact' },
+  { texto: 'Negocios', ruta: '/negocios' },
+  { texto: 'Inmuebles', ruta: '/inmuebles' },
+  { texto: 'Tareas', ruta: '/tareas' },
+  { texto: 'Estadísticas', ruta: '/estadisticas' },
   { texto: 'Leads', ruta: '/leads' },
   { texto: 'Comunicaciones', ruta: '/leads' },
   { texto: 'Control', ruta: '/control' },

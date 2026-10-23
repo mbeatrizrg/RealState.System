@@ -138,7 +138,7 @@
       </section>
     </main>
 
-    <ModalColumnas v-if="mostrarColumnas" :seleccion="columnas" @cerrar="mostrarColumnas = false" @aplicar="guardarColumnas" />
+    <ModalColumnas v-if="mostrarColumnas" :seleccion="columnas" @cerrar="mostrarColumnas = false" @aplicar="aplicarColumnas" />
     <ModalExportar
       v-if="mostrarExportar"
       :filtros="filtrosConPagina"
@@ -169,6 +169,7 @@ import {
   type ClaveColumna, type Columna, type Contacto, type ConteoContactos, type FiltrosContactos, type OrdenContactos,
   type VistaContactos,
 } from '@/services/contactos'
+import { guardarColumnas, leerColumnasGuardadas } from '@/services/tablas'
 import { formatearFecha, formatearFechaHora, RANGOS_FECHA, rangoAFechas } from '@/utils/fechas'
 import { claseEstatus } from './contactos/estatus'
 
@@ -276,27 +277,13 @@ const ariaOrden = (columna: Columna) =>
 
 // ----- Columnas visibles (preferencia de cada navegador) -----
 const CLAVE_COLUMNAS = 'rr_columnas_contactos'
-function leerColumnas(): ClaveColumna[] {
-  try {
-    const guardadas = JSON.parse(localStorage.getItem(CLAVE_COLUMNAS) ?? 'null') as ClaveColumna[] | null
-    const validas = guardadas?.filter((clave) => COLUMNAS.some((c) => c.clave === clave))
-    if (validas?.includes('nombre')) return validas
-  } catch {
-    // Sin localStorage o con datos corruptos: columnas por defecto
-  }
-  return [...COLUMNAS_POR_DEFECTO]
-}
-const columnas = ref<ClaveColumna[]>(leerColumnas())
+const columnas = ref<ClaveColumna[]>(leerColumnasGuardadas(CLAVE_COLUMNAS, COLUMNAS, COLUMNAS_POR_DEFECTO, 'nombre'))
 const columnasVisibles = computed(() => columnas.value.map((clave) => COLUMNAS.find((c) => c.clave === clave)!).filter(Boolean))
 const mostrarColumnas = ref(false)
-function guardarColumnas(nuevas: ClaveColumna[]) {
-  columnas.value = nuevas
+function aplicarColumnas(nuevas: string[]) {
+  columnas.value = nuevas as ClaveColumna[]
   mostrarColumnas.value = false
-  try {
-    localStorage.setItem(CLAVE_COLUMNAS, JSON.stringify(nuevas))
-  } catch {
-    // Se mantiene solo hasta recargar la pagina
-  }
+  guardarColumnas(CLAVE_COLUMNAS, nuevas)
 }
 
 function valorCelda(c: Contacto, clave: ClaveColumna): string {

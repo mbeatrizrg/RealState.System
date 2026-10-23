@@ -12,9 +12,6 @@
         <button @click="toggleMenu" class="menu-btn">
           <span>{{ isMenuOpen ? 'Cerrar' : 'Menu' }}</span>
         </button> 
-        <button @click="signIn" class="inc-btn">
-          <span>Iniciar Sesión</span>
-        </button> 
       </nav>
     </header>
 
@@ -100,9 +97,6 @@
         Salir
       </button>
       <img src="/brand2.png" alt="Rifat Richani" class="brand" />
-      <button @click="signIn" class="inc-btn">
-        <span>Iniciar Sesión</span>
-      </button>
     </header>
 
     <!-- Menú principal centrado -->
@@ -181,9 +175,6 @@
             <button @click="toggleMenu" class="menu-btn">
               <span>{{ isMenuOpen ? 'Cerrar' : 'Menu' }}</span>
             </button> 
-            <button class="inc-btn" @click="signIn">
-              <span>Iniciar Sesión</span>
-            </button>
 
           </nav>
         </header>
@@ -209,7 +200,6 @@
             <button @click="toggleMenu" class="menu-btn">
               <span>{{ isMenuOpen ? 'Cerrar' : 'Menu' }}</span>
             </button>
-            <button class="inc-btn" @click="signIn">Iniciar Sesión</button>
           </nav>
       </header>
         <div class="vision-container">
@@ -273,10 +263,6 @@
 
   <!-- PÁGINA 6-->
   <footer class="page-6">
-    <!-- boton superior derecho-->
-    <div class="login-6">  
-      <button class="inc-btn" @click="signIn">Iniciar Sesion</button>
-    </div>
     <!--contenido central-->
     <div class="footer-content">
       <div class="logo">
@@ -304,6 +290,13 @@
 
 
   </footer>
+
+  <!-- Unico boton de inicio de sesion: fijo arriba a la derecha, acompaña al usuario mientras baja por la pagina -->
+  <Transition name="flotante">
+    <button v-if="!isMenuOpen" type="button" class="inc-btn inc-flotante" @click="signIn">
+      <span>Iniciar Sesión</span>
+    </button>
+  </Transition>
 
 </template>
 
@@ -367,3 +360,42 @@ const toggleSidemenu = () => {
 </script>
 
 <style scoped src= "./style.css"></style>
+<style scoped>
+/* Espacio a la derecha de cada encabezado para que el boton flotante no tape "Menu" */
+.primary-nav {
+  margin-right: 190px;
+}
+
+/* Misma apariencia que .inc-btn del encabezado, fijo arriba a la derecha */
+.inc-flotante {
+  position: fixed;
+  /* A la altura del boton "Menu" del encabezado */
+  top: 46px;
+  right: 40px;
+  z-index: 60;
+  box-shadow: 0 8px 20px rgba(11, 31, 70, 0.3);
+}
+
+.flotante-enter-active,
+.flotante-leave-active {
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.flotante-enter-from,
+.flotante-leave-to {
+  opacity: 0;
+  transform: translateY(-8px);
+}
+
+@media (max-width: 600px) {
+  .primary-nav {
+    margin-right: 150px;
+  }
+
+  .inc-flotante {
+    top: 12px;
+    right: 16px;
+    font-size: 15px;
+  }
+}
+</style>

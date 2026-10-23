@@ -1,0 +1,128 @@
+/* Formularios dentro de los modales del CRM (negocio, actividades, ficha del inmueble). Campos oscuros como el resto */
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px 18px;
+}
+
+.form-grid .ancho {
+  grid-column: 1 / -1;
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.campo > span,
+.campo > label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #0b1f46;
+}
+
+.campo input:not([type='checkbox']):not([type='radio']),
+.campo select,
+.campo textarea {
+  width: 100%;
+  box-sizing: border-box;
+  background-color: #0c1452;
+  color: #ffffff;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 12px;
+  font-size: 14px;
+  font-family: inherit;
+  outline: none;
+}
+
+.campo textarea {
+  resize: vertical;
+}
+
+.campo input::placeholder,
+.campo textarea::placeholder {
+  color: #92abde;
+}
+
+.campo input:focus-visible,
+.campo select:focus-visible,
+.campo textarea:focus-visible {
+  box-shadow: 0 0 0 2px #3b82f6;
+}
+
+.ayuda-campo {
+  margin: 0;
+  color: #636363;
+  font-size: 12px;
+}
+
+.casilla {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: #1c1c1c;
+}
+
+.casilla input {
+  accent-color: #004cb5;
+}
+
+.error-form {
+  margin: 12px 0 0;
+  padding: 10px 12px;
+  border-radius: 8px;
+  background-color: #fde0e0;
+  color: #991b1b;
+  font-size: 13px;
+}
+
+/* Adjuntos elegidos antes de guardar */
+.lista-archivos {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.lista-archivos li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 10px;
+  border-radius: 8px;
+  background-color: #eef3fb;
+  font-size: 13px;
+  color: #0b1f46;
+}
+
+.lista-archivos button {
+  background: none;
+  border: none;
+  color: #991b1b;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.btn-adjuntar {
+  align-self: flex-start;
+  background: transparent;
+  color: #004cb5;
+  border: 1px dashed #004cb5;
+  border-radius: 8px;
+  padding: 8px 14px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+@media (max-width: 560px) {
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+}

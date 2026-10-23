@@ -21,9 +21,9 @@ public interface InmuebleRepository extends JpaRepository<Inmueble,Integer>, Jpa
     boolean existsByRrbr(String rrbr);
     boolean existsByRrbrAndIdNot(String rrbr, Integer id);
 
-    //Listados paginados del portal y del CRM (los filtros se arman en InmuebleEspecificaciones)
+    //Listados paginados del portal y del CRM (InmuebleEspecificaciones y PropiedadEspecificaciones)
     @Override
-    @EntityGraph(attributePaths = {"ciudad", "tipoInmueble"})
+    @EntityGraph(attributePaths = {"ciudad", "tipoInmueble", "empleado"})
     Page<Inmueble> findAll(Specification<Inmueble> spec, Pageable pageable);
 
     /* Bloquea la fila del inmueble hasta el fin de la transaccion. Se usa al agregar fotos: dos subidas simultaneas

@@ -1,5 +1,6 @@
 package com.rifatrichani.backendinmobiliaria.dto.response;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 //Vista detallada de un inmueble (portal y CRM)
@@ -23,6 +24,12 @@ public class InmuebleDetalleResponseDTO {
     private List<ImagenResponseDTO> imagenes;
     //Vendedor encargado: el CRM lo usa para saber si el empleado conectado puede editar el inmueble
     private Integer empleadoId;
+    //Caracteristicas (null = sin registrar)
+    private Integer habitaciones;
+    private Integer banos;
+    private BigDecimal metrosCuadrados;
+    private Integer estacionamientos;
+    private Integer piso;
 
     public Integer getId() { return id; }
     public void setId(Integer id) { this.id = id; }
@@ -56,4 +63,14 @@ public class InmuebleDetalleResponseDTO {
     public void setImagenes(List<ImagenResponseDTO> imagenes) { this.imagenes = imagenes; }
     public Integer getEmpleadoId() { return empleadoId; }
     public void setEmpleadoId(Integer empleadoId) { this.empleadoId = empleadoId; }
+    public Integer getHabitaciones() { return habitaciones; }
+    public void setHabitaciones(Integer habitaciones) { this.habitaciones = habitaciones; }
+    public Integer getBanos() { return banos; }
+    public void setBanos(Integer banos) { this.banos = banos; }
+    public BigDecimal getMetrosCuadrados() { return metrosCuadrados; }
+    public void setMetrosCuadrados(BigDecimal metrosCuadrados) { this.metrosCuadrados = metrosCuadrados; }
+    public Integer getEstacionamientos() { return estacionamientos; }
+    public void setEstacionamientos(Integer estacionamientos) { this.estacionamientos = estacionamientos; }
+    public Integer getPiso() { return piso; }
+    public void setPiso(Integer piso) { this.piso = piso; }
 }
