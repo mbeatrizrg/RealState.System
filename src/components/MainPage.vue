@@ -28,9 +28,9 @@
 
         <!-- Menú flotante -->
         <aside class="side-menu">
-            <button class="icon-btn toggle-btn" @click="toggleSidemenu">
-              <img src="/arrow.png" alt="flecha" class="icon-arrow" :class="{ 'rotated': !isOpen }"/>
-            </button>
+          <button class="icon-btn toggle-btn" @click="toggleSidemenu">
+            <img src="/arrow.png" alt="flecha" class="icon-arrow" :class="{ 'rotated': !isOpen }"/>
+          </button>
           <div class="extra-btn" :class="{ 'is-closed': !isOpen }">
             <a href="tel:+584145936070" class="icon-btn">
               <img src="/phone.png" alt="telefono" class="icon-phone" />
@@ -112,32 +112,7 @@
       </section>
     </main>
 
-  <div class="menu-container" :class="{ 'open': isMenuOpen }">
-    <!-- Navegación superior -->
-    <header class="navbar">
-      <button @click="toggleMenu" class="nav-link">
-        Salir
-      </button>
-      <img src="/brand2.png" alt="Rifat Richani" class="brand" />
-      <button @click="signIn" class="inc-btn">
-        <span>Iniciar Sesión</span>
-      </button>
-    </header>
-
-    <!-- Menú principal centrado -->
-    <main class="menu-content">
-      <nav class="menu-list">
-        <button @click="Home" class="menu-item active"><span>Principal</span></button> 
-        <button @click="Search" class="menu-item"><span>Disponibles</span></button> 
-        <a href="#" class="menu-item">Favoritos</a>
-        <button @click="Contact" class="menu-item"><span>Contactanos</span></button> 
-
-      </nav>
-    </main>
   </div>
-
-  </div>
-
       <!-- DESTACADOS 2DA PAGINA -->
       <section class="featured-section">
         <!-- Encabezado de la sección -->
@@ -190,23 +165,6 @@
 
       <!-- PÁGINA 3 -->
       <section class="info-section">
-        <header class="CommonHeader">
-          <div class="logo">
-            <img src="/icon.png" alt="Icono" class="icon" />
-            <img src="/brand.png" alt="Rifat Richani" class="brand" />
-          </div>
-      
-          <nav class="primary-nav">
-            <button @click="toggleMenu" class="menu-btn">
-              <span>{{ isMenuOpen ? 'Cerrar' : 'Menu' }}</span>
-            </button> 
-            <button class="inc-btn" @click="signIn">
-              <span>Iniciar Sesión</span>
-            </button>
-
-          </nav>
-        </header>
-
         <div class="section-content">
           <h1 class="principal-text">24 Años Transformando Espacios</h1>
           
@@ -218,19 +176,6 @@
 
   <!-- PÁGINA 4-->
   <section class = "page-4">
-      <header class="CommonHeader">
-          <div class="logo">
-            <img src="/icon.png" alt="Icono" class="icon" />
-            <img src="/brand.png" alt="Rifat Richani" class="brand" />
-          </div>
-      
-          <nav class="primary-nav">
-            <button @click="toggleMenu" class="menu-btn">
-              <span>{{ isMenuOpen ? 'Cerrar' : 'Menu' }}</span>
-            </button>
-            <button class="inc-btn" @click="signIn">Iniciar Sesión</button>
-          </nav>
-      </header>
         <div class="vision-container">
           <article class="image-article">
             <div class="image-4">
@@ -293,9 +238,6 @@
   <!-- PÁGINA 6-->
   <footer class="page-6">
     <!-- boton superior derecho-->
-    <div class="login-6">  
-      <button class="inc-btn" @click="signIn">Iniciar Sesion</button>
-    </div>
     <!--contenido central-->
     <div class="footer-content">
       <div class="logo">
