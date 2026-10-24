@@ -111,8 +111,8 @@
         </div>
       </section>
     </main>
-
   </div>
+  
       <!-- DESTACADOS 2DA PAGINA -->
       <section class="featured-section">
         <!-- Encabezado de la sección -->
