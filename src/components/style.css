@@ -2,7 +2,11 @@
 @import url("https://fonts.googleapis.com/css?family=DM+Sans:500,700,800|Inter:500,400");
 
 .CommonHeader {
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 100%;
+  z-index: 100;
   display: flex;
   justify-content: space-between;
   align-items: center;
