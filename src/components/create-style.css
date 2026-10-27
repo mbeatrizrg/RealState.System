@@ -1,18 +1,30 @@
 
+html, body {
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
 .layout-container {
-  min-height: 100px;
-  background-color:#EDF2F3;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #EDF2F3;
   box-sizing: border-box;
-  padding-bottom: 100px;
 }
 
 /* Estilos del Encabezado */
 .CommonHeader {
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 3rem;
+  padding: 20px 40px;
+  box-sizing: border-box;
+  background-color: #EDF2F3;
+  flex-shrink: 0; /* Evita que el header se comprima */
 }
 
 .brand {
@@ -61,7 +73,11 @@
 .main-content {
   display: flex;
   gap: 4rem;
-  height: calc(100vh - 150px);
+  flex: 1; /* Ocupa exactamente el alto restante de la pantalla */
+  align-items: center; /* Centra verticalmente la imagen y el formulario */
+  justify-content: center;
+  padding: 0 40px 40px 40px;
+  box-sizing: border-box;
 }
 
 .image-article {
@@ -148,8 +164,6 @@
   outline: 2px solid #2844b5;
   outline-offset: 2px;
 }
-
-
 
 .menu-container {
   position: fixed;

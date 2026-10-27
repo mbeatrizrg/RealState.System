@@ -64,7 +64,7 @@
     </main>
 
 
-      <div class="menu-container" :class="{ 'open': isMenuOpen }">
+    <div class="menu-container" :class="{ 'open': isMenuOpen }">
     <!-- Navegación superior -->
     <header class="navbar">
       <button @click="toggleMenu" class="nav-link">
