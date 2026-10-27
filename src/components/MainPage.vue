@@ -188,22 +188,23 @@
           </article>
         </div>
   </section>
-  
   <!-- PÁGINA 5-->
 
   <section class="container">
     <!-- Banner Superior de datos -->
     <div class="banner">
- 
+      <div class="stat-item">
         <div class="stat-number">600+</div>
         <div class="stat-label">VIVIENDAS</div>
-
+      </div>
+      <div class="stat-item">
         <div class="stat-number">24+</div>
         <div class="stat-label">AÑOS APOYANDO A CARABOBO</div>
-
+      </div>
+      <div class="stat-item">
         <div class="stat-number">350+</div>
         <div class="stat-label">CLIENTES</div>
-
+      </div>
     </div>
 
     <!-- Sección why us? -->

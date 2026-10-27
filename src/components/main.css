@@ -1,6 +1,9 @@
 /* Fuentes e Importaciones */
 @import url("https://fonts.googleapis.com/css?family=DM+Sans:500,700,800|Inter:500,400");
-
+html, body {
+  overflow-x: hidden;
+  max-width: 100%;
+}
 .CommonHeader {
   position: fixed;
   top: 0;
@@ -415,7 +418,7 @@
   border: none;
   overflow: hidden;
   cursor: pointer;
-}
+} 
 
 .next-btn img {
   width: 15px;
@@ -507,23 +510,21 @@
 }
 
 /* page 5 */
-.contaier{
+.container{
   width: 100vw;
   position: relative;
-  padding: 0;
+  padding: 60px 0;
+  box-sizing: border-box;
   right: 50%;
   left: 50%;
   margin-left: -50vw;
   margin-right: -50vw;
   background-color: #EDF2F3;
-  padding-top: 70px;
-  padding-bottom: 100px;
 }
 
 .banner{
   width: 100vw;
   position: relative;
-  padding: 0;
   right: 50%;
   left: 50%;
   margin-left: -50vw;
@@ -538,7 +539,6 @@
 }
 
 .stat-item{
-
   color: #ffffff;
   display: flex;
   flex-direction: column;
@@ -561,9 +561,12 @@
   display: flex;
   align-items: center;
   gap: 40px;
-  width: 90%;
-  max-width: 1200px;
-  margin: 40px auto;
+  width: 1200px;
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
 }
 
 .profile-img{
