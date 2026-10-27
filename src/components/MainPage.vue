@@ -19,7 +19,6 @@
     </header>
 
     <!-- Sección principal -->
-    <main>
       <section class="background">
         <!-- Fondo 1 -->
         <div class="imagen">
@@ -110,7 +109,6 @@
           </button>
         </div>
       </section>
-    </main>
   </div>
   
       <!-- DESTACADOS 2DA PAGINA -->
@@ -169,7 +167,7 @@
           <h1 class="principal-text">24 Años Transformando Espacios</h1>
           
           <p class="little-text">
-            "Brindar asesoría inmobiliaria de alto nivel en la compra, venta y alquiler de propiedades , resguardando el patrimonio de nuestros clientes con transparencia, criterio estratégico y una estricta seguridad jurídica, garantizando que cada operación sea una decisión rentable y segura."
+            "Brindar asesoría inmobiliaria de alto nivel en la compra, venta y alquiler de propiedades, resguardando el patrimonio de nuestros clientes con transparencia, criterio estratégico y una estricta seguridad jurídica, garantizando que cada operación sea una decisión rentable y segura."
           </p>
         </div>
       </section>
@@ -190,23 +188,22 @@
           </article>
         </div>
   </section>
+  
   <!-- PÁGINA 5-->
 
   <section class="container">
     <!-- Banner Superior de datos -->
     <div class="banner">
-      <div class="stat-item">
+ 
         <div class="stat-number">600+</div>
         <div class="stat-label">VIVIENDAS</div>
-      </div>
-      <div class="stat-item">
+
         <div class="stat-number">24+</div>
         <div class="stat-label">AÑOS APOYANDO A CARABOBO</div>
-      </div>
-      <div class="stat-item">
+
         <div class="stat-number">350+</div>
         <div class="stat-label">CLIENTES</div>
-      </div>
+
     </div>
 
     <!-- Sección why us? -->

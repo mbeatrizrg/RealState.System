@@ -67,26 +67,30 @@
   cursor: pointer;
 }
 
+.background{
+  width: 100vw;
+  position: relative;
+  padding: 0;
+  right: 50%;
+  left: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  background-color: #EDF2F3;
+  
+}
+
 .imagen {
   width: 100%;
   height: 480px;
-  object-fit: cover;
-  border-radius: 12px;
-}
-
-.background{
-  width: 100%;
-  padding: 40px 20px;
-  background-color: #EDF2F3;
-  padding-bottom: 100px;
-  overflow: visible;
+  margin: 0;
 }
 
 .imagen img { /*imagen real de fondo*/
-  width: 100%;
+  width: 100vw;
   height: 100%;
   object-fit: cover;
   display: block;
+  border-radius: 0;
 }
 
 .side-menu {
@@ -152,19 +156,17 @@
 }
 
 .filter-bar {
-  position: absolute;
+  position: relative;
   display: flex;
+  bottom: 30px;
+  left: 50%;
   justify-content: center;
   align-items: center;
-  transform: translateY(-70%);
-  width: 96%;
-  max-width: 1300px;
+  transform: translateX(-50%);
+  width: 90%;
   padding: 15px 25px;
-  box-sizing: border-box;
   background-color: #ffffff;
-  left: 3.5%;
-  bottom: -30;
-  border-radius: 0px;
+  border-radius: 10px;
   gap: 30px;
 }
 
@@ -235,29 +237,34 @@
 /* page 2 */
 
 .featured-section {
-  width: 100%;
-  padding: 40px 20px;
+  width: 100vw;
+  position: relative;
+  padding: 0;
+  right: 50%;
+  left: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
   background-color: #EDF2F3;
+  padding-top: 70px;
   padding-bottom: 100px;
-  overflow: visible;
 }
 
 .section-header {
-  margin-bottom: 20px;
   color: #0b1f46;
-  Padding-top: 20px;
-  padding-left: 20px;
-  font-size: 30px;
+  Padding-top: 5px;
+  padding-bottom: 30px;
+  padding-left: 50px;
 }
 
 .section-header h2 {
   font-size: 40px;
   margin: 0;
   color: #0b1f46;
+  
 }
 
 .section-header p {
-  font-size: 13px;
+  font-size: 14px;
   margin-top: 5;
   color: #000000;
 }
@@ -269,8 +276,7 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 20px;
-  padding: 0 20px;
-
+  padding: 0 40px;
 }
 
 .building-img {
@@ -422,11 +428,16 @@
 /* pagina 3 */
 
 .info-section {
-  width: 100%;
-  padding: 40px 20px;
+  width: 100vw;
+  position: relative;
+  padding: 0;
+  right: 50%;
+  left: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
   background-color: #EDF2F3;
+  padding-top: 70px;
   padding-bottom: 100px;
-  overflow: visible;
 }
 
 .section-content {
@@ -450,9 +461,18 @@
   margin-right: 80px;
 }
 
+/* pagina 4 */
 .page-4 {
-  height: 600px;
+  width: 100vw;
+  position: relative;
+  padding: 0;
+  right: 50%;
+  left: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
   background-color: #EDF2F3;
+  padding-top: 70px;
+  padding-bottom: 100px;
 }
 
 .image-article {
@@ -463,6 +483,7 @@
   height: 400px;
   object-fit: cover;
   border-radius: 0px;
+  padding-left: 20px;
 }
 .vision-container {
   display: flex;
@@ -487,14 +508,26 @@
 
 /* page 5 */
 .contaier{
-  width: 100%;
-  padding: 40px 20px;
+  width: 100vw;
+  position: relative;
+  padding: 0;
+  right: 50%;
+  left: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
   background-color: #EDF2F3;
+  padding-top: 70px;
   padding-bottom: 100px;
-  overflow: visible;
 }
 
 .banner{
+  width: 100vw;
+  position: relative;
+  padding: 0;
+  right: 50%;
+  left: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
   background-color: #0b1f46;
   padding: 70px;
   display: flex;
@@ -505,6 +538,7 @@
 }
 
 .stat-item{
+
   color: #ffffff;
   display: flex;
   flex-direction: column;
@@ -525,12 +559,11 @@
 .content{
   background-color: #EDF2F3;
   display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  margin: 0 auto;
-  padding: 90px 50px;
-  max-width: 1000;
-  gap: 60px;
+  align-items: center;
+  gap: 40px;
+  width: 90%;
+  max-width: 1200px;
+  margin: 40px auto;
 }
 
 .profile-img{
@@ -541,6 +574,7 @@
 }
 
 .section-title{
+  background-color: #EDF2F3;
   color: #0b1f46;
   font-size: 50px;
   margin-top: 0;
@@ -548,6 +582,7 @@
 }
 
 .description{
+  background-color: #EDF2F3;
   color: #0b1f46;
   margin-left: 10px;
   margin-right: 80px;
@@ -555,12 +590,16 @@
 
 /* page 6*/
 .page-6{
-  background-color: #EDF2F3;
-  padding: 60px 40px;
+  width: 100vw;
   position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  padding: 0;
+  right: 50%;
+  left: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  background-color: #EDF2F3;
+  padding-top: 70px;
+  padding-bottom: 100px;
 }
 
 .login-6{
@@ -613,7 +652,6 @@
   object-fit: contain; 
   transition: transform 0.2s ease; 
 }
-
 
 .menu-container {
   position: fixed;

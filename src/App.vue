@@ -9,5 +9,5 @@ import MainPage from './components/MainPage.vue'
 
 <style>
 /* Importamos los estilos globales aquí */
-@import './components/style.css';
+@import './components/main.css';
 </style>
