@@ -257,9 +257,29 @@
         <a href="https://wa.me/584145936070"><img src="/whatsapp.png" alt="WhatsApp"></a>
       </div>
 
+  <div class="menu-container" :class="{ 'open': isMenuOpen }">
+    <!-- Navegación superior -->
+    <header class="navbar">
+      <button @click="toggleMenu" class="nav-link">
+        Salir
+      </button>
+      <img src="/brand2.png" alt="Rifat Richani" class="brand" />
+      <button @click="signIn" class="inc-btn">
+          <span>Iniciar Sesión</span>
+      </button> 
+    </header>
 
-
-    </div>
+    <!-- Menú principal centrado -->
+    <main class="menu-content">
+      <nav class="menu-list">
+        <button @click="Home" class="menu-item active"><span>Principal</span></button> 
+        <button @click="Search" class="menu-item"><span>Disponibles</span></button> 
+        <a href="#" class="menu-item">Favoritos</a>
+        <button @click="Contact" class="menu-item"><span>Contactanos</span></button> 
+      </nav>
+    </main>
+  </div>
+</div>
 
 
   </footer>
