@@ -357,8 +357,6 @@ const toggleSidemenu = () => {
 // Lógica de JavaScript / Vue (si es necesaria)
 
 
-
-
 </script>
 
-<style scoped src= "./style.css"></style>
+<style scoped src= "./main.css"></style>
