@@ -11,11 +11,10 @@
         <!-- cambiar para que se vea como el search btn -->
         <button @click="toggleMenu" class="menu-btn">
           <span>{{ isMenuOpen ? 'Cerrar' : 'Menu' }}</span>
-        </button>  
-        <button @click="Create" class="inc-btn">
-          <span>Crear cuenta</span>
-        </button>
-
+        </button> 
+        <button @click="signIn" class="inc-btn">
+          <span>Iniciar Sesión</span>
+        </button> 
       </nav>
     </header>
 
