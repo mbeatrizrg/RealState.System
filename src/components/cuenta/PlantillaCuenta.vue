@@ -3,18 +3,19 @@
        encabezado, tarjeta con la imagen de la marca a la izquierda y el formulario (slot) a la derecha, y menu desplegable -->
   <div class="layout-container">
     <header class="CommonHeader">
-      <router-link to="/" class="logo" aria-label="Ir a la página principal">
-        <img src="/icon.png" alt="" class="icon" />
+      <div class="logo">
+        <img src="/icon.png" alt="Icono" class="icon" />
         <img src="/brand.png" alt="Rifat Richani" class="brand" />
-      </router-link>
-
+      </div>
+      
       <nav class="primary-nav">
+        <!-- cambiar para que se vea como el search btn -->
         <button @click="toggleMenu" class="menu-btn">
-          <span>{{ isMenuOpen ? 'Cerrar' : 'Menú' }}</span>
-        </button>
-        <button @click="ir(accionCabecera.ruta)" class="inc-btn">
-          <span>{{ accionCabecera.texto }}</span>
-        </button>
+          <span>{{ isMenuOpen ? 'Cerrar' : 'Menu' }}</span>
+        </button> 
+        <button @click="signIn" class="inc-btn">
+          <span>Iniciar Sesión</span>
+        </button> 
       </nav>
     </header>
 
@@ -94,6 +95,11 @@ const ir = (ruta) => {
 const accionCabecera = computed(() =>
   props.accion ?? (esUsuario.value ? { texto: 'Mi cuenta', ruta: '/cuenta' } : { texto: 'Iniciar Sesión', ruta: '/signin' })
 )
+
+const signIn = ()=> {
+  router.push('/signin')
+}
+
 </script>
 
 <style scoped src="../sign-in-style.css"></style>

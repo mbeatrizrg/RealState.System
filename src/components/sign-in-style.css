@@ -28,65 +28,70 @@
 }
 
 /* ===== Encabezado ===== */
+
 .CommonHeader {
+  position: relative;
+  top: 0;
+  left: 0;
   width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 20px 40px;
+  box-sizing: border-box;
+  background-color: #EDF2F3;
+  flex-wrap: wrap;
+  gap: 20px;
 }
 
 .logo {
   display: flex;
   align-items: center;
-  gap: 16px;
-  text-decoration: none;
+  gap: 260px;
 }
 
 .icon {
-  height: 56px;
+  height: 80px;
   width: auto;
   object-fit: contain;
 }
 
-.CommonHeader .brand {
-  height: 30px;
+.brand {
+  height: 40px;
   width: auto;
   object-fit: contain;
+  justify-content: space-between;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: 25px;
 }
 
 .primary-nav {
   display: flex;
   align-items: center;
-  gap: 24px;
+  gap: 40px;
 }
 
-.menu-btn {
-  background: transparent;
-  color: var(--azul);
+.menu-btn{
+  text-decoration: none;
+  background: trasparent;
+  color: #0b1f46;
   border: none;
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 700;
-  font-family: inherit;
   cursor: pointer;
 }
 
 .inc-btn {
-  background-color: var(--azul);
+  background-color: #0b1f46;
   color: #ffffff;
   border: none;
-  border-radius: 999px;
-  padding: 10px 22px;
-  font-size: 15px;
-  font-weight: 600;
-  font-family: inherit;
+  border-radius: 5px;
+  padding: 6px 14px;
+  font-size: 18px;
+  font-weight: 700;
   cursor: pointer;
-  transition: background-color 0.2s ease, transform 0.2s ease;
-}
-
-.inc-btn:hover {
-  background-color: var(--azul-medio);
-  transform: translateY(-1px);
 }
 
 /* ===== Tarjeta: imagen de la marca + formulario ===== */

@@ -12,11 +12,13 @@
         <button @click="toggleMenu" class="menu-btn">
           <span>{{ isMenuOpen ? 'Cerrar' : 'Menu' }}</span>
         </button> 
+        <button @click="signIn" class="inc-btn">
+          <span>Iniciar Sesión</span>
+        </button> 
       </nav>
     </header>
 
     <!-- Sección principal -->
-    <main>
       <section class="background">
         <!-- Fondo 1 -->
         <div class="imagen">
@@ -25,9 +27,9 @@
 
         <!-- Menú flotante -->
         <aside class="side-menu">
-            <button class="icon-btn toggle-btn" @click="toggleSidemenu">
-              <img src="/arrow.png" alt="flecha" class="icon-arrow" :class="{ 'rotated': !isOpen }"/>
-            </button>
+          <button class="icon-btn toggle-btn" @click="toggleSidemenu">
+            <img src="/arrow.png" alt="flecha" class="icon-arrow" :class="{ 'rotated': !isOpen }"/>
+          </button>
           <div class="extra-btn" :class="{ 'is-closed': !isOpen }">
             <a href="tel:+584145936070" class="icon-btn">
               <img src="/phone.png" alt="telefono" class="icon-phone" />
@@ -45,74 +47,70 @@
         <div class="filter-bar">
           <div class="filter-group">
             <label for="locacion">Locación</label>
-            <select id="locacion" name="locacion" v-model="filtros.ciudadId">
-              <option value="">Ciudades</option>
-              <option v-for="ciudad in ciudades" :key="ciudad.id" :value="String(ciudad.id)">{{ ciudad.nombre }}</option>
+            <select id="locacion" name="locacion">
+              <option value="" disabled selected>Ciudades</option>
+              <option value="valencia">Valencia</option>
+              <option value="naguanagua">Naguanagua</option>
+              <option value="san_diego">San Diego</option>
+              <option value="puerto_cabello">Puerto Cabello</option>
+              <option value="guacara">Guacara</option>
+              <option value="los_guayos">Los Guayos</option>
+              <option value="tocuyito">Tocuyito (Libertador)</option>
+              <option value="san_joaquin">San Joaquín</option>
+              <option value="diego_ibarra">Mariara (Diego Ibarra)</option>
+              <option value="bejuma">Bejuma</option>
+              <option value="montalban">Montalbán</option>
+              <option value="miranda">Miranda</option>
+              <option value="carlos_arvelo">Güigüe (Carlos Arvelo)</option>
+              <option value="juan_jose_mora">Morón (Juan José Mora)</option>
             </select>
           </div>
 
           <div class="filter-group">
             <label for="tipo">Tipo de Propiedad</label>
-            <select id="tipo" name="tipo" v-model="filtros.tipoInmuebleId">
-              <option value="">Todos</option>
-              <option v-for="tipo in tiposInmueble" :key="tipo.id" :value="String(tipo.id)">{{ tipo.nombre }}</option>
+            <select id="tipo" name="tipo">
+              <option value="casa">Casa</option>
+              <option value="apartamento">Apartamento</option>
+              <option value="townhouse">Townhouse</option>
+              <option value="terreno">Terreno</option>
+              <option value="local comercial">Local comercial</option>
+              <option value="galpon">Galpon</option>
+              <option value="oficina">Oficina</option>
+              <option value="consultorio medico">Consultorio medico</option>
+              <option value="club">Club</option>
+              <option value="negocio">Negocio</option>
             </select>
           </div>
 
           <div class="filter-group">
-            <label for="precio">Precio máximo</label>
-            <input
-              class="filter-input"
-              type="number"
-              id="precio"
+            <label for="precio">Precio</label>
+            <input 
+            class="filter-input"
+              type="number" 
+              id="precio" 
               min="0"
               max="100000000"
-              name="precio"
+              name="precio" 
               placeholder="Ej: 15000"
-              v-model="filtros.maxPrecio"
             />
           </div>
 
           <div class="filter-group">
             <label for="modalidad">Alquiler o Compra</label>
-            <select id="modalidad" name="modalidad" v-model="filtros.modalidad">
-              <option value="">Todas</option>
+            <select id="modalidad" name="modalidad">
               <option value="compra">Compra</option>
               <option value="alquiler">Alquiler</option>
             </select>
           </div>
-          <button @click="buscar" class="search-btn">
+          
+          <button @click="Search" class="search-btn">
             <img src="/lupa.svg" alt="" />
             <span>Buscar Propiedad</span>
           </button>
         </div>
         <p v-if="errorCatalogos" class="estado-msg">No se pudieron cargar los filtros: {{ errorCatalogos }}</p>
       </section>
-    </main>
-
-  <div class="menu-container" :class="{ 'open': isMenuOpen }">
-    <!-- Navegación superior -->
-    <header class="navbar">
-      <button @click="toggleMenu" class="nav-link">
-        Salir
-      </button>
-      <img src="/brand2.png" alt="Rifat Richani" class="brand" />
-    </header>
-
-    <!-- Menú principal centrado -->
-    <main class="menu-content">
-      <nav class="menu-list">
-        <button @click="Home" class="menu-item active"><span>Principal</span></button> 
-        <button @click="Search" class="menu-item"><span>Disponibles</span></button> 
-        <a href="#" class="menu-item">Favoritos</a>
-        <button @click="Contact" class="menu-item"><span>Contactanos</span></button> 
-
-      </nav>
-    </main>
   </div>
-
-  </div>
-
       <!-- DESTACADOS 2DA PAGINA -->
       <section class="featured-section">
         <!-- Encabezado de la sección -->
@@ -164,44 +162,18 @@
       </section>
 
       <!-- PÁGINA 3 -->
-      <section class="info-section">
-        <header class="CommonHeader">
-          <div class="logo">
-            <img src="/icon.png" alt="Icono" class="icon" />
-            <img src="/brand.png" alt="Rifat Richani" class="brand" />
-          </div>
-      
-          <nav class="primary-nav">
-            <button @click="toggleMenu" class="menu-btn">
-              <span>{{ isMenuOpen ? 'Cerrar' : 'Menu' }}</span>
-            </button> 
-
-          </nav>
-        </header>
-
+       <section class="info-section">
         <div class="section-content">
           <h1 class="principal-text">24 Años Transformando Espacios</h1>
           
           <p class="little-text">
-            "Brindar asesoría inmobiliaria de alto nivel en la compra, venta y alquiler de propiedades , resguardando el patrimonio de nuestros clientes con transparencia, criterio estratégico y una estricta seguridad jurídica, garantizando que cada operación sea una decisión rentable y segura."
+            "Brindar asesoría inmobiliaria de alto nivel en la compra, venta y alquiler de propiedades, resguardando el patrimonio de nuestros clientes con transparencia, criterio estratégico y una estricta seguridad jurídica, garantizando que cada operación sea una decisión rentable y segura."
           </p>
         </div>
       </section>
 
   <!-- PÁGINA 4-->
   <section class = "page-4">
-      <header class="CommonHeader">
-          <div class="logo">
-            <img src="/icon.png" alt="Icono" class="icon" />
-            <img src="/brand.png" alt="Rifat Richani" class="brand" />
-          </div>
-      
-          <nav class="primary-nav">
-            <button @click="toggleMenu" class="menu-btn">
-              <span>{{ isMenuOpen ? 'Cerrar' : 'Menu' }}</span>
-            </button>
-          </nav>
-      </header>
         <div class="vision-container">
           <article class="image-article">
             <div class="image-4">
@@ -263,6 +235,7 @@
 
   <!-- PÁGINA 6-->
   <footer class="page-6">
+    <!-- boton superior derecho-->
     <!--contenido central-->
     <div class="footer-content">
       <div class="logo">
@@ -274,8 +247,8 @@
         Local 10, Valencia, Carabobo
       </p>
       <!--Titulo de contacto-->
-      <h3 class="contact-title">CONTACTANOS</h3>
 
+      <h3 class="contact-title">CONTACTANOS</h3>
       <!--Iconos de redes sociales-->
       <div class="social-icons">
         <a href="https://x.com/rifatrichanibr"><img src="/x.png" alt="X (Twitter)" /></a>
@@ -285,20 +258,33 @@
       </div>
 
 
+    <div class="menu-container" :class="{ 'open': isMenuOpen }">
+      <!-- Navegación superior -->
+      <header class="navbar">
+        <button @click="toggleMenu" class="nav-link">
+        Salir
+        </button>
+        <img src="/brand2.png" alt="Rifat Richani" class="brand" />
+        <button @click="signIn" class="inc-btn">
+            <span>Iniciar Sesión</span>
+        </button> 
+      </header>
 
+      <!-- Menú principal centrado -->
+      <main class="menu-content">
+        <nav class="menu-list">
+          <button @click="Home" class="menu-item active"><span>Principal</span></button> 
+          <button @click="Search" class="menu-item"><span>Disponibles</span></button> 
+          <a href="#" class="menu-item">Favoritos</a>
+          <button @click="Contact" class="menu-item"><span>Contactanos</span></button> 
+        </nav>
+      </main>
     </div>
-
-
-  </footer>
-
-  <!-- Unico boton de inicio de sesion: fijo arriba a la derecha, acompaña al usuario mientras baja por la pagina -->
-  <Transition name="flotante">
-    <button v-if="!isMenuOpen" type="button" class="inc-btn inc-flotante" @click="signIn">
-      <span>Iniciar Sesión</span>
-    </button>
-  </Transition>
+  </div>
+</footer>
 
 </template>
+
 
 <script setup>
 import { onMounted, ref } from 'vue'

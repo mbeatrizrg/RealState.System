@@ -6,7 +6,7 @@
         <img src="/icon.png" alt="Icono" class="icon" />
         <img src="/brand.png" alt="Rifat Richani" class="brand" />
       </div>
-
+      
       <nav class="primary-nav">
         <!-- cambiar para que se vea como el search btn -->
         <button @click="toggleMenu" class="menu-btn">
@@ -22,71 +22,69 @@
       <!-- Barra de Filtros / Búsqueda -->
       <section class="background">
         <div class="filter-bar2">
-          <div class="filter-group2 filter-texto">
-            <label for="q">Buscar</label>
-            <input
-              class="filter-input2"
-              type="search"
-              id="q"
-              name="q"
-              maxlength="100"
-              placeholder="Título, zona o código RRBR"
-              v-model="filtros.q"
-              @keyup.enter="buscar"
-            />
-          </div>
-
           <div class="filter-group2">
             <label for="locacion">Locación</label>
-            <select id="locacion" name="locacion" v-model="filtros.ciudadId">
-              <option value="">Ciudades</option>
-              <option v-for="ciudad in ciudades" :key="ciudad.id" :value="String(ciudad.id)">{{ ciudad.nombre }}</option>
+            <select id="locacion" name="locacion">
+              <option value="" disabled selected>Ciudades</option>
+              <option value="valencia">Valencia</option>
+              <option value="naguanagua">Naguanagua</option>
+              <option value="san_diego">San Diego</option>
+              <option value="puerto_cabello">Puerto Cabello</option>
+              <option value="guacara">Guacara</option>
+              <option value="los_guayos">Los Guayos</option>
+              <option value="tocuyito">Tocuyito (Libertador)</option>
+              <option value="san_joaquin">San Joaquín</option>
+              <option value="diego_ibarra">Mariara (Diego Ibarra)</option>
+              <option value="bejuma">Bejuma</option>
+              <option value="montalban">Montalbán</option>
+              <option value="miranda">Miranda</option>
+              <option value="carlos_arvelo">Güigüe (Carlos Arvelo)</option>
+              <option value="juan_jose_mora">Morón (Juan José Mora)</option>
             </select>
           </div>
 
           <div class="filter-group2">
             <label for="tipo">Tipo de Propiedad</label>
-            <select id="tipo" name="tipo" v-model="filtros.tipoInmuebleId">
-              <option value="">Todos</option>
-              <option v-for="tipo in tiposInmueble" :key="tipo.id" :value="String(tipo.id)">{{ tipo.nombre }}</option>
+            <select id="tipo" name="tipo">
+              <option value="casa">Casa</option>
+              <option value="apartamento">Apartamento</option>
+              <option value="townhouse">Townhouse</option>
+              <option value="terreno">Terreno</option>
+              <option value="local comercial">local comercial</option>
+              <option value="galpon">Galpon</option>
+              <option value="oficina">Oficina</option>
+              <option value="consultorio medico">Consultorio medico</option>
+              <option value="club">Club</option>
+              <option value="negocio">Negocio</option>
             </select>
+          </div>
+
+          <div class="filter-group2">
+            <label for="precio">Precio</label>
+            <input
+            class="filter-input2"
+              type="number" 
+              id="precio" 
+              min="0"
+              max="100000000"
+              name="precio" 
+              placeholder="Ej: 15000"
+              />
           </div>
 
           <div class="filter-group2">
             <label for="modalidad">Alquiler o Compra</label>
-            <select id="modalidad" name="modalidad" v-model="filtros.modalidad">
-              <option value="">Todas</option>
+            <select id="modalidad" name="modalidad">
               <option value="compra">Compra</option>
               <option value="alquiler">Alquiler</option>
             </select>
           </div>
-          <button @click="buscar" class="search-btn">
+
+          <button @click="Search" class="search-btn">
             <img src="/lupa.svg" alt="" />
             <span>Buscar Propiedad</span>
           </button>
-        </div>
-
-        <!-- Filtros secundarios: rango de precio y orden -->
-        <div class="filter-extra">
-          <div class="filter-group2">
-            <label for="precio-min">Precio mínimo</label>
-            <input class="filter-input2" type="number" id="precio-min" min="0" placeholder="Ej: 5000" v-model="filtros.minPrecio" @keyup.enter="buscar" />
-          </div>
-          <div class="filter-group2">
-            <label for="precio">Precio máximo</label>
-            <input class="filter-input2" type="number" id="precio" min="0" max="100000000" name="precio" placeholder="Ej: 15000" v-model="filtros.maxPrecio" @keyup.enter="buscar" />
-          </div>
-          <div class="filter-group2">
-            <label for="orden">Ordenar por</label>
-            <select id="orden" v-model="filtros.orden" @change="buscar">
-              <option value="recientes">Más recientes</option>
-              <option value="precio_asc">Menor precio</option>
-              <option value="precio_desc">Mayor precio</option>
-            </select>
-          </div>
-          <button class="clear-btn" @click="limpiarFiltros">Limpiar filtros</button>
-        </div>
-        <p v-if="errorCatalogos" class="estado-msg">No se pudieron cargar los filtros: {{ errorCatalogos }}</p> 
+        </div> 
       </section>
     </main>
       <!-- Grid de Tarjetas de Propiedades -->
