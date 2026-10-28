@@ -247,8 +247,8 @@
         Local 10, Valencia, Carabobo
       </p>
       <!--Titulo de contacto-->
-      <h3 class="contact-title">CONTACTANOS</h3>
 
+      <h3 class="contact-title">CONTACTANOS</h3>
       <!--Iconos de redes sociales-->
       <div class="social-icons">
         <a href="https://x.com/rifatrichanibr"><img src="/x.png" alt="X (Twitter)" /></a>
@@ -257,32 +257,31 @@
         <a href="https://wa.me/584145936070"><img src="/whatsapp.png" alt="WhatsApp"></a>
       </div>
 
-  <div class="menu-container" :class="{ 'open': isMenuOpen }">
-    <!-- Navegación superior -->
-    <header class="navbar">
-      <button @click="toggleMenu" class="nav-link">
+
+    <div class="menu-container" :class="{ 'open': isMenuOpen }">
+      <!-- Navegación superior -->
+      <header class="navbar">
+        <button @click="toggleMenu" class="nav-link">
         Salir
-      </button>
-      <img src="/brand2.png" alt="Rifat Richani" class="brand" />
-      <button @click="signIn" class="inc-btn">
-          <span>Iniciar Sesión</span>
-      </button> 
-    </header>
+        </button>
+        <img src="/brand2.png" alt="Rifat Richani" class="brand" />
+        <button @click="signIn" class="inc-btn">
+            <span>Iniciar Sesión</span>
+        </button> 
+      </header>
 
-    <!-- Menú principal centrado -->
-    <main class="menu-content">
-      <nav class="menu-list">
-        <button @click="Home" class="menu-item active"><span>Principal</span></button> 
-        <button @click="Search" class="menu-item"><span>Disponibles</span></button> 
-        <a href="#" class="menu-item">Favoritos</a>
-        <button @click="Contact" class="menu-item"><span>Contactanos</span></button> 
-      </nav>
-    </main>
+      <!-- Menú principal centrado -->
+      <main class="menu-content">
+        <nav class="menu-list">
+          <button @click="Home" class="menu-item active"><span>Principal</span></button> 
+          <button @click="Search" class="menu-item"><span>Disponibles</span></button> 
+          <a href="#" class="menu-item">Favoritos</a>
+          <button @click="Contact" class="menu-item"><span>Contactanos</span></button> 
+        </nav>
+      </main>
+    </div>
   </div>
-</div>
-
-
-  </footer>
+</footer>
 
 </template>
 

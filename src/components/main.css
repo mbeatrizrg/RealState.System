@@ -480,6 +480,7 @@ html, body {
 .image-article {
   margin-left: 10px;
 }
+
 .image-4 img{
   width: 350px;
   height: 400px;
@@ -487,6 +488,7 @@ html, body {
   border-radius: 0px;
   padding-left: 20px;
 }
+
 .vision-container {
   display: flex;
   align-items: center;
@@ -573,6 +575,7 @@ html, body {
   height: 200px;
   object-fit: cover;
   border-radius: 0px;
+  padding-left: 20px;
 }
 
 .section-title{
@@ -655,6 +658,7 @@ html, body {
   transition: transform 0.2s ease; 
 }
 
+/* menu page */
 .menu-container {
   position: fixed;
   flex-direction: column;
@@ -666,10 +670,10 @@ html, body {
   flex-direction: column;
   background-color: #0b1442;
   font-family: Arial, sans-serif; /* Fuente por defecto para la barra superior */
-
   transform: translateY(-100%);
   transition: transform 0.7s cubic-bezier(0.16, 1, 0.3 , 1);
 }
+
 .menu-container.open {
   transform: translateY(0);
 }
@@ -757,8 +761,8 @@ html, body {
 }
 
 .brand {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    margin-top: 25px;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: 25px;
 }
