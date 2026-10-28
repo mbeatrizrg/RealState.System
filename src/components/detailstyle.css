@@ -27,9 +27,7 @@
     padding-bottom: 12px;
     -webkit-overflow-scrolling: touch;
     margin-top: 30px;
-    
 }
-
 
 .carousel-item{
     width: 100%;
@@ -76,7 +74,6 @@
     margin-bottom: 0px;
 }
 
-
 .property-location span{
     align-items: center;
     gap: 6px;
@@ -121,6 +118,8 @@
 }
 
 .details-list{
+    padding-top: -10px;
+    box-sizing: border-box;
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -128,13 +127,15 @@
 }
 
 .map-section{
-    margin-top: -200px;
+    margin-top: 10px;
+    padding-top: 0;
     display: flex;
     justify-content: center;
     height: 650px;
     width: 100%;
     max-width: 1400px;
-    margin: -250px auto;
+    margin-left: auto;
+    margin-right: auto;
     padding: 0;
     border-radius: 0px;
     overflow: hidden;
