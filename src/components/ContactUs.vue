@@ -1,14 +1,22 @@
 <template>
     <footer class="page-6">
     <!-- boton superior derecho-->
-        <div class="login-6">
-            <button @click="toggleMenu" class="menu-btn">
-                <span>{{ isMenuOpen ? 'Cerrar' : 'Menu' }}</span>
-            </button> 
-            <button @click="signIn" class="inc-btn">
-                <span>Iniciar Sesión</span>
-            </button> 
-        </div>
+      <header class="CommonHeader">
+      <div class="logo">
+        <img src="/icon.png" alt="Icono" class="icon" />
+        <img src="/brand.png" alt="Rifat Richani" class="brand" />
+      </div>
+      
+      <nav class="primary-nav">
+        <!-- cambiar para que se vea como el search btn -->
+        <button @click="toggleMenu" class="menu-btn">
+          <span>{{ isMenuOpen ? 'Cerrar' : 'Menu' }}</span>
+        </button> 
+        <button @click="signIn" class="inc-btn">
+          <span>Iniciar Sesión</span>
+        </button> 
+      </nav>
+    </header>
         <!--contenido central-->
     <div class="footer-content">
       <div class="logo">
