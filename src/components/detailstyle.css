@@ -43,6 +43,13 @@
   min-width: 0;
 }
 
+.info-left{
+  margin-left: 35px;
+}
+.info-right{
+  margin-right: 35px;
+}
+
 .info-left,
 .info-right,
 .map-section {

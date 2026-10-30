@@ -328,7 +328,7 @@ const signIn = ()=> {
   router.push('/signin')
 }
 
-const isOpen = ref(true) // Estado para controlar la visibilidad del menú
+const isOpen = ref(true) 
 const toggleSidemenu = () => {
   isOpen.value = !isOpen.value // Cambia el estado al hacer clic
 }
@@ -341,7 +341,6 @@ const toggleSidemenu = () => {
 <style scoped>
 
 
-/* Misma apariencia que .inc-btn del encabezado, fijo arriba a la derecha */
 .inc-flotante {
   position: fixed;
   /* A la altura del boton "Menu" del encabezado */
