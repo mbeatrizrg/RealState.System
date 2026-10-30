@@ -60,24 +60,13 @@
           </div>
 
           <div class="filter-group2">
-            <label for="precio">Precio</label>
-            <input
-            class="filter-input2"
-              type="number" 
-              id="precio" 
-              min="0"
-              max="100000000"
-              name="precio" 
-              placeholder="Ej: 15000"
-              />
+            <label for="modalidad-compra">Compra</label>
+            <input type="checkbox" id="modalidad-compra" name="modalidad" value="compra" class="circle-checkbox">
           </div>
 
           <div class="filter-group2">
-            <label for="modalidad">Alquiler o Compra</label>
-            <select id="modalidad" name="modalidad">
-              <option value="compra">Compra</option>
-              <option value="alquiler">Alquiler</option>
-            </select>
+            <label for="modalidad-alquiler">Alquiler</label>
+            <input type="checkbox" id="modalidad-alquiler" name="modalidad" value="alquiler" class="circle-checkbox">
           </div>
 
           <button @click="Search" class="search-btn">

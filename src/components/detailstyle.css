@@ -1,7 +1,7 @@
 /* Detalle de un inmueble en el portal (HomeDetails.vue). Mismos colores del portal (#EDF2F3 y azul #0b1f46) */
 .details-container {
   background-color: #EDF2F3;
-  min-height: 100vh;
+  min-height: 90px;
   font-family: "Inter", sans-serif;
 }
 
@@ -37,8 +37,6 @@
   display: grid;
   grid-template-columns: minmax(0, 1fr) 400px;
   gap: 24px;
-  /* Detalles se estira a la altura del resumen: sin huecos al lado */
-  align-items: stretch;
 }
 
 .info-section > * {

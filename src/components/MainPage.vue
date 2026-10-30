@@ -83,24 +83,13 @@
           </div>
 
           <div class="filter-group">
-            <label for="precio">Precio</label>
-            <input 
-            class="filter-input"
-              type="number" 
-              id="precio" 
-              min="0"
-              max="100000000"
-              name="precio" 
-              placeholder="Ej: 15000"
-            />
+            <label for="modalidad-compra">Compra</label>
+            <input type="checkbox" id="modalidad-compra" name="modalidad" value="compra" class="circle-checkbox">
           </div>
 
-          <div class="filter-group">
-            <label for="modalidad">Alquiler o Compra</label>
-            <select id="modalidad" name="modalidad">
-              <option value="compra">Compra</option>
-              <option value="alquiler">Alquiler</option>
-            </select>
+          <div class="filter-group inline-group">
+            <label for="modalidad-alquiler">Alquiler</label>
+            <input type="checkbox" id="modalidad-alquiler" name="modalidad" value="alquiler" class="circle-checkbox">
           </div>
           
           <button @click="Search" class="search-btn">
@@ -116,7 +105,7 @@
         <!-- Encabezado de la sección -->
         <header class="section-header">
           <h2>Destacados</h2>
-          <p>Selecciona tu locación</p>
+          <p></p>
         </header>
 
         <!-- Contenedor del Grid/Carrusel de tarjetas -->
@@ -181,7 +170,7 @@
             </div>
           </article>
           <article class="text-article">
-            <h1 class="text-4">Nuestra vision</h1>
+            <h1 class="text-4">Nuestra visión</h1>
             <p class="text-little-4">
             "Consolidarnos como la firma inmobiliaria referente y de mayor confianza en, reconocida por nuestra trayectoria, innovación y excelencia en la gestión personalizada de activos residenciales y comerciales en las zonas de mayor valorización en el estado."
             </p>

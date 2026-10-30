@@ -43,7 +43,7 @@
           <h2 class="details-title">Detalles</h2>
           <dl class="details-list">
             <dt>Tipo</dt><dd>{{ inmueble.nombreTipoInmueble }}</dd>
-            <dt>Estado</dt><dd>{{ inmueble.nombreEstatus }}</dd>
+            <dt>Estatus</dt><dd>{{ inmueble.nombreEstatus }}</dd>
             <dt>Ciudad</dt><dd>{{ inmueble.nombreCiudad || 'Carabobo' }}</dd>
             <dt v-if="inmueble.habitaciones != null || inmueble.banos != null">Distribución</dt>
             <dd v-if="inmueble.habitaciones != null || inmueble.banos != null">{{ distribucion }}</dd>
@@ -111,8 +111,6 @@
 </div>
 
 </template>
-
-
 
 <script setup>
 import { computed, ref, watch } from 'vue'
