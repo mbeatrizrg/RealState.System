@@ -172,17 +172,6 @@
         </div>
       </section>
 
-      <!-- PÁGINA 3 -->
-      <section class="info-section">
-        <div class="section-content">
-          <h1 class="principal-text">24 Años Transformando Espacios</h1>
-          
-          <p class="little-text">
-            "Brindar asesoría inmobiliaria de alto nivel en la compra, venta y alquiler de propiedades, resguardando el patrimonio de nuestros clientes con transparencia, criterio estratégico y una estricta seguridad jurídica, garantizando que cada operación sea una decisión rentable y segura."
-          </p>
-        </div>
-      </section>
-
   <!-- PÁGINA 4-->
   <section class = "page-4">
         <div class="vision-container">
