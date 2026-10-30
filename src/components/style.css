@@ -6,11 +6,10 @@ html, body {
 }
 
 .CommonHeader {
-  position: fixed;
+  position: relative;
   top: 0;
   left: 0;
   width: 100%;
-  z-index: 200;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -24,17 +23,17 @@ html, body {
 .logo {
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 260px;
 }
 
 .icon {
-  height: 80px;
+  height: 100px;
   width: auto;
   object-fit: contain;
 }
 
 .brand {
-  height: 40px;
+  height: 60px;
   width: auto;
   object-fit: contain;
   justify-content: space-between;
@@ -47,8 +46,7 @@ html, body {
 .primary-nav {
   display: flex;
   align-items: center;
-  gap: 15px;
-  margin-left: auto;
+  gap: 40px;
 }
 
 .menu-btn{

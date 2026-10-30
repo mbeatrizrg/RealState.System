@@ -2,11 +2,12 @@
   <div class="page1">
     <!-- primera pagina header -->
     <header class="CommonHeader">
-      <div class="logo">
-        <img src="/icon.png" alt="Icono" class="icon" />
-        <img src="/brand.png" alt="Rifat Richani" class="brand" />
-      </div>
-      
+  <div class="logo">
+    <img src="/icon.png" alt="Icono" class="icon" />
+  </div>
+  <!-- ¡La marca va aquí afuera, suelta en el medio! -->
+    <img src="/brand.png" alt="Rifat Richani" class="brand" />
+  
       <nav class="primary-nav">
         <!-- cambiar para que se vea como el search btn -->
         <button @click="toggleMenu" class="menu-btn">
