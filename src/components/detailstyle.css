@@ -248,47 +248,60 @@
 }
 
 /* ----- Pie de pagina (mismo que la pagina principal) ----- */
-.page-6 {
+/* page 6*/
+.page-6{
+  width: 100vw;
+  position: relative;
+  padding: 0;
+  right: 50%;
+  left: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
   background-color: #EDF2F3;
-  padding: 48px 40px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  border-top: 1px solid #dde4e6;
+  padding-top: 70px;
+  padding-bottom: 100px;
 }
 
-.footer-content {
+.login-6{
+  position: absolute;
+  top: 40px;
+  right: 40px;
+}
+
+.footer-content{
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 20px;
 }
 
-.footer-brand-img {
-  width: 200px;
+.footer-brand-img{
+  width: 200px; 
   height: auto;
   object-fit: contain;
+  margin-bottom: 5px;
 }
 
-.footer-address {
+.footer-address{
   color: #0b1f46;
   font-size: 14px;
   text-align: center;
-  line-height: 1.5;
-  margin: 0;
+  line-height: 1.5; 
+  margin: 0; 
   font-weight: 500;
 }
 
-.contact-title {
+.contact-title{
   font-size: 14px;
   font-weight: 700;
   color: #0b1f46;
-  margin: 10px 0 5px;
+  margin-top: 10px; 
+  margin-bottom: 5px;
 }
 
-.social-icons {
+.social-icons{
   display: flex;
-  gap: 30px;
+  gap: 30px; 
   align-items: center;
   justify-content: center;
 }
@@ -296,46 +309,115 @@
 .social-icons a img {
   width: 30px;
   height: 30px;
-  object-fit: contain;
-  transition: transform 0.2s ease;
+  object-fit: contain; 
+  transition: transform 0.2s ease; 
 }
 
-.social-icons a:hover img {
-  transform: scale(1.1);
+/* menu page */
+.menu-container {
+  position: fixed;
+  flex-direction: column;
+  z-index: 9999;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  flex-direction: column;
+  background-color: #0b1442;
+  font-family: Arial, sans-serif; /* Fuente por defecto para la barra superior */
+  transform: translateY(-100%);
+  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3 , 1);
 }
 
-@media (max-width: 900px) {
-  /* minmax(0, 1fr): la columna no se ensancha mas que la pantalla por su contenido */
-  .info-section {
-    grid-template-columns: minmax(0, 1fr);
-  }
-
-  .map-image {
-    height: 300px;
-  }
+.menu-container.open {
+  transform: translateY(0);
 }
 
-@media (max-width: 600px) {
-  .detalle-contenido {
-    padding: 12px 16px 32px;
-    gap: 16px;
-  }
+.menu-content .menu-item{
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
 
-  .info-left,
-  .info-right,
-  .map-section {
-    padding: 20px;
-  }
+.menu-container.open .menu-content .menu-item {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: calc(var(--index) * 0.1s);
+}
 
-  .property-title {
-    font-size: 24px;
-  }
+.menu-container.open .menu-content .menu-item:nth-child(1) {transition-delay: 0.3s;}
+.menu-container.open .menu-content .menu-item:nth-child(2) {transition-delay: 0.4s;}
+.menu-container.open .menu-content .menu-item:nth-child(3) {transition-delay: 0.5s;}
+.menu-container.open .menu-content .menu-item:nth-child(4) {transition-delay: 0.6s;}
 
-  .property-price {
-    font-size: 24px;
-  }
 
-  .map-image {
-    height: 280px;
-  }
+/* Estilos de la barra de navegación superior */
+.navbar {
+  text-decoration: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem 4rem;
+  position: relative;
+}
+
+.nav-link {
+  text-decoration: none;
+  background: none;
+  border: none;
+  color: #ffffff;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.nav-link:hover {
+  text-decoration: underline;
+}
+
+/* Contenedor del menú para centrar vertical y horizontalmente */
+.menu-content {
+  margin-top: 30px;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.menu-list {
+  background: trasparent;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  cursor: pointer;
+}
+
+/* Estilos de los enlaces del menú principal */
+.menu-item {
+  border: none;
+  background-color: transparent;
+  text-decoration: none;
+  color: #ffffff;
+  font-size: 2.8rem;
+  font-weight: bold;
+  font-weight: 700;
+  transition: color 0.3s ease;
+}
+
+/* Color azul para el elemento activo/destacado */
+.menu-item.active {
+  color: #214f96;
+}
+
+.menu-item:hover {
+  color: #214f96;
+}
+
+.brand {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: 25px;
 }
