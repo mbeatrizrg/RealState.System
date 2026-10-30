@@ -6,10 +6,11 @@ html, body {
 }
 
 .CommonHeader {
-  position: relative;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
+  z-index: 200;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -27,13 +28,13 @@ html, body {
 }
 
 .icon {
-  height: 100px;
+  height: 80px;
   width: auto;
   object-fit: contain;
 }
 
 .brand {
-  height: 60px;
+  height: 40px;
   width: auto;
   object-fit: contain;
   justify-content: space-between;
@@ -79,7 +80,6 @@ html, body {
   margin-left: -50vw;
   margin-right: -50vw;
   background-color: #EDF2F3;
-  padding-top: 100px;
 }
 
 .imagen {

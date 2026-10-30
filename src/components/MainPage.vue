@@ -2,12 +2,11 @@
   <div class="page1">
     <!-- primera pagina header -->
     <header class="CommonHeader">
-  <div class="logo">
-    <img src="/icon.png" alt="Icono" class="icon" />
-  </div>
-  <!-- ¡La marca va aquí afuera, suelta en el medio! -->
-    <img src="/brand.png" alt="Rifat Richani" class="brand" />
-  
+      <div class="logo">
+        <img src="/icon.png" alt="Icono" class="icon" />
+        <img src="/brand.png" alt="Rifat Richani" class="brand" />
+      </div>
+       <!-- arreglar -->
       <nav class="primary-nav">
         <!-- cambiar para que se vea como el search btn -->
         <button @click="toggleMenu" class="menu-btn">
@@ -109,9 +108,9 @@
             <span>Buscar Propiedad</span>
           </button>
         </div>
-        <p v-if="errorCatalogos" class="estado-msg">No se pudieron cargar los filtros: {{ errorCatalogos }}</p>
       </section>
   </div>
+  
       <!-- DESTACADOS 2DA PAGINA -->
       <section class="featured-section">
         <!-- Encabezado de la sección -->
@@ -164,6 +163,17 @@
 
       <!-- PÁGINA 3 -->
        <section class="info-section">
+        <div class="section-content">
+          <h1 class="principal-text">24 Años Transformando Espacios</h1>
+          
+          <p class="little-text">
+            "Brindar asesoría inmobiliaria de alto nivel en la compra, venta y alquiler de propiedades, resguardando el patrimonio de nuestros clientes con transparencia, criterio estratégico y una estricta seguridad jurídica, garantizando que cada operación sea una decisión rentable y segura."
+          </p>
+        </div>
+      </section>
+
+      <!-- PÁGINA 3 -->
+      <section class="info-section">
         <div class="section-content">
           <h1 class="principal-text">24 Años Transformando Espacios</h1>
           
@@ -286,7 +296,6 @@
 
 </template>
 
-
 <script setup>
 import { onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
@@ -314,13 +323,19 @@ onMounted(async () => {
   }
 })
 
-const isMenuOpen = ref(false)
-const toggleMenu = () => {
-  isMenuOpen.value = !isMenuOpen.value
+const isFavorite = ref(false)
+const toggleFavorite = () => {
+  isFavorite.value = !isFavorite.value
 }
+
 
 const Search = ()=> {
   router.push('/search')
+}
+
+const isMenuOpen = ref(false)
+const toggleMenu = () => {
+  isMenuOpen.value = !isMenuOpen.value
 }
 
 const Home = ()=> {
@@ -342,16 +357,11 @@ const toggleSidemenu = () => {
 // Lógica de JavaScript / Vue (si es necesaria)
 
 
-
-
 </script>
 
 <style scoped src= "./style.css"></style>
 <style scoped>
-/* Espacio a la derecha de cada encabezado para que el boton flotante no tape "Menu" */
-.primary-nav {
-  margin-right: 190px;
-}
+
 
 /* Misma apariencia que .inc-btn del encabezado, fijo arriba a la derecha */
 .inc-flotante {
