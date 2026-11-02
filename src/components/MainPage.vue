@@ -82,14 +82,14 @@
             </select>
           </div>
 
-          <div class="filter-group">
-            <label for="modalidad-compra">Compra</label>
-            <input type="checkbox" id="modalidad-compra" name="modalidad" value="compra" class="circle-checkbox">
+          <div class="filter-group button-group">
+            <input type="radio" id="modalidad-compra" name="modalidad" value="compra" class="hidden-input" checked>
+            <label for="modalidad-compra" class="toggle-btn">Compra</label>
+          
           </div>
-
-          <div class="filter-group inline-group">
-            <label for="modalidad-alquiler">Alquiler</label>
-            <input type="checkbox" id="modalidad-alquiler" name="modalidad" value="alquiler" class="circle-checkbox">
+          <div class="filter-group button-group">
+            <input type="radio" id="modalidad-alquiler" name="modalidad" value="alquiler" class="hidden-input">
+            <label for="modalidad-alquiler" class="toggle-btn">Alquiler</label>
           </div>
           
           <button @click="Search" class="search-btn">
@@ -195,15 +195,16 @@
         <div class="stat-label">CLIENTES</div>
       </div>
     </div>
-
-    <!-- Sección why us? -->
+  </section>
+  
+ <!--
+    ==========================
     <div class="content">
-      <!-- Imagen de la persona -->
+      
       <div class="profile-image">
         <img src="/profile.png" alt="Perfil" class="profile-img" />
       </div>
 
-      <!-- Texto descriptivo -->
       <div class="info-text">
         <h2 class="section-title">¿Por qué nosotros?</h2>
         <p class="description">
@@ -213,14 +214,14 @@
           elevated lifestyle in Long Island City.
         </p>
 
-        <!-- Botón flotante opcional (si aplica en la sección) -->
       <button class="next-btn" aria-label="Siguiente">
           <img src="/arrow.png" alt="Siguiente" />
       </button>
       </div>
     </div>
   </section>
-  
+=========================
+-->
 
   <!-- PÁGINA 6-->
   <footer class="page-6">
