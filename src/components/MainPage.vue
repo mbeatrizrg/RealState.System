@@ -121,38 +121,38 @@
 
         <!-- Contenedor del Grid/Carrusel de tarjetas -->
         <div class="cards-grid">
-          <!-- TARJETA 1 -->
-            <article class="card" v-for="property in properties" :key="property.id">
+          <p v-if="cargando" class="estado-msg">Cargando propiedades...</p>
+          <p v-else-if="error" class="estado-msg">No se pudieron cargar las propiedades: {{ error }}</p>
+          <p v-else-if="destacados.length === 0" class="estado-msg">Aún no hay propiedades publicadas.</p>
+
+          <article v-for="inmueble in destacados" :key="inmueble.id" class="card">
             <div class="card-image-wrapper">
-              <img :src="property.image" :alt="property.title" class="building-img" />
+              <img :src="urlImagen(inmueble.urlImagenPrincipal)" :alt="inmueble.titulo" class="building-img" />
             </div>
 
             <div class="card-content">
               <div class="card-location">
                 <img src="/location.png" alt="Ubicación" />
-                <span>{{ property.location }}</span>
+                <span>{{ inmueble.ciudad || 'Carabobo' }}</span>
               </div>
 
-              <button class="favorite-btn" :class="{ 'active': isFavorite }" @click="property.isFavorite = !property.isFavorite" aria-label="Añadir a favoritos">
-                <img :src="property.isFavorite ? '/filledheart.png' : '/heart.png'" alt="Favorito" />
+              <!-- PENDIENTE: favoritos requiere inicio de sesion (JWT) -->
+              <button class="favorite-btn" aria-label="Añadir a favoritos">
+                <img src="/heart.png" alt="Favorito" />
               </button>
 
-              <h3 class="card-title">{{ property.title }}</h3>
+              <h3 class="card-title">{{ inmueble.titulo }}</h3>
 
               <div class="card-details">
-                <span>{{ property.bedrooms }} habitaciones | {{ property.bathrooms }} baños</span>
-                <span>{{ property.area }} m² Totales</span>
+                <span>{{ inmueble.tipoInmueble }}</span>
               </div>
 
               <div class="card-footer">
-                <span class="card-price">${{ property.price }}</span>
-                <button @click="HomeDetails" class="details-btn">
-                  <span>Ver Detalles &gt;</span>
-                </button> 
+                <span class="card-price">{{ formatearPrecio(inmueble.precio) }}</span>
+                <router-link :to="`/details/${inmueble.id}`" class="details-btn">Ver Detalles &gt;</router-link>
               </div>
             </div>
           </article>
-
         </div>
 
         <!-- Botón de Navegación del Carrusel -->
@@ -162,7 +162,7 @@
       </section>
 
       <!-- PÁGINA 3 -->
-      <section class="info-section">
+       <section class="info-section">
         <div class="section-content">
           <h1 class="principal-text">24 Años Transformando Espacios</h1>
           
@@ -286,61 +286,37 @@
 </template>
 
 <script setup>
-import {ref} from 'vue'
-import {useRouter} from 'vue-router'
+import { onMounted, ref } from 'vue'
+import { useRouter } from 'vue-router'
+
+import { useFiltros } from '@/composables/useFiltros'
+import { mensajeDeError } from '@/services/api'
+import { buscarInmuebles } from '@/services/inmuebles'
+import { formatearPrecio, urlImagen } from '@/utils/formato'
+
+const router = useRouter()
+const { ciudades, tiposInmueble, errorCatalogos, filtros, buscar } = useFiltros()
+
+// Destacados: las 4 propiedades disponibles mas recientes
+const destacados = ref([])
+const cargando = ref(true)
+const error = ref('')
+
+onMounted(async () => {
+  try {
+    destacados.value = (await buscarInmuebles({ tamano: 4 })).contenido
+  } catch (e) {
+    error.value = mensajeDeError(e)
+  } finally {
+    cargando.value = false
+  }
+})
 
 const isFavorite = ref(false)
 const toggleFavorite = () => {
   isFavorite.value = !isFavorite.value
 }
-const properties = ref([
-  {
-    id: 1,
-    title: 'Residencias Altos Del Mirador',
-    location: 'Valencia, Via Guataparo',
-    bedrooms: 4,
-    bathrooms: 3,
-    area: 67,
-    price: 150000,
-    image: '/building.png',
-    isFavorite: false,
-  },
-  {
-    id: 2,
-    title: 'Residencias Altos Del Mirador',
-    location: 'Valencia, Via Guataparo',
-    bedrooms: 4,
-    bathrooms: 3,
-    area: 67,
-    price: 150000,
-    image: '/building.png',
-    isFavorite: false,
-  },
-  {
-    id: 3,
-    title: 'Residencias Altos Del Mirador',
-    location: 'Valencia, Via Guataparo',
-    bedrooms: 4,
-    bathrooms: 3,
-    area: 67,
-    price: 150000,
-    image: '/building.png',
-    isFavorite: false,
-  },
-  {
-    id: 4,
-    title: 'Residencias Altos Del Mirador',
-    location: 'Valencia, Via Guataparo',
-    bedrooms: 4,
-    bathrooms: 3,
-    area: 67,
-    price: 150000,
-    image: '/building.png',
-    isFavorite: false,
-  },
-])
 
-const router = useRouter()
 
 const Search = ()=> {
   router.push('/search')
@@ -349,10 +325,6 @@ const Search = ()=> {
 const isMenuOpen = ref(false)
 const toggleMenu = () => {
   isMenuOpen.value = !isMenuOpen.value
-}
-
-const HomeDetails = ()=> {
-  router.push('/details')
 }
 
 const Home = ()=> {
@@ -376,4 +348,40 @@ const toggleSidemenu = () => {
 
 </script>
 
-<style scoped src= "./main.css"></style>
+<style scoped src= "./style.css"></style>
+<style scoped>
+
+
+/* Misma apariencia que .inc-btn del encabezado, fijo arriba a la derecha */
+.inc-flotante {
+  position: fixed;
+  /* A la altura del boton "Menu" del encabezado */
+  top: 46px;
+  right: 40px;
+  z-index: 60;
+  box-shadow: 0 8px 20px rgba(11, 31, 70, 0.3);
+}
+
+.flotante-enter-active,
+.flotante-leave-active {
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.flotante-enter-from,
+.flotante-leave-to {
+  opacity: 0;
+  transform: translateY(-8px);
+}
+
+@media (max-width: 600px) {
+  .primary-nav {
+    margin-right: 150px;
+  }
+
+  .inc-flotante {
+    top: 12px;
+    right: 16px;
+    font-size: 15px;
+  }
+}
+</style>
