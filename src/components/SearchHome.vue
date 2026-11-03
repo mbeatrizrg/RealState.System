@@ -89,37 +89,47 @@
     </main>
       <!-- Grid de Tarjetas de Propiedades -->
       <section class="properties-grid">
-        <!-- Tarjeta 1 -->
-        <article class="card2" v-for="property in properties" :key="property.id">
+        <p v-if="cargando" class="estado-msg">Buscando propiedades...</p>
+        <p v-else-if="error" class="estado-msg">No se pudo realizar la búsqueda: {{ error }}</p>
+        <p v-else-if="inmuebles.length === 0" class="estado-msg">No encontramos propiedades con esos filtros.</p>
+        <p v-else class="estado-msg resumen">{{ totalElementos }} {{ totalElementos === 1 ? 'propiedad encontrada' : 'propiedades encontradas' }}</p>
+
+        <article v-for="inmueble in inmuebles" :key="inmueble.id" class="card2">
             <div class="img-card">
-              <img :src="property.image" :alt="property.title" class="building2-img" />
+              <img :src="urlImagen(inmueble.urlImagenPrincipal)" :alt="inmueble.titulo" class="building2-img" />
             </div>
 
             <div class="content2">
               <div class="location-card">
                 <img src="/location.png" alt="Ubicación" />
-                <span>{{ property.location }}</span>
+                <span>{{ inmueble.ciudad || 'Carabobo' }}</span>
               </div>
 
-              <button class="favorite-btn" :class="{ 'active': isFavorite }" @click="property.isFavorite = !property.isFavorite" aria-label="Añadir a favoritos">
-                <img :src="property.isFavorite ? '/filledheart.png' : '/heart.png'" alt="Favorito" />
+              <!-- PENDIENTE: favoritos requiere inicio de sesion (JWT) -->
+              <button class="favorite-btn" aria-label="Añadir a favoritos">
+                <img src="/heart.png" alt="Favorito" />
               </button>
 
-              <h3 class="card-title">{{ property.title }}</h3>
+              <h3 class="card-title">{{ inmueble.titulo }}</h3>
 
               <div class="details-card">
-                <span>{{ property.bedrooms }} habitaciones | {{ property.bathrooms }} baños</span>
-                <span>{{ property.area }} m² Totales</span>
+                <span>{{ inmueble.tipoInmueble }} | {{ inmueble.estatusInmueble }}</span>
               </div>
 
               <div class="footer-card">
-                <span class="card-price">${{ property.price.toLocaleString() }}</span>
-                <a href="#" class="details-btn">Ver Detalles &gt;</a>
+                <span class="card-price">{{ formatearPrecio(inmueble.precio) }}</span>
+                <router-link :to="`/details/${inmueble.id}`" class="details-btn">Ver Detalles &gt;</router-link>
               </div>
             </div>
           </article>
-
       </section>
+
+      <Paginacion
+        v-if="!cargando && !error"
+        :pagina="pagina"
+        :total-paginas="totalPaginas"
+        @cambiar="irAPagina"
+      />
 
         <div class="menu-container" :class="{ 'open': isMenuOpen }">
     <!-- Navegación superior -->
@@ -149,68 +159,49 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
-import {useRouter} from 'vue-router'
+import { ref, watch } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 
+import Paginacion from '@/components/Paginacion.vue'
+import { useFiltros } from '@/composables/useFiltros'
+import { mensajeDeError } from '@/services/api'
+import { buscarInmuebles } from '@/services/inmuebles'
+import { formatearPrecio, urlImagen } from '@/utils/formato'
+
+const route = useRoute()
 const router = useRouter()
+const { ciudades, tiposInmueble, errorCatalogos, filtros, pagina, leerFiltrosDeUrl, filtrosParaApi, buscar, irAPagina, limpiarFiltros } = useFiltros()
 
-const isFavorite = ref(false)
-const toggleFavorite = () => {
-  isFavorite.value = !isFavorite.value
-}
-const properties = ref([
-  {
-    id: 1,
-    title: 'Residencias Altos Del Mirador',
-    location: 'Valencia, Via Guataparo',
-    bedrooms: 4,
-    bathrooms: 3,
-    area: 67,
-    price: 150000,
-    image: '/building2.png',
-    isFavorite: false,
-  },
-  {
-    id: 2,
-    title: 'Residencias Altos Del Mirador',
-    location: 'Valencia, Via Guataparo',
-    bedrooms: 4,
-    bathrooms: 3,
-    area: 67,
-    price: 150000,
-    image: '/building2.png',
-    isFavorite: false,
-  },
-  {
-    id: 3,
-    title: 'Residencias Altos Del Mirador',
-    location: 'Valencia, Via Guataparo',
-    bedrooms: 4,
-    bathrooms: 3,
-    area: 67,
-    price: 150000,
-    image: '/building2.png',
-    isFavorite: false,
-  },
-  {
-    id: 4,
-    title: 'Residencias Altos Del Mirador',
-    location: 'Valencia, Via Guataparo',
-    bedrooms: 4,
-    bathrooms: 3,
-    area: 67,
-    price: 150000,
-    image: '/building2.png',
-    isFavorite: false,
-  },
-])
+const inmuebles = ref([])
+const totalPaginas = ref(0)
+const totalElementos = ref(0)
+const cargando = ref(false)
+const error = ref('')
 
-const Search = ()=> {
-  router.push('/search')
-}
+// Cada vez que cambian los filtros o la pagina en la URL se repite la busqueda
+watch(() => route.query, async () => {
+  leerFiltrosDeUrl()
+  cargando.value = true
+  error.value = ''
+  try {
+    const resultado = await buscarInmuebles(filtrosParaApi())
+    inmuebles.value = resultado.contenido
+    totalPaginas.value = resultado.totalPaginas
+    totalElementos.value = resultado.totalElementos
+    window.scrollTo?.({ top: 0, behavior: 'smooth' })
+  } catch (e) {
+    error.value = mensajeDeError(e)
+  } finally {
+    cargando.value = false
+  }
+}, { immediate: true })
 
 const Home = ()=> {
   router.push('/')
+}
+
+const Search = ()=> {
+  router.push('/search')
 }
 
 const isMenuOpen = ref(false)
