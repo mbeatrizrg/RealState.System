@@ -1,172 +1,423 @@
-.details-container{
-    background-color: #EDF2F3;
+/* Detalle de un inmueble en el portal (HomeDetails.vue). Mismos colores del portal (#EDF2F3 y azul #0b1f46) */
+.details-container {
+  background-color: #EDF2F3;
+  min-height: 100vh;
+  font-family: "Inter", sans-serif;
 }
 
-.back-btn{
-    text-decoration: none;
-    background: trasparent;
-    color: #0b1f46;
-    border: none;
-    border-radius: 0px;
-    font-size: 18px;
-    font-weight: 700;
-    margin-top: 10px;
-    margin-left: 20px;
-    margin-top: 15px;
-    cursor: pointer;
-    display: inline-block;
-    align-items: center;
+.detalle-contenido {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 16px 24px 48px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
 }
 
-.carousel{
-    position: relative;
-    display: inline-flex;
-    gap: 16px;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    padding-bottom: 12px;
-    -webkit-overflow-scrolling: touch;
-    margin-top: 30px;
+.back-btn {
+  align-self: flex-start;
+  background: transparent;
+  color: #0b1f46;
+  border: none;
+  padding: 8px 0;
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
 }
 
-.carousel-item{
-    width: 100%;
-    height: 220px;
-    object-fit: cover;
-    border-radius: 20px;
+.back-btn:hover {
+  text-decoration: underline;
 }
 
-.carousel-item img{
-    aspect-ratio: 1/1;
-    margin-top: 0px;
-    width: 100%;
-    height: auto;
-    object-fit: cover;
-    border-radius: none;
-    display: block;
+/* ----- Resumen: informacion a la izquierda y detalles a la derecha ----- */
+/* style.css (global, cargado en App.vue) le da 550px de alto y fondo a .info-section de la pagina principal */
+.info-section {
+  height: auto;
+  background-color: transparent;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 400px;
+  gap: 24px;
+  /* Detalles se estira a la altura del resumen: sin huecos al lado */
+  align-items: stretch;
 }
 
-.next-btn {
+.info-section > * {
+  min-width: 0;
+}
+
+.info-left,
+.info-right,
+.map-section {
+  background-color: #ffffff;
+  border-radius: 14px;
+  padding: 28px 32px;
+  color: #0b1f46;
+  box-shadow: 0 2px 10px rgba(11, 31, 70, 0.06);
+}
+
+.property-type {
+  margin: 0 0 6px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #5b6b8c;
+}
+
+.property-title {
+  margin: 0;
+  font-size: 30px;
+  line-height: 1.2;
+  color: #0b1f46;
+}
+
+.property-location {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 12px 0 0;
+  font-size: 15px;
+  color: #4a5670;
+}
+
+.location-icon {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+}
+
+/* Caracteristicas del inmueble (habitaciones, baños, m², estacionamiento, piso) */
+.property-features {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 18px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.property-features li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border-radius: 10px;
+  background-color: #EDF2F3;
+  color: #0b1f46;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.feature-icon {
+  width: 20px;
+  height: 20px;
+}
+
+.property-price {
+  margin: 18px 0 0;
+  font-size: 28px;
+  font-weight: 700;
+  color: #0b1f46;
+}
+
+.property-price small {
+  font-size: 15px;
+  font-weight: 500;
+  color: #5b6b8c;
+}
+
+.property-description {
+  margin: 18px 0 24px;
+  padding-top: 18px;
+  border-top: 1px solid #e3e8f4;
+  font-size: 15px;
+  line-height: 1.7;
+  color: #1c2a47;
+  white-space: pre-line;
+}
+
+.contact-btn {
+  display: inline-block;
   background-color: #0b1f46;
   color: #ffffff;
+  border-radius: 8px;
+  padding: 12px 24px;
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+
+.contact-btn:hover {
+  opacity: 0.9;
+}
+
+
+
+.details-title {
+  margin: 0 0 14px;
+  font-size: 20px;
+  color: #0b1f46;
+}
+
+.details-list {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  margin: 0;
+  font-size: 14px;
+}
+
+.details-list dt,
+.details-list dd {
+  padding: 10px 0;
+  border-bottom: 1px solid #eef1f6;
+}
+
+.details-list dt {
+  color: #5b6b8c;
+  padding-right: 16px;
+}
+
+.details-list dd {
+  margin: 0;
+  font-weight: 600;
+  text-align: right;
+  overflow-wrap: anywhere;
+}
+
+/* La etiqueta se ajusta al texto y el valor ("3 habitaciones | 2 baños") usa el resto en una linea */
+.details-list dt {
+  white-space: nowrap;
+}
+
+.details-list dt:last-of-type,
+.details-list dd:last-of-type {
+  border-bottom: none;
+}
+
+.extras-title {
+  margin: 18px 0 10px;
+  font-size: 14px;
+  color: #0b1f46;
+}
+
+.extras-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.extras-list li {
+  background-color: #EDF2F3;
+  border-radius: 999px;
+  padding: 6px 12px;
+  font-size: 13px;
+}
+
+/* ----- Mapa: dentro de una tarjeta, del ancho del contenido y con un alto razonable ----- */
+.map-section {
+  padding: 24px 28px 28px;
+}
+
+.map-address {
+  margin: -6px 0 14px;
+  font-size: 14px;
+  color: #4a5670;
+}
+
+.map-image {
+  display: block;
+  width: 100%;
+  height: 300px;
+  border: 0;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+/* Mensajes de carga, error o lista vacia */
+.estado-msg {
+  width: 100%;
+  margin: 24px 0;
+  text-align: center;
+  color: #0b1f46;
+  font-family: "Inter", sans-serif;
+  font-size: 16px;
+}
+
+/* ----- Pie de pagina (mismo que la pagina principal) ----- */
+/* page 6*/
+.page-6{
+  width: 100vw;
+  position: relative;
+  padding: 0;
+  right: 50%;
+  left: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  background-color: #EDF2F3;
+  padding-top: 70px;
+  padding-bottom: 100px;
+}
+
+.login-6{
   position: absolute;
-  right: 45px;
-  z-index: 10;
-  padding: 6px 14px;
-  margin-top: 25px;
-  font-size: 12px;
-  cursor: pointer;
-  height: 40px;
-  width: 40px;
-  border-radius: 50px;
+  top: 40px;
+  right: 40px;
+}
+
+.footer-content{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.footer-brand-img{
+  width: 200px; 
+  height: auto;
+  object-fit: contain;
+  margin-bottom: 5px;
+}
+
+.footer-address{
+  color: #0b1f46;
+  font-size: 14px;
+  text-align: center;
+  line-height: 1.5; 
+  margin: 0; 
+  font-weight: 500;
+}
+
+.contact-title{
+  font-size: 14px;
+  font-weight: 700;
+  color: #0b1f46;
+  margin-top: 10px; 
+  margin-bottom: 5px;
+}
+
+.social-icons{
+  display: flex;
+  gap: 30px; 
+  align-items: center;
+  justify-content: center;
+}
+
+.social-icons a img {
+  width: 30px;
+  height: 30px;
+  object-fit: contain; 
+  transition: transform 0.2s ease; 
+}
+
+/* menu page */
+.menu-container {
+  position: fixed;
+  flex-direction: column;
+  z-index: 9999;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  flex-direction: column;
+  background-color: #0b1442;
+  font-family: Arial, sans-serif; /* Fuente por defecto para la barra superior */
+  transform: translateY(-100%);
+  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3 , 1);
+}
+
+.menu-container.open {
+  transform: translateY(0);
+}
+
+.menu-content .menu-item{
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.menu-container.open .menu-content .menu-item {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: calc(var(--index) * 0.1s);
+}
+
+.menu-container.open .menu-content .menu-item:nth-child(1) {transition-delay: 0.3s;}
+.menu-container.open .menu-content .menu-item:nth-child(2) {transition-delay: 0.4s;}
+.menu-container.open .menu-content .menu-item:nth-child(3) {transition-delay: 0.5s;}
+.menu-container.open .menu-content .menu-item:nth-child(4) {transition-delay: 0.6s;}
+
+
+/* Estilos de la barra de navegación superior */
+.navbar {
+  text-decoration: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem 4rem;
+  position: relative;
+}
+
+.nav-link {
+  text-decoration: none;
+  background: none;
   border: none;
-  overflow: hidden;
+  color: #ffffff;
+  font-size: 1.1rem;
+  font-weight: bold;
   cursor: pointer;
 }
 
-.info-section{
-    display: flex;
-    justify-content: space-between;
-    gap: 10px;
-    max-width: 1000px;
-    align-items:flex-start;
-    margin-top: 20px;
-    margin-bottom: 0px;
+.nav-link:hover {
+  text-decoration: underline;
 }
 
-.property-location span{
-    align-items: center;
-    gap: 6px;
-    font-weight: 300;
-    color: #0b1f46;
-    flex-grow: 1;
+/* Contenedor del menú para centrar vertical y horizontalmente */
+.menu-content {
+  margin-top: 30px;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
 }
 
-.location-icon{
-    margin-right: 5px;
-    width: 20px;
-    height: 20px;
-    object-fit: contain;
+.menu-list {
+  background: trasparent;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  cursor: pointer;
 }
 
-.info-left{
-    flex: 1;
-    max-width: 450px;
-    color: #0b1f46;
-    font-size: 13px;
-    margin-left: 50px;
-    margin-top: 15px;
-    gap: 10px;
+/* Estilos de los enlaces del menú principal */
+.menu-item {
+  border: none;
+  background-color: transparent;
+  text-decoration: none;
+  color: #ffffff;
+  font-size: 2.8rem;
+  font-weight: bold;
+  font-weight: 700;
+  transition: color 0.3s ease;
 }
 
-.info-left p{
-    display: flex;
-    margin-top: 10px;
-    line-height: 1.5;
-    display: flex;
-    margin: 8px 0 16px 0;
-    line-height: 1.8;
+/* Color azul para el elemento activo/destacado */
+.menu-item.active {
+  color: #214f96;
 }
 
-.info-right{
-    display: flex;
-    width: 300px;
-    color: #0b1f46;
-    font-size: 13px;
-    margin-right: 20px;
-    margin-top: 15px;
+.menu-item:hover {
+  color: #214f96;
 }
 
-.details-list{
-    padding-top: -10px;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-top: 20px;
-}
-
-.map-section{
-    margin-top: 10px;
-    padding-top: 0;
-    display: flex;
-    justify-content: center;
-    height: 650px;
-    width: 100%;
-    max-width: 1400px;
-    margin-left: auto;
-    margin-right: auto;
-    padding: 0;
-    border-radius: 0px;
-    overflow: hidden;
-    box-shadow: 0;
-}
-
-.map-section iframe{
-    width: 100%;
-    height: 600px;
-    border: none;
-    display: block;
-}
-
-.contact-btn{
-    background-color: #0b1f46;
-    color: #ffffff;
-    border: none;
-    border-radius: 6px;
-    padding: 6px 14px;
-    font-size: 12px;
-    cursor: pointer;
-    text-decoration: none;
-}
-
-
-.info-right{
-    display: flex;
-    flex-direction: column;
-    margin-top: 20px;
-    color: #0b1f46;
-    font-size: 13px;
-    margin-left: 20px;
-    margin-top: 15px;
+.brand {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: 25px;
 }
