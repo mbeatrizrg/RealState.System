@@ -6,7 +6,7 @@
         <img src="/icon.png" alt="Icono" class="icon" />
         <img src="/brand.png" alt="Rifat Richani" class="brand" />
       </div>
-      
+       <!-- arreglar -->
       <nav class="primary-nav">
         <!-- cambiar para que se vea como el search btn -->
         <button @click="toggleMenu" class="menu-btn">
@@ -45,6 +45,19 @@
 
         <!-- Barra de filtros -->
         <div class="filter-bar">
+
+         <!-- Nivel Superior: Pestañas -->
+        <div class="filter-tabs">
+          <input type="radio" id="modalidad-compra" name="modalidad" value="compra" class="hidden-input" checked>
+          <label for="modalidad-compra" class="tab-label">Comprar</label>
+    
+          <input type="radio" id="modalidad-alquiler" name="modalidad" value="alquiler" class="hidden-input">
+          <label for="modalidad-alquiler" class="tab-label">Alquilar</label>
+        </div>
+
+        <div class="divider"></div>
+        
+        <div class="filter-inputs">
           <div class="filter-group">
             <label for="locacion">Locación</label>
             <select id="locacion" name="locacion">
@@ -66,6 +79,8 @@
             </select>
           </div>
 
+          <div class="divider"></div>
+
           <div class="filter-group">
             <label for="tipo">Tipo de Propiedad</label>
             <select id="tipo" name="tipo">
@@ -82,41 +97,23 @@
             </select>
           </div>
 
-          <div class="filter-group">
-            <label for="precio">Precio</label>
-            <input 
-            class="filter-input"
-              type="number" 
-              id="precio" 
-              min="0"
-              max="100000000"
-              name="precio" 
-              placeholder="Ej: 15000"
-            />
-          </div>
-
-          <div class="filter-group">
-            <label for="modalidad">Alquiler o Compra</label>
-            <select id="modalidad" name="modalidad">
-              <option value="compra">Compra</option>
-              <option value="alquiler">Alquiler</option>
-            </select>
-          </div>
+          <div class="divider"></div>
           
           <button @click="Search" class="search-btn">
             <img src="/lupa.svg" alt="" />
             <span>Buscar Propiedad</span>
           </button>
         </div>
-        <p v-if="errorCatalogos" class="estado-msg">No se pudieron cargar los filtros: {{ errorCatalogos }}</p>
+      </div>
       </section>
   </div>
+  
       <!-- DESTACADOS 2DA PAGINA -->
       <section class="featured-section">
         <!-- Encabezado de la sección -->
         <header class="section-header">
           <h2>Destacados</h2>
-          <p>Selecciona tu locación</p>
+          <p></p>
         </header>
 
         <!-- Contenedor del Grid/Carrusel de tarjetas -->
@@ -136,10 +133,10 @@
                 <span>{{ inmueble.ciudad || 'Carabobo' }}</span>
               </div>
 
-              <!-- PENDIENTE: favoritos requiere inicio de sesion (JWT) -->
+              <!-- PENDIENTE: favoritos requiere inicio de sesion (JWT) 
               <button class="favorite-btn" aria-label="Añadir a favoritos">
                 <img src="/heart.png" alt="Favorito" />
-              </button>
+              </button> -->
 
               <h3 class="card-title">{{ inmueble.titulo }}</h3>
 
@@ -181,7 +178,7 @@
             </div>
           </article>
           <article class="text-article">
-            <h1 class="text-4">Nuestra vision</h1>
+            <h1 class="text-4">Nuestra visión</h1>
             <p class="text-little-4">
             "Consolidarnos como la firma inmobiliaria referente y de mayor confianza en, reconocida por nuestra trayectoria, innovación y excelencia en la gestión personalizada de activos residenciales y comerciales en las zonas de mayor valorización en el estado."
             </p>
@@ -206,15 +203,16 @@
         <div class="stat-label">CLIENTES</div>
       </div>
     </div>
-
-    <!-- Sección why us? -->
+  </section>
+  
+ <!--
+    ==========================
     <div class="content">
-      <!-- Imagen de la persona -->
+      
       <div class="profile-image">
         <img src="/profile.png" alt="Perfil" class="profile-img" />
       </div>
 
-      <!-- Texto descriptivo -->
       <div class="info-text">
         <h2 class="section-title">¿Por qué nosotros?</h2>
         <p class="description">
@@ -224,14 +222,14 @@
           elevated lifestyle in Long Island City.
         </p>
 
-        <!-- Botón flotante opcional (si aplica en la sección) -->
       <button class="next-btn" aria-label="Siguiente">
           <img src="/arrow.png" alt="Siguiente" />
       </button>
       </div>
     </div>
   </section>
-  
+=========================
+-->
 
   <!-- PÁGINA 6-->
   <footer class="page-6">
@@ -275,7 +273,8 @@
         <nav class="menu-list">
           <button @click="Home" class="menu-item active"><span>Principal</span></button> 
           <button @click="Search" class="menu-item"><span>Disponibles</span></button> 
-          <a href="#" class="menu-item">Favoritos</a>
+          <!--favoritos
+          <a href="#" class="menu-item">Favoritos</a> -->
           <button @click="Contact" class="menu-item"><span>Contactanos</span></button> 
         </nav>
       </main>
@@ -284,7 +283,6 @@
 </footer>
 
 </template>
-
 
 <script setup>
 import { onMounted, ref } from 'vue'
@@ -313,13 +311,19 @@ onMounted(async () => {
   }
 })
 
-const isMenuOpen = ref(false)
-const toggleMenu = () => {
-  isMenuOpen.value = !isMenuOpen.value
+const isFavorite = ref(false)
+const toggleFavorite = () => {
+  isFavorite.value = !isFavorite.value
 }
+
 
 const Search = ()=> {
   router.push('/search')
+}
+
+const isMenuOpen = ref(false)
+const toggleMenu = () => {
+  isMenuOpen.value = !isMenuOpen.value
 }
 
 const Home = ()=> {
@@ -334,25 +338,19 @@ const signIn = ()=> {
   router.push('/signin')
 }
 
-const isOpen = ref(true) // Estado para controlar la visibilidad del menú
+const isOpen = ref(true) 
 const toggleSidemenu = () => {
   isOpen.value = !isOpen.value // Cambia el estado al hacer clic
 }
 // Lógica de JavaScript / Vue (si es necesaria)
 
 
-
-
 </script>
 
-<style scoped src= "./style.css"></style>
+<style scoped src= "./main.css"></style>
 <style scoped>
-/* Espacio a la derecha de cada encabezado para que el boton flotante no tape "Menu" */
-.primary-nav {
-  margin-right: 190px;
-}
 
-/* Misma apariencia que .inc-btn del encabezado, fijo arriba a la derecha */
+
 .inc-flotante {
   position: fixed;
   /* A la altura del boton "Menu" del encabezado */

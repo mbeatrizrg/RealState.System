@@ -55,7 +55,8 @@
         <nav class="menu-list">
           <button @click="ir('/')" class="menu-item active"><span>Principal</span></button>
           <button @click="ir('/search')" class="menu-item"><span>Disponibles</span></button>
-          <a href="#" class="menu-item">Favoritos</a>
+          <!--favoritos
+          <a href="#" class="menu-item">Favoritos</a> -->
           <button @click="ir('/contacts')" class="menu-item"><span>Contactanos</span></button>
         </nav>
       </main>

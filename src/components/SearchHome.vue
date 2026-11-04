@@ -21,8 +21,22 @@
     <main class="bar">
       <!-- Barra de Filtros / Búsqueda -->
       <section class="background">
-        <div class="filter-bar2">
-          <div class="filter-group2">
+                <!-- Barra de filtros -->
+        <div class="filter-bar">
+
+         <!-- Nivel Superior: Pestañas -->
+        <div class="filter-tabs">
+          <input type="radio" id="modalidad-compra" name="modalidad" value="compra" class="hidden-input" checked>
+          <label for="modalidad-compra" class="tab-label">Comprar</label>
+    
+          <input type="radio" id="modalidad-alquiler" name="modalidad" value="alquiler" class="hidden-input">
+          <label for="modalidad-alquiler" class="tab-label">Alquilar</label>
+        </div>
+
+        <div class="divider"></div>
+        
+        <div class="filter-inputs">
+          <div class="filter-group">
             <label for="locacion">Locación</label>
             <select id="locacion" name="locacion">
               <option value="" disabled selected>Ciudades</option>
@@ -43,14 +57,16 @@
             </select>
           </div>
 
-          <div class="filter-group2">
+          <div class="divider"></div>
+
+          <div class="filter-group">
             <label for="tipo">Tipo de Propiedad</label>
             <select id="tipo" name="tipo">
               <option value="casa">Casa</option>
               <option value="apartamento">Apartamento</option>
               <option value="townhouse">Townhouse</option>
               <option value="terreno">Terreno</option>
-              <option value="local comercial">local comercial</option>
+              <option value="local comercial">Local comercial</option>
               <option value="galpon">Galpon</option>
               <option value="oficina">Oficina</option>
               <option value="consultorio medico">Consultorio medico</option>
@@ -59,32 +75,14 @@
             </select>
           </div>
 
-          <div class="filter-group2">
-            <label for="precio">Precio</label>
-            <input
-            class="filter-input2"
-              type="number" 
-              id="precio" 
-              min="0"
-              max="100000000"
-              name="precio" 
-              placeholder="Ej: 15000"
-              />
-          </div>
-
-          <div class="filter-group2">
-            <label for="modalidad">Alquiler o Compra</label>
-            <select id="modalidad" name="modalidad">
-              <option value="compra">Compra</option>
-              <option value="alquiler">Alquiler</option>
-            </select>
-          </div>
-
+          <div class="divider"></div>
+          
           <button @click="Search" class="search-btn">
             <img src="/lupa.svg" alt="" />
             <span>Buscar Propiedad</span>
           </button>
-        </div> 
+        </div>
+      </div>
       </section>
     </main>
       <!-- Grid de Tarjetas de Propiedades -->
@@ -105,10 +103,10 @@
                 <span>{{ inmueble.ciudad || 'Carabobo' }}</span>
               </div>
 
-              <!-- PENDIENTE: favoritos requiere inicio de sesion (JWT) -->
+              <!-- PENDIENTE: favoritos requiere inicio de sesion (JWT) 
               <button class="favorite-btn" aria-label="Añadir a favoritos">
                 <img src="/heart.png" alt="Favorito" />
-              </button>
+              </button> -->
 
               <h3 class="card-title">{{ inmueble.titulo }}</h3>
 
@@ -148,7 +146,8 @@
       <nav class="menu-list">
         <button @click="Home" class="menu-item active"><span>Principal</span></button> 
         <button @click="Search" class="menu-item"><span>Disponibles</span></button> 
-        <a href="#" class="menu-item">Favoritos</a>
+        <!--favoritos
+        <a href="#" class="menu-item">Favoritos</a> -->
         <button @click="Contact" class="menu-item"><span>Contactanos</span></button> 
       </nav>
     </main>
@@ -219,4 +218,4 @@ const signIn = ()=> {
 // Lógica de JavaScript / Vue (si es necesaria)
 </script>
 
-<style scoped src= "./style2.css"></style>
+<style scoped src= "./search.css"></style>
