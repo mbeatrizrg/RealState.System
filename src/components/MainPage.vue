@@ -45,6 +45,19 @@
 
         <!-- Barra de filtros -->
         <div class="filter-bar">
+
+         <!-- Nivel Superior: Pestañas -->
+        <div class="filter-tabs">
+          <input type="radio" id="modalidad-compra" name="modalidad" value="compra" class="hidden-input" checked>
+          <label for="modalidad-compra" class="tab-label">Comprar</label>
+    
+          <input type="radio" id="modalidad-alquiler" name="modalidad" value="alquiler" class="hidden-input">
+          <label for="modalidad-alquiler" class="tab-label">Alquilar</label>
+        </div>
+
+        <div class="divider"></div>
+        
+        <div class="filter-inputs">
           <div class="filter-group">
             <label for="locacion">Locación</label>
             <select id="locacion" name="locacion">
@@ -66,6 +79,8 @@
             </select>
           </div>
 
+          <div class="divider"></div>
+
           <div class="filter-group">
             <label for="tipo">Tipo de Propiedad</label>
             <select id="tipo" name="tipo">
@@ -82,21 +97,14 @@
             </select>
           </div>
 
-          <div class="filter-group button-group">
-            <input type="radio" id="modalidad-compra" name="modalidad" value="compra" class="hidden-input" checked>
-            <label for="modalidad-compra" class="toggle-btn">Compra</label>
-          
-          </div>
-          <div class="filter-group button-group">
-            <input type="radio" id="modalidad-alquiler" name="modalidad" value="alquiler" class="hidden-input">
-            <label for="modalidad-alquiler" class="toggle-btn">Alquiler</label>
-          </div>
+          <div class="divider"></div>
           
           <button @click="Search" class="search-btn">
             <img src="/lupa.svg" alt="" />
             <span>Buscar Propiedad</span>
           </button>
         </div>
+      </div>
       </section>
   </div>
   
@@ -125,10 +133,10 @@
                 <span>{{ inmueble.ciudad || 'Carabobo' }}</span>
               </div>
 
-              <!-- PENDIENTE: favoritos requiere inicio de sesion (JWT) -->
+              <!-- PENDIENTE: favoritos requiere inicio de sesion (JWT) 
               <button class="favorite-btn" aria-label="Añadir a favoritos">
                 <img src="/heart.png" alt="Favorito" />
-              </button>
+              </button> -->
 
               <h3 class="card-title">{{ inmueble.titulo }}</h3>
 
@@ -265,7 +273,8 @@
         <nav class="menu-list">
           <button @click="Home" class="menu-item active"><span>Principal</span></button> 
           <button @click="Search" class="menu-item"><span>Disponibles</span></button> 
-          <a href="#" class="menu-item">Favoritos</a>
+          <!--favoritos
+          <a href="#" class="menu-item">Favoritos</a> -->
           <button @click="Contact" class="menu-item"><span>Contactanos</span></button> 
         </nav>
       </main>
@@ -338,7 +347,7 @@ const toggleSidemenu = () => {
 
 </script>
 
-<style scoped src= "./style.css"></style>
+<style scoped src= "./main.css"></style>
 <style scoped>
 
 

@@ -36,7 +36,9 @@
             {{ inmueble.descripcion || 'Pronto agregaremos la descripción de esta propiedad.' }}
           </p>
             <!-- PENDIENTE: este boton debe crear un Lead en el CRM -->
-            <a href="#" class="contact-btn">Contactanos &gt;</a>
+            <button @click="create" class="contact-btn">
+              <span>Contactanos</span>
+            </button>
         </div>
 
         <div class="info-right">
@@ -176,6 +178,11 @@ const Atras = ()=> {
   if (window.history.state?.back) router.back()
   else router.push('/search')
 }
+
+const create = ()=> {
+  router.push('/create')
+}
+
 </script>
 
 <style scoped src= "./detailstyle.css"></style>

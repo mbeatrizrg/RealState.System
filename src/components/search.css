@@ -87,86 +87,106 @@ html, body {
   cursor: pointer;
 }
 
-.filter-bar2 {
+.filter-bar {
   position: relative;
   display: flex;
   margin-top: 40px;
-  justify-content: space-between;
-  align-items: center;
-  width: 93%;
+  margin: 0 auto;
+  width: 90%;
   max-width: 1300px;
-  padding: 30px 30px;
-  box-sizing: border-box;
   background-color: #ffffff;
-  left: 3.5%;
-  bottom: -30;
-  justify-content: space-between;
-  border-radius: 5px;
-  gap: 30px;
+  flex-direction: column;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  
 }
 
+/* Pestañas (Comprar / Alquilar) */
+.filter-tabs {
+  display: flex;
+  width: 100%;
+  border-bottom: 1px solid #e0e0e0;
+}
 
-.filter-group2 {
-  font-size: 18px;
+.hidden-input {
+  display: none;
+}
+
+.tab-label {
+  flex: 1; /* Ambas pestañas miden el 50% */
+  text-align: center;
+  padding: 16px 0;
+  font-size: 20px;
   font-weight: 500;
+  color: #1c1c1c;
+  background-color: #ffffff;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+/* Cuando seleccionas la modalidad, el fondo cambia a gris claro */
+.hidden-input:checked + .tab-label {
+  background-color: #dcdcdc;
+}
+
+/* Fila inferior de inputs */
+.filter-inputs {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 10px 30px;
+  flex: 1;
+  gap: 20px;
+}
+
+.filter-group {
   display: flex;
   flex-direction: column;
   flex: 1;
-  border-right: 2px solid #cccbcb;
-  padding-right: 10px;
-  align-items: flex-start;
-  text-align: left;
   gap: 5px;
 }
 
-.filter-group2 label {
-  color: #1c1c1c;
-  margin-bottom: 5px;
-  text-align: left;
+.filter-group label {
+  font-size: 18px;
+  font-weight: 500;
+  color: #000000; /* Títulos en negro */
 }
 
-.filter-group2 select {
-  text-align: left;
-  width: 100%;
-  outline: none;
-  border-radius: none;
+.filter-group select {
+  font-size: 14px;
+  color: #888888; /* Valor seleccionado en gris */
   border: none;
-  font-size: 16px;
-  color: #636363;
+  outline: none;
   background: transparent;
   cursor: pointer;
-  padding-right: 15px;
-  padding-left: 0px;
 }
 
-.filter-input2 {
-  width: 100%;
-  padding: 0px;
-  border: none;
-  outline: none;
-  background: transparent;
-  font-size: 14px;
+/* Líneas divisorias verticales entre filtros */
+.divider {
+  width: 1px;
+  height: 45px;
+  background-color: #e0e0e0;
 }
 
+/* Botón Buscar */
 .search-btn {
   background-color: #0b1f46;
   color: #ffffff;
   border: none;
-  border-radius: 0px;
-  padding: 12px 24px;
-  font-size: 18px;
-  object-fit: contain;
+  border-radius: 12px;
+  padding: 14px 24px;
+  font-size: 15px;
+  font-weight: 600;
+  display: flex;
   align-items: center;
-  justify-content: center;
+  gap: 10px;
   cursor: pointer;
 }
 
 .search-btn img {
-  width: 12px;
-  height: 12px;
-  object-fit: contain;
-  display: inline-block;
-  margin-right: 10px;
+  width: 18px;
+  height: 18px;
 }
 
 .properties-grid{
@@ -247,7 +267,6 @@ html, body {
   object-fit: contain;
 }
 
-
 .card-title {
   padding-left: 10px;
   padding-top: 15px;
@@ -268,7 +287,6 @@ html, body {
   margin-top: 5px;
   gap: 12px;
 }
-
 
 .footer-card {
   display: flex;
@@ -293,7 +311,6 @@ html, body {
   font-family: "Inter", sans-serif;
   font-size: 16px;
 }
-
 
 .menu-container {
   position: fixed;

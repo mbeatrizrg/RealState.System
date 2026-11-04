@@ -57,7 +57,8 @@
       <nav class="menu-list">
         <button @click="Home" class="menu-item active"><span>Principal</span></button> 
         <button @click="Search" class="menu-item"><span>Disponibles</span></button> 
-        <a href="#" class="menu-item">Favoritos</a>
+        <!--favoritos 
+        <a href="#" class="menu-item">Favoritos</a> -->
         <button @click="Contact" class="menu-item"><span>Contactanos</span></button> 
       </nav>
     </main>
