@@ -103,10 +103,10 @@
                 <span>{{ inmueble.ciudad || 'Carabobo' }}</span>
               </div>
 
-              <!-- PENDIENTE: favoritos requiere inicio de sesion (JWT) -->
+              <!-- PENDIENTE: favoritos requiere inicio de sesion (JWT) 
               <button class="favorite-btn" aria-label="Añadir a favoritos">
                 <img src="/heart.png" alt="Favorito" />
-              </button>
+              </button> -->
 
               <h3 class="card-title">{{ inmueble.titulo }}</h3>
 
@@ -146,7 +146,8 @@
       <nav class="menu-list">
         <button @click="Home" class="menu-item active"><span>Principal</span></button> 
         <button @click="Search" class="menu-item"><span>Disponibles</span></button> 
-        <a href="#" class="menu-item">Favoritos</a>
+        <!--favoritos
+        <a href="#" class="menu-item">Favoritos</a> -->
         <button @click="Contact" class="menu-item"><span>Contactanos</span></button> 
       </nav>
     </main>
@@ -218,3 +219,4 @@ const signIn = ()=> {
 </script>
 
 <style scoped src= "./search.css"></style>
+
