@@ -14,11 +14,21 @@ html, body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px 40px;
+  /* Cambiamos el padding lateral a un porcentaje (ej. 8% o 10%) 
+     para que los botones se alejen del borde en pantallas grandes */
+  padding: 20px 8%; 
   box-sizing: border-box;
   background-color: #EDF2F3;
   flex-wrap: wrap;
   gap: 20px;
+}
+
+.primary-nav {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  /* ELIMINAMOS margin-left: auto; ya que justify-content 
+     hace el trabajo por sí solo de forma más limpia */
 }
 
 .logo {
@@ -42,13 +52,6 @@ html, body {
   left: 50%;
   transform: translateX(-50%);
   margin-top: 25px;
-}
-
-.primary-nav {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  margin-left: auto;
 }
 
 .menu-btn{
