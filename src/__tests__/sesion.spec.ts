@@ -57,9 +57,9 @@ describe('sesion', () => {
   })
 
   it('las paginas del CRM envian al login de asesores si no hay sesion de empleado', async () => {
-    await router.push('/leads')
+    await router.push('/comunication')
     expect(router.currentRoute.value.path).toBe('/crm/login')
-    expect(router.currentRoute.value.query.redirect).toBe('/leads')
+    expect(router.currentRoute.value.query.redirect).toBe('/comunication')
   })
 
   it('Mi cuenta envia al login del portal si no hay sesion de usuario', async () => {

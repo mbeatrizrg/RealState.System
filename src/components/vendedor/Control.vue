@@ -1,51 +1,6 @@
 <template>
   <div class="leads-page">
-    <!-- Barra lateral (Sidebar) -->
-    <aside class="sidebar">
-      <div class="logo2-container">
-        <img src="/Logo2.png" alt="Icono2" class="logo" />
-      </div>
-
-      <nav class="menu">
-        <ul>
-          <li class="menu-item">
-            <button class="btn-menu" @click="vendedor">Inventario</button>
-          </li>
-          <li class="menu-item">
-            <button class="btn-menu" @click="contactos">Contactos</button>
-          </li>
-          <li class="menu-item">
-            <button class="btn-menu" @click="$router.push('/negocios')">Negocios</button>
-          </li>
-          <li class="menu-item">
-            <button class="btn-menu" @click="$router.push('/inmuebles')">Inmuebles</button>
-          </li>
-          <li class="menu-item">
-            <button class="btn-menu" @click="$router.push('/tareas')">Tareas</button>
-          </li>
-          <li class="menu-item">
-            <button class="btn-menu" @click="$router.push('/estadisticas')">Estadísticas</button>
-          </li>
-          <li class="menu-item">
-            <button class="btn-menu" @click="Leads">Leads</button>
-          </li>
-          <li class="menu-item">
-            <button class="btn-menu" @click="Leads">Comunicaciones</button>
-          </li>
-          <li class="menu-item active">
-            <button class="btn-menu" @click="control">Control</button>
-          </li>
-          <li class="menu-item">
-            <button class="btn-menu" @click="Leads">Calendario</button>
-          </li>
-          <li class="menu-item">
-            <button class="btn-menu" @click="profile">Perfil</button>
-          </li>
-        </ul>
-      </nav>
-
-      <BotonCerrarSesion />
-    </aside>
+    <MenuCrm activo="Inmuebles" />
 
     <!-- Contenido Principal -->
     <main class="main-content">
@@ -288,7 +243,7 @@
 </template>
 
 <script setup>
-import BotonCerrarSesion from './BotonCerrarSesion.vue'
+import MenuCrm from './MenuCrm.vue'
 
 import { useRoute, useRouter } from 'vue-router'
 import { onMounted, reactive, ref, watch } from 'vue'
@@ -303,28 +258,8 @@ import { obtenerClientesCrm, vincularCliente } from '@/services/usuarios'
 const router = useRouter()
 const route = useRoute()
 
-const Leads = ()=> {
-  router.push('/leads')
-}
-
-const vendedor = ()=> {
-  router.push('/vendedor')
-}
-
-const contactos = ()=> {
-  router.push('/contact')
-}
-
-const control = ()=> {
-  router.push('/control')
-}
-
-const profile = ()=> {
-  router.push('/profile')
-}
-
 // /control?seccion=inmueble abre directamente "Añadir inmueble" (boton Registrar inmueble del modulo Inmuebles)
-const activeSection = ref(route.query.seccion === 'inmueble' ? 'inmueble' : 'usuario')
+const activeSection = ref(route.query.seccion === 'inmueble' ? 'inmueble' : 'inmueble')
 
 // ----- Catalogos de los selects -----
 const ciudades = ref([])

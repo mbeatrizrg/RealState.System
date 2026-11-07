@@ -26,7 +26,7 @@ defineProps<{ activo: string }>()
 
 const router = useRouter()
 
-// Comunicaciones y Calendario aun no tienen pantalla propia: igual que en el resto del CRM llevan a Leads
+// Opciones del menu lateral del CRM
 const opciones = [
   { texto: 'Inventario', ruta: '/vendedor' },
   { texto: 'Contactos', ruta: '/contact' },
@@ -34,10 +34,7 @@ const opciones = [
   { texto: 'Inmuebles', ruta: '/inmuebles' },
   { texto: 'Tareas', ruta: '/tareas' },
   { texto: 'Estadísticas', ruta: '/estadisticas' },
-  { texto: 'Leads', ruta: '/leads' },
-  { texto: 'Comunicaciones', ruta: '/leads' },
-  { texto: 'Control', ruta: '/control' },
-  { texto: 'Calendario', ruta: '/leads' },
+  { texto: 'Comunicaciones', ruta: '/comunication' },
   { texto: 'Perfil', ruta: '/profile' },
 ]
 </script>

@@ -15,7 +15,6 @@ import PropiedadDetalle from '@/components/vendedor/PropiedadDetalle.vue'
 import Tareas from '@/components/vendedor/Tareas.vue'
 import Estadisticas from '@/components/vendedor/Estadisticas.vue'
 import EstadisticaInmueble from '@/components/vendedor/EstadisticaInmueble.vue'
-import Leads from '@/components/vendedor/Leads.vue'
 import Control from '@/components/vendedor/Control.vue'
 import profile from '@/components/vendedor/profile.vue'
 import ClientProfile from '@/components/vendedor/ClientProfile.vue'
@@ -160,8 +159,7 @@ const routes: RouteRecordRaw[] = [
   },
   {
     path: '/leads',
-    name: 'Leads',
-    component: Leads,
+    redirect: '/comunication',
     meta: { acceso: 'empleado' }
   },
   {

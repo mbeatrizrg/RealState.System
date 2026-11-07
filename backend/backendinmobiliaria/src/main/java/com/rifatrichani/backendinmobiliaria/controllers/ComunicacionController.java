@@ -32,6 +32,11 @@ public class ComunicacionController {
         comunicacionService.registrarComunicacion(dto, SesionActual.empleado());
         return ResponseEntity.status(HttpStatus.CREATED).body("Comunicación registrada exitosamente.");
     }
+    // Ver todas las comunicaciones visibles para el empleado actual (admin ve todas, vendedor las suyas)
+    @GetMapping
+    public ResponseEntity<List<ComunicacionResponseDTO>> obtenerVisibles() {
+        return ResponseEntity.ok(comunicacionService.obtenerVisibles(SesionActual.empleado()));
+    }
     // Ver todas las comunicaciones asociadas a un Lead específico
     @GetMapping("/lead/{leadId}")
     public ResponseEntity<List<ComunicacionResponseDTO>> obtenerPorLead(@PathVariable("leadId") Integer leadId) {

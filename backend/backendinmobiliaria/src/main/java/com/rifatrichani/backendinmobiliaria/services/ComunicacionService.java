@@ -8,6 +8,7 @@ import com.rifatrichani.backendinmobiliaria.security.CuentaAutenticada;
 
 public interface ComunicacionService {
     void registrarComunicacion(ComunicacionRequestDTO dto, CuentaAutenticada empleado);
+    List<ComunicacionResponseDTO> obtenerVisibles(CuentaAutenticada empleado);
     List<ComunicacionResponseDTO> obtenerPorLead(Integer leadId, CuentaAutenticada empleado);
     List<ComunicacionResponseDTO> obtenerPorEmpleado(Integer empleadoId, CuentaAutenticada empleado);
 }

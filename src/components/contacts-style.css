@@ -40,13 +40,13 @@ html, body {
 }
 
 .icon {
-  height: 100px;
+  height: 80px;
   width: auto;
   object-fit: contain;
 }
 
 .brand {
-  height: 60px;
+  height: 40px;
   width: auto;
   object-fit: contain;
   justify-content: space-between;
@@ -82,8 +82,6 @@ html, body {
   font-weight: 700;
   cursor: pointer;
 }
-
-/* page 6*/
 
 .login-6{
   position: absolute;
@@ -147,7 +145,6 @@ html, body {
   flex-direction: column;
   background-color: #0b1442;
   font-family: Arial, sans-serif; /* Fuente por defecto para la barra superior */
-
   transform: translateY(-100%);
   transition: transform 0.7s cubic-bezier(0.16, 1, 0.3 , 1);
 }

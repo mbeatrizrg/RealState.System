@@ -1,51 +1,6 @@
 <template>
   <div class="leads-page">
-    <!-- Barra lateral (Sidebar) -->
-    <aside class="sidebar">
-      <div class="logo2-container">
-        <img src="/Logo2.png" alt="Icono2" class="logo" />
-      </div>
-
-      <nav class="menu">
-        <ul>
-          <li class="menu-item">
-            <button class="btn-menu" @click="vendedor">Inventario</button>
-          </li>
-          <li class="menu-item">
-            <button class="btn-menu" @click="contactos">Contactos</button>
-          </li>
-          <li class="menu-item">
-            <button class="btn-menu" @click="$router.push('/negocios')">Negocios</button>
-          </li>
-          <li class="menu-item">
-            <button class="btn-menu" @click="$router.push('/inmuebles')">Inmuebles</button>
-          </li>
-          <li class="menu-item">
-            <button class="btn-menu" @click="$router.push('/tareas')">Tareas</button>
-          </li>
-          <li class="menu-item">
-            <button class="btn-menu" @click="$router.push('/estadisticas')">Estadísticas</button>
-          </li>
-          <li class="menu-item active">
-            <button class="btn-menu" @click="Leads">Leads</button>
-          </li>
-          <li class="menu-item">
-            <button class="btn-menu" @click="Leads">Comunicaciones</button>
-          </li>
-          <li class="menu-item">
-            <button class="btn-menu" @click="control">Control</button>
-          </li>
-          <li class="menu-item">
-            <button class="btn-menu" @click="Leads">Calendario</button>
-          </li>
-          <li class="menu-item">
-            <button class="btn-menu" @click="profile">Perfil</button>
-          </li>
-        </ul>
-      </nav>
-
-      <BotonCerrarSesion />
-    </aside>
+    <MenuCrm activo="Contactos" />
 
     <!-- Contenido Principal -->
     <main class="main-content">
@@ -77,31 +32,7 @@
 
 
 <script setup>
-import BotonCerrarSesion from './BotonCerrarSesion.vue'
-import {useRouter} from 'vue-router'
-
-const router = useRouter()
-
-const Leads = ()=> {
-  router.push('/leads')
-}
-
-const vendedor = ()=> {
-  router.push('/vendedor')
-}
-
-const contactos = ()=> {
-  router.push('/contact')
-}
-
-const control = ()=> {
-  router.push('/control')
-}
-
-const profile = ()=> {
-  router.push('/profile')
-}
-
+import MenuCrm from './MenuCrm.vue'
 </script>
 
 <style scoped src= "./clientProfile.css"></style>

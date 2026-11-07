@@ -50,6 +50,17 @@ public class ComunicacionServiceImpl implements ComunicacionService {
 
     @Override
     @Transactional(readOnly = true)
+    public List<ComunicacionResponseDTO> obtenerVisibles(CuentaAutenticada empleado) {
+        List<Comunicacion> lista = empleado.esAdmin()
+                ? comunicacionRepository.obtenerTodasConRelaciones()
+                : comunicacionRepository.obtenerPorEmpleadoId(empleado.id());
+        return lista.stream()
+                .map(ComunicacionServiceImpl::mapearAComunicacionDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    @Transactional(readOnly = true)
     public List<ComunicacionResponseDTO> obtenerPorLead(Integer leadId, CuentaAutenticada empleado) {
         ControlAcceso.verificarEncargado(buscarLead(leadId), empleado);
         return comunicacionRepository.obtenerPorLeadId(leadId).stream()
@@ -84,6 +95,9 @@ public class ComunicacionServiceImpl implements ComunicacionService {
         dto.setCanal(c.getCanal().getNombre());
         dto.setDescripcion(c.getDescripcion());
         dto.setFechaCreacion(c.getFechaCreacion());
+        dto.setNombreInmueble(c.getLead().getInmueble().getRrbr() + " · " + c.getLead().getInmueble().getTitulo());
+        dto.setContactoId(c.getLead().getUsuario().getId());
+        dto.setInmuebleId(c.getLead().getInmueble().getId());
         return dto;
     }
 }

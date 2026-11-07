@@ -6,30 +6,28 @@ import jakarta.validation.constraints.NotNull;
 public class ComunicacionRequestDTO {
     @NotNull(message = "Debe indicar el canal de comunicación utilizado")
     private Integer canalId;
+    
     @NotNull(message = "Debe indicar a qué Lead pertenece esta comunicación")
     private Integer leadId;
+    
     @NotBlank(message = "Debe escribir un resumen o descripción de la conversación")
     private String descripcion;
 
-    // Getters y Setters
-    public Integer getCanalId() { 
-        return canalId; 
-    }
-    public void setCanalId(Integer canalId) { 
-        this.canalId = canalId; 
-    }
+    private Integer inmuebleId;
+    private String reporteVisita;
 
-    public Integer getLeadId() { 
-        return leadId; 
-    }
-    public void setLeadId(Integer leadId) {
-        this.leadId = leadId; 
-    }
+    public Integer getCanalId() { return canalId; }
+    public void setCanalId(Integer canalId) { this.canalId = canalId; }
 
-    public String getDescripcion() { 
-        return descripcion; 
-    }
-    public void setDescripcion(String descripcion) { 
-        this.descripcion = descripcion; 
-    }
+    public Integer getLeadId() { return leadId; }
+    public void setLeadId(Integer leadId) { this.leadId = leadId; }
+
+    public String getDescripcion() { return descripcion; }
+    public void setDescripcion(String descripcion) { this.descripcion = descripcion; }
+    
+    public Integer getInmuebleId() { return inmuebleId; }
+    public void setInmuebleId(Integer inmuebleId) { this.inmuebleId = inmuebleId; }
+    
+    public String getReporteVisita() { return reporteVisita; }
+    public void setReporteVisita(String reporteVisita) { this.reporteVisita = reporteVisita; }
 }

@@ -1,52 +1,6 @@
 <template>
   <div class="crm-vendedor">
-    <!-- Barra lateral (Sidebar) -->
-    <aside class="sidebar">
-      <div class="logo2-container">
-        <img src="/Logo2.png" alt="Icono2" class="logo" />
-      </div>
-
-      <nav class="menu">
-        <ul>
-          <!-- Elemento activo resaltado -->
-          <li class="menu-item active">
-            <button class="btn-menu" @click="vendedor">Inventario</button>
-          </li>
-          <li class="menu-item">
-            <button class="btn-menu" @click="contactos">Contactos</button>
-          </li>
-          <li class="menu-item">
-            <button class="btn-menu" @click="$router.push('/negocios')">Negocios</button>
-          </li>
-          <li class="menu-item">
-            <button class="btn-menu" @click="$router.push('/inmuebles')">Inmuebles</button>
-          </li>
-          <li class="menu-item">
-            <button class="btn-menu" @click="$router.push('/tareas')">Tareas</button>
-          </li>
-          <li class="menu-item">
-            <button class="btn-menu" @click="$router.push('/estadisticas')">Estadísticas</button>
-          </li>
-          <li class="menu-item">
-            <button class="btn-menu" @click="Leads">Leads</button>
-          </li>
-          <li class="menu-item">
-            <button class="btn-menu" @click="Leads">Comunicaciones</button>
-          </li>
-          <li class="menu-item">
-            <button class="btn-menu" @click="control">Control</button>
-          </li>
-          <li class="menu-item">
-            <button class="btn-menu" @click="Leads">Calendario</button>
-          </li>
-          <li class="menu-item">
-            <button class="btn-menu" @click="profile">Perfil</button>
-          </li>
-        </ul>
-      </nav>
-
-      <BotonCerrarSesion />
-    </aside>
+    <MenuCrm activo="Inventario" />
 
     <!-- Contenido Principal -->
     <main class="main-content">
@@ -185,9 +139,8 @@
 </template>
 
 <script setup>
-import BotonCerrarSesion from './BotonCerrarSesion.vue'
+import MenuCrm from './MenuCrm.vue'
 import { computed, onBeforeUnmount, onMounted, reactive, ref } from 'vue'
-import { useRouter } from 'vue-router'
 
 import Paginacion from '@/components/Paginacion.vue'
 import { modalidadAIsAlquiler } from '@/composables/useFiltros'
@@ -196,28 +149,6 @@ import { obtenerCiudades, obtenerTiposInmueble } from '@/services/catalogos'
 import { buscarInmueblesCrm } from '@/services/inmuebles'
 import { esAdmin, sesion } from '@/services/sesion'
 import { formatearPrecio, urlImagen } from '@/utils/formato'
-
-const router = useRouter()
-
-const Leads = ()=> {
-  router.push('/leads')
-}
-
-const vendedor = ()=> {
-  router.push('/vendedor')
-}
-
-const contactos = ()=> {
-  router.push('/contact')
-}
-
-const control = ()=> {
-  router.push('/control')
-}
-
-const profile = ()=> {
-  router.push('/profile')
-}
 
 const TAMANO_PAGINA = 8
 
