@@ -213,6 +213,7 @@ html, body {
   display: flex;
   flex-direction: column;
   flex: 1;
+  gap: 10px;
 }
 
 .img-card{
@@ -237,7 +238,7 @@ html, body {
   display: flex;
   align-items: center;
   gap: 6px;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 300;
   color: #0b1f46;
   margin-bottom: -24px;
@@ -249,6 +250,7 @@ html, body {
   object-fit: contain;
 }
 
+/* Botón de favorito 
 .favorite-btn {
   border: none;
   padding: 0px;
@@ -266,7 +268,7 @@ html, body {
   width: 18px;
   height: 18px;
   object-fit: contain;
-}
+}*/
 
 .card-title {
   padding-left: 10px;
@@ -281,12 +283,12 @@ html, body {
 .details-card {
   padding-left: 10px;
   display: flex;
-  font-size: 12px;
+  font-size: 16px;
   font-weight: 400;
   justify-content: flex-start;
   align-items: center;
   margin-top: 5px;
-  gap: 12px;
+  gap: 10px;
 }
 
 .footer-card {
@@ -294,7 +296,8 @@ html, body {
   justify-content: space-between;
   align-items: center;
   margin-top: auto;
-  padding-top: 10px;
+  padding-top: 5px;
+  gap: 10px;
 }
 
 .card-price {
