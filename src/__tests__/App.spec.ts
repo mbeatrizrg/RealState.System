@@ -60,6 +60,27 @@ describe('App', () => {
     expect(wrapper.find('a.details-btn').attributes('href')).toBe('/details/7')
   })
 
+  it('el boton del carrusel rota las propiedades destacadas', async () => {
+    simularBackend({
+      '/api/inmueble/buscar': pagina([
+        { id: 1, titulo: 'Propiedad 1', precio: 100, urlImagenPrincipal: null, ciudad: 'Valencia', tipoInmuebleId: 1, tipoInmueble: 'Casa' },
+        { id: 2, titulo: 'Propiedad 2', precio: 200, urlImagenPrincipal: null, ciudad: 'Valencia', tipoInmuebleId: 1, tipoInmueble: 'Casa' },
+        { id: 3, titulo: 'Propiedad 3', precio: 300, urlImagenPrincipal: null, ciudad: 'Valencia', tipoInmuebleId: 1, tipoInmueble: 'Casa' },
+        { id: 4, titulo: 'Propiedad 4', precio: 400, urlImagenPrincipal: null, ciudad: 'Valencia', tipoInmuebleId: 1, tipoInmueble: 'Casa' },
+        { id: 5, titulo: 'Propiedad 5', precio: 500, urlImagenPrincipal: null, ciudad: 'Valencia', tipoInmuebleId: 1, tipoInmueble: 'Casa' },
+      ]),
+    })
+    const wrapper = await montarEn('/')
+
+    expect(wrapper.text()).toContain('Propiedad 1')
+    expect(wrapper.text()).not.toContain('Propiedad 5')
+
+    await wrapper.find('button.next-btn').trigger('click')
+
+    expect(wrapper.text()).not.toContain('Propiedad 1')
+    expect(wrapper.text()).toContain('Propiedad 5')
+  })
+
   it('la busqueda envia texto, filtros y pagina al backend', async () => {
     const fetchFalso = simularBackend({ '/api/inmueble/buscar': { ...pagina([]), totalPaginas: 3 } })
     await montarEn('/search?q=mirador&modalidad=alquiler&orden=precio_asc&pagina=2')

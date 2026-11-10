@@ -122,7 +122,7 @@
           <p v-else-if="error" class="estado-msg">No se pudieron cargar las propiedades: {{ error }}</p>
           <p v-else-if="destacados.length === 0" class="estado-msg">Aún no hay propiedades publicadas.</p>
 
-          <article v-for="inmueble in destacados" :key="inmueble.id" class="card">
+          <article v-for="inmueble in destacadosVisibles" :key="inmueble.id" class="card">
             <div class="card-image-wrapper">
               <img :src="urlImagen(inmueble.urlImagenPrincipal)" :alt="inmueble.titulo" class="building-img" />
             </div>
@@ -153,7 +153,7 @@
         </div>
 
         <!-- Botón de Navegación del Carrusel -->
-        <button class="next-btn" aria-label="Siguiente">
+        <button class="next-btn" aria-label="Siguiente" @click="siguienteDestacado">
           <img src="/arrow.png" alt="Siguiente" />
         </button>
       </section>
@@ -285,7 +285,7 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
 
 import { useFiltros } from '@/composables/useFiltros'
@@ -296,14 +296,34 @@ import { formatearPrecio, urlImagen } from '@/utils/formato'
 const router = useRouter()
 const { ciudades, tiposInmueble, errorCatalogos, filtros, buscar } = useFiltros()
 
-// Destacados: las 4 propiedades disponibles mas recientes
+// Destacados: propiedades disponibles para rotar en el carrusel (4 visibles a la vez)
 const destacados = ref([])
+const indiceCarrusel = ref(0)
+const TARJETAS_VISIBLES = 4
 const cargando = ref(true)
 const error = ref('')
 
+const destacadosVisibles = computed(() => {
+  const total = destacados.value.length
+  if (total <= TARJETAS_VISIBLES) {
+    return destacados.value
+  }
+  const resultado = []
+  for (let i = 0; i < TARJETAS_VISIBLES; i++) {
+    resultado.push(destacados.value[(indiceCarrusel.value + i) % total])
+  }
+  return resultado
+})
+
+const siguienteDestacado = () => {
+  const total = destacados.value.length
+  if (total <= TARJETAS_VISIBLES) return
+  indiceCarrusel.value = (indiceCarrusel.value + 1) % total
+}
+
 onMounted(async () => {
   try {
-    destacados.value = (await buscarInmuebles({ tamano: 4 })).contenido
+    destacados.value = (await buscarInmuebles({ tamano: 20 })).contenido
   } catch (e) {
     error.value = mensajeDeError(e)
   } finally {

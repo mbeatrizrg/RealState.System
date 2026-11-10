@@ -6,7 +6,7 @@ DO $$
 DECLARE
     inmuebles integer[];
 BEGIN
-    SELECT array_agg(id) INTO inmuebles FROM "Inmueble" WHERE "RRBR" IN ('8100101', '8100102', '8100103');
+    SELECT array_agg(id) INTO inmuebles FROM "Inmueble" WHERE "RRBR" IN ('8100101', '8100102', '8100103', '8100104', '8100105');
     IF inmuebles IS NULL THEN
         RAISE NOTICE 'No hay datos de demostracion';
         RETURN;
