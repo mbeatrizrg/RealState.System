@@ -83,7 +83,7 @@ html, body {
   cursor: pointer;
 }
 
-.background{
+.background {
   width: 100vw;
   position: relative;
   padding: 0;
@@ -98,14 +98,29 @@ html, body {
   width: 100%;
   height: 560px;
   margin: 0;
+  position: relative; /* CLAVE 1: Mantiene a las imágenes atrapadas en esta caja */
+  overflow: hidden;
 }
 
-.imagen img { /*imagen real de fondo*/
+.imagen img { 
   width: 100vw;
   height: 100%;
   object-fit: cover;
   display: block;
   border-radius: 0;
+  position: absolute; /* CLAVE 2: Pone todas las fotos en la misma coordenada (apiladas) */
+  top: 0;
+  left: 0;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 1.5s ease-in-out;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
 }
 
 .side-menu {
@@ -374,7 +389,6 @@ html, body {
 .card-content {
   display: flex;
   flex-direction: column;
-  flex: 1;
   gap: 5px;
 }
 
@@ -451,8 +465,7 @@ html, body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: auto;
-  padding-top: 10px;
+  margin-top: 10px;
 }
 
 .card-price {
