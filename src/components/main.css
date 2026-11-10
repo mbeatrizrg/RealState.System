@@ -1,5 +1,7 @@
 /* Fuentes e Importaciones */
 @import url("https://fonts.googleapis.com/css?family=DM+Sans:500,700,800|Inter:500,400");
+
+
 html, body {
   overflow-x: hidden;
   max-width: 100%;
@@ -189,6 +191,40 @@ html, body {
   border-bottom: 1px solid #e0e0e0;
 }
 
+.filter-inputs {
+  display: flex;
+  align-items: center; /* Centra todo verticalmente */
+  justify-content: space-between;
+  padding: 1.5rem 2rem; /* Padding igual arriba y abajo. Ajusta según necesites */
+  gap: 1rem;
+}
+
+/* Agrupación de Label + Select */
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+ /* Asegura que no haya un margin-top empujando el texto hacia abajo */
+}
+
+.filter-inputs .divider {
+  width: 1px;
+  height: 40px;
+  background-color: #ddd; /* O el color gris que estés usando */
+}
+
+/* Alineación interna de los inputs/selects para quitar bordes por defecto si es necesario */
+.filter-group select {
+  border: none;
+  background: transparent;
+  outline: none;
+  font-size: 1rem;
+  padding: 0.2rem 0;
+  color: #666;
+  cursor: pointer;
+}
+
+
 .hidden-input {
   display: none;
 }
@@ -355,7 +391,7 @@ html, body {
   font-size: 12px;
   font-weight: 300;
   color: #0b1f46;
-  margin-bottom: -24px;
+  margin-bottom: -10px;
 }
 
 .card-location img {
@@ -694,17 +730,16 @@ html, body {
   object-fit: contain; 
   transition: transform 0.2s ease; 
 }
-
 /* menu page */
 .menu-container {
   position: fixed;
   flex-direction: column;
+  display: flex;
   z-index: 9999;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  flex-direction: column;
   background-color: #0b1442;
   font-family: Arial, sans-serif; /* Fuente por defecto para la barra superior */
   transform: translateY(-100%);
@@ -764,7 +799,7 @@ html, body {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 0px;
 }
 
 .menu-list {
@@ -802,4 +837,80 @@ html, body {
   left: 50%;
   transform: translateX(-50%);
   margin-top: 25px;
+}
+
+
+@media (max-width: 768px) {
+  
+  /* 1. HEADER: Reducimos el padding para no desperdiciar espacio lateral */
+  .CommonHeader {
+    padding: 15px 20px; 
+  }
+
+  /* 2. EL MAYOR PROBLEMA: Tenías un gap de 260px. 
+     En un teléfono que mide 400px de ancho, eso empuja todo fuera de la pantalla. */
+  .logo {
+    gap: 10px; 
+  }
+
+  /* 3. LOGOS: Los hacemos más pequeños para que quepan todos en la misma fila */
+  .icon {
+    height: 60px;
+  }
+  
+  .brand {
+    height: 35px;
+    margin-top: 0; /* Ajustamos para que quede centrado con el nuevo tamaño */
+  }
+
+  /* 4. BOTONES DEL MENÚ: Reducimos la separación y el tamaño de la fuente */
+  .primary-nav {
+    gap: 15px; 
+  }
+  
+  .menu-btn, .inc-btn {
+    font-size: 14px;
+    padding: 6px 10px;
+  }
+
+  /* 5. MENÚ LATERAL FLOTANTE: Lo pegamos un poco más al borde derecho */
+  .side-menu {
+    right: 20px; 
+    top: 120px; /* Lo subimos un poco porque el header ahora es más bajo */
+  }
+
+  /* 6. IMAGEN DE FONDO: Reducimos la altura para que no ocupe toda la pantalla del teléfono */
+  .imagen {
+    height: 400px; 
+  }
+
+  .filter-inputs .divider:last-of-type {
+    display: none;
+  }
+
+  .filter-inputs {
+    flex-wrap: wrap; 
+    padding: 15px; /* Reduce un poco los bordes blancos para móviles */
+    gap: 10px; /* Reduce ligeramente el espacio entre elementos */
+  }
+
+  /* Hace que "Locación" y "Tipo de Propiedad" se repartan el 50% del espacio superior */
+  .filter-group {
+    flex: 1; 
+    /* Un min-width asegura que no se encojan demasiado antes de romper la línea */
+    min-width: 120px; 
+  }
+
+  /* Fuerza al botón a saltar a la línea de abajo y ocupar todo el ancho */
+  .search-btn {
+    width: 100%;
+    margin-top: 5px; /* Separación extra del botón con los inputs de arriba */
+    justify-content: center; /* Centra el icono de la lupa y el texto dentro del botón azul */
+  }
+
+  /* Asegura que las pestañas superiores (Comprar/Alquilar) ocupen 50% y 50% exacto */
+  .filter-tabs label {
+    flex: 1;
+    text-align: center;
+  }
 }

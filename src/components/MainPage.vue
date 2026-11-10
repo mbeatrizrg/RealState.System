@@ -54,8 +54,6 @@
           <input type="radio" id="modalidad-alquiler" name="modalidad" value="alquiler" class="hidden-input">
           <label for="modalidad-alquiler" class="tab-label">Alquilar</label>
         </div>
-
-        <div class="divider"></div>
         
         <div class="filter-inputs">
           <div class="filter-group">
@@ -122,7 +120,7 @@
           <p v-else-if="error" class="estado-msg">No se pudieron cargar las propiedades: {{ error }}</p>
           <p v-else-if="destacados.length === 0" class="estado-msg">Aún no hay propiedades publicadas.</p>
 
-          <article v-for="inmueble in destacados" :key="inmueble.id" class="card">
+          <article v-for="inmueble in destacadosVisibles" :key="inmueble.id" class="card">
             <div class="card-image-wrapper">
               <img :src="urlImagen(inmueble.urlImagenPrincipal)" :alt="inmueble.titulo" class="building-img" />
             </div>
@@ -153,7 +151,7 @@
         </div>
 
         <!-- Botón de Navegación del Carrusel -->
-        <button class="next-btn" aria-label="Siguiente">
+        <button class="next-btn" aria-label="Siguiente" @click="siguientePagina">
           <img src="/arrow.png" alt="Siguiente" />
         </button>
       </section>
@@ -285,7 +283,7 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
 
 import { useFiltros } from '@/composables/useFiltros'
@@ -303,7 +301,8 @@ const error = ref('')
 
 onMounted(async () => {
   try {
-    destacados.value = (await buscarInmuebles({ tamano: 4 })).contenido
+    const respuesta = await buscarInmuebles({ tamano: 12 })
+    destacados.value = respuesta.contenido || []
   } catch (e) {
     error.value = mensajeDeError(e)
   } finally {
@@ -342,23 +341,30 @@ const isOpen = ref(true)
 const toggleSidemenu = () => {
   isOpen.value = !isOpen.value // Cambia el estado al hacer clic
 }
+
+const elementosPorBloque = ref(4) 
+const indiceInicio = ref(0)
+
+// Corta el arreglo total para mostrar solo el bloque actual en el grid
+const destacadosVisibles = computed(() => {
+  return destacados.value.slice(indiceInicio.value, indiceInicio.value + elementosPorBloque.value)
+})
+
+// Avanza al siguiente bloque o regresa al inicio si llega al final
+const siguientePagina = () => {
+  console.log("¡Botón presionado! Índice actual:", indiceInicio.value)
+  if (indiceInicio.value + elementosPorBloque.value < destacados.value.length) {
+    indiceInicio.value += elementosPorBloque.value
+  } else {
+    indiceInicio.value = 0
+  }
+}
+
 // Lógica de JavaScript / Vue (si es necesaria)
-
-
 </script>
 
 <style scoped src= "./main.css"></style>
 <style scoped>
-
-
-.inc-flotante {
-  position: fixed;
-  /* A la altura del boton "Menu" del encabezado */
-  top: 46px;
-  right: 40px;
-  z-index: 60;
-  box-shadow: 0 8px 20px rgba(11, 31, 70, 0.3);
-}
 
 .flotante-enter-active,
 .flotante-leave-active {
