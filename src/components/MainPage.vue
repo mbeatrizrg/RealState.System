@@ -151,11 +151,7 @@
         </div>
 
         <!-- Botón de Navegación del Carrusel -->
-<<<<<<< HEAD
         <button class="next-btn" aria-label="Siguiente" @click="siguienteDestacado">
-=======
-        <button class="next-btn" aria-label="Siguiente" @click="siguientePagina">
->>>>>>> 95270309f04391b5188c2df72e49f67078946e53
           <img src="/arrow.png" alt="Siguiente" />
         </button>
       </section>
@@ -287,11 +283,7 @@
 </template>
 
 <script setup>
-<<<<<<< HEAD
 import { computed, onMounted, ref } from 'vue'
-=======
-import { onMounted, ref, computed } from 'vue'
->>>>>>> 95270309f04391b5188c2df72e49f67078946e53
 import { useRouter } from 'vue-router'
 
 import { useFiltros } from '@/composables/useFiltros'
@@ -329,12 +321,8 @@ const siguienteDestacado = () => {
 
 onMounted(async () => {
   try {
-<<<<<<< HEAD
-    destacados.value = (await buscarInmuebles({ tamano: 20 })).contenido
-=======
-    const respuesta = await buscarInmuebles({ tamano: 12 })
+    const respuesta = await buscarInmuebles({ tamano: 20 })
     destacados.value = respuesta.contenido || []
->>>>>>> 95270309f04391b5188c2df72e49f67078946e53
   } catch (e) {
     error.value = mensajeDeError(e)
   } finally {
@@ -372,24 +360,6 @@ const signIn = ()=> {
 const isOpen = ref(true) 
 const toggleSidemenu = () => {
   isOpen.value = !isOpen.value // Cambia el estado al hacer clic
-}
-
-const elementosPorBloque = ref(4) 
-const indiceInicio = ref(0)
-
-// Corta el arreglo total para mostrar solo el bloque actual en el grid
-const destacadosVisibles = computed(() => {
-  return destacados.value.slice(indiceInicio.value, indiceInicio.value + elementosPorBloque.value)
-})
-
-// Avanza al siguiente bloque o regresa al inicio si llega al final
-const siguientePagina = () => {
-  console.log("¡Botón presionado! Índice actual:", indiceInicio.value)
-  if (indiceInicio.value + elementosPorBloque.value < destacados.value.length) {
-    indiceInicio.value += elementosPorBloque.value
-  } else {
-    indiceInicio.value = 0
-  }
 }
 
 // Lógica de JavaScript / Vue (si es necesaria)
