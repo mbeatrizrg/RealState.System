@@ -32,8 +32,6 @@
           <input type="radio" id="modalidad-alquiler" name="modalidad" value="alquiler" class="hidden-input">
           <label for="modalidad-alquiler" class="tab-label">Alquilar</label>
         </div>
-
-        <div class="divider"></div>
         
         <div class="filter-inputs">
           <div class="filter-group">

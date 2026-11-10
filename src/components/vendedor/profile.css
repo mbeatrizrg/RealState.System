@@ -151,6 +151,7 @@
   border-radius: 8px;
   font-size: 12px;
   cursor: pointer;
+  margin-right: 6px;
   transition: background-color 0.2s ease;
 }
 
@@ -158,29 +159,6 @@
   background-color: #dc2626;
 }
 
-/* Botón de Filtros */
-.btn-filtros {
-  background-color: #0b1f51;
-  color: #ffffff;
-  padding: 10px 26px;
-  border-radius: 8px;
-  background-color: #0b1f51;
-  color: #ffffff;
-  padding: 10px 26px;
-  border-radius: 8px;
-  border: none;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  font-size: 15px;
-  font-size: 15px;
-  cursor: pointer;
-  transition: opacity 0.2s;
-}
-
-.btn-filtros:hover {
-  opacity: 0.9;
-}
 
 .icon-chevron {
   width: 16px;
@@ -349,12 +327,6 @@
   box-shadow: none;
 }
 /* Cambio de contraseña y cierre de sesion del perfil */
-.subtitulo-perfil {
-  color: #0b1f46;
-  font-size: 1.1rem;
-  font-weight: bold;
-  margin: 1.5rem 0 1rem;
-}
 
 .acciones-perfil {
   display: flex;
@@ -381,6 +353,7 @@
   background-color: transparent;
   color: #0b1f46;
   border: 2px solid #0b1f46;
+  margin-top: 30px;
 }
 
 .mensaje-perfil {
@@ -389,6 +362,39 @@
   margin: 0.5rem 0 0;
 }
 
+.password-form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 22px; 
+  margin-top: 20px; /* Separación con respecto al botón superior */
+}
+
+/* Opcional: si quieres aún más separación entre las filas completas del formulario */
+.profile-form {
+  display: flex;
+  flex-direction: column;
+  gap: 28px; /* Aumenta este valor si quieres separar más una fila de otra */
+  max-width: 820px;
+}
+
 .mensaje-error {
   color: #b00020;
+}
+
+
+.acciones-perfil-separado {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: flex-end;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

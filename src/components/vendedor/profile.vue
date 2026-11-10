@@ -33,15 +33,9 @@
           style="display: none;" 
           @change="alCambiarFoto" 
           />
-        <button class="btn-filtros">
-          Filtros
-          <svg class="icon-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-          </svg>
-        </button>
     </div>
 
-      <h1 class="greeting"> Hola, {{ datosPerfil.saludo }}</h1>
+      <h1 class="greeting"> Hola, {{ datosPerfil.nombre }}</h1>
       <p v-if="errorCarga" class="mensaje-perfil mensaje-error">{{ errorCarga }}</p>
       <section class="profile-form">
         <!--Fila 1-->
@@ -57,17 +51,8 @@
           </div>
         </div>
 
-        <!--FIla 2-->
+        <!--Fila 2-->
         <div class="form-row">
-          <div class="form-group short-width">
-            <label>ID</label>
-            <input
-              type="text"  
-              :value="datosPerfil.id"
-              class="input-dark"
-              readonly
-            />
-          </div>
           <div class="form-group flex-grow">
               <label for="gmail">Gmail</label>
             <input
@@ -90,7 +75,7 @@
               class="input-dark" 
               readonly
             />
-          </div>
+      </div>
 
           <div class="form-group short-width">
             <label>Rol</label>
@@ -106,28 +91,73 @@
 
       <!-- Cambio de contraseña: al guardar se cierran todas las sesiones y se vuelve al login -->
       <section class="profile-form">
-        <h2 class="subtitulo-perfil">Cambiar contraseña</h2>
-        <form @submit.prevent="CambiarContrasena">
+        <div class="header-section-accion">
+          <button 
+            type="button" 
+            class="btn-perfil btn-perfil-secundario" 
+            @click="mostrarCambioClave = !mostrarCambioClave"
+          >
+            {{ mostrarCambioClave ? 'Cancelar cambio' : 'Cambiar contraseña' }}
+          </button>
+        </div>
+
+        <!-- Formulario: solo se renderiza si mostrarCambioClave es true -->
+        <form v-if="mostrarCambioClave" @submit.prevent="CambiarContrasena" class="password-form-container">
+          
+          <div class="form-row">
+            <div class="form-group full-width">
+              <label for="pass-actual">Contraseña Actual</label>
+              <input 
+                type="password" 
+                id="pass-actual" 
+                v-model="claves.actual" 
+                class="input-dark" 
+                required 
+              />
+            </div>
+          </div>
+
           <div class="form-row">
             <div class="form-group short-width">
-              <label for="claveActual">Contraseña actual</label>
-              <input id="claveActual" type="password" v-model="claves.actual" class="input-dark" autocomplete="current-password" required />
+              <label for="pass-nueva">Nueva Contraseña</label>
+              <input 
+                type="password" 
+                id="pass-nueva" 
+                v-model="claves.nueva" 
+                class="input-dark" 
+                required 
+              />
             </div>
+
             <div class="form-group short-width">
-              <label for="claveNueva">Contraseña nueva</label>
-              <input id="claveNueva" type="password" v-model="claves.nueva" class="input-dark" minlength="8" maxlength="72" autocomplete="new-password" required />
-            </div>
-            <div class="form-group short-width">
-              <label for="claveRepetida">Repetir contraseña</label>
-              <input id="claveRepetida" type="password" v-model="claves.repetida" class="input-dark" autocomplete="new-password" required />
+              <label for="pass-repetida">Repetir Contraseña</label>
+              <input 
+                type="password" 
+                id="pass-repetida" 
+                v-model="claves.repetida" 
+                class="input-dark" 
+                required 
+              />
             </div>
           </div>
-          <p v-if="mensajeClave" class="mensaje-perfil" :class="{ 'mensaje-error': errorClave }">{{ mensajeClave }}</p>
+
+          <p v-if="mensajeClave" class="mensaje-perfil" :class="{ 'mensaje-error': errorClave }">
+            {{ mensajeClave }}
+          </p>
+
           <div class="acciones-perfil">
-            <button type="submit" class="btn-perfil" :disabled="guardando">Guardar contraseña</button>
-            <button type="button" class="btn-perfil btn-perfil-secundario" @click="CerrarSesion">Cerrar sesión</button>
+            <button type="submit" class="btn-perfil" :disabled="guardando">
+              {{ guardando ? 'Guardando...' : 'Guardar contraseña' }}
+            </button>
           </div>
         </form>
+
+        <!-- Botón de Cerrar Sesión (siempre visible fuera del formulario de contraseña) -->
+        <div class="acciones-perfil-separado">
+          <button type="button" class="btn-perfil btn-danger" @click="CerrarSesion">
+            Cerrar sesión
+          </button>
+        </div>
       </section>
     </main>
   </div>
@@ -164,6 +194,9 @@ onMounted(async () => {
   }
 })
 
+// Variable para controlar si los campos de contraseña son visibles
+const mostrarCambioClave = ref(false)
+
 const claves = reactive({ actual: '', nueva: '', repetida: '' })
 const mensajeClave = ref('')
 const errorClave = ref(false)
@@ -179,8 +212,13 @@ const CambiarContrasena = async () => {
   try {
     mensajeClave.value = (await cambiarContrasena('EMPLEADO', claves.actual, claves.nueva)).mensaje
     errorClave.value = false
-    // El backend cierra todas las sesiones del empleado: se vuelve al login del CRM
-    setTimeout(() => router.push('/crm/login'), 1500)
+    
+    // Ocultar el formulario tras guardar exitosamente
+    setTimeout(() => {
+      mostrarCambioClave.value = false
+      router.push('/crm/login')
+    }, 1500)
+
   } catch (e) {
     mensajeClave.value = mensajeDeError(e)
     errorClave.value = true
@@ -224,6 +262,8 @@ const eliminarFoto = () => {
     fileInput.value.value = ''
   }
 }
+
+
 
 </script>
 
