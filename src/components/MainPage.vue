@@ -23,6 +23,13 @@
         <!-- Fondo 1 -->
         <div class="imagen">
           <img src="/PhotoPrincipal.png" alt="foto de portada" />
+            <transition name="fade">
+              <img 
+                :key="imagenActual" 
+                :src="imagenesFondo[imagenActual]" 
+                alt="foto de portada" 
+              />
+          </transition>
         </div>
 
         <!-- Menú flotante -->
@@ -54,6 +61,8 @@
           <input type="radio" id="modalidad-alquiler" name="modalidad" value="alquiler" class="hidden-input">
           <label for="modalidad-alquiler" class="tab-label">Alquilar</label>
         </div>
+
+        <div class="divider"></div>
         
         <div class="filter-inputs">
           <div class="filter-group">
@@ -283,9 +292,8 @@
 </template>
 
 <script setup>
-import { computed, onMounted, ref } from 'vue'
+import { computed, onMounted, onUnmounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
-
 import { useFiltros } from '@/composables/useFiltros'
 import { mensajeDeError } from '@/services/api'
 import { buscarInmuebles } from '@/services/inmuebles'
@@ -321,8 +329,7 @@ const siguienteDestacado = () => {
 
 onMounted(async () => {
   try {
-    const respuesta = await buscarInmuebles({ tamano: 20 })
-    destacados.value = respuesta.contenido || []
+    destacados.value = (await buscarInmuebles({ tamano: 20 })).contenido
   } catch (e) {
     error.value = mensajeDeError(e)
   } finally {
@@ -362,11 +369,42 @@ const toggleSidemenu = () => {
   isOpen.value = !isOpen.value // Cambia el estado al hacer clic
 }
 
+const imagenesFondo = ref([
+  '/PhotoPrincipal.png',
+  '/building.png', // Reemplaza con los nombres reales de tus fotos
+  '/building2.png'
+])
+const imagenActual = ref(0)
+let temporizadorFondo = null
+
+onMounted(() => {
+  // Cambia la imagen cada 4 segundos (4000 milisegundos)
+  temporizadorFondo = setInterval(() => {
+    imagenActual.value = (imagenActual.value + 1) % imagenesFondo.value.length
+  }, 4000)
+})
+
+onUnmounted(() => {
+  // Limpia el temporizador si el usuario sale de la página
+  if (temporizadorFondo) clearInterval(temporizadorFondo)
+})
+
 // Lógica de JavaScript / Vue (si es necesaria)
+
 </script>
 
 <style scoped src= "./main.css"></style>
 <style scoped>
+
+
+.inc-flotante {
+  position: fixed;
+  /* A la altura del boton "Menu" del encabezado */
+  top: 46px;
+  right: 40px;
+  z-index: 60;
+  box-shadow: 0 8px 20px rgba(11, 31, 70, 0.3);
+}
 
 .flotante-enter-active,
 .flotante-leave-active {
