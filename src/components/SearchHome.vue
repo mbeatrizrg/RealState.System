@@ -20,38 +20,30 @@
 
     <main class="bar">
       <!-- Barra de Filtros / Búsqueda -->
+
       <section class="background">
                 <!-- Barra de filtros -->
         <div class="filter-bar">
 
          <!-- Nivel Superior: Pestañas -->
         <div class="filter-tabs">
-          <input type="radio" id="modalidad-compra" name="modalidad" value="compra" class="hidden-input" checked>
+          <!-- Cambiamos a isAlquiler. value=false significa Venta/Comprar -->
+          <input type="radio" id="modalidad-compra" :value="false" class="hidden-input" v-model="filtros.isAlquiler">
           <label for="modalidad-compra" class="tab-label">Comprar</label>
     
-          <input type="radio" id="modalidad-alquiler" name="modalidad" value="alquiler" class="hidden-input">
+          <!-- value=true significa Alquilar -->
+          <input type="radio" id="modalidad-alquiler" :value="true" class="hidden-input" v-model="filtros.isAlquiler">
           <label for="modalidad-alquiler" class="tab-label">Alquilar</label>
         </div>
         
         <div class="filter-inputs">
           <div class="filter-group">
             <label for="locacion">Locación</label>
-            <select id="locacion" name="locacion">
+            <select id="locacion" v-model="filtros.ciudadId">
               <option value="" disabled selected>Ciudades</option>
-              <option value="valencia">Valencia</option>
-              <option value="naguanagua">Naguanagua</option>
-              <option value="san_diego">San Diego</option>
-              <option value="puerto_cabello">Puerto Cabello</option>
-              <option value="guacara">Guacara</option>
-              <option value="los_guayos">Los Guayos</option>
-              <option value="tocuyito">Tocuyito (Libertador)</option>
-              <option value="san_joaquin">San Joaquín</option>
-              <option value="diego_ibarra">Mariara (Diego Ibarra)</option>
-              <option value="bejuma">Bejuma</option>
-              <option value="montalban">Montalbán</option>
-              <option value="miranda">Miranda</option>
-              <option value="carlos_arvelo">Güigüe (Carlos Arvelo)</option>
-              <option value="juan_jose_mora">Morón (Juan José Mora)</option>
+              <option v-for="ciudad in ciudades" :key="ciudad.id" :value="ciudad.id">
+                {{ ciudad.nombre || ciudad.descripcion }}
+              </option>
             </select>
           </div>
 
@@ -59,23 +51,18 @@
 
           <div class="filter-group">
             <label for="tipo">Tipo de Propiedad</label>
-            <select id="tipo" name="tipo">
-              <option value="casa">Casa</option>
-              <option value="apartamento">Apartamento</option>
-              <option value="townhouse">Townhouse</option>
-              <option value="terreno">Terreno</option>
-              <option value="local comercial">Local comercial</option>
-              <option value="galpon">Galpon</option>
-              <option value="oficina">Oficina</option>
-              <option value="consultorio medico">Consultorio medico</option>
-              <option value="club">Club</option>
-              <option value="negocio">Negocio</option>
+            <!-- Cambiamos a tipoInmuebleId -->
+            <select id="tipo" v-model="filtros.tipoInmuebleId">
+              <option value="" disabled selected>Seleccione</option>
+              <option v-for="tipo in tiposInmueble" :key="tipo.id" :value="tipo.id">
+                {{ tipo.nombre || tipo.descripcion }}
+              </option>
             </select>
           </div>
 
           <div class="divider"></div>
           
-          <button @click="Search" class="search-btn">
+          <button @click="buscar" class="search-btn">
             <img src="/lupa.svg" alt="" />
             <span>Buscar Propiedad</span>
           </button>
@@ -91,33 +78,35 @@
         <p v-else class="estado-msg resumen">{{ totalElementos }} {{ totalElementos === 1 ? 'propiedad encontrada' : 'propiedades encontradas' }}</p>
 
         <article v-for="inmueble in inmuebles" :key="inmueble.id" class="card2">
-            <div class="img-card">
-              <img :src="urlImagen(inmueble.urlImagenPrincipal)" :alt="inmueble.titulo" class="building2-img" />
-            </div>
 
-            <div class="content2">
-              <div class="location-card">
-                <img src="/location.png" alt="Ubicación" />
-                <span>{{ inmueble.ciudad || 'Carabobo' }}</span>
-              </div>
+        <div class="img-card">
+          <img :src="urlImagen(inmueble.urlImagenPrincipal)" :alt="inmueble.titulo" class="building2-img" />
+        </div>
 
-              <!-- PENDIENTE: favoritos requiere inicio de sesion (JWT) 
-              <button class="favorite-btn" aria-label="Añadir a favoritos">
-                <img src="/heart.png" alt="Favorito" />
-              </button> -->
+        <div class="content2">
+          <div class="location-card">
+            <img src="/location.png" alt="Ubicación" />
+            <span>{{ inmueble.ciudad || 'Carabobo' }}</span>
+          </div>
 
-              <h3 class="card-title">{{ inmueble.titulo }}</h3>
+            <h3 class="card-title">{{ inmueble.titulo }}</h3>
 
-              <div class="details-card">
-                <span>{{ inmueble.tipoInmueble }} | {{ inmueble.estatusInmueble }}</span>
-              </div>
+          <div class="details-card">
+            <span class="card-rooms" v-if="inmueble.habitaciones != null || inmueble.banos != null">
+            {{ inmueble.habitaciones || 0 }} habitaciones <template v-if="inmueble.banos != null">| {{ inmueble.banos }} baños</template>
+            </span>
+            <span class="card-area" v-if="inmueble.metrosCuadrados != null">
+            {{ Number(inmueble.metrosCuadrados).toLocaleString('es-VE') }} m² Totales
+            </span>
+        </div>
 
-              <div class="footer-card">
-                <span class="card-price">{{ formatearPrecio(inmueble.precio) }}</span>
-                <router-link :to="`/details/${inmueble.id}`" class="details-btn">Ver Detalles &gt;</router-link>
-              </div>
-            </div>
-          </article>
+        <div class="footer-card">
+          <span class="card-price">{{ formatearPrecio(inmueble.precio) }}</span>
+          <router-link :to="`/details/${inmueble.id}`" class="details-btn">Ver Detalles &gt;</router-link>
+        </div>
+        </div>
+      </article>
+          
       </section>
 
       <Paginacion
@@ -142,15 +131,14 @@
     <!-- Menú principal centrado -->
     <main class="menu-content">
       <nav class="menu-list">
-        <button @click="Home" class="menu-item active"><span>Principal</span></button> 
-        <button @click="Search" class="menu-item"><span>Disponibles</span></button> 
+        <button @click="Home" class="menu-item"><span>Principal</span></button> 
+        <button @click="Search" class="menu-item active"><span>Disponibles</span></button> 
         <!--favoritos
         <a href="#" class="menu-item">Favoritos</a> -->
         <button @click="Contact" class="menu-item"><span>Contactanos</span></button> 
       </nav>
     </main>
   </div>
-
 
   </div>
 </template>
