@@ -20,6 +20,10 @@ export interface InmuebleTarjeta {
   tipoInmueble: string
   estatusInmueble: string
   empleadoId: number | null
+  // AGREGA ESTAS 3 LÍNEAS AQUÍ:
+  habitaciones?: number | null
+  banos?: number | null
+  metrosCuadrados?: number | null
 }
 
 // ImagenResponseDTO

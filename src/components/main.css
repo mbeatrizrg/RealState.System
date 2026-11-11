@@ -29,8 +29,6 @@ html, body {
   display: flex;
   align-items: center;
   gap: 15px;
-  /* ELIMINAMOS margin-left: auto; ya que justify-content 
-     hace el trabajo por sí solo de forma más limpia */
 }
 
 .logo {
@@ -206,20 +204,47 @@ html, body {
   border-bottom: 1px solid #e0e0e0;
 }
 
-.filter-inputs {
-  display: flex;
-  align-items: center; /* Centra todo verticalmente */
-  justify-content: space-between;
-  padding: 1.5rem 2rem; /* Padding igual arriba y abajo. Ajusta según necesites */
-  gap: 1rem;
+.hidden-input {
+  display: none;
 }
 
-/* Agrupación de Label + Select */
+.tab-label {
+  flex: 1; /* Ambas pestañas miden el 50% */
+  text-align: center;
+  padding: 16px 0;
+  font-size: 20px;
+  font-weight: 500;
+  color: #1c1c1c;
+  background-color: #ffffff;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+/* Cuando seleccionas la modalidad, el fondo cambia a gris claro */
+.hidden-input:checked + .tab-label {
+  background-color: #dcdcdc;
+}
+
+.filter-inputs {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 10px 30px;
+  flex: 1;
+  gap: 20px;
+}
+
 .filter-group {
   display: flex;
   flex-direction: column;
-  justify-content: center;
- /* Asegura que no haya un margin-top empujando el texto hacia abajo */
+  flex: 1;
+  gap: 5px;
+}
+
+.filter-group label {
+  font-size: 18px;
+  font-weight: 500;
+  color: #000000; /* Títulos en negro */
 }
 
 .filter-inputs .divider {
@@ -230,15 +255,40 @@ html, body {
 
 /* Alineación interna de los inputs/selects para quitar bordes por defecto si es necesario */
 .filter-group select {
+  font-size: 14px;
+  color: #888888; /* Valor seleccionado en gris */
   border: none;
-  background: transparent;
   outline: none;
-  font-size: 1rem;
-  padding: 0.2rem 0;
-  color: #666;
+  background: transparent;
   cursor: pointer;
 }
 
+/* Líneas divisorias verticales entre filtros */
+.divider {
+  width: 1px;
+  height: 45px;
+  background-color: #e0e0e0;
+}
+
+/* Botón Buscar */
+.search-btn {
+  background-color: #0b1f46;
+  color: #ffffff;
+  border: none;
+  border-radius: 12px;
+  padding: 14px 24px;
+  font-size: 15px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.search-btn img {
+  width: 18px;
+  height: 18px;
+}
 
 .hidden-input {
   display: none;
@@ -282,22 +332,6 @@ html, body {
   font-size: 18px;
   font-weight: 500;
   color: #000000; /* Títulos en negro */
-}
-
-.filter-group select {
-  font-size: 14px;
-  color: #888888; /* Valor seleccionado en gris */
-  border: none;
-  outline: none;
-  background: transparent;
-  cursor: pointer;
-}
-
-/* Líneas divisorias verticales entre filtros */
-.divider {
-  width: 1px;
-  height: 45px;
-  background-color: #e0e0e0;
 }
 
 /* Botón Buscar */
@@ -413,7 +447,7 @@ html, body {
   display: flex;
   align-items: center;
   gap: 6px;
-  font-size: 12px;
+  font-size: 16px;
   font-weight: 300;
   color: #0b1f46;
   margin-bottom: -10px;
@@ -456,7 +490,7 @@ html, body {
 .card-title {
   padding-top: 15px;
   margin-bottom: 5px;
-  font-size: 15px;
+  font-size: 18px;
   font-weight: 600;
   color: #000000;
   margin: 0;
@@ -470,11 +504,11 @@ html, body {
 
 .card-details {
   display: flex;
-  font-size: 12px;
-  font-weight: 400;
   justify-content: space-between;
   align-items: center;
-  margin-top: 5px;
+  font-size: 0.9rem;
+  color: #333;
+  margin-bottom: 10px;
 }
 
 .card-footer {
@@ -486,7 +520,7 @@ html, body {
 }
 
 .card-price {
-  font-size: 14px;
+  font-size: 20px;
   font-weight: 700;
   color: #1c1c1c;
 }

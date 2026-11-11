@@ -1,4 +1,5 @@
 package com.rifatrichani.backendinmobiliaria.dto.response;
+import java.math.BigDecimal;
 
 //Tarjeta de inmueble para los listados del portal y la tabla del CRM
 public class InmuebleListResponseDTO {
@@ -14,6 +15,10 @@ public class InmuebleListResponseDTO {
     private String estatusInmueble;
     private Boolean isVendido;
     private Integer empleadoId;
+
+    private Integer habitaciones;
+    private Integer banos;
+    private BigDecimal metrosCuadrados;
 
     public Integer getId() { return id; }
     public void setId(Integer id) { this.id = id; }
@@ -39,4 +44,14 @@ public class InmuebleListResponseDTO {
     public void setIsVendido(Boolean isVendido) { this.isVendido = isVendido; }
     public Integer getEmpleadoId() { return empleadoId; }
     public void setEmpleadoId(Integer empleadoId) { this.empleadoId = empleadoId; }
+
+    public Integer getHabitaciones() { return habitaciones; }
+    public void setHabitaciones(Integer habitaciones) { this.habitaciones = habitaciones; }
+
+    public Integer getBanos() { return banos; }
+    public void setBanos(Integer banos) { this.banos = banos; }
+
+    public BigDecimal getMetrosCuadrados() { return metrosCuadrados; }
+    public void setMetrosCuadrados(BigDecimal metrosCuadrados) { this.metrosCuadrados = metrosCuadrados; }
+
 }

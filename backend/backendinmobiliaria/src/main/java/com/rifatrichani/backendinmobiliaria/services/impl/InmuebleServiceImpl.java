@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -230,6 +231,11 @@ public class InmuebleServiceImpl implements InmuebleService {
         dto.setTipoInmueble(inmueble.getTipoInmueble().getNombre());
         dto.setEstatusInmueble(describirEstado(inmueble));
         dto.setEmpleadoId(inmueble.getEmpleado() != null ? inmueble.getEmpleado().getId() : null);
+        
+        dto.setHabitaciones(inmueble.getHabitaciones());
+        dto.setBanos(inmueble.getBanos());
+        dto.setMetrosCuadrados(inmueble.getMetrosCuadrados());
+        
         return dto;
     }
 }

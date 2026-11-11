@@ -29,7 +29,7 @@
                 :src="imagenesFondo[imagenActual]" 
                 alt="foto de portada" 
               />
-          </transition>
+          </transition> 
         </div>
 
         <!-- Menú flotante -->
@@ -62,7 +62,6 @@
           <label for="modalidad-alquiler" class="tab-label">Alquilar</label>
         </div>
 
-        <div class="divider"></div>
         
         <div class="filter-inputs">
           <div class="filter-group">
@@ -140,22 +139,22 @@
                 <span>{{ inmueble.ciudad || 'Carabobo' }}</span>
               </div>
 
-              <!-- PENDIENTE: favoritos requiere inicio de sesion (JWT) 
-              <button class="favorite-btn" aria-label="Añadir a favoritos">
-                <img src="/heart.png" alt="Favorito" />
-              </button> -->
-
               <h3 class="card-title">{{ inmueble.titulo }}</h3>
 
               <div class="card-details">
-                <span>{{ inmueble.tipoInmueble }}</span>
-              </div>
-
-              <div class="card-footer">
-                <span class="card-price">{{ formatearPrecio(inmueble.precio) }}</span>
-                <router-link :to="`/details/${inmueble.id}`" class="details-btn">Ver Detalles &gt;</router-link>
-              </div>
+                <span class="card-rooms" v-if="inmueble.habitaciones != null || inmueble.banos != null">
+                {{ inmueble.habitaciones || 0 }} habitaciones <template v-if="inmueble.banos != null">| {{ inmueble.banos }} baños</template>
+                </span>
+                <span class="card-area" v-if="inmueble.metrosCuadrados != null">
+                {{ Number(inmueble.metrosCuadrados).toLocaleString('es-VE') }} m² Totales
+                </span>
             </div>
+
+            <div class="card-footer">
+              <span class="card-price">{{ formatearPrecio(inmueble.precio) }}</span>
+              <router-link :to="`/details/${inmueble.id}`" class="details-btn">Ver Detalles &gt;</router-link>
+            </div>
+          </div>
           </article>
         </div>
 
@@ -337,10 +336,6 @@ onMounted(async () => {
   }
 })
 
-const isFavorite = ref(false)
-const toggleFavorite = () => {
-  isFavorite.value = !isFavorite.value
-}
 
 
 const Search = ()=> {

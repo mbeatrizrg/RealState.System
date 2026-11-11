@@ -66,6 +66,7 @@
         </div>
       </section>
 
+      
       <!-- Mapa -->
       <section class="map-section">
         <h2 class="details-title">Ubicación</h2>
