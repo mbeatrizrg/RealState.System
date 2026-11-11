@@ -52,65 +52,62 @@
 
         <!-- Barra de filtros -->
         <div class="filter-bar">
+  <!-- Nivel Superior: Pestañas -->
+  <div class="filter-tabs">
+    <input
+      type="radio"
+      id="modalidad-compra"
+      name="modalidad"
+      value="compra"
+      v-model="modalidad"
+      class="hidden-input"
+    />
+    <label for="modalidad-compra" class="tab-label">Comprar</label>
 
-         <!-- Nivel Superior: Pestañas -->
-        <div class="filter-tabs">
-          <input type="radio" id="modalidad-compra" name="modalidad" value="compra" class="hidden-input" checked>
-          <label for="modalidad-compra" class="tab-label">Comprar</label>
-    
-          <input type="radio" id="modalidad-alquiler" name="modalidad" value="alquiler" class="hidden-input">
-          <label for="modalidad-alquiler" class="tab-label">Alquilar</label>
-        </div>
+    <input
+      type="radio"
+      id="modalidad-alquiler"
+      name="modalidad"
+      value="alquiler"
+      v-model="modalidad"
+      class="hidden-input"
+    />
+    <label for="modalidad-alquiler" class="tab-label">Alquilar</label>
+  </div>
 
-        
-        <div class="filter-inputs">
-          <div class="filter-group">
-            <label for="locacion">Locación</label>
-            <select id="locacion" name="locacion">
-              <option value="" disabled selected>Ciudades</option>
-              <option value="valencia">Valencia</option>
-              <option value="naguanagua">Naguanagua</option>
-              <option value="san_diego">San Diego</option>
-              <option value="puerto_cabello">Puerto Cabello</option>
-              <option value="guacara">Guacara</option>
-              <option value="los_guayos">Los Guayos</option>
-              <option value="tocuyito">Tocuyito (Libertador)</option>
-              <option value="san_joaquin">San Joaquín</option>
-              <option value="diego_ibarra">Mariara (Diego Ibarra)</option>
-              <option value="bejuma">Bejuma</option>
-              <option value="montalban">Montalbán</option>
-              <option value="miranda">Miranda</option>
-              <option value="carlos_arvelo">Güigüe (Carlos Arvelo)</option>
-              <option value="juan_jose_mora">Morón (Juan José Mora)</option>
-            </select>
-          </div>
+  <div class="filter-inputs">
+    <!-- Locación / Ciudades -->
+    <div class="filter-group">
+      <label for="locacion">Locación</label>
+      <select id="locacion" name="locacion" v-model="ciudadSeleccionada">
+        <option value="">Todas las ciudades</option>
+        <option v-for="ciudad in ciudades" :key="ciudad.id" :value="ciudad.id">
+          {{ ciudad.nombre }}
+        </option>
+      </select>
+    </div>
 
-          <div class="divider"></div>
+    <div class="divider"></div>
 
-          <div class="filter-group">
-            <label for="tipo">Tipo de Propiedad</label>
-            <select id="tipo" name="tipo">
-              <option value="casa">Casa</option>
-              <option value="apartamento">Apartamento</option>
-              <option value="townhouse">Townhouse</option>
-              <option value="terreno">Terreno</option>
-              <option value="local comercial">Local comercial</option>
-              <option value="galpon">Galpon</option>
-              <option value="oficina">Oficina</option>
-              <option value="consultorio medico">Consultorio medico</option>
-              <option value="club">Club</option>
-              <option value="negocio">Negocio</option>
-            </select>
-          </div>
+    <!-- Tipo de Propiedad -->
+    <div class="filter-group">
+      <label for="tipo">Tipo de Propiedad</label>
+      <select id="tipo" name="tipo" v-model="tipoSeleccionado">
+        <option value="">Todos los tipos</option>
+        <option v-for="tipo in tiposInmueble" :key="tipo.id" :value="tipo.id">
+          {{ tipo.nombre }}
+        </option>
+      </select>
+    </div>
 
-          <div class="divider"></div>
-          
-          <button @click="Search" class="search-btn">
-            <img src="/lupa.svg" alt="" />
-            <span>Buscar Propiedad</span>
-          </button>
-        </div>
-      </div>
+    <div class="divider"></div>
+
+    <button @click="Search" class="search-btn">
+      <img src="/lupa.svg" alt="" />
+      <span>Buscar Propiedad</span>
+    </button>
+  </div>
+</div>
       </section>
   </div>
   
@@ -326,6 +323,10 @@ const siguienteDestacado = () => {
   indiceCarrusel.value = (indiceCarrusel.value + 1) % total
 }
 
+const modalidad = ref('compra')
+const ciudadSeleccionada = ref('')
+const tipoSeleccionado = ref('')
+
 onMounted(async () => {
   try {
     destacados.value = (await buscarInmuebles({ tamano: 20 })).contenido
@@ -336,10 +337,24 @@ onMounted(async () => {
   }
 })
 
+// Envía los parámetros a la ruta /search
+const Search = () => {
+  const query = {}
 
+  // modalidad: 'alquiler' -> isAlquiler = true, 'compra' -> isAlquiler = false
+  query.isAlquiler = modalidad.value === 'alquiler' ? 'true' : 'false'
 
-const Search = ()=> {
-  router.push('/search')
+  if (ciudadSeleccionada.value) {
+    query.ciudadId = ciudadSeleccionada.value
+  }
+
+  if (tipoSeleccionado.value) {
+    query.tipoInmuebleId = tipoSeleccionado.value
+  }
+
+  // Redirecciona enviando los parametros en la URL
+  // Ejemplo: /search?isAlquiler=false&ciudadId=1&tipoInmuebleId=3
+  router.push({ path: '/search', query })
 }
 
 const isMenuOpen = ref(false)

@@ -78,6 +78,7 @@
         <p v-else class="estado-msg resumen">{{ totalElementos }} {{ totalElementos === 1 ? 'propiedad encontrada' : 'propiedades encontradas' }}</p>
 
         <article v-for="inmueble in inmuebles" :key="inmueble.id" class="card2">
+
         <div class="img-card">
           <img :src="urlImagen(inmueble.urlImagenPrincipal)" :alt="inmueble.titulo" class="building2-img" />
         </div>
