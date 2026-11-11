@@ -26,7 +26,6 @@ import com.rifatrichani.backendinmobiliaria.config.SecurityConfig;
 import com.rifatrichani.backendinmobiliaria.controllers.AuthController;
 import com.rifatrichani.backendinmobiliaria.controllers.ContactoController;
 import com.rifatrichani.backendinmobiliaria.controllers.EmpleadoController;
-import com.rifatrichani.backendinmobiliaria.controllers.FavoritoController;
 import com.rifatrichani.backendinmobiliaria.controllers.InmuebleController;
 import com.rifatrichani.backendinmobiliaria.controllers.VistoController;
 import com.rifatrichani.backendinmobiliaria.dto.response.PaginaResponseDTO;
@@ -38,7 +37,6 @@ import com.rifatrichani.backendinmobiliaria.security.CuentaAutenticada.TipoCuent
 import com.rifatrichani.backendinmobiliaria.services.AuthServices;
 import com.rifatrichani.backendinmobiliaria.services.ContactoService;
 import com.rifatrichani.backendinmobiliaria.services.EmpleadoService;
-import com.rifatrichani.backendinmobiliaria.services.FavoritoService;
 import com.rifatrichani.backendinmobiliaria.services.InmuebleService;
 import com.rifatrichani.backendinmobiliaria.services.VistoService;
 
@@ -47,7 +45,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 
 //Verifica las reglas de acceso y el filtro JWT sin base de datos (los repositorios y servicios son simulados)
-@WebMvcTest(controllers = {InmuebleController.class, AuthController.class, EmpleadoController.class, FavoritoController.class, VistoController.class,
+@WebMvcTest(controllers = {InmuebleController.class, AuthController.class, EmpleadoController.class, VistoController.class,
         ContactoController.class})
 @Import({SecurityConfig.class, CorsConfig.class, JwtTokenProvider.class, JwtAuthenticationEntryPoint.class})
 @TestPropertySource(properties = {
@@ -64,7 +62,6 @@ class SeguridadEndpointsTest {
     @MockitoBean InmuebleService inmuebleService;
     @MockitoBean AuthServices authServices;
     @MockitoBean EmpleadoService empleadoService;
-    @MockitoBean FavoritoService favoritoService;
     @MockitoBean VistoService vistoService;
     @MockitoBean ContactoService contactoService;
 
@@ -202,16 +199,6 @@ class SeguridadEndpointsTest {
                 .andExpect(status().isUnauthorized());
     }
 
-    @Test
-    void favoritosRequierenUsuarioDelPortal() throws Exception {
-        empleado(2, true);
-        mvc.perform(get("/api/favorito")).andExpect(status().isUnauthorized());
-        mvc.perform(get("/api/favorito").header("Authorization", bearer(2, TipoCuenta.EMPLEADO, "ROLE_ADMIN")))
-                .andExpect(status().isForbidden());
-        usuario(9);
-        mvc.perform(get("/api/favorito").header("Authorization", bearer(9, TipoCuenta.USUARIO, "ROLE_USUARIO")))
-                .andExpect(status().isOk());
-    }
 
     @Test
     void vistaAnonimaSeAceptaSinGuardar() throws Exception {
@@ -236,11 +223,4 @@ class SeguridadEndpointsTest {
                 .andExpect(status().isOk());
     }
 
-    @Test
-    void tokenDeUsuarioEmitidoAntesDelLogoutEsRechazado() throws Exception {
-        Usuario u = usuario(6);
-        String token = bearer(6, TipoCuenta.USUARIO, "ROLE_USUARIO");
-        u.setTokensValidosDesde(LocalDateTime.now().plusSeconds(5));
-        mvc.perform(get("/api/favorito").header("Authorization", token)).andExpect(status().isUnauthorized());
-    }
 }

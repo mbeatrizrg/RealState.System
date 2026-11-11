@@ -75,7 +75,7 @@ public class UsuarioServiceImpl implements UsuarioService {
         }
         String codigo = CodigosSeguridad.generarCodigo();
         usuario.setCorreoPendiente(correoNuevo);
-        usuario.setCodVerif(Integer.valueOf(codigo));
+        usuario.setCodVerif(String.valueOf( codigo ));
         usuario.setCodVerifExpira(LocalDateTime.now().plusMinutes(AuthServicesImpl.MINUTOS_VIGENCIA_CODIGO));
         usuario.setCodVerifIntentos(0);
         usuarioRepository.save(usuario);
@@ -145,7 +145,6 @@ public class UsuarioServiceImpl implements UsuarioService {
         dto.setApellido(u.getApellido());
         dto.setCorreo(u.getCorreo());
         dto.setTelefono(u.getTelefono());
-        dto.setCedula(u.getCedula());
         dto.setTipoNegocio(u.getTipoNegocio());
         dto.setVerificado(u.getVerificado());
         return dto;

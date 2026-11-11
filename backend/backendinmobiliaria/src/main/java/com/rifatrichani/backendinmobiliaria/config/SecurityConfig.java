@@ -77,7 +77,8 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.POST, "/api/auth/login/empleado", "/api/auth/login/usuario",
                     "/api/auth/confirmar", "/api/auth/reenviar-codigo", "/api/auth/recuperar", "/api/auth/recuperar/confirmar").permitAll()
                 .requestMatchers(HttpMethod.POST, "/api/usuario/registro").permitAll()
-
+                .requestMatchers(HttpMethod.POST, "/api/public/contactos/**").permitAll()
+                
                 // 2. CRM: rutas privadas que comparten prefijo con rutas publicas
                 .requestMatchers("/api/inmueble/crm/**").hasAnyAuthority(ROL_VENDEDOR, ROL_ADMIN)
                 .requestMatchers("/api/visto/crm/**").hasAnyAuthority(ROL_VENDEDOR, ROL_ADMIN)

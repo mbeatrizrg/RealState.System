@@ -23,7 +23,6 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer>, JpaS
            "OR LOWER(us.nombre) LIKE LOWER(CONCAT('%', :termino, '%')) OR LOWER(us.apellido) LIKE LOWER(CONCAT('%', :termino, '%'))")
     List<Usuario> buscarPorTermino(@Param("termino") String termino);
     boolean existsByCorreoIgnoreCase(String correo);
-    boolean existsByCedula(Integer cedula);
     Optional<Usuario> findByCorreoIgnoreCase(String correo);
 
     //Listado de contactos del CRM (los filtros se arman en ContactoEspecificaciones)
@@ -48,4 +47,5 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer>, JpaS
     @Modifying
     @Query("UPDATE Usuario u SET u.propietario = :propietario WHERE u.id = :id AND u.propietario IS NULL")
     int asignarPropietarioSiNoTiene(@Param("id") Integer id, @Param("propietario") Empleado propietario);
+
 }

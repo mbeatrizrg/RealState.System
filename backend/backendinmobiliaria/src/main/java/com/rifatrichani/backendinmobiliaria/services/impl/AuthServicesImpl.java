@@ -164,15 +164,11 @@ public class AuthServicesImpl implements AuthServices {
         if (usuarioRepository.existsByCorreoIgnoreCase(correo)) {
             throw new IllegalArgumentException("El correo ya se encuentra registrado.");
         }
-        if (usuarioRepository.existsByCedula(dto.getCedula())) {
-            throw new IllegalArgumentException("La cédula ya se encuentra registrada.");
-        }
         Usuario usuario = new Usuario();
         usuario.setNombre(dto.getNombre().trim());
         usuario.setApellido(dto.getApellido().trim());
         usuario.setTelefono(dto.getTelefono().trim());
         usuario.setCorreo(correo);
-        usuario.setCedula(dto.getCedula());
         usuario.setTipoNegocio(dto.getTipoNegocio() != null && !dto.getTipoNegocio().isBlank() ? dto.getTipoNegocio().trim() : "Sin definir");
         usuario.setContrasena(passwordEncoder.encode(dto.getContrasena()));
 
@@ -305,7 +301,6 @@ public class AuthServicesImpl implements AuthServices {
             dto.setNombre(e.getNombre());
             dto.setApellido(e.getApellido());
             dto.setCorreo(e.getCorreo());
-            dto.setCedula(e.getCedula());
             dto.setEsAdmin(e.getEsAdmin());
         } else {
             Usuario u = buscarUsuario(cuenta.id());
@@ -313,7 +308,6 @@ public class AuthServicesImpl implements AuthServices {
             dto.setApellido(u.getApellido());
             dto.setCorreo(u.getCorreo());
             dto.setTelefono(u.getTelefono());
-            dto.setCedula(u.getCedula());
             dto.setTipoNegocio(u.getTipoNegocio());
             dto.setCorreoPendiente(u.getCorreoPendiente());
         }
@@ -333,7 +327,7 @@ public class AuthServicesImpl implements AuthServices {
     //Codigo de verificacion de cuenta (columna entera codverif de Supabase)
     private String asignarCodigoVerificacion(Usuario usuario) {
         String codigo = CodigosSeguridad.generarCodigo();
-        usuario.setCodVerif(Integer.valueOf(codigo));
+        usuario.setCodVerif(String.valueOf( codigo ));
         usuario.setCodVerifExpira(LocalDateTime.now().plusMinutes(MINUTOS_VIGENCIA_CODIGO));
         usuario.setCodVerifIntentos(0);
         return codigo;

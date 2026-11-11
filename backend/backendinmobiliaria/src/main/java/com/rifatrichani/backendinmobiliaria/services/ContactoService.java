@@ -1,7 +1,8 @@
 package com.rifatrichani.backendinmobiliaria.services;
-
 import java.util.List;
 
+import com.rifatrichani.backendinmobiliaria.dto.request.SolicitarCodigoDTO;
+import com.rifatrichani.backendinmobiliaria.dto.request.ValidarCodigoDTO;
 import com.rifatrichani.backendinmobiliaria.dto.request.FiltroContactoDTO;
 import com.rifatrichani.backendinmobiliaria.dto.response.ContactoDetalleResponseDTO;
 import com.rifatrichani.backendinmobiliaria.dto.response.ContactoResponseDTO;
@@ -49,4 +50,8 @@ public interface ContactoService {
     List<OpcionFiltroDTO> obtenerPropietarios();
 
     List<OpcionFiltroDTO> obtenerEstatusLead();
+    
+    void generarYEnviarCodigo(SolicitarCodigoDTO dto);
+
+    boolean validarCodigoYCrearLead(ValidarCodigoDTO dto);
 }

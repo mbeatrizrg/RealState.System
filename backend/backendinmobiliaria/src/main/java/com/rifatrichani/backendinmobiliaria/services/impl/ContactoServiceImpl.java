@@ -1,8 +1,10 @@
 package com.rifatrichani.backendinmobiliaria.services.impl;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -10,11 +12,15 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.rifatrichani.backendinmobiliaria.dto.request.FiltroContactoDTO;
+import com.rifatrichani.backendinmobiliaria.dto.request.SolicitarCodigoDTO;
+import com.rifatrichani.backendinmobiliaria.dto.request.ValidarCodigoDTO;
 import com.rifatrichani.backendinmobiliaria.dto.response.ContactoDetalleResponseDTO;
 import com.rifatrichani.backendinmobiliaria.dto.response.ContactoDetalleResponseDTO.InmuebleActividadDTO;
 import com.rifatrichani.backendinmobiliaria.dto.response.ContactoResponseDTO;
@@ -24,12 +30,14 @@ import com.rifatrichani.backendinmobiliaria.dto.response.PaginaResponseDTO;
 import com.rifatrichani.backendinmobiliaria.exceptions.ResourceNotFoundException;
 import com.rifatrichani.backendinmobiliaria.models.Empleado;
 import com.rifatrichani.backendinmobiliaria.models.EstatusLead;
+import com.rifatrichani.backendinmobiliaria.models.Inmueble;
+import com.rifatrichani.backendinmobiliaria.models.Lead;
 import com.rifatrichani.backendinmobiliaria.models.Usuario;
 import com.rifatrichani.backendinmobiliaria.repositories.ComunicacionRepository;
 import com.rifatrichani.backendinmobiliaria.repositories.ContactoEspecificaciones;
 import com.rifatrichani.backendinmobiliaria.repositories.EmpleadoRepository;
 import com.rifatrichani.backendinmobiliaria.repositories.EstatusLeadRepository;
-import com.rifatrichani.backendinmobiliaria.repositories.FavoritoRepository;
+import com.rifatrichani.backendinmobiliaria.repositories.InmuebleRepository;
 import com.rifatrichani.backendinmobiliaria.repositories.LeadRepository;
 import com.rifatrichani.backendinmobiliaria.repositories.UsuarioRepository;
 import com.rifatrichani.backendinmobiliaria.repositories.VistoRepository;
@@ -56,21 +64,98 @@ public class ContactoServiceImpl implements ContactoService {
     private final EmpleadoRepository empleadoRepository;
     private final EstatusLeadRepository estatusLeadRepository;
     private final ComunicacionRepository comunicacionRepository;
-    private final FavoritoRepository favoritoRepository;
     private final VistoRepository vistoRepository;
+    private final InmuebleRepository inmuebleRepository;
+    private final JavaMailSender mailSender;
     private final ExportadorTablas exportador;
 
     public ContactoServiceImpl(UsuarioRepository ur, LeadRepository lr, EmpleadoRepository er, EstatusLeadRepository elr,
-                               ComunicacionRepository cr, FavoritoRepository fr, VistoRepository vr, ExportadorTablas ex) {
+                               ComunicacionRepository cr, VistoRepository vr, 
+                               InmuebleRepository ir, JavaMailSender ms, ExportadorTablas ex) {
         this.usuarioRepository = ur;
         this.leadRepository = lr;
         this.empleadoRepository = er;
         this.estatusLeadRepository = elr;
         this.comunicacionRepository = cr;
-        this.favoritoRepository = fr;
         this.vistoRepository = vr;
+        this.inmuebleRepository = ir;
+        this.mailSender = ms;
         this.exportador = ex;
     }
+
+    // ==========================================
+    // VERIFICACIÓN PÚBLICA (PORTAL WEB)
+    // ==========================================
+
+    @Override
+    @Transactional
+    public void generarYEnviarCodigo(SolicitarCodigoDTO dto) {
+        String codigo = String.format("%06d", ThreadLocalRandom.current().nextInt(1000000));
+
+        Usuario usuario = usuarioRepository.findByCorreoIgnoreCase(dto.correo())
+                .orElseGet(Usuario::new);
+
+        usuario.setNombre(dto.nombre());
+        usuario.setApellido(dto.apellido());
+        usuario.setTelefono(dto.telefono());
+        usuario.setCorreo(dto.correo().toLowerCase().trim());
+        usuario.setCodVerif(codigo);
+        usuario.setCodVerifExpira(LocalDateTime.now().plusMinutes(10));
+        usuario.setCodVerifIntentos(0);
+        usuario.setUltimaActividad(LocalDateTime.now());
+
+        usuarioRepository.save(usuario);
+
+        SimpleMailMessage mensaje = new SimpleMailMessage();
+        mensaje.setTo(usuario.getCorreo());
+        mensaje.setSubject("Código de Verificación - Rifat Richani Bienes Raíces");
+        mensaje.setText("Hola " + dto.nombre() + ",\n\n"
+                + "Tu código para confirmar tus datos de contacto es: " + codigo + "\n\n"
+                + "Este código es válido por 10 minutos.");
+
+        mailSender.send(mensaje);
+    }
+
+    @Override
+    @Transactional
+    public boolean validarCodigoYCrearLead(ValidarCodigoDTO dto) {
+        Usuario usuario = usuarioRepository.findByCorreoIgnoreCase(dto.correo()).orElse(null);
+
+        if (usuario == null || usuario.getCodVerif() == null) {
+            return false;
+        }
+
+        if (usuario.getCodVerifIntentos() >= 3 || LocalDateTime.now().isAfter(usuario.getCodVerifExpira())) {
+            return false;
+        }
+
+        if (!usuario.getCodVerif().equals(dto.codigo().trim())) {
+            usuario.setCodVerifIntentos(usuario.getCodVerifIntentos() + 1);
+            usuarioRepository.save(usuario);
+            return false;
+        }
+
+        usuario.setVerificado(true);
+        usuario.setCodVerif(null);
+        usuario.setCodVerifExpira(null);
+        usuario.setUltimaActividad(LocalDateTime.now());
+        usuarioRepository.save(usuario);
+
+        Inmueble inmueble = inmuebleRepository.findById(dto.idInmueble()).orElse(null);
+        if (inmueble != null) {
+            Lead lead = new Lead();
+            lead.setUsuario(usuario);
+            lead.setInmueble(inmueble);
+            //lead.setVisitado(false);
+            leadRepository.save(lead);
+        }
+
+        return true;
+    }
+
+    // ==========================================
+    // MODULO DE CONTACTOS (CRM)
+    // ==========================================
 
     @Override
     @Transactional(readOnly = true)
@@ -81,7 +166,6 @@ public class ContactoServiceImpl implements ContactoService {
         return PaginaResponseDTO.de(pagina, this::mapear);
     }
 
-    //Cada pestaña con los demas filtros aplicados, para mostrar los numeros junto a las pestañas
     @Override
     @Transactional(readOnly = true)
     public ConteoContactosDTO contar(FiltroContactoDTO filtro, CuentaAutenticada empleado) {
@@ -130,14 +214,9 @@ public class ContactoServiceImpl implements ContactoService {
         dto.setLeads(leadRepository.obtenerPorUsuarioId(usuarioId).stream()
                 .map(LeadServiceImpl::mapearALeadResponseDTO)
                 .toList());
-        //Igual que en /api/comunicacion: el vendedor solo ve la bitacora de los leads de sus inmuebles
         dto.setComunicaciones(comunicacionRepository.obtenerPorUsuarioId(usuarioId).stream()
                 .filter(c -> empleado.esAdmin() || empleado.id().equals(c.getLead().getInmueble().getEmpleado().getId()))
                 .map(ComunicacionServiceImpl::mapearAComunicacionDTO)
-                .toList());
-        dto.setFavoritos(favoritoRepository.findByUsuarioIdAndFavoritoTrueOrderByIdDesc(usuarioId).stream()
-                .map(f -> new InmuebleActividadDTO(f.getInmueble().getId(), f.getInmueble().getTitulo(),
-                        f.getInmueble().getPrecio(), f.getInmueble().getVendido(), null))
                 .toList());
         dto.setVistasRecientes(vistoRepository.obtenerRecientesPorUsuario(usuarioId, PageRequest.of(0, VISTAS_EN_FICHA)).stream()
                 .map(v -> new InmuebleActividadDTO(v.getInmueble().getId(), v.getInmueble().getTitulo(),
@@ -152,10 +231,6 @@ public class ContactoServiceImpl implements ContactoService {
         return mapear(List.of(buscarContacto(usuarioId))).get(0);
     }
 
-    /* Reglas de asignacion:
-       - Administrador: asigna cualquier empleado activo o deja el contacto sin asignar.
-       - Vendedor: puede tomar un contacto sin asignar (solo para si mismo) y liberar los suyos. No puede quitarle un
-         contacto a otro vendedor */
     @Override
     @Transactional
     public void cambiarPropietario(Integer usuarioId, Integer empleadoId, CuentaAutenticada empleado) {
@@ -180,7 +255,6 @@ public class ContactoServiceImpl implements ContactoService {
         usuarioRepository.save(usuario);
     }
 
-    //Todos los empleados (tambien los inactivos: pueden seguir siendo dueños de contactos y se necesitan en el filtro)
     @Override
     @Transactional(readOnly = true)
     public List<OpcionFiltroDTO> obtenerPropietarios() {
@@ -202,7 +276,6 @@ public class ContactoServiceImpl implements ContactoService {
                 .orElseThrow(() -> new ResourceNotFoundException("Contacto no encontrado con ID: " + usuarioId));
     }
 
-    //El id como segundo criterio deja un orden estable entre paginas cuando hay valores repetidos
     private static Sort orden(FiltroContactoDTO filtro) {
         Sort.Direction direccion = "asc".equals(filtro.getDireccion()) ? Sort.Direction.ASC : Sort.Direction.DESC;
         String campo = CAMPOS_ORDEN.getOrDefault(filtro.getOrden(), "fechaCreacion");
@@ -211,7 +284,6 @@ public class ContactoServiceImpl implements ContactoService {
         return orden.and(Sort.by(direccion, "id"));
     }
 
-    //Arma las filas con dos consultas extra para toda la pagina (estatus y cantidad de leads), no una por contacto
     private List<ContactoResponseDTO> mapear(List<Usuario> usuarios) {
         if (usuarios.isEmpty()) return List.of();
         List<Integer> ids = usuarios.stream().map(Usuario::getId).toList();
@@ -230,7 +302,6 @@ public class ContactoServiceImpl implements ContactoService {
             dto.setApellido(u.getApellido());
             dto.setCorreo(u.getCorreo());
             dto.setTelefono(u.getTelefono());
-            dto.setCedula(u.getCedula());
             dto.setTipoNegocio(u.getTipoNegocio());
             dto.setVerificado(u.getVerificado());
             dto.setFechaCreacion(u.getFechaCreacion());
@@ -259,3 +330,4 @@ public class ContactoServiceImpl implements ContactoService {
         };
     }
 }
+
