@@ -66,8 +66,8 @@
         </div>
       </section>
 
-      <!-- Mapa -->
-      <section class="map-section">
+      <section class="info-container">
+        <div class="map-section">
         <h2 class="details-title">Ubicación</h2>
         <p v-if="direccion" class="map-address">{{ direccion }}</p>
         <!-- El mapa se genera con la ubicacion del inmueble; sin ubicacion se muestra la imagen de referencia -->
@@ -81,11 +81,61 @@
           title="Ubicación en el mapa">
         </iframe>
         <img v-else src="/reference-img.png" alt="Ubicación en el mapa" class="map-image" />
+        </div>
+
+        <div class="info-contactos">
+          <h2>Contactanos</h2>
+    <form class="register-form" novalidate @submit.prevent>
+  <!-- PASO 1: Datos Básicos (Se bloquean si ya se envió el código) -->
+  <div class="form-row">
+    <div class="form-group">
+      <label for="firstName">Nombre</label>
+      <input type="text" id="firstName" placeholder="Rifat" v-model.trim="usuario.nombre" :disabled="pasoVerificacion" required />
+    </div>
+    <div class="form-group">
+      <label for="lastName">Apellido</label>
+      <input type="text" id="lastName" placeholder="Richani" v-model.trim="usuario.apellido" :disabled="pasoVerificacion" required />
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="form-group">
+      <label for="phone">Teléfono</label>
+      <input type="tel" id="phone" placeholder="0414-555 5555" v-model.trim="usuario.telefono" :disabled="pasoVerificacion" required />
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="gmail">Correo electrónico</label>
+    <input type="email" id="gmail" placeholder="ejemplo@gmail.com" v-model.trim="usuario.correo" :disabled="pasoVerificacion" required />
+    <span v-if="!pasoVerificacion" class="campo-ayuda">Te enviaremos un código para confirmar tus datos.</span>
+  </div>
+
+  <!-- PASO 2: Código de verificación (Solo aparece si pasoVerificacion es true) -->
+  <div v-if="pasoVerificacion" class="form-group">
+    <label for="codigo">Código de Verificación</label>
+    <input type="text" id="codigo" placeholder="123456" maxlength="6" v-model.trim="codigo" required />
+    <span class="campo-ayuda">Revisa tu correo e ingresa el código numérico.</span>
+  </div>
+
+  <!-- Mensajes de error o éxito -->
+  <p v-if="mensaje" class="form-mensaje" :class="{ 'form-mensaje-error': esError, 'form-mensaje-exito': exito }" role="alert">{{ mensaje }}</p>
+
+  <!-- Botones Dinámicos -->
+  <button v-if="!pasoVerificacion && !exito" type="button" @click="solicitarCodigo" class="btn-submit" :disabled="enviando">
+    {{ enviando ? 'Enviando código...' : 'Contactar' }}
+  </button>
+
+  <button v-else-if="pasoVerificacion && !exito" type="button" @click="confirmarLead" class="btn-submit" :disabled="enviando">
+    {{ enviando ? 'Verificando...' : 'Confirmar y Enviar' }}
+  </button>
+</form>
+        </div>
       </section>
     </template>
   </div>
 
-    <!-- Pie de página hola mundo -->
+    
     <footer class="page-6">
     <!-- boton superior derecho-->
     <!--contenido central-->
@@ -115,9 +165,9 @@
 </template>
 
 <script setup>
-import { computed, ref, watch } from 'vue'
+import { computed, ref, watch, reactive } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-
+import api from '@/api'
 import GaleriaMosaico from '@/components/GaleriaMosaico.vue'
 import { mensajeDeError } from '@/services/api'
 import { obtenerInmueble, registrarVista, textosCaracteristicas } from '@/services/inmuebles'
@@ -125,7 +175,7 @@ import { formatearPrecio, IMAGEN_POR_DEFECTO, urlImagen } from '@/utils/formato'
 
 const route = useRoute()
 const router = useRouter()
-
+const idInmueble = Number(route.params.id)
 const inmueble = ref(null)
 const cargando = ref(true)
 const error = ref('')
@@ -183,6 +233,97 @@ const create = ()=> {
   router.push('/create')
 }
 
-</script>
+const usuario = reactive({ nombre: '', apellido: '', telefono: '', correo: '' })
+const codigo = ref('') // Separado del objeto usuario según tu template
 
+const pasoVerificacion = ref(false)
+const enviando = ref(false)
+const mensaje = ref('')
+const esError = ref(false)
+const exito = ref(false)
+
+// Validación básica del frontend
+function validar() {
+  if (!usuario.nombre || !usuario.apellido) return 'Ingresa tu nombre y apellido.'
+  if (usuario.telefono.length < 10) return 'El teléfono debe tener al menos 10 caracteres.'
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(usuario.correo)) return 'Ingresa un correo electrónico válido.'
+  return ''
+}
+
+// 1. Envía los datos al backend y solicita el código por Gmail
+const solicitarCodigo = async () => {
+  const errorValidacion = validar()
+  if (errorValidacion) {
+    esError.value = true
+    mensaje.value = errorValidacion
+    return
+  }
+
+  esError.value = false
+  mensaje.value = ''
+  enviando.value = true
+
+  try {
+    await api.post('/public/contactos/solicitar-codigo', {
+      nombre: usuario.nombre,
+      apellido: usuario.apellido,
+      telefono: usuario.telefono,
+      correo: usuario.correo,
+      idInmueble: idInmueble
+    })
+    
+    // Cambia la vista para mostrar el input del código
+    pasoVerificacion.value = true
+    esError.value = false
+    mensaje.value = 'Código enviado. Revisa tu bandeja de entrada o carpeta de Spam.'
+  } catch (error) {
+    esError.value = true
+    mensaje.value = error.response?.data?.error || 'Error al enviar el código de verificación.'
+  } finally {
+    enviando.value = false
+  }
+}
+
+// 2. Envía el código de 6 dígitos para validar y crear el Lead en el CRM
+const confirmarLead = async () => {
+  if (!codigo.value || codigo.value.length !== 6) {
+    esError.value = true
+    mensaje.value = 'Ingresa el código completo de 6 dígitos.'
+    return
+  }
+
+  esError.value = false
+  mensaje.value = ''
+  enviando.value = true
+
+  try {
+    await api.post('/public/contactos/validar-codigo', {
+      correo: usuario.correo,
+      codigo: codigo.value,
+      idInmueble: idInmueble
+    })
+    
+    // Estado de éxito
+    exito.value = true
+    esError.value = false
+    mensaje.value = '¡Datos confirmados! Un asesor se comunicará contigo pronto.'
+    
+    // Opcional: Limpiar los campos para evitar reenvíos
+    pasoVerificacion.value = false 
+    usuario.nombre = ''
+    usuario.apellido = ''
+    usuario.telefono = ''
+    usuario.correo = ''
+    codigo.value = ''
+    
+  } catch (error) {
+    esError.value = true
+    mensaje.value = error.response?.data?.error || 'El código es incorrecto o ha expirado.'
+  } finally {
+    enviando.value = false
+  }
+}
+
+</script>
+<style scoped src= "./cuenta/cuenta-style.css"></style>
 <style scoped src= "./detailstyle.css"></style>
