@@ -66,7 +66,7 @@
                   <dt>Fecha de creación</dt><dd>{{ formatearFechaHora(c.fechaCreacion) }}</dd>
                   <dt>Leads</dt><dd>{{ c.cantidadLeads }}</dd>
                   <dt>Negocios</dt><dd>{{ negocios.length }}</dd>
-                  <dt>Favoritos</dt><dd>{{ detalle.favoritos.length }}</dd>
+                  <dt>Favoritos</dt><dd>{{ (detalle.favoritos ?? []).length }}</dd>
                 </template>
               </dl>
               <button type="button" class="enlace" @click="todasLasPropiedades = !todasLasPropiedades">
@@ -186,7 +186,7 @@
             <section class="tarjeta">
               <h2>Actividad en el portal</h2>
               <h3 class="subtitulo-tarjeta">Favoritos</h3>
-              <ul v-if="detalle.favoritos.length" class="lista-inmuebles">
+              <ul v-if="detalle.favoritos?.length" class="lista-inmuebles">
                 <li v-for="f in detalle.favoritos" :key="f.inmuebleId">
                   <router-link :to="`/inmuebles/${f.inmuebleId}`">{{ f.titulo }}</router-link>
                   <span>{{ formatearPrecio(f.precio) }}<template v-if="f.vendido"> · Vendido</template></span>
@@ -194,7 +194,7 @@
               </ul>
               <p v-else class="texto">No ha guardado inmuebles en favoritos.</p>
               <h3 class="subtitulo-tarjeta">Vistos recientemente</h3>
-              <ul v-if="detalle.vistasRecientes.length" class="lista-inmuebles">
+              <ul v-if="detalle.vistasRecientes?.length" class="lista-inmuebles">
                 <li v-for="(v, i) in detalle.vistasRecientes" :key="`${v.inmuebleId}-${i}`">
                   <router-link :to="`/inmuebles/${v.inmuebleId}`">{{ v.titulo }}</router-link>
                   <span>{{ formatearFechaHora(v.fecha) }}</span>
@@ -310,11 +310,11 @@ const volverA = computed(() => {
   return anterior?.startsWith('/contact?') || anterior === '/contact' ? anterior : '/contact'
 })
 
-const iniciales = computed(() => `${c.value.nombre.charAt(0)}${c.value.apellido.charAt(0)}`.toUpperCase())
+const iniciales = computed(() => `${(c.value.nombre ?? '').charAt(0)}${(c.value.apellido ?? '').charAt(0)}`.toUpperCase())
 
 // Telefonos venezolanos "0414-1234567" -> wa.me/584141234567
 const whatsapp = computed(() => {
-  const digitos = c.value.telefono.replace(/\D/g, '')
+  const digitos = (c.value.telefono ?? '').replace(/\D/g, '')
   if (digitos.length < 10) return ''
   return `https://wa.me/${digitos.startsWith('0') ? `58${digitos.slice(1)}` : digitos}`
 })

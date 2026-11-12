@@ -142,7 +142,16 @@ export const buscarContactos = (filtros: FiltrosContactos) =>
 export const contarContactos = (filtros: FiltrosContactos) =>
   api.get<ConteoContactos>(`/api/contactos/conteos${aQuery(filtros)}`)
 
-export const obtenerContacto = (id: number | string) => api.get<ContactoDetalle>(`/api/contactos/${id}`)
+export const obtenerContacto = async (id: number | string): Promise<ContactoDetalle> => {
+  const d = await api.get<ContactoDetalle>(`/api/contactos/${id}`)
+  return {
+    ...d,
+    leads: d.leads ?? [],
+    comunicaciones: d.comunicaciones ?? [],
+    favoritos: d.favoritos ?? [],
+    vistasRecientes: d.vistasRecientes ?? [],
+  }
+}
 
 export const obtenerPropietarios = () => api.get<Catalogo[]>('/api/contactos/propietarios')
 

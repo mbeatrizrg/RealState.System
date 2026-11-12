@@ -7,10 +7,10 @@ import java.util.List;
    Un vendedor solo recibe las comunicaciones de los leads de sus inmuebles; el admin recibe todas */
 public class ContactoDetalleResponseDTO {
     private ContactoResponseDTO contacto;
-    private List<LeadResponseDTO> leads;
-    private List<ComunicacionResponseDTO> comunicaciones;
-    private List<InmuebleActividadDTO> favoritos;
-    private List<InmuebleActividadDTO> vistasRecientes;
+    private List<LeadResponseDTO> leads = List.of();
+    private List<ComunicacionResponseDTO> comunicaciones = List.of();
+    private List<InmuebleActividadDTO> favoritos = List.of();
+    private List<InmuebleActividadDTO> vistasRecientes = List.of();
 
     //Inmueble que el contacto guardo en favoritos o vio en el portal (fecha = cuando lo vio; null en favoritos)
     public record InmuebleActividadDTO(Integer inmuebleId, String titulo, Integer precio, Boolean vendido, LocalDateTime fecha) {}
