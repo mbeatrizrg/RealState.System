@@ -51,7 +51,7 @@ public interface ContactoService {
 
     List<OpcionFiltroDTO> obtenerEstatusLead();
     
-    void generarYEnviarCodigo(SolicitarCodigoDTO dto);
+    boolean generarYEnviarCodigo(SolicitarCodigoDTO dto);
 
     boolean validarCodigoYCrearLead(ValidarCodigoDTO dto);
 }

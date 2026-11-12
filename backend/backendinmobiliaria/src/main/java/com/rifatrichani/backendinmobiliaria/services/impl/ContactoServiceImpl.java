@@ -91,12 +91,20 @@ public class ContactoServiceImpl implements ContactoService {
 
     @Override
     @Transactional
-    public void generarYEnviarCodigo(SolicitarCodigoDTO dto) {
-        String codigo = CodigosSeguridad.generarCodigo();
+    public boolean generarYEnviarCodigo(SolicitarCodigoDTO dto) {
         String correo = dto.correo().trim().toLowerCase();
 
-        Usuario usuario = usuarioRepository.findByCorreoIgnoreCase(correo)
-                .orElseGet(Usuario::new);
+        Usuario usuario = usuarioRepository.findByCorreoIgnoreCase(correo).orElse(null);
+
+        // Un correo solo se puede registrar una vez: si ya fue verificado previamente no permite volver a registrarlo
+        if (usuario != null && Boolean.TRUE.equals(usuario.getVerificado())) {
+            throw new IllegalArgumentException("Este correo ya se encuentra registrado.");
+        }
+
+        String codigo = CodigosSeguridad.generarCodigo();
+        if (usuario == null) {
+            usuario = new Usuario();
+        }
 
         usuario.setNombre(dto.nombre().trim());
         usuario.setApellido(dto.apellido().trim());
@@ -116,6 +124,7 @@ public class ContactoServiceImpl implements ContactoService {
                 "Código de Verificación",
                 "Tu código para confirmar tus datos de contacto e interés en la propiedad.",
                 codigo, 10);
+        return true;
     }
 
     @Override

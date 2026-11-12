@@ -268,18 +268,30 @@ const solicitarCodigo = async () => {
   enviando.value = true
 
   try {
-    await api.post('/public/contactos/solicitar-codigo', {
+    const { data } = await api.post('/public/contactos/solicitar-codigo', {
       nombre: usuario.nombre,
       apellido: usuario.apellido,
       telefono: usuario.telefono,
       correo: usuario.correo,
       idInmueble: Number(route.params.id)
     })
-    
-    // Cambia la vista para mostrar el input del código
-    pasoVerificacion.value = true
-    esError.value = false
-    mensaje.value = 'Código enviado. Revisa tu bandeja de entrada o carpeta de Spam.'
+
+    if (data?.yaVerificado) {
+      exito.value = true
+      pasoVerificacion.value = false
+      esError.value = false
+      mensaje.value = data.mensaje || 'Tu correo ya está registrado. Un asesor se comunicará contigo pronto.'
+      usuario.nombre = ''
+      usuario.apellido = ''
+      usuario.telefono = ''
+      usuario.correo = ''
+      codigo.value = ''
+    } else {
+      // Cambia la vista para mostrar el input del código
+      pasoVerificacion.value = true
+      esError.value = false
+      mensaje.value = 'Código enviado. Revisa tu bandeja de entrada o carpeta de Spam.'
+    }
   } catch (error) {
     esError.value = true
     mensaje.value = error.response?.data?.mensaje || error.response?.data?.error || 'Error al enviar el código de verificación.'

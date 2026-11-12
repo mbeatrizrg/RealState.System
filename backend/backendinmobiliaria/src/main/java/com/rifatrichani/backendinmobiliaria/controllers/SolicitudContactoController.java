@@ -25,11 +25,18 @@ public class SolicitudContactoController {
         this.contactoService = cs;
     }
 
-    // 1. Recibe datos del cliente web y le envía el código de 6 dígitos por Gmail
+    // 1. Recibe datos del cliente web y le envía el código de 6 dígitos por Gmail (o registra el interés directo si ya estaba verificado)
     @PostMapping("/solicitar-codigo")
     public ResponseEntity<?> solicitarCodigo(@Valid @RequestBody SolicitarCodigoDTO dto) {
-        contactoService.generarYEnviarCodigo(dto);
-        return ResponseEntity.ok(Map.of("mensaje", "Código de verificación enviado a tu correo electrónico."));
+        boolean requiereCodigo = contactoService.generarYEnviarCodigo(dto);
+        if (!requiereCodigo) {
+            return ResponseEntity.ok(Map.of(
+                    "yaVerificado", true,
+                    "mensaje", "Tu correo ya está registrado. Hemos enviado tu solicitud al asesor con tus datos guardados."));
+        }
+        return ResponseEntity.ok(Map.of(
+                "yaVerificado", false,
+                "mensaje", "Código de verificación enviado a tu correo electrónico."));
     }
 
     // 2. Valida el código de 6 dígitos ingresado en el frontend y crea el Lead
