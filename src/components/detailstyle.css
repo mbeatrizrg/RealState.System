@@ -216,6 +216,56 @@
   opacity: 0.9;
 }
 
+.cliente-registrado-box {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.btn-whatsapp {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background-color: #1fa855;
+  color: #ffffff;
+  border-radius: 8px;
+  padding: 12px 20px;
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background-color 0.2s, opacity 0.2s;
+  margin-top: 4px;
+}
+
+.btn-whatsapp:hover {
+  background-color: #188c46;
+}
+
+.whatsapp-btn-icon {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+}
+
+.link-cambiar-correo {
+  background: none;
+  border: none;
+  padding: 6px 0 0;
+  color: #214f96;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: underline;
+  cursor: pointer;
+  text-align: left;
+}
+
+.link-cambiar-correo:hover {
+  color: #0b1f46;
+}
+
 .campo-ayuda {
   font-size: 10px;
   color: #5b6b8c;

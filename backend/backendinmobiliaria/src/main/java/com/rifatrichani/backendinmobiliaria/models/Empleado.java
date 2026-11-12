@@ -44,6 +44,8 @@ public class Empleado {
     private LocalDateTime resetExpira;
     @Column (name = "reset_intentos", nullable = false)
     private Integer resetIntentos = 0;
+    @Column (name = "telefono")
+    private String telefono = "04122109838";
     public Integer getId() {
         return id;
     }
@@ -121,5 +123,11 @@ public class Empleado {
     }
     public void setResetIntentos(Integer resetIntentos) {
         this.resetIntentos = resetIntentos;
+    }
+    public String getTelefono() {
+        return telefono;
+    }
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
     }
 }

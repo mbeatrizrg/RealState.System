@@ -50,4 +50,18 @@ public class SolicitudContactoController {
         }
         return ResponseEntity.ok(Map.of("mensaje", "Contacto verificado exitosamente."));
     }
+
+    // 3. Permite a un cliente que ya verificó su correo anteriormente contactar sobre un inmueble y abrir WhatsApp sin volver a registrarse
+    @PostMapping("/cliente-registrado")
+    public ResponseEntity<?> clienteRegistrado(@RequestBody Map<String, Object> body) {
+        String correo = body.get("correo") != null ? String.valueOf(body.get("correo")) : "";
+        Integer idInmueble = body.get("idInmueble") instanceof Number n ? n.intValue() : null;
+        var cliente = contactoService.verificarClienteRegistrado(correo, idInmueble);
+        return ResponseEntity.ok(Map.of(
+                "nombre", cliente.getNombre() != null ? cliente.getNombre() : "",
+                "apellido", cliente.getApellido() != null ? cliente.getApellido() : "",
+                "correo", cliente.getCorreo() != null ? cliente.getCorreo() : "",
+                "telefono", cliente.getTelefono() != null ? cliente.getTelefono() : "",
+                "mensaje", "Bienvenido de nuevo. Ya puedes escribirle directamente al vendedor por WhatsApp."));
+    }
 }

@@ -11,6 +11,8 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
+import jakarta.annotation.PostConstruct;
+
 /* Con ddl-auto=none Hibernate no revisa las tablas al arrancar: si falta una migracion de db/migraciones el backend
    arranca igual y las pantallas fallan despues con un 500 poco claro. Aqui se prueba una consulta minima por migracion
    y se avisa en el log cual hay que ejecutar en Supabase > SQL Editor. No modifica nada */
@@ -36,6 +38,16 @@ public class VerificacionEsquema {
 
     public VerificacionEsquema(JdbcTemplate jdbc) {
         this.jdbc = jdbc;
+    }
+
+    @PostConstruct
+    public void asegurarTelefonoEmpleado() {
+        try {
+            jdbc.execute("ALTER TABLE public.\"Empleado\" ADD COLUMN IF NOT EXISTS telefono VARCHAR(30) DEFAULT '04122109838'");
+            jdbc.execute("UPDATE public.\"Empleado\" SET telefono = '04122109838' WHERE telefono IS NULL OR btrim(telefono) = ''");
+        } catch (DataAccessException e) {
+            log.warn("No se pudo asegurar la columna telefono en Empleado: {}", e.getMostSpecificCause().getMessage());
+        }
     }
 
     @EventListener(ApplicationReadyEvent.class)

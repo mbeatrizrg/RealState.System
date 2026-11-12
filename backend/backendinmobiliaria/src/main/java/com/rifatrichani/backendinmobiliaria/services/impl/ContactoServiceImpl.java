@@ -173,6 +173,43 @@ public class ContactoServiceImpl implements ContactoService {
         return true;
     }
 
+    @Override
+    @Transactional
+    public ContactoResponseDTO verificarClienteRegistrado(String correo, Integer idInmueble) {
+        String correoLimpio = correo == null ? "" : correo.trim().toLowerCase();
+        Usuario usuario = usuarioRepository.findByCorreoIgnoreCase(correoLimpio).orElse(null);
+        if (usuario == null || !Boolean.TRUE.equals(usuario.getVerificado())) {
+            throw new IllegalArgumentException("Este correo aún no está registrado. Completa el formulario para verificarlo.");
+        }
+
+        usuario.setUltimaActividad(LocalDateTime.now());
+        if (idInmueble != null) {
+            Inmueble inmueble = inmuebleRepository.findById(idInmueble).orElse(null);
+            if (inmueble != null) {
+                if (usuario.getPropietario() == null && inmueble.getEmpleado() != null) {
+                    usuario.setPropietario(inmueble.getEmpleado());
+                }
+                if (!leadRepository.existsByUsuarioIdAndInmuebleId(usuario.getId(), inmueble.getId())) {
+                    Lead lead = new Lead();
+                    lead.setUsuario(usuario);
+                    lead.setInmueble(inmueble);
+                    lead.setEstatus(LeadServiceImpl.ESTATUS_INICIAL);
+                    leadRepository.save(lead);
+                }
+            }
+        }
+        usuarioRepository.save(usuario);
+
+        ContactoResponseDTO dto = new ContactoResponseDTO();
+        dto.setId(usuario.getId());
+        dto.setNombre(usuario.getNombre());
+        dto.setApellido(usuario.getApellido());
+        dto.setCorreo(usuario.getCorreo());
+        dto.setTelefono(usuario.getTelefono());
+        dto.setVerificado(true);
+        return dto;
+    }
+
     // ==========================================
     // MODULO DE CONTACTOS (CRM)
     // ==========================================

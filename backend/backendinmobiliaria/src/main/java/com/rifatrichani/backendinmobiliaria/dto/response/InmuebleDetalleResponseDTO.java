@@ -17,6 +17,7 @@ public class InmuebleDetalleResponseDTO {
     private String nombreTipoInmueble;
     private String nombreEstatus;
     private String nombreEmpleado;
+    private String telefonoEmpleado;
     //Lista para mantener el formato del frontend, aunque en Supabase cada inmueble tiene un solo extra
     private List<String> extras;
     private List<String> urlsGaleria;
@@ -55,6 +56,8 @@ public class InmuebleDetalleResponseDTO {
     public void setNombreEstatus(String nombreEstatus) { this.nombreEstatus = nombreEstatus; }
     public String getNombreEmpleado() { return nombreEmpleado; }
     public void setNombreEmpleado(String nombreEmpleado) { this.nombreEmpleado = nombreEmpleado; }
+    public String getTelefonoEmpleado() { return telefonoEmpleado; }
+    public void setTelefonoEmpleado(String telefonoEmpleado) { this.telefonoEmpleado = telefonoEmpleado; }
     public List<String> getExtras() { return extras; }
     public void setExtras(List<String> extras) { this.extras = extras; }
     public List<String> getUrlsGaleria() { return urlsGaleria; }

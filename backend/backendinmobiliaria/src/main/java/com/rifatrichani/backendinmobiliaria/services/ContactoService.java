@@ -54,4 +54,6 @@ public interface ContactoService {
     boolean generarYEnviarCodigo(SolicitarCodigoDTO dto);
 
     boolean validarCodigoYCrearLead(ValidarCodigoDTO dto);
+
+    ContactoResponseDTO verificarClienteRegistrado(String correo, Integer idInmueble);
 }

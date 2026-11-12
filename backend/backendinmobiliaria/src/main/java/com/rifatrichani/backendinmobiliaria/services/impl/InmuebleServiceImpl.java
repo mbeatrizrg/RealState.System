@@ -115,6 +115,10 @@ public class InmuebleServiceImpl implements InmuebleService {
         dto.setNombreEstatus(describirEstado(inmueble));
         Empleado vendedor = inmueble.getEmpleado();
         dto.setNombreEmpleado(vendedor.getNombre() + (vendedor.getApellido() != null ? " " + vendedor.getApellido() : ""));
+        String telVendedor = (vendedor.getTelefono() != null && !vendedor.getTelefono().isBlank())
+                ? vendedor.getTelefono().trim()
+                : "04122109838";
+        dto.setTelefonoEmpleado(telVendedor);
         dto.setExtras(inmueble.getExtra() == null ? List.of() : List.of(inmueble.getExtra().getNombre()));
         List<Galeria> galeria = galeriaRepository.findByInmuebleIdOrderByIdAsc(id);
         dto.setUrlsGaleria(galeria.stream().map(Galeria::getUrlImagen).collect(Collectors.toList()));

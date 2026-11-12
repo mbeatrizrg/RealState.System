@@ -46,6 +46,7 @@ export interface InmuebleDetalle {
   isAlquiler: boolean
   isVendido: boolean
   nombreEmpleado: string
+  telefonoEmpleado?: string | null
   // Caracteristicas (null = sin registrar)
   habitaciones: number | null
   banos: number | null
