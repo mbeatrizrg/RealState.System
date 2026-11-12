@@ -260,7 +260,7 @@ class ContactoServiceTest {
         i.setExtra(extra);
         i.setEmpleado(vendedor);
         i.setVendido(false);
-        i.setAlquiler(false);
+        i.setIsAlquiler(false);
         em.persist(i);
         return i;
     }

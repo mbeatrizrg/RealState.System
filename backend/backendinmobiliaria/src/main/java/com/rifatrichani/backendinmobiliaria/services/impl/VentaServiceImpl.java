@@ -46,7 +46,7 @@ public class VentaServiceImpl implements VentaService {
         venta.setComision(BigDecimal.ZERO);
         Integer id = ventaRepository.save(venta).getId();
         //Tambien marca isVendido (ver Inmueble.cambiarEstado)
-        inmueble.cambiarEstado(Boolean.TRUE.equals(inmueble.getAlquiler()) ? "alquilado" : "vendido");
+        inmueble.cambiarEstado(Boolean.TRUE.equals(inmueble.getIsAlquiler()) ? "alquilado" : "vendido");
         inmuebleRepository.save(inmueble);
         return id;
     }

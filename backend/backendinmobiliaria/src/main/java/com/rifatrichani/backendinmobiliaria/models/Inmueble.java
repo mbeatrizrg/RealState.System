@@ -50,7 +50,7 @@ public class Inmueble {
     @Column (name = "\"isVendido\"", nullable = false)
     private Boolean vendido;
     @Column (name = "\"isAlquiler\"", nullable = false)
-    private Boolean alquiler;
+    private Boolean isAlquiler;
     //Modulo de Inmuebles (db/migraciones/006): disponible, reservado, vendido o alquilado. isVendido se mantiene sincronizado
     @Column (length = 20, nullable = false)
     private String estado = ESTADO_DISPONIBLE;
@@ -150,11 +150,11 @@ public class Inmueble {
     public void setVendido(Boolean vendido) {
         this.vendido = vendido;
     }
-    public Boolean getAlquiler() {
-        return alquiler;
+    public Boolean getIsAlquiler() {
+        return isAlquiler;
     }
-    public void setAlquiler(Boolean alquiler) {
-        this.alquiler = alquiler;
+    public void setIsAlquiler(Boolean isAlquiler) {
+        this.isAlquiler = isAlquiler;
     }
     public String getEstado() {
         return estado;

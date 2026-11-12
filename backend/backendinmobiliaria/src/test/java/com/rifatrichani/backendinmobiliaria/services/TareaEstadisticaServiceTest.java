@@ -294,7 +294,7 @@ class TareaEstadisticaServiceTest {
         i.setExtra(extra);
         i.setEmpleado(asesor);
         i.setVendido(false);
-        i.setAlquiler(false);
+        i.setIsAlquiler(false);
         em.persist(i);
         return i;
     }

@@ -40,7 +40,7 @@ final class MapeosCrm {
     static PropiedadResponseDTO propiedad(Inmueble i, long negociosAbiertos, String urlImagenPrincipal) {
         Empleado asesor = i.getEmpleado();
         return new PropiedadResponseDTO(i.getId(), i.getRrbr(), i.getTitulo(), i.getTipoInmueble().getId(),
-                i.getTipoInmueble().getNombre(), Boolean.TRUE.equals(i.getAlquiler()) ? "alquiler" : "venta",
+                i.getTipoInmueble().getNombre(), Boolean.TRUE.equals(i.getIsAlquiler()) ? "alquiler" : "venta",
                 i.getCiudad() != null ? i.getCiudad().getId() : null, i.getCiudad() != null ? i.getCiudad().getNombre() : null,
                 i.getUbicacion(), i.getPrecio(), i.getEstado(), i.getDuenoNombre(), i.getDuenoTelefono(), i.getDuenoCorreo(),
                 asesor != null ? asesor.getId() : null, nombreEmpleado(asesor), i.getFechaCaptacion(),

@@ -108,7 +108,7 @@ public class InmuebleServiceImpl implements InmuebleService {
         dto.setDescripcion(inmueble.getDescripcion());
         dto.setRrbr(inmueble.getRrbr());
         dto.setUbicacion(inmueble.getUbicacion());
-        dto.setIsAlquiler(inmueble.getAlquiler());
+        dto.setIsAlquiler(inmueble.getIsAlquiler());
         dto.setIsVendido(inmueble.getVendido());
         dto.setNombreCiudad(inmueble.getCiudad() != null ? inmueble.getCiudad().getNombre() : null);
         dto.setNombreTipoInmueble(inmueble.getTipoInmueble().getNombre());
@@ -167,7 +167,7 @@ public class InmuebleServiceImpl implements InmuebleService {
         if (Boolean.TRUE.equals(inmueble.getVendido())) {
             return "Vendido";
         }
-        return Boolean.TRUE.equals(inmueble.getAlquiler()) ? "En alquiler" : "En venta";
+        return Boolean.TRUE.equals(inmueble.getIsAlquiler()) ? "En alquiler" : "En venta";
     }
 
     private Inmueble buscarInmueble(Integer id) {
@@ -180,7 +180,7 @@ public class InmuebleServiceImpl implements InmuebleService {
         inmueble.setPrecio(dto.getPrecio());
         inmueble.setDescripcion(dto.getDescripcion());
         inmueble.setUbicacion(dto.getUbicacion().trim());
-        inmueble.setAlquiler(dto.getIsAlquiler());
+        inmueble.setIsAlquiler(dto.getIsAlquiler());
         inmueble.setCiudad(ciudadRepository.getReferenceById(dto.getCiudadId()));
         inmueble.setTipoInmueble(tipoInmuebleRepository.getReferenceById(dto.getTipoInmuebleId()));
         inmueble.setExtra(extraRepository.getReferenceById(dto.getExtraId()));
@@ -228,7 +228,7 @@ public class InmuebleServiceImpl implements InmuebleService {
         dto.setPrecio(inmueble.getPrecio());
         dto.setUrlImagenPrincipal(urlImagenPrincipal);
         dto.setUbicacion(inmueble.getUbicacion());
-        dto.setIsAlquiler(inmueble.getAlquiler());
+        dto.setIsAlquiler(inmueble.getIsAlquiler());
         dto.setIsVendido(inmueble.getVendido());
         dto.setCiudad(inmueble.getCiudad() != null ? inmueble.getCiudad().getNombre() : null);
         dto.setTipoInmuebleId(inmueble.getTipoInmueble().getId());

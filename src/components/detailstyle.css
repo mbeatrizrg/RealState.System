@@ -58,6 +58,16 @@
   margin-right: -35px;
 }
 
+.check-form{
+  margin-bottom: 8px;
+}
+
+.checkbox-label{
+  font-size: 10px;
+  color: #5b6b8c;
+}
+
+
 .info-left,
 .info-right,
 .map-section,

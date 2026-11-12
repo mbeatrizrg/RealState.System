@@ -7,6 +7,12 @@ import type { FiltrosBusqueda, Orden } from '@/services/inmuebles'
 
 export const TAMANO_PAGINA = 12
 
+export function modalidadAIsAlquiler(modalidad: string): boolean | null {
+  if (modalidad === 'alquiler') return true
+  if (modalidad === 'compra') return false
+  return null
+}
+
 const ciudades = ref<Catalogo[]>([])
 const tiposInmueble = ref<Catalogo[]>([])
 const errorCatalogos = ref('')
@@ -18,7 +24,7 @@ const filtros = reactive({
   minPrecio: '',
   maxPrecio: '',
   orden: 'recientes' as Orden,
-  isAlquiler: false // Maneja compra (false) y alquiler (true)
+  isAlquiler: false 
 })
 
 // Pagina actual
@@ -52,9 +58,7 @@ export function useFiltros() {
     filtros.minPrecio = valor('minPrecio')
     filtros.maxPrecio = valor('maxPrecio')
     
-    // ==========================================
-    // 2. LEER isAlquiler DESDE LA URL
-    // ==========================================
+
     if (route.query.isAlquiler !== undefined) {
       filtros.isAlquiler = route.query.isAlquiler === 'true'
     }
@@ -91,7 +95,6 @@ export function useFiltros() {
   const irAPagina = (numeroPagina: number) => navegar(numeroPagina)
 
   function limpiarFiltros() {
-    // Se restauran todos los valores, incluyendo isAlquiler a false
     Object.assign(filtros, { q: '', ciudadId: '', tipoInmuebleId: '', minPrecio: '', maxPrecio: '', orden: 'recientes', isAlquiler: false })
     navegar(1)
   }

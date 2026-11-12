@@ -35,10 +35,6 @@
           <p class="property-description">
             {{ inmueble.descripcion || 'Pronto agregaremos la descripción de esta propiedad.' }}
           </p>
-            <!-- PENDIENTE: este boton debe crear un Lead en el CRM -->
-            <button @click="create" class="contact-btn">
-              <span>Contactanos</span>
-            </button>
         </div>
 
         <div class="info-right">
@@ -151,6 +147,18 @@
                 <label for="codigo">Código de Verificación</label>
                 <input type="text" id="codigo" placeholder="123456" maxlength="6" v-model.trim="codigo" required />
                 <span class="campo-ayuda">Revisa tu correo e ingresa el código numérico.</span>
+              
+              </div class="check-form">
+
+              <input class="form-check" type="checkbox" id="terminos" v-model="usuario.aceptaTerminos" required />
+              <label for="terminos" class="checkbox-label">
+                Acepto el uso de mis datos personales para fines de este formulario.
+              </label>
+              <div>
+              <input class="form-check" type="checkbox" id="promociones" v-model="usuario.aceptaPromociones" />
+              <label for="promociones" class="checkbox-label">
+                Autorizo el envio de informacion y promociones de Rifat Richani Bienes Raices.
+              </label>
               </div>
             </template>
 

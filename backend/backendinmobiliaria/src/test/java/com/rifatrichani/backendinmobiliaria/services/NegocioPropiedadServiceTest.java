@@ -330,7 +330,7 @@ class NegocioPropiedadServiceTest {
         i.setExtra(extra);
         i.setEmpleado(asesor);
         i.setVendido(false);
-        i.setAlquiler(alquiler);
+        i.setIsAlquiler(alquiler);
         em.persist(i);
         return i;
     }
