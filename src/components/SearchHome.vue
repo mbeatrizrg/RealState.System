@@ -12,64 +12,12 @@
         <button @click="toggleMenu" class="menu-btn">
           <span>{{ isMenuOpen ? 'Cerrar' : 'Menu' }}</span>
         </button> 
-        <button @click="signIn" class="inc-btn">
-          <span>Iniciar Sesión</span>
-        </button> 
       </nav>
     </header>
-
-    <main class="bar">
-      <!-- Barra de Filtros / Búsqueda -->
-
-      <section class="background">
-                <!-- Barra de filtros -->
-        <div class="filter-bar">
-
-         <!-- Nivel Superior: Pestañas -->
-        <div class="filter-tabs">
-          <!-- Cambiamos a isAlquiler. value=false significa Venta/Comprar -->
-          <input type="radio" id="modalidad-compra" :value="false" class="hidden-input" v-model="filtros.isAlquiler">
-          <label for="modalidad-compra" class="tab-label">Comprar</label>
-    
-          <!-- value=true significa Alquilar -->
-          <input type="radio" id="modalidad-alquiler" :value="true" class="hidden-input" v-model="filtros.isAlquiler">
-          <label for="modalidad-alquiler" class="tab-label">Alquilar</label>
-        </div>
-        
-        <div class="filter-inputs">
-          <div class="filter-group">
-            <label for="locacion">Locación</label>
-            <select id="locacion" v-model="filtros.ciudadId">
-              <option value="" disabled selected>Ciudades</option>
-              <option v-for="ciudad in ciudades" :key="ciudad.id" :value="ciudad.id">
-                {{ ciudad.nombre || ciudad.descripcion }}
-              </option>
-            </select>
-          </div>
-
-          <div class="divider"></div>
-
-          <div class="filter-group">
-            <label for="tipo">Tipo de Propiedad</label>
-            <!-- Cambiamos a tipoInmuebleId -->
-            <select id="tipo" v-model="filtros.tipoInmuebleId">
-              <option value="" disabled selected>Seleccione</option>
-              <option v-for="tipo in tiposInmueble" :key="tipo.id" :value="tipo.id">
-                {{ tipo.nombre || tipo.descripcion }}
-              </option>
-            </select>
-          </div>
-
-          <div class="divider"></div>
-          
-          <button @click="buscar" class="search-btn">
-            <img src="/lupa.svg" alt="" />
-            <span>Buscar Propiedad</span>
-          </button>
-        </div>
-      </div>
-      </section>
-    </main>
+    <!-- Barra de Filtros -->
+     <div class="filter-bar">
+      <FilterBar />
+     </div>
       <!-- Grid de Tarjetas de Propiedades -->
       <section class="properties-grid">
         <p v-if="cargando" class="estado-msg">Buscando propiedades...</p>
@@ -92,13 +40,16 @@
             <h3 class="card-title">{{ inmueble.titulo }}</h3>
 
           <div class="details-card">
-            <span class="card-rooms" v-if="inmueble.habitaciones != null || inmueble.banos != null">
-            {{ inmueble.habitaciones || 0 }} habitaciones <template v-if="inmueble.banos != null">| {{ inmueble.banos }} baños</template>
-            </span>
-            <span class="card-area" v-if="inmueble.metrosCuadrados != null">
-            {{ Number(inmueble.metrosCuadrados).toLocaleString('es-VE') }} m² Totales
-            </span>
-        </div>
+    <span class="card-rooms" v-if="inmueble.habitaciones != null || inmueble.banos != null">
+        {{ inmueble.habitaciones || 0 }} {{ inmueble.habitaciones == 1 ? 'habitación' : 'habitaciones' }} 
+        <template v-if="inmueble.banos != null">
+            | {{ inmueble.banos }} {{ inmueble.banos == 1 ? 'baño' : 'baños' }}
+        </template>
+    </span>
+    <span class="card-area" v-if="inmueble.metrosCuadrados != null">
+        {{ Number(inmueble.metrosCuadrados).toLocaleString('es-VE') }} m² Totales
+    </span>
+</div>
 
         <div class="footer-card">
           <span class="card-price">{{ formatearPrecio(inmueble.precio) }}</span>
@@ -123,9 +74,7 @@
         Salir
       </button>
       <img src="/brand2.png" alt="Rifat Richani" class="brand" />
-      <button @click="signIn" class="inc-btn">
-          <span>Iniciar Sesión</span>
-      </button> 
+ 
     </header>
 
     <!-- Menú principal centrado -->
@@ -155,7 +104,7 @@ import { formatearPrecio, urlImagen } from '@/utils/formato'
 
 const route = useRoute()
 const router = useRouter()
-const { ciudades, tiposInmueble, errorCatalogos, filtros, pagina, leerFiltrosDeUrl, filtrosParaApi, buscar, irAPagina, limpiarFiltros } = useFiltros()
+const { pagina, leerFiltrosDeUrl, filtrosParaApi, irAPagina } = useFiltros()
 
 const inmuebles = ref([])
 const totalPaginas = ref(0)
@@ -184,7 +133,6 @@ watch(() => route.query, async () => {
 const Home = ()=> {
   router.push('/')
 }
-
 const Search = ()=> {
   router.push('/search')
 }
@@ -198,9 +146,6 @@ const Contact = ()=> {
   router.push('/contacts')
 }
 
-const signIn = ()=> {
-  router.push('/signin')
-}
 // Lógica de JavaScript / Vue (si es necesaria)
 </script>
 
