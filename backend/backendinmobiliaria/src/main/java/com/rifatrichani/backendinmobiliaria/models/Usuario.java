@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 
 import org.hibernate.annotations.CreationTimestamp;
 
-import jakarta.persistence.Transient;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -14,6 +13,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 
 // Cliente del portal web (Contacto / Lead sin autenticación)
 @Entity
@@ -36,10 +36,11 @@ public class Usuario {
     @Column(unique = true, nullable = false)
     private String correo;
 
+    // En Supabase la columna se llama tipo_negocio
     @Column(name = "tipo_negocio")
-    private String tipoNegocio;
+    private String tipoNegocio = "Sin definir";
 
-    // String para preservar ceros a la izquierda en el código de 6 dígitos (ej. "084920")
+    // En Supabase codverif es String
     @Column(name = "codverif")
     private String codVerif;
 
@@ -62,6 +63,22 @@ public class Usuario {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_propietario")
     private Empleado propietario;
+
+    @Column(name = "ci", unique = true)
+    private Integer cedula;
+
+    @Transient
+    private String contrasena;
+    @Transient
+    private String resetCodigo;
+    @Transient
+    private LocalDateTime resetExpira;
+    @Transient
+    private Integer resetIntentos = 0;
+    @Transient
+    private String correoPendiente;
+    @Transient
+    private LocalDateTime tokensValidosDesde;
 
     public Usuario() {}
 
@@ -105,6 +122,13 @@ public class Usuario {
         this.correo = correo;
     }
 
+    public Integer getCedula() {
+        return cedula;
+    }
+
+    public void setCedula(Integer cedula) {
+        this.cedula = cedula;
+    }
 
     public String getTipoNegocio() {
         return tipoNegocio;
@@ -170,20 +194,6 @@ public class Usuario {
         this.propietario = propietario;
     }
 
-    @Transient
-    private String contrasena;
-    @Transient
-    private String resetCodigo;
-    @Transient
-    private java.time.LocalDateTime resetExpira;
-    @Transient
-    private Integer resetIntentos = 0;
-    @Transient
-    private String correoPendiente;
-    @Transient
-    private java.time.LocalDateTime tokensValidosDesde;
-
-    // --- GETTERS Y SETTERS PARA @TRANSIENT ---
     public String getContrasena() { return contrasena; }
     public void setContrasena(String contrasena) { this.contrasena = contrasena; }
     public String getResetCodigo() { return resetCodigo; }

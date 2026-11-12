@@ -17,7 +17,6 @@ import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/public/contactos")
-@CrossOrigin(origins = "*")
 public class SolicitudContactoController {
 
     private final ContactoService contactoService;
@@ -38,7 +37,9 @@ public class SolicitudContactoController {
     public ResponseEntity<?> validarCodigo(@Valid @RequestBody ValidarCodigoDTO dto) {
         boolean esValido = contactoService.validarCodigoYCrearLead(dto);
         if (!esValido) {
-            return ResponseEntity.badRequest().body(Map.of("error", "El código ingresado es incorrecto o ha expirado."));
+            return ResponseEntity.badRequest().body(Map.of(
+                    "mensaje", "El código ingresado es incorrecto o ha expirado.",
+                    "error", "El código ingresado es incorrecto o ha expirado."));
         }
         return ResponseEntity.ok(Map.of("mensaje", "Contacto verificado exitosamente."));
     }

@@ -168,6 +168,7 @@ public class AuthServicesImpl implements AuthServices {
         usuario.setNombre(dto.getNombre().trim());
         usuario.setApellido(dto.getApellido().trim());
         usuario.setTelefono(dto.getTelefono().trim());
+        usuario.setCedula(dto.getCedula());
         usuario.setCorreo(correo);
         usuario.setTipoNegocio(dto.getTipoNegocio() != null && !dto.getTipoNegocio().isBlank() ? dto.getTipoNegocio().trim() : "Sin definir");
         usuario.setContrasena(passwordEncoder.encode(dto.getContrasena()));
@@ -308,6 +309,7 @@ public class AuthServicesImpl implements AuthServices {
             dto.setApellido(u.getApellido());
             dto.setCorreo(u.getCorreo());
             dto.setTelefono(u.getTelefono());
+            dto.setCedula(u.getCedula());
             dto.setTipoNegocio(u.getTipoNegocio());
             dto.setCorreoPendiente(u.getCorreoPendiente());
         }
@@ -327,7 +329,7 @@ public class AuthServicesImpl implements AuthServices {
     //Codigo de verificacion de cuenta (columna entera codverif de Supabase)
     private String asignarCodigoVerificacion(Usuario usuario) {
         String codigo = CodigosSeguridad.generarCodigo();
-        usuario.setCodVerif(String.valueOf( codigo ));
+        usuario.setCodVerif(String.valueOf(codigo));
         usuario.setCodVerifExpira(LocalDateTime.now().plusMinutes(MINUTOS_VIGENCIA_CODIGO));
         usuario.setCodVerifIntentos(0);
         return codigo;

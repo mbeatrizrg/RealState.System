@@ -41,9 +41,11 @@ import com.rifatrichani.backendinmobiliaria.repositories.InmuebleRepository;
 import com.rifatrichani.backendinmobiliaria.repositories.LeadRepository;
 import com.rifatrichani.backendinmobiliaria.repositories.UsuarioRepository;
 import com.rifatrichani.backendinmobiliaria.repositories.VistoRepository;
+import com.rifatrichani.backendinmobiliaria.security.CodigosSeguridad;
 import com.rifatrichani.backendinmobiliaria.security.CuentaAutenticada;
 import com.rifatrichani.backendinmobiliaria.services.ColumnaContacto;
 import com.rifatrichani.backendinmobiliaria.services.ContactoService;
+import com.rifatrichani.backendinmobiliaria.services.CorreoService;
 
 /* Modulo de Contactos del CRM. Un contacto es un Usuario; su propietario es el vendedor asignado (Usuario.propietario)
    y su estatus es el del lead mas reciente. Vendedores y administradores ven todos los contactos (pestaña "Todos");
@@ -66,12 +68,12 @@ public class ContactoServiceImpl implements ContactoService {
     private final ComunicacionRepository comunicacionRepository;
     private final VistoRepository vistoRepository;
     private final InmuebleRepository inmuebleRepository;
-    private final JavaMailSender mailSender;
+    private final CorreoService correoService;
     private final ExportadorTablas exportador;
 
     public ContactoServiceImpl(UsuarioRepository ur, LeadRepository lr, EmpleadoRepository er, EstatusLeadRepository elr,
                                ComunicacionRepository cr, VistoRepository vr, 
-                               InmuebleRepository ir, JavaMailSender ms, ExportadorTablas ex) {
+                               InmuebleRepository ir, CorreoService cs, ExportadorTablas ex) {
         this.usuarioRepository = ur;
         this.leadRepository = lr;
         this.empleadoRepository = er;
@@ -79,7 +81,7 @@ public class ContactoServiceImpl implements ContactoService {
         this.comunicacionRepository = cr;
         this.vistoRepository = vr;
         this.inmuebleRepository = ir;
-        this.mailSender = ms;
+        this.correoService = cs;
         this.exportador = ex;
     }
 
@@ -90,15 +92,19 @@ public class ContactoServiceImpl implements ContactoService {
     @Override
     @Transactional
     public void generarYEnviarCodigo(SolicitarCodigoDTO dto) {
-        String codigo = String.format("%06d", ThreadLocalRandom.current().nextInt(1000000));
+        String codigo = CodigosSeguridad.generarCodigo();
+        String correo = dto.correo().trim().toLowerCase();
 
-        Usuario usuario = usuarioRepository.findByCorreoIgnoreCase(dto.correo())
+        Usuario usuario = usuarioRepository.findByCorreoIgnoreCase(correo)
                 .orElseGet(Usuario::new);
 
-        usuario.setNombre(dto.nombre());
-        usuario.setApellido(dto.apellido());
-        usuario.setTelefono(dto.telefono());
-        usuario.setCorreo(dto.correo().toLowerCase().trim());
+        usuario.setNombre(dto.nombre().trim());
+        usuario.setApellido(dto.apellido().trim());
+        usuario.setTelefono(dto.telefono().trim());
+        usuario.setCorreo(correo);
+        if (usuario.getTipoNegocio() == null || usuario.getTipoNegocio().isBlank()) {
+            usuario.setTipoNegocio("Sin definir");
+        }
         usuario.setCodVerif(codigo);
         usuario.setCodVerifExpira(LocalDateTime.now().plusMinutes(10));
         usuario.setCodVerifIntentos(0);
@@ -106,31 +112,30 @@ public class ContactoServiceImpl implements ContactoService {
 
         usuarioRepository.save(usuario);
 
-        SimpleMailMessage mensaje = new SimpleMailMessage();
-        mensaje.setTo(usuario.getCorreo());
-        mensaje.setSubject("Código de Verificación - Rifat Richani Bienes Raíces");
-        mensaje.setText("Hola " + dto.nombre() + ",\n\n"
-                + "Tu código para confirmar tus datos de contacto es: " + codigo + "\n\n"
-                + "Este código es válido por 10 minutos.");
-
-        mailSender.send(mensaje);
+        correoService.enviarCodigo(usuario.getCorreo(), usuario.getNombre(),
+                "Código de Verificación",
+                "Tu código para confirmar tus datos de contacto e interés en la propiedad.",
+                codigo, 10);
     }
 
     @Override
     @Transactional
     public boolean validarCodigoYCrearLead(ValidarCodigoDTO dto) {
-        Usuario usuario = usuarioRepository.findByCorreoIgnoreCase(dto.correo()).orElse(null);
+        String correo = dto.correo() == null ? "" : dto.correo().trim().toLowerCase();
+        Usuario usuario = usuarioRepository.findByCorreoIgnoreCase(correo).orElse(null);
 
         if (usuario == null || usuario.getCodVerif() == null) {
             return false;
         }
 
-        if (usuario.getCodVerifIntentos() >= 3 || LocalDateTime.now().isAfter(usuario.getCodVerifExpira())) {
+        int intentos = usuario.getCodVerifIntentos() != null ? usuario.getCodVerifIntentos() : 0;
+        if (intentos >= 5 || (usuario.getCodVerifExpira() != null && LocalDateTime.now().isAfter(usuario.getCodVerifExpira()))) {
             return false;
         }
 
-        if (!usuario.getCodVerif().equals(dto.codigo().trim())) {
-            usuario.setCodVerifIntentos(usuario.getCodVerifIntentos() + 1);
+        String codigoIngresado = dto.codigo() == null ? "" : dto.codigo().trim();
+        if (!String.valueOf(usuario.getCodVerif()).equals(codigoIngresado)) {
+            usuario.setCodVerifIntentos(intentos + 1);
             usuarioRepository.save(usuario);
             return false;
         }
@@ -138,18 +143,24 @@ public class ContactoServiceImpl implements ContactoService {
         usuario.setVerificado(true);
         usuario.setCodVerif(null);
         usuario.setCodVerifExpira(null);
+        usuario.setCodVerifIntentos(0);
         usuario.setUltimaActividad(LocalDateTime.now());
-        usuarioRepository.save(usuario);
 
         Inmueble inmueble = inmuebleRepository.findById(dto.idInmueble()).orElse(null);
         if (inmueble != null) {
-            Lead lead = new Lead();
-            lead.setUsuario(usuario);
-            lead.setInmueble(inmueble);
-            //lead.setVisitado(false);
-            leadRepository.save(lead);
+            if (usuario.getPropietario() == null && inmueble.getEmpleado() != null) {
+                usuario.setPropietario(inmueble.getEmpleado());
+            }
+            if (!leadRepository.existsByUsuarioIdAndInmuebleId(usuario.getId(), inmueble.getId())) {
+                Lead lead = new Lead();
+                lead.setUsuario(usuario);
+                lead.setInmueble(inmueble);
+                lead.setEstatus(LeadServiceImpl.ESTATUS_INICIAL);
+                leadRepository.save(lead);
+            }
         }
 
+        usuarioRepository.save(usuario);
         return true;
     }
 

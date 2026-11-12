@@ -83,7 +83,7 @@
         <img v-else src="/reference-img.png" alt="Ubicación en el mapa" class="map-image" />
         </div>
 
-        <div class="info-contactos">
+        <div id="formulario-contacto" class="info-contactos">
           <h2>Contactanos</h2>
     <form class="register-form" novalidate @submit.prevent>
   <!-- PASO 1: Datos Básicos (Se bloquean si ya se envió el código) -->
@@ -230,7 +230,11 @@ const Atras = ()=> {
 }
 
 const create = ()=> {
-  router.push('/create')
+  const seccion = document.getElementById('formulario-contacto')
+  if (seccion) {
+    seccion.scrollIntoView({ behavior: 'smooth', block: 'center' })
+    document.getElementById('firstName')?.focus()
+  }
 }
 
 const usuario = reactive({ nombre: '', apellido: '', telefono: '', correo: '' })
@@ -269,7 +273,7 @@ const solicitarCodigo = async () => {
       apellido: usuario.apellido,
       telefono: usuario.telefono,
       correo: usuario.correo,
-      idInmueble: idInmueble
+      idInmueble: Number(route.params.id)
     })
     
     // Cambia la vista para mostrar el input del código
@@ -278,7 +282,7 @@ const solicitarCodigo = async () => {
     mensaje.value = 'Código enviado. Revisa tu bandeja de entrada o carpeta de Spam.'
   } catch (error) {
     esError.value = true
-    mensaje.value = error.response?.data?.error || 'Error al enviar el código de verificación.'
+    mensaje.value = error.response?.data?.mensaje || error.response?.data?.error || 'Error al enviar el código de verificación.'
   } finally {
     enviando.value = false
   }
@@ -300,7 +304,7 @@ const confirmarLead = async () => {
     await api.post('/public/contactos/validar-codigo', {
       correo: usuario.correo,
       codigo: codigo.value,
-      idInmueble: idInmueble
+      idInmueble: Number(route.params.id)
     })
     
     // Estado de éxito
@@ -318,7 +322,7 @@ const confirmarLead = async () => {
     
   } catch (error) {
     esError.value = true
-    mensaje.value = error.response?.data?.error || 'El código es incorrecto o ha expirado.'
+    mensaje.value = error.response?.data?.mensaje || error.response?.data?.error || 'El código es incorrecto o ha expirado.'
   } finally {
     enviando.value = false
   }
