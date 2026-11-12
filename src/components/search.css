@@ -71,9 +71,10 @@ html, body {
   background: trasparent;
   color: #0b1f46;
   border: none;
-  font-size: 18px;
+  font-size: 1.5rem;
   font-weight: 700;
   cursor: pointer;
+  margin-right: 35px;
 }
 
 .inc-btn {
@@ -88,105 +89,7 @@ html, body {
 }
 
 .filter-bar {
-  position: relative;
-  display: flex;
-  margin-top: 40px;
-  margin: 0 auto;
-  width: 90%;
-  max-width: 1300px;
-  background-color: #ffffff;
-  flex-direction: column;
-  border-radius: 20px;
-  overflow: hidden;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-  
-}
-
-/* Pestañas (Comprar / Alquilar) */
-.filter-tabs {
-  display: flex;
-  width: 100%;
-  border-bottom: 1px solid #e0e0e0;
-}
-
-.hidden-input {
-  display: none;
-}
-
-.tab-label {
-  flex: 1; /* Ambas pestañas miden el 50% */
-  text-align: center;
-  padding: 16px 0;
-  font-size: 20px;
-  font-weight: 500;
-  color: #1c1c1c;
-  background-color: #ffffff;
-  cursor: pointer;
-  transition: background-color 0.2s;
-}
-
-/* Cuando seleccionas la modalidad, el fondo cambia a gris claro */
-.hidden-input:checked + .tab-label {
-  background-color: #dcdcdc;
-}
-
-/* Fila inferior de inputs */
-.filter-inputs {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  padding: 10px 30px;
-  flex: 1;
-  gap: 20px;
-}
-
-.filter-group {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  gap: 5px;
-}
-
-.filter-group label {
-  font-size: 18px;
-  font-weight: 500;
-  color: #000000; /* Títulos en negro */
-}
-
-.filter-group select {
-  font-size: 14px;
-  color: #888888; /* Valor seleccionado en gris */
-  border: none;
-  outline: none;
-  background: transparent;
-  cursor: pointer;
-}
-
-/* Líneas divisorias verticales entre filtros */
-.divider {
-  width: 1px;
-  height: 45px;
-  background-color: #e0e0e0;
-}
-
-/* Botón Buscar */
-.search-btn {
-  background-color: #0b1f46;
-  color: #ffffff;
-  border: none;
-  border-radius: 12px;
-  padding: 14px 24px;
-  font-size: 15px;
-  font-weight: 600;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  cursor: pointer;
-}
-
-.search-btn img {
-  width: 18px;
-  height: 18px;
+  margin-top:100px;
 }
 
 .properties-grid{
@@ -273,11 +176,10 @@ html, body {
 .card-title {
   padding-left: 10px;
   padding-top: 15px;
-  margin-bottom: 5px;
+  margin-top: 10px;
   font-size: 15px;
   font-weight: 600;
   color: #000000;
-  margin: 0;
 }
 
 .details-card {
@@ -369,7 +271,7 @@ html, body {
   background: none;
   border: none;
   color: #ffffff;
-  font-size: 1.1rem;
+  font-size: 1.5rem;
   font-weight: bold;
   cursor: pointer;
 }

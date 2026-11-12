@@ -48,63 +48,7 @@
         </aside>
 
         <!-- Barra de filtros -->
-        <div class="filter-bar">
-  <!-- Nivel Superior: Pestañas -->
-  <div class="filter-tabs">
-    <input
-      type="radio"
-      id="modalidad-compra"
-      name="modalidad"
-      value="compra"
-      v-model="modalidad"
-      class="hidden-input"
-    />
-    <label for="modalidad-compra" class="tab-label">Comprar</label>
-
-    <input
-      type="radio"
-      id="modalidad-alquiler"
-      name="modalidad"
-      value="alquiler"
-      v-model="modalidad"
-      class="hidden-input"
-    />
-    <label for="modalidad-alquiler" class="tab-label">Alquilar</label>
-  </div>
-
-  <div class="filter-inputs">
-    <!-- Locación / Ciudades -->
-    <div class="filter-group">
-      <label for="locacion">Locación</label>
-      <select id="locacion" name="locacion" v-model="ciudadSeleccionada">
-        <option value="">Todas las ciudades</option>
-        <option v-for="ciudad in ciudades" :key="ciudad.id" :value="ciudad.id">
-          {{ ciudad.nombre }}
-        </option>
-      </select>
-    </div>
-
-    <div class="divider"></div>
-
-    <!-- Tipo de Propiedad -->
-    <div class="filter-group">
-      <label for="tipo">Tipo de Propiedad</label>
-      <select id="tipo" name="tipo" v-model="tipoSeleccionado">
-        <option value="">Todos los tipos</option>
-        <option v-for="tipo in tiposInmueble" :key="tipo.id" :value="tipo.id">
-          {{ tipo.nombre }}
-        </option>
-      </select>
-    </div>
-
-    <div class="divider"></div>
-
-    <button @click="Search" class="search-btn">
-      <img src="/lupa.svg" alt="" />
-      <span>Buscar Propiedad</span>
-    </button>
-  </div>
-</div>
+         <FilterBar />
       </section>
   </div>
   
@@ -349,8 +293,6 @@ const Search = () => {
     query.tipoInmuebleId = tipoSeleccionado.value
   }
 
-  // Redirecciona enviando los parametros en la URL
-  // Ejemplo: /search?isAlquiler=false&ciudadId=1&tipoInmuebleId=3
   router.push({ path: '/search', query })
 }
 
@@ -365,10 +307,6 @@ const Home = ()=> {
 
 const Contact = ()=> {
   router.push('/contacts')
-}
-
-const signIn = ()=> {
-  router.push('/signin')
 }
 
 const isOpen = ref(true) 
