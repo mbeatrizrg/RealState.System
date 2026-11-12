@@ -12,9 +12,6 @@
         <button @click="toggleMenu" class="menu-btn">
           <span>{{ isMenuOpen ? 'Cerrar' : 'Menu' }}</span>
         </button> 
-        <button @click="signIn" class="inc-btn">
-          <span>Iniciar Sesión</span>
-        </button> 
       </nav>
     </header>
 
@@ -138,11 +135,14 @@
 
               <h3 class="card-title">{{ inmueble.titulo }}</h3>
 
-              <div class="card-details">
-                <span class="card-rooms" v-if="inmueble.habitaciones != null || inmueble.banos != null">
-                {{ inmueble.habitaciones || 0 }} habitaciones <template v-if="inmueble.banos != null">| {{ inmueble.banos }} baños</template>
-                </span>
-                <span class="card-area" v-if="inmueble.metrosCuadrados != null">
+          <div class="card-details">
+              <span class="card-rooms" v-if="inmueble.habitaciones != null || inmueble.banos != null">
+                {{ inmueble.habitaciones || 0 }} {{ inmueble.habitaciones == 1 ? 'habitación' : 'habitaciones' }} 
+                <template v-if="inmueble.banos != null">
+            |   {{ inmueble.banos }} {{ inmueble.banos == 1 ? 'baño' : 'baños' }}
+            </template>
+              </span>
+              <span class="card-area" v-if="inmueble.metrosCuadrados != null">
                 {{ Number(inmueble.metrosCuadrados).toLocaleString('es-VE') }} m² Totales
                 </span>
             </div>
@@ -266,9 +266,6 @@
         Salir
         </button>
         <img src="/brand2.png" alt="Rifat Richani" class="brand" />
-        <button @click="signIn" class="inc-btn">
-            <span>Iniciar Sesión</span>
-        </button> 
       </header>
 
       <!-- Menú principal centrado -->

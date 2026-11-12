@@ -18,7 +18,7 @@ public class FiltroInmuebleDTO {
     private Integer ciudadId;
     private Integer tipoInmuebleId;
     private Integer extraId;
-    private Boolean isAlquiler;
+    private Boolean alquiler;
     @PositiveOrZero(message = "El precio mínimo no puede ser negativo")
     private Integer minPrecio;
     @PositiveOrZero(message = "El precio máximo no puede ser negativo")

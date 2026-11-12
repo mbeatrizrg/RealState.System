@@ -92,13 +92,16 @@
             <h3 class="card-title">{{ inmueble.titulo }}</h3>
 
           <div class="details-card">
-            <span class="card-rooms" v-if="inmueble.habitaciones != null || inmueble.banos != null">
-            {{ inmueble.habitaciones || 0 }} habitaciones <template v-if="inmueble.banos != null">| {{ inmueble.banos }} baños</template>
-            </span>
-            <span class="card-area" v-if="inmueble.metrosCuadrados != null">
-            {{ Number(inmueble.metrosCuadrados).toLocaleString('es-VE') }} m² Totales
-            </span>
-        </div>
+    <span class="card-rooms" v-if="inmueble.habitaciones != null || inmueble.banos != null">
+        {{ inmueble.habitaciones || 0 }} {{ inmueble.habitaciones == 1 ? 'habitación' : 'habitaciones' }} 
+        <template v-if="inmueble.banos != null">
+            | {{ inmueble.banos }} {{ inmueble.banos == 1 ? 'baño' : 'baños' }}
+        </template>
+    </span>
+    <span class="card-area" v-if="inmueble.metrosCuadrados != null">
+        {{ Number(inmueble.metrosCuadrados).toLocaleString('es-VE') }} m² Totales
+    </span>
+</div>
 
         <div class="footer-card">
           <span class="card-price">{{ formatearPrecio(inmueble.precio) }}</span>
@@ -184,6 +187,10 @@ watch(() => route.query, async () => {
 const Home = ()=> {
   router.push('/')
 }
+
+watch(() => filtros.isAlquiler, () => {
+  buscar(); 
+});
 
 const Search = ()=> {
   router.push('/search')

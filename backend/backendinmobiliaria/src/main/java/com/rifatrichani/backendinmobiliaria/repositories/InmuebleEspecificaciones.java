@@ -28,7 +28,7 @@ public final class InmuebleEspecificaciones {
             if (f.getTipoInmuebleId() != null) condiciones.add(cb.equal(root.get("tipoInmueble").get("id"), f.getTipoInmuebleId()));
             if (f.getExtraId() != null) condiciones.add(cb.equal(root.get("extra").get("id"), f.getExtraId()));
             if (f.getEmpleadoId() != null) condiciones.add(cb.equal(root.get("empleado").get("id"), f.getEmpleadoId()));
-            if (f.getIsAlquiler() != null) condiciones.add(cb.equal(root.get("alquiler"), f.getIsAlquiler()));
+            if (f.getAlquiler() != null) condiciones.add(cb.equal(root.get("isAlquiler"), f.getAlquiler()));
             if (f.getVendido() != null) condiciones.add(cb.equal(root.get("vendido"), f.getVendido()));
             if (f.getMinPrecio() != null) condiciones.add(cb.greaterThanOrEqualTo(root.get("precio"), f.getMinPrecio()));
             if (f.getMaxPrecio() != null) condiciones.add(cb.lessThanOrEqualTo(root.get("precio"), f.getMaxPrecio()));

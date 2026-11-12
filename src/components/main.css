@@ -65,7 +65,7 @@ html, body {
   background: trasparent;
   color: #0b1f46;
   border: none;
-  font-size: 18px;
+  font-size: 24px;
   font-weight: 700;
   cursor: pointer;
 }
@@ -849,7 +849,7 @@ html, body {
   background: none;
   border: none;
   color: #ffffff;
-  font-size: 1.1rem;
+  font-size: 1.5rem;
   font-weight: bold;
   cursor: pointer;
 }
@@ -935,7 +935,7 @@ html, body {
   }
   
   .menu-btn, .inc-btn {
-    font-size: 14px;
+    font-size: 1.5rem;
     padding: 6px 10px;
   }
 

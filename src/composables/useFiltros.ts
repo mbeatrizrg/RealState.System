@@ -34,6 +34,7 @@ export function useFiltros() {
     // '' (todas) | 'compra' | 'alquiler'
     modalidad: '',
     orden: 'recientes' as Orden,
+    isAlquiler: false
   })
   // Pagina actual en base 1, como se muestra al usuario
   const pagina = ref(1)
@@ -72,7 +73,7 @@ export function useFiltros() {
       tipoInmuebleId: filtros.tipoInmuebleId,
       minPrecio: filtros.minPrecio,
       maxPrecio: filtros.maxPrecio,
-      isAlquiler: modalidadAIsAlquiler(filtros.modalidad),
+      isAlquiler: filtros.isAlquiler,
       orden: filtros.orden === 'recientes' ? '' : filtros.orden,
       pagina: pagina.value - 1,
       tamano: TAMANO_PAGINA,
