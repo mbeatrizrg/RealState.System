@@ -64,19 +64,19 @@
 
       <section class="info-container">
         <div class="map-section">
-        <h2 class="details-title">Ubicación</h2>
-        <p v-if="direccion" class="map-address">{{ direccion }}</p>
-        <!-- El mapa se genera con la ubicacion del inmueble; sin ubicacion se muestra la imagen de referencia -->
-        <iframe
-          v-if="urlMapa"
-          :src="urlMapa"
-          class="map-image"
-          allowfullscreen=""
-          loading="lazy"
-          referrerpolicy="no-referrer-when-downgrade"
-          title="Ubicación en el mapa">
-        </iframe>
-        <img v-else src="/reference-img.png" alt="Ubicación en el mapa" class="map-image" />
+          <h2 class="details-title">Ubicación</h2>
+          <p v-if="direccion" class="map-address">{{ direccion }}</p>
+          <!-- El mapa se genera con la ubicacion del inmueble; sin ubicacion se muestra la imagen de referencia -->
+          <iframe
+            v-if="urlMapa"
+            :src="urlMapa"
+            class="map-image"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            title="Ubicación en el mapa">
+          </iframe>
+            <img v-else src="/reference-img.png" alt="Ubicación en el mapa" class="map-image" />
         </div>
 
         <div id="formulario-contacto" class="info-contactos">
@@ -148,17 +148,17 @@
                 <input type="text" id="codigo" placeholder="123456" maxlength="6" v-model.trim="codigo" required />
                 <span class="campo-ayuda">Revisa tu correo e ingresa el código numérico.</span>
               
-              </div class="check-form">
+                <div class="check-form" type="checkbox">
+                  <input class="form-check" type="checkbox" id="terminos" v-model="usuario.aceptaTerminos" required />
+                  <label for="terminos" class="checkbox-label">
+                    Acepto el uso de mis datos personales para fines de este formulario.
+                  </label>
 
-              <input class="form-check" type="checkbox" id="terminos" v-model="usuario.aceptaTerminos" required />
-              <label for="terminos" class="checkbox-label">
-                Acepto el uso de mis datos personales para fines de este formulario.
-              </label>
-              <div>
-              <input class="form-check" type="checkbox" id="promociones" v-model="usuario.aceptaPromociones" />
-              <label for="promociones" class="checkbox-label">
-                Autorizo el envio de informacion y promociones de Rifat Richani Bienes Raices.
-              </label>
+                  <input class="form-check" type="checkbox" id="promociones" v-model="usuario.aceptaPromociones" />
+                  <label for="promociones" class="checkbox-label">
+                    Autorizo el envio de informacion y promociones de Rifat Richani Bienes Raices.
+                  </label>
+                </div>
               </div>
             </template>
 
@@ -182,11 +182,11 @@
               {{ enviando ? 'Verificando...' : 'Ir a WhatsApp del vendedor' }}
             </button>
 
-            <button v-else-if="!pasoVerificacion && !exito" type="button" @click="solicitarCodigo" class="btn-submit" :disabled="enviando">
+            <button v-else-if="!pasoVerificacion && !exito" type="button" @click="solicitarCodigo" class="btn-submit" :disabled="enviando || !usuario.aceptaTerminos || !usuario.aceptaPromociones || !usuario.telefono || !usuario.correo">
               {{ enviando ? 'Enviando código...' : 'Contactar' }}
             </button>
 
-            <button v-else-if="pasoVerificacion && !exito" type="button" @click="confirmarLead" class="btn-submit" :disabled="enviando">
+            <button v-else-if="pasoVerificacion && !exito" type="button" @click="confirmarLead" class="btn-submit" :disabled="enviando || !usuario.aceptaTerminos || !usuario.aceptaPromociones || !usuario.telefono || !usuario.correo">
               {{ enviando ? 'Verificando...' : 'Confirmar y Enviar' }}
             </button>
 
