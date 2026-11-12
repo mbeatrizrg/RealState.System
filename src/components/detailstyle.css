@@ -31,7 +31,7 @@
 
 /* ----- Resumen: informacion a la izquierda y detalles a la derecha ----- */
 /* style.css (global, cargado en App.vue) le da 550px de alto y fondo a .info-section de la pagina principal */
-.info-section {
+.info-section , .info-container{
   height: auto;
   background-color: transparent;
   display: grid;
@@ -39,26 +39,95 @@
   gap: 24px;
 }
 
+.info-section {
+  margin-bottom: -100px;
+}
+
 .info-section > * {
   min-width: 0;
 }
 
-.info-left{
+.info-left, .info-contactos{
   margin-left: 35px;
 }
 .info-right{
   margin-right: 35px;
 }
 
+.map-section {
+  margin-right: -35px;
+}
+
+.check-form{
+  margin-bottom: 8px;
+}
+
+.checkbox-label{
+  font-size: 10px;
+  color: #5b6b8c;
+}
+
+
 .info-left,
 .info-right,
-.map-section {
+.map-section,
+.info-contactos {
   background-color: #ffffff;
   border-radius: 14px;
   padding: 28px 32px;
   color: #0b1f46;
   box-shadow: 0 2px 10px rgba(11, 31, 70, 0.06);
 }
+
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-group label {
+  color: var(--azul);
+  font-weight: 600;
+  font-size: 13px;
+  margin-top: 8px;
+}
+
+.form-group input,
+.form-group select {
+  width: 90%;
+  background-color: #f7f9fc;
+  color: var(--azul);
+  border: 1.5px solid var(--borde);
+  border-radius: 12px;
+  padding: 13px 15px;
+  font-size: 15px;
+  font-family: inherit;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+.form-group input::placeholder {
+  color: #9aa3b5;
+}
+
+.form-group input:hover,
+.form-group select:hover {
+  border-color: #b7c1d1;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  outline: none;
+  background-color: #ffffff;
+  border-color: var(--azul-medio);
+  box-shadow: 0 0 0 4px rgba(33, 79, 150, 0.15);
+}
+
+/* Solo marca en rojo los campos que el usuario ya toco */
+.form-group input:user-invalid {
+  border-color: var(--error);
+}
+
 
 .property-type {
   margin: 0 0 6px;
@@ -141,7 +210,7 @@
   white-space: pre-line;
 }
 
-.contact-btn {
+.contact-btn, .btn-submit{
   display: inline-block;
   background-color: #0b1f46;
   color: #ffffff;
@@ -153,11 +222,66 @@
   transition: opacity 0.2s;
 }
 
-.contact-btn:hover {
+.contact-btn:hover, .btn-submit {
   opacity: 0.9;
 }
 
+.cliente-registrado-box {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 8px;
+}
 
+.btn-whatsapp {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background-color: #1fa855;
+  color: #ffffff;
+  border-radius: 8px;
+  padding: 12px 20px;
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background-color 0.2s, opacity 0.2s;
+  margin-top: 4px;
+}
+
+.btn-whatsapp:hover {
+  background-color: #188c46;
+}
+
+.whatsapp-btn-icon {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+}
+
+.link-cambiar-correo {
+  background: none;
+  border: none;
+  padding: 6px 0 0;
+  color: #214f96;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: underline;
+  cursor: pointer;
+  text-align: left;
+}
+
+.link-cambiar-correo:hover {
+  color: #0b1f46;
+}
+
+.campo-ayuda {
+  font-size: 10px;
+  color: #5b6b8c;
+  margin-top: 4px;
+  margin-bottom: 8px;
+}
 
 .details-title {
   margin: 0 0 14px;
@@ -223,9 +347,7 @@
 }
 
 /* ----- Mapa: dentro de una tarjeta, del ancho del contenido y con un alto razonable ----- */
-.map-section {
-  padding: 24px 28px 28px;
-}
+
 
 .map-address {
   margin: -6px 0 14px;
