@@ -42,7 +42,7 @@
           <div class="details-card">
     <span class="card-rooms" v-if="inmueble.habitaciones != null || inmueble.banos != null">
         {{ inmueble.habitaciones || 0 }} {{ inmueble.habitaciones == 1 ? 'habitación' : 'habitaciones' }} 
-        <template v-if="inmueble.banos != null">
+        <template v-if="inmueble.banos != null" >
             | {{ inmueble.banos }} {{ inmueble.banos == 1 ? 'baño' : 'baños' }}
         </template>
     </span>
