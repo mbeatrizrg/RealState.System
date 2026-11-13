@@ -35,7 +35,6 @@ declare module 'vue-router' {
     acceso?: 'empleado' | 'usuario' | 'invitado'
   }
 }
-
 const routes: RouteRecordRaw[] = [
   {
     path: '/',
@@ -186,7 +185,6 @@ const routes: RouteRecordRaw[] = [
     component: Comunication,
     meta: { acceso: 'empleado' }
   },
-
 ]
 
 const router = createRouter({
@@ -219,5 +217,4 @@ if (typeof window !== 'undefined') {
     }
   })
 }
-
 export default router
