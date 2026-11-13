@@ -29,7 +29,7 @@
                 :src="imagenesFondo[imagenActual]" 
                 alt="foto de portada" 
               />
-          </transition> 
+            </transition> 
         </div>
 
         <!-- Menú flotante -->
@@ -52,12 +52,12 @@
 
         <!-- Barra de filtros -->
         <div class="filter-bar">
-  <!-- Nivel Superior: Pestañas -->
-  <div class="filter-tabs">
-    <input
-      type="radio"
-      id="modalidad-compra"
-      name="modalidad"
+       <!-- Nivel Superior: Pestañas -->
+         <div class="filter-tabs">
+           <input
+              type="radio"
+              id="modalidad-compra"
+              name="modalidad"
       value="compra"
       v-model="modalidad"
       class="hidden-input"
