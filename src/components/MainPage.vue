@@ -78,26 +78,24 @@
         <!-- Locación / Ciudades -->
             <div class="filter-group">
             <label for="locacion">Locación</label>
-      <select id="locacion" name="locacion" v-model="ciudadSeleccionada">
-        <option value="">Todas las ciudades</option>
-        <option v-for="ciudad in ciudades" :key="ciudad.id" :value="ciudad.id">
-          {{ ciudad.nombre }}
-        </option>
-      </select>
-    </div>
-
+            <select id="locacion" name="locacion" v-model="ciudadSeleccionada">
+              <option value="">Todas las ciudades</option>
+              <option v-for="ciudad in ciudades" :key="ciudad.id" :value="ciudad.id">
+                {{ ciudad.nombre }}
+              </option>
+            </select>
+         </div>
     <div class="divider"></div>
-
     <!-- Tipo de Propiedad -->
-    <div class="filter-group">
-      <label for="tipo">Tipo de Propiedad</label>
-      <select id="tipo" name="tipo" v-model="tipoSeleccionado">
-        <option value="">Todos los tipos</option>
-        <option v-for="tipo in tiposInmueble" :key="tipo.id" :value="tipo.id">
-          {{ tipo.nombre }}
-        </option>
-      </select>
-    </div>
+        <div class="filter-group">
+           <label for="tipo">Tipo de Propiedad</label>
+           <select id="tipo" name="tipo" v-model="tipoSeleccionado">
+             <option value="">Todos los tipos</option>
+             <option v-for="tipo in tiposInmueble" :key="tipo.id" :value="tipo.id">
+               {{ tipo.nombre }}
+             </option>
+           </select>
+       </div>
 
     <div class="divider"></div>
 
