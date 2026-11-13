@@ -58,27 +58,26 @@
               type="radio"
               id="modalidad-compra"
               name="modalidad"
-      value="compra"
-      v-model="modalidad"
-      class="hidden-input"
-    />
-    <label for="modalidad-compra" class="tab-label">Comprar</label>
+              value="compra"
+              v-model="modalidad"
+              class="hidden-input"
+           />
+          <label for="modalidad-compra" class="tab-label">Comprar</label>
+          <input
+              type="radio"
+              id="modalidad-alquiler"
+              name="modalidad"
+              value="alquiler"
+              v-model="modalidad"
+              class="hidden-input"
+         />
+        <label for="modalidad-alquiler" class="tab-label">Alquilar</label>
+        </div>
 
-    <input
-      type="radio"
-      id="modalidad-alquiler"
-      name="modalidad"
-      value="alquiler"
-      v-model="modalidad"
-      class="hidden-input"
-    />
-    <label for="modalidad-alquiler" class="tab-label">Alquilar</label>
-  </div>
-
-  <div class="filter-inputs">
-    <!-- Locación / Ciudades -->
-    <div class="filter-group">
-      <label for="locacion">Locación</label>
+        <div class="filter-inputs">
+        <!-- Locación / Ciudades -->
+            <div class="filter-group">
+            <label for="locacion">Locación</label>
       <select id="locacion" name="locacion" v-model="ciudadSeleccionada">
         <option value="">Todas las ciudades</option>
         <option v-for="ciudad in ciudades" :key="ciudad.id" :value="ciudad.id">
