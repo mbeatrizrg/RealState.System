@@ -91,29 +91,29 @@
              <div class="filter-group">
                <label for="tipo">Tipo de Propiedad</label>
                <select id="tipo" name="tipo" v-model="tipoSeleccionado">
-             <option value="">Todos los tipos</option>
-             <option v-for="tipo in tiposInmueble" :key="tipo.id" :value="tipo.id">
-               {{ tipo.nombre }}
-             </option>
-           </select>
-         </div>
+                 <option value="">Todos los tipos</option>
+                 <option v-for="tipo in tiposInmueble" :key="tipo.id" :value="tipo.id">
+                   {{ tipo.nombre }}
+                 </option>
+               </select>
+             </div>
 
-        <div class="divider"></div>
+             <div class="divider"></div>
 
             <button @click="Search" class="search-btn">
               <img src="/lupa.svg" alt="" />
               <span>Buscar Propiedad</span>
             </button>
-          </div>
+           </div>
         </div>
       </section>
     </div>
   
-      <!-- DESTACADOS 2DA PAGINA -->
-      <section class="featured-section">
-        <!-- Encabezado de la sección -->
-        <header class="section-header">
-          <h2>Destacados</h2>
+    <!-- DESTACADOS 2DA PAGINA -->
+    <section class="featured-section">
+      <!-- Encabezado de la sección -->
+      <header class="section-header">
+        <h2>Destacados</h2>
           <p></p>
         </header>
 
@@ -143,13 +143,13 @@
                 <span class="card-area" v-if="inmueble.metrosCuadrados != null">
                 {{ Number(inmueble.metrosCuadrados).toLocaleString('es-VE') }} m² Totales
                 </span>
-            </div>
+              </div>
 
-            <div class="card-footer">
-              <span class="card-price">{{ formatearPrecio(inmueble.precio) }}</span>
-              <router-link :to="`/details/${inmueble.id}`" class="details-btn">Ver Detalles &gt;</router-link>
+              <div class="card-footer">
+                <span class="card-price">{{ formatearPrecio(inmueble.precio) }}</span>
+                <router-link :to="`/details/${inmueble.id}`" class="details-btn">Ver Detalles &gt;</router-link>
+              </div>
             </div>
-          </div>
           </article>
         </div>
 
@@ -157,7 +157,7 @@
         <button class="next-btn" aria-label="Siguiente" @click="siguienteDestacado">
           <img src="/arrow.png" alt="Siguiente" />
         </button>
-      </section>
+     </section>
 
       <!-- PÁGINA 3 -->
        <section class="info-section">
