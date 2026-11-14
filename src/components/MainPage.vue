@@ -85,8 +85,8 @@
               </option>
             </select>
          </div>
-    <div class="divider"></div>
-    <!-- Tipo de Propiedad -->
+      <div class="divider"></div>
+      <!-- Tipo de Propiedad -->
         <div class="filter-group">
            <label for="tipo">Tipo de Propiedad</label>
            <select id="tipo" name="tipo" v-model="tipoSeleccionado">
@@ -95,18 +95,18 @@
                {{ tipo.nombre }}
              </option>
            </select>
-       </div>
+         </div>
 
-    <div class="divider"></div>
+        <div class="divider"></div>
 
-    <button @click="Search" class="search-btn">
-      <img src="/lupa.svg" alt="" />
-      <span>Buscar Propiedad</span>
-    </button>
-  </div>
-</div>
+            <button @click="Search" class="search-btn">
+              <img src="/lupa.svg" alt="" />
+              <span>Buscar Propiedad</span>
+            </button>
+          </div>
+        </div>
       </section>
-  </div>
+    </div>
   
       <!-- DESTACADOS 2DA PAGINA -->
       <section class="featured-section">
