@@ -12,9 +12,6 @@
         <button @click="toggleMenu" class="menu-btn">
           <span>{{ isMenuOpen ? 'Cerrar' : 'Menu' }}</span>
         </button> 
-        <button @click="signIn" class="inc-btn">
-          <span>Iniciar Sesión</span>
-        </button> 
       </nav>
     </header>
 
@@ -23,12 +20,12 @@
         <!-- Fondo 1 -->
         <div class="imagen">
           <img src="/PhotoPrincipal.png" alt="foto de portada" />
-          <transition name="fade">
-            <img 
-              :key="imagenActual" 
-              :src="imagenesFondo[imagenActual]" 
-              alt="foto de portada" 
-            />
+            <transition name="fade">
+              <img 
+                :key="imagenActual" 
+                :src="imagenesFondo[imagenActual]" 
+                alt="foto de portada" 
+              />
           </transition> 
         </div>
 
@@ -51,69 +48,15 @@
         </aside>
 
         <!-- Barra de filtros -->
-        <div class="filter-bar">
-       <!-- Nivel Superior: Pestañas -->
-           <div class="filter-tabs">
-             <input
-                type="radio"
-                id="modalidad-compra"
-                name="modalidad"
-                value="compra"
-                v-model="modalidad"
-                class="hidden-input"
-             />
-             <label for="modalidad-compra" class="tab-label">Comprar</label>
-             <input
-                type="radio"
-                id="modalidad-alquiler"
-                name="modalidad"
-                value="alquiler"
-                v-model="modalidad"
-                class="hidden-input"
-             />
-             <label for="modalidad-alquiler" class="tab-label">Alquilar</label>
-           </div>
-
-           <div class="filter-inputs">
-        <!-- Locación / Ciudades -->
-              <div class="filter-group">
-                <label for="locacion">Locación</label>
-                <select id="locacion" name="locacion" v-model="ciudadSeleccionada">
-                  <option value="">Todas las ciudades</option>
-                    <option v-for="ciudad in ciudades" :key="ciudad.id" :value="ciudad.id">
-                    {{ ciudad.nombre }}
-                  </option>
-                </select>
-              </div>
-      
-             <div class="divider"></div>
-             <!-- Tipo de Propiedad -->
-             <div class="filter-group">
-               <label for="tipo">Tipo de Propiedad</label>
-               <select id="tipo" name="tipo" v-model="tipoSeleccionado">
-                 <option value="">Todos los tipos</option>
-                 <option v-for="tipo in tiposInmueble" :key="tipo.id" :value="tipo.id">
-                   {{ tipo.nombre }}
-                 </option>
-               </select>
-             </div>
-
-             <div class="divider"></div>
-
-            <button @click="Search" class="search-btn">
-              <img src="/lupa.svg" alt="" />
-              <span>Buscar Propiedad</span>
-            </button>
-           </div>
-        </div>
+         <FilterBar />
       </section>
-    </div>
+  </div>
   
-    <!-- DESTACADOS 2DA PAGINA -->
-    <section class="featured-section">
-      <!-- Encabezado de la sección -->
-      <header class="section-header">
-        <h2>Destacados</h2>
+      <!-- DESTACADOS 2DA PAGINA -->
+      <section class="featured-section">
+        <!-- Encabezado de la sección -->
+        <header class="section-header">
+          <h2>Destacados</h2>
           <p></p>
         </header>
 
@@ -136,20 +79,23 @@
 
               <h3 class="card-title">{{ inmueble.titulo }}</h3>
 
-              <div class="card-details">
-                <span class="card-rooms" v-if="inmueble.habitaciones != null || inmueble.banos != null">
-                {{ inmueble.habitaciones || 0 }} habitaciones <template v-if="inmueble.banos != null">| {{ inmueble.banos }} baños</template>
-                </span>
-                <span class="card-area" v-if="inmueble.metrosCuadrados != null">
+          <div class="card-details">
+              <span class="card-rooms" v-if="inmueble.habitaciones != null || inmueble.banos != null">
+                {{ inmueble.habitaciones || 0 }} {{ inmueble.habitaciones == 1 ? 'habitación' : 'habitaciones' }} 
+                <template v-if="inmueble.banos != null">
+            |   {{ inmueble.banos }} {{ inmueble.banos == 1 ? 'baño' : 'baños' }}
+            </template>
+              </span>
+              <span class="card-area" v-if="inmueble.metrosCuadrados != null">
                 {{ Number(inmueble.metrosCuadrados).toLocaleString('es-VE') }} m² Totales
                 </span>
-              </div>
-
-              <div class="card-footer">
-                <span class="card-price">{{ formatearPrecio(inmueble.precio) }}</span>
-                <router-link :to="`/details/${inmueble.id}`" class="details-btn">Ver Detalles &gt;</router-link>
-              </div>
             </div>
+
+            <div class="card-footer">
+              <span class="card-price">{{ formatearPrecio(inmueble.precio) }}</span>
+              <router-link :to="`/details/${inmueble.id}`" class="details-btn">Ver Detalles &gt;</router-link>
+            </div>
+          </div>
           </article>
         </div>
 
@@ -157,7 +103,7 @@
         <button class="next-btn" aria-label="Siguiente" @click="siguienteDestacado">
           <img src="/arrow.png" alt="Siguiente" />
         </button>
-     </section>
+      </section>
 
       <!-- PÁGINA 3 -->
        <section class="info-section">
@@ -264,9 +210,6 @@
         Salir
         </button>
         <img src="/brand2.png" alt="Rifat Richani" class="brand" />
-        <button @click="signIn" class="inc-btn">
-            <span>Iniciar Sesión</span>
-        </button> 
       </header>
 
       <!-- Menú principal centrado -->
@@ -350,8 +293,6 @@ const Search = () => {
     query.tipoInmuebleId = tipoSeleccionado.value
   }
 
-  // Redirecciona enviando los parametros en la URL
-  // Ejemplo: /search?isAlquiler=false&ciudadId=1&tipoInmuebleId=3
   router.push({ path: '/search', query })
 }
 
@@ -366,10 +307,6 @@ const Home = ()=> {
 
 const Contact = ()=> {
   router.push('/contacts')
-}
-
-const signIn = ()=> {
-  router.push('/signin')
 }
 
 const isOpen = ref(true) 
