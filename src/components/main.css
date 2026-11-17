@@ -549,7 +549,7 @@ html, body {
 }
 
 .banner{
-  width: 100vw;
+  width: 100%;
   position: relative;
   right: 50%;
   left: 50%;
@@ -559,9 +559,10 @@ html, body {
   padding: 70px;
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
-  padding: 40px 20px;
+  gap: 170px;
+  padding: 40px 0px;
 }
 
 .stat-item{
@@ -569,8 +570,7 @@ html, body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  text-align: center;
-  gap: 10px;
+  gap: 20px;
 }
 
 .stat-number{
@@ -579,7 +579,7 @@ html, body {
 }
 
 .stat-label{
-  font-size: 13px;
+  font-size: 14px;
 }
 
 .content{
@@ -880,5 +880,72 @@ html, body {
 
   .cards-grid {
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+
+  .principal-text{
+      font-size: 40px;
+      margin: 0 auto;
+      padding: 0 20px;
+      max-width: 600px;
+      margin-bottom: 35px;
+  }
+
+
+  .vision-container, .image-article{
+    padding-left: 0%;
+    padding-right: 0%;
+    width: 100%;
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .image-4 img{
+    width: 100%;
+    max-width: 100%;
+    object-fit: cover;
+    padding-left: 0%;
+    border-radius: 0;
+  }
+
+  .vision-text {
+    padding: 0 20px;
+    text-align: center;
+    margin-top: 20px;
+  }
+
+  .text-4{
+    font-size: 40px;
+    text-align: left;
+  }
+
+  .text-little-4 {
+    text-align: left;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .banner{
+    flex-direction: row;
+    gap: 10px;
+    padding: 30px 0px;
+  }
+
+  .stat-item{
+    text-align: center;
+    align-items: center;
+    width: 100%;
+    max-width: 250px;
+    flex: 1;
+    flex-direction: column;
+  } 
+
+  .stat-number{
+    font-size: 40px;
+    text-align: center;
+  }
+
+  .stat-label{
+    text-align: center;
   }
 }
