@@ -16,8 +16,6 @@ html, body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  /* Cambiamos el padding lateral a un porcentaje (ej. 8% o 10%) 
-     para que los botones se alejen del borde en pantallas grandes */
   padding: 20px 8%; 
   box-sizing: border-box;
   background-color: #EDF2F3;
@@ -184,7 +182,7 @@ html, body {
 }
 
 .tab-label {
-  flex: 1; /* Ambas pestañas miden el 50% */
+  flex: 1; 
   text-align: center;
   padding: 16px 0;
   font-size: 20px;
@@ -195,7 +193,6 @@ html, body {
   transition: background-color 0.2s;
 }
 
-/* Cuando seleccionas la modalidad, el fondo cambia a gris claro */
 .hidden-input:checked + .tab-label {
   background-color: #dcdcdc;
 }
@@ -386,6 +383,7 @@ html, body {
   line-height: 1.3;
   min-height: 2.6em;
   display: -webkit-box;
+  line-clamp: 2;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
@@ -799,7 +797,7 @@ html, body {
   
   /* 1. HEADER: Reducimos el padding para no desperdiciar espacio lateral */
   .CommonHeader {
-    padding: 15px 20px; 
+    padding: 10px 0px; 
   }
 
   /* 2. EL MAYOR PROBLEMA: Tenías un gap de 260px. 
@@ -820,18 +818,29 @@ html, body {
 
   /* 4. BOTONES DEL MENÚ: Reducimos la separación y el tamaño de la fuente */
   .primary-nav {
-    gap: 15px; 
+    gap: 10px; 
   }
   
-  .menu-btn, .inc-btn {
-    font-size: 1.5rem;
-    padding: 6px 10px;
+  .menu-btn {
+    font-size: 1rem;
+    padding: 6px 25px;
+    margin-right: -190px;
   }
 
   /* 5. MENÚ LATERAL FLOTANTE: Lo pegamos un poco más al borde derecho */
   .side-menu {
-    right: 20px; 
-    top: 120px; /* Lo subimos un poco porque el header ahora es más bajo */
+    right: 30px; 
+    top: 110px; /* Lo subimos un poco porque el header ahora es más bajo */
+  }
+
+  .icon-btn {
+    height: 40px;
+    width: 40px;
+  }
+
+  .icon-btn img{
+    height: 15px;
+    width: 15px;
   }
 
   /* 6. IMAGEN DE FONDO: Reducimos la altura para que no ocupe toda la pantalla del teléfono */
