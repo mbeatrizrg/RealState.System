@@ -864,11 +864,10 @@ html, body {
     min-width: 120px; 
   }
 
-  /* Fuerza al botón a saltar a la línea de abajo y ocupar todo el ancho */
   .search-btn {
     width: 100%;
-    margin-top: 5px; /* Separación extra del botón con los inputs de arriba */
-    justify-content: center; /* Centra el icono de la lupa y el texto dentro del botón azul */
+    margin-top: 5px;
+    justify-content: center;
   }
 
   /* Asegura que las pestañas superiores (Comprar/Alquilar) ocupen 50% y 50% exacto */
@@ -888,7 +887,6 @@ html, body {
       max-width: 600px;
       margin-bottom: 35px;
   }
-
 
   .vision-container, .image-article{
     padding-left: 0%;
