@@ -1,31 +1,43 @@
 /* Fuentes e Importaciones */
 @import url("https://fonts.googleapis.com/css?family=DM+Sans:500,700,800|Inter:500,400");
 
+
 html, body {
   overflow-x: hidden;
   max-width: 100%;
 }
 
+.page1{
+  width: 100vw;
+  padding-top: 10;
+  position: relative;
+  padding: 0;
+  right: 50%;
+  left: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  background-color: #EDF2F3;
+  overflow: hidden;
+}
+
+.background{
+    color: #EDF2F3;
+    position: relative;
+}
+
 .CommonHeader {
-  position: fixed;
+  position: relative;
   top: 0;
   left: 0;
   width: 100%;
-  z-index: 200;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px 8%; 
+  padding: 20px 40px;
   box-sizing: border-box;
   background-color: #EDF2F3;
   flex-wrap: wrap;
   gap: 20px;
-}
-
-.primary-nav {
-  display: flex;
-  align-items: center;
-  gap: 15px;
 }
 
 .logo {
@@ -62,9 +74,10 @@ html, body {
   background: trasparent;
   color: #0b1f46;
   border: none;
-  font-size: 24px;
+  font-size: 1.5rem;
   font-weight: 700;
   cursor: pointer;
+  margin-right: 35px;
 }
 
 .inc-btn {
@@ -76,17 +89,6 @@ html, body {
   font-size: 18px;
   font-weight: 700;
   cursor: pointer;
-}
-
-.background {
-  width: 100vw;
-  position: relative;
-  padding: 0;
-  right: 50%;
-  left: 50%;
-  margin-left: -50vw;
-  margin-right: -50vw;
-  background-color: #EDF2F3;
 }
 
 .imagen {
@@ -791,7 +793,6 @@ html, body {
   margin-top: 25px;
 }
 
-
 @media (max-width: 768px) {
   
   /* 1. HEADER: Reducimos el padding para no desperdiciar espacio lateral */
@@ -822,8 +823,8 @@ html, body {
   
   .menu-btn {
     font-size: 1rem;
-    padding: 6px 25px;
-    margin-right: -190px;
+    padding: 6px 35px;
+    margin-right: -180px;
   }
 
   /* 5. MENÚ LATERAL FLOTANTE: Lo pegamos un poco más al borde derecho */
@@ -864,10 +865,11 @@ html, body {
     min-width: 120px; 
   }
 
+  /* Fuerza al botón a saltar a la línea de abajo y ocupar todo el ancho */
   .search-btn {
     width: 100%;
-    margin-top: 5px;
-    justify-content: center;
+    margin-top: 5px; /* Separación extra del botón con los inputs de arriba */
+    justify-content: center; /* Centra el icono de la lupa y el texto dentro del botón azul */
   }
 
   /* Asegura que las pestañas superiores (Comprar/Alquilar) ocupen 50% y 50% exacto */
