@@ -407,13 +407,9 @@ html, body {
   .menu-btn {
     font-size: 1rem;
     padding: 6px 25px;
-    margin-right: -190px;
   }
 
   /* 6. IMAGEN DE FONDO: Reducimos la altura para que no ocupe toda la pantalla del teléfono */
-  .imagen {
-    height: 400px; 
-  }
 
   .filter-inputs .divider:last-of-type {
     display: none;
