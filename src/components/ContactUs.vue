@@ -15,8 +15,8 @@
         <button @click="signIn" class="inc-btn">
           <span>Iniciar Sesión</span>
         </button> 
-      </nav>
-    </header>
+       </nav>
+      </header>
         <!--contenido central-->
     <div class="footer-content">
       <div class="logo">
