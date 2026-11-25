@@ -47,6 +47,7 @@ html, body {
   height: 100px;
   width: auto;
   object-fit: contain;
+  margin-left: 15px;
 }
 
 .brand {
@@ -449,7 +450,7 @@ html, body {
   .search-btn {
     width: 100%;
     margin-top: 5px; /* Separación extra del botón con los inputs de arriba */
-    justify-content: center; /* Centra el icono de la lupa y el texto dentro del botón azul */
+    justify-content: center; 
   }
 
   /* Asegura que las pestañas superiores (Comprar/Alquilar) ocupen 50% y 50% exacto */

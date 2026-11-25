@@ -43,6 +43,7 @@ html, body {
   height: 80px;
   width: auto;
   object-fit: contain;
+  margin-left: 15px;
 }
 
 .brand {
