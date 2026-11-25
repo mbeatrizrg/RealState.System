@@ -64,16 +64,11 @@
   margin-right: -35px;
 }
 
-
-.check-form{
-  margin-bottom: 8px;
+.checkboxes-contacto {
+  font-size: 0.8rem;
+  margin: 0.1rem 0 0.1rem; 
+  flex-direction: column;
 }
-
-.checkbox-label{
-  font-size: 10px;
-  color: #5b6b8c;
-}
-
 
 .info-left,
 .info-right,

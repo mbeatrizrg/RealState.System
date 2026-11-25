@@ -6,7 +6,6 @@
         <img src="/icon.png" alt="Icono" class="icon" />
         <img src="/brand.png" alt="Rifat Richani" class="brand" />
       </div>
-       <!-- arreglar -->
       <nav class="primary-nav">
         <!-- cambiar para que se vea como el search btn -->
         <button @click="toggleMenu" class="menu-btn">
@@ -239,30 +238,38 @@ import { formatearPrecio, urlImagen } from '@/utils/formato'
 const router = useRouter()
 const { ciudades, tiposInmueble, errorCatalogos, filtros, buscar } = useFiltros()
 
+const esMovil = ref(typeof window !== 'undefined' ? window.innerWidth <= 768 : false)
+const actualizarTamano = () => {
+  esMovil.value = window.innerWidth <= 768
+}
+
 // Destacados: propiedades disponibles para rotar en el carrusel (4 visibles a la vez)
 const destacados = ref([])
 const indiceCarrusel = ref(0)
-const TARJETAS_VISIBLES = 4
+const TARJETAS_VISIBLES = computed(() => (esMovil.value ? 1 : 4))
 const cargando = ref(true)
 const error = ref('')
 
 const destacadosVisibles = computed(() => {
   const total = destacados.value.length
-  if (total <= TARJETAS_VISIBLES) {
+  const cantidad = TARJETAS_VISIBLES.value
+  if (total <= cantidad) {
     return destacados.value
   }
   const resultado = []
-  for (let i = 0; i < TARJETAS_VISIBLES; i++) {
+  for (let i = 0; i < cantidad; i++) {
     resultado.push(destacados.value[(indiceCarrusel.value + i) % total])
   }
   return resultado
 })
 
-const siguienteDestacado = () => {
+function siguienteDestacado() {
   const total = destacados.value.length
-  if (total <= TARJETAS_VISIBLES) return
+  if (!total) return
   indiceCarrusel.value = (indiceCarrusel.value + 1) % total
 }
+
+
 
 const modalidad = ref('compra')
 const ciudadSeleccionada = ref('')
@@ -323,13 +330,15 @@ const imagenActual = ref(0)
 let temporizadorFondo = null
 
 onMounted(() => {
+  window.addEventListener('resize', actualizarTamano)
+
   // Cambia la imagen cada 4 segundos (4000 milisegundos)
   temporizadorFondo = setInterval(() => {
     imagenActual.value = (imagenActual.value + 1) % imagenesFondo.value.length
   }, 4000)
 })
-
 onUnmounted(() => {
+  window.removeEventListener('resize', actualizarTamano)
   // Limpia el temporizador si el usuario sale de la página
   if (temporizadorFondo) clearInterval(temporizadorFondo)
 })
@@ -342,14 +351,6 @@ onUnmounted(() => {
 <style scoped>
 
 
-.inc-flotante {
-  position: fixed;
-  /* A la altura del boton "Menu" del encabezado */
-  top: 46px;
-  right: 40px;
-  z-index: 60;
-  box-shadow: 0 8px 20px rgba(11, 31, 70, 0.3);
-}
 
 .flotante-enter-active,
 .flotante-leave-active {
@@ -363,10 +364,6 @@ onUnmounted(() => {
 }
 
 @media (max-width: 600px) {
-  .primary-nav {
-    margin-right: 150px;
-  }
-
   .inc-flotante {
     top: 12px;
     right: 16px;

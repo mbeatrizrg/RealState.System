@@ -70,6 +70,7 @@ html, body {
   font-size: 18px;
   font-weight: 700;
   cursor: pointer;
+  margin-right: 35px;
 }
 
 .inc-btn {
@@ -238,4 +239,59 @@ html, body {
     left: 50%;
     transform: translateX(-50%);
     margin-top: 25px;
+}
+
+@media (max-width: 768px) {
+  
+  /* 1. HEADER: Reducimos el padding para no desperdiciar espacio lateral */
+  .CommonHeader {
+    padding: 10px 0px; 
+  }
+
+  .logo {
+    gap: 10px; 
+  }
+
+  /* 3. LOGOS: Los hacemos más pequeños para que quepan todos en la misma fila */
+  .icon {
+    height: 60px;
+  }
+  
+  .brand {
+    height: 35px;
+    margin-top: 0; /* Ajustamos para que quede centrado con el nuevo tamaño */
+  }
+
+  /* 4. BOTONES DEL MENÚ: Reducimos la separación y el tamaño de la fuente */
+  .primary-nav {
+    gap: 10px; 
+  }
+  
+  .menu-btn {
+    font-size: 1rem;
+    padding: 6px 35px;
+    margin-right: 10px;
+  }
+
+  /* 5. MENÚ LATERAL FLOTANTE: Lo pegamos un poco más al borde derecho */
+  .side-menu {
+    right: 30px; 
+    top: 110px; /* Lo subimos un poco porque el header ahora es más bajo */
+  }
+
+  .icon-btn {
+    height: 40px;
+    width: 40px;
+  }
+
+  .icon-btn img{
+    height: 15px;
+    width: 15px;
+  }
+
+    .nav-link{
+    gap: 15px; 
+    font-size: 1rem;
+    margin-left: -30px;
+  }
 }

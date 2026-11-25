@@ -111,6 +111,22 @@ html, body {
   flex-direction: column;
 }
 
+/* En pantallas de celular o tablet pequeña */
+@media (max-width: 768px) {
+  /* 1. Si el padre usa CSS Grid */
+  .properties-grid {
+    display: grid;
+    grid-template-columns: 1fr !important;
+    gap: 1.25rem;
+  }
+
+  /* 2. Fuerza a cada tarjeta a ocupar el 100% del ancho */
+  .card2 {
+    max-width: 100% !important;
+    flex: 0 0 100% !important;
+  }
+}
+
 .content2{
   width: 100%;
   display: flex;
@@ -404,9 +420,10 @@ html, body {
     gap: 10px; 
   }
   
-  .menu-btn {
+    .menu-btn {
     font-size: 1rem;
-    padding: 6px 25px;
+    padding: 6px 35px;
+    margin-right: 10px;
   }
 
   /* 6. IMAGEN DE FONDO: Reducimos la altura para que no ocupe toda la pantalla del teléfono */
@@ -439,5 +456,11 @@ html, body {
   .filter-tabs label {
     flex: 1;
     text-align: center;
+  }
+
+  .nav-link{
+    gap: 15px; 
+    font-size: 1rem;
+    margin-left: -30px;
   }
 }

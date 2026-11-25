@@ -12,9 +12,10 @@
         <button @click="toggleMenu" class="menu-btn">
           <span>{{ isMenuOpen ? 'Cerrar' : 'Menu' }}</span>
         </button> 
+        <!-- button 
         <button @click="signIn" class="inc-btn">
           <span>Iniciar Sesión</span>
-        </button> 
+        </button> -->
       </nav>
     </header>
         <!--contenido central-->
@@ -47,9 +48,10 @@
         Salir
       </button>
       <img src="/brand2.png" alt="Rifat Richani" class="brand" />
+      <!-- button
       <button @click="signIn" class="inc-btn">
         <span>Iniciar Sesión</span>
-      </button>
+      </button> -->
     </header>
 
     <!-- Menú principal centrado -->

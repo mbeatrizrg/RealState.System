@@ -148,20 +148,8 @@
                 <input type="text" id="codigo" placeholder="123456" maxlength="6" v-model.trim="codigo" required />
                 <span class="campo-ayuda">Revisa tu correo e ingresa el código numérico.</span>
               
-                <div class="check-form" type="checkbox">
-                  <input class="form-check" type="checkbox" id="terminos" v-model="usuario.aceptaTerminos" required />
-                  <label for="terminos" class="checkbox-label">
-                    Acepto el uso de mis datos personales para fines de este formulario.
-                  </label>
-
-                  <input class="form-check" type="checkbox" id="promociones" v-model="usuario.aceptaPromociones" />
-                  <label for="promociones" class="checkbox-label">
-                    Autorizo el envio de informacion y promociones de Rifat Richani Bienes Raices.
-                  </label>
                 </div>
-              </div>
             </template>
-
             <!-- Mensajes de error o éxito -->
             <p v-if="mensaje" class="form-mensaje" :class="{ 'form-mensaje-error': esError, 'form-mensaje-exito': exito }" role="alert">{{ mensaje }}</p>
 
@@ -177,7 +165,19 @@
               <span>Escribir al vendedor por WhatsApp</span>
             </a>
 
+               <div v-if="!modoYaRegistrado && !exito" class="checkboxes-contacto">
+                <label>
+                  <input type="checkbox" v-model="usuario.aceptaTerminos" :disabled="pasoVerificacion" required/>
+                    Acepto los términos y condiciones y la política de privacidad.
+                </label>
+                <br>
+                <label>
+                  <input type="checkbox" v-model="usuario.aceptaPromociones" :disabled="pasoVerificacion"/>
+                    Acepto recibir promociones y novedades por correo o WhatsApp.
+                </label>
+                </div>
             <!-- Botones Dinámicos -->
+
             <button v-if="modoYaRegistrado" type="button" @click="accederConCorreoRegistrado" class="btn-submit" :disabled="enviando">
               {{ enviando ? 'Verificando...' : 'Ir a WhatsApp del vendedor' }}
             </button>
@@ -330,7 +330,8 @@ function guardarClienteVerificado(datos) {
   }
 }
 
-const usuario = reactive({ nombre: '', apellido: '', telefono: '', correo: '' })
+const usuario = reactive({ nombre: '', apellido: '', telefono: '', correo: '',aceptaTerminos: false,
+  aceptaPromociones: false, })
 const codigo = ref('') // Separado del objeto usuario según tu template
 const clienteVerificado = ref(leerClienteGuardado())
 const mostrarFormularioNuevo = ref(false)
@@ -434,6 +435,7 @@ function validar() {
   if (!usuario.nombre || !usuario.apellido) return 'Ingresa tu nombre y apellido.'
   if (usuario.telefono.length < 10) return 'El teléfono debe tener al menos 10 caracteres.'
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(usuario.correo)) return 'Ingresa un correo electrónico válido.'
+  if (!usuario.aceptaTerminos || !usuario.aceptaPromociones) return 'Debes aceptar los términos y condiciones para continuar.'
   return ''
 }
 
@@ -547,6 +549,8 @@ const confirmarLead = async () => {
     usuario.telefono = ''
     usuario.correo = ''
     codigo.value = ''
+    usuario.aceptaTerminos = false
+    usuario.aceptaPromociones = false
 
     abrirWhatsappVendedor()
   } catch (error) {
