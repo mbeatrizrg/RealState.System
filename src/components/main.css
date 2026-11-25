@@ -25,7 +25,8 @@ html, body {
 }
 
 .CommonHeader {
-  position: relative;
+  position: fixed;
+  z-index: 1000;
   top: 0;
   left: 0;
   width: 100%;
@@ -766,7 +767,7 @@ html, body {
 
 /* Contenedor del menú para centrar vertical y horizontalmente */
 .menu-content {
-  margin-top: 30px;
+  margin-top: 90px;
   flex: 1;
   display: flex;
   justify-content: center;
@@ -784,11 +785,12 @@ html, body {
 
 /* Estilos de los enlaces del menú principal */
 .menu-item {
+  justify-content: center;
   border: none;
   background-color: transparent;
   text-decoration: none;
   color: #ffffff;
-  font-size: 2.8rem;
+  font-size: 4.5rem;
   font-weight: bold;
   font-weight: 700;
   transition: color 0.3s ease;
@@ -966,5 +968,9 @@ html, body {
     gap: 15px; 
     font-size: 1rem;
     margin-left: -30px;
+  }
+
+  .menu-item{
+    font-size: 2.8rem;
   }
 }
