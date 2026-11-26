@@ -53,7 +53,7 @@
 
         <div class="footer-card">
           <span class="card-price">{{ formatearPrecio(inmueble.precio) }}</span>
-          <router-link :to="`/details/${inmueble.id}`" class="details-btn">Ver Detalles &gt;</router-link>
+          <router-link :to="`/details/${inmueble.id}`" class="details-btn">Ver Detalles</router-link>
         </div>
         </div>
       </article>
