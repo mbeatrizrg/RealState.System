@@ -37,7 +37,6 @@
 
       <div class="enlaces-cuenta">
         <router-link :to="{ path: '/recuperar', query: { tipo: 'empleado' } }" class="enlace">¿Olvidaste tu contraseña?</router-link>
-        <router-link to="/signin" class="enlace">Soy cliente</router-link>
       </div>
     </form>
   </PlantillaCuenta>

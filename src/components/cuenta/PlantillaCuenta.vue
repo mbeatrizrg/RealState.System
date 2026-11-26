@@ -10,9 +10,6 @@
       
       <nav class="primary-nav">
         <!-- cambiar para que se vea como el search btn -->
-        <button @click="signIn" class="inc-btn">
-          <span>Iniciar Sesión</span>
-        </button> 
       </nav>
     </header>
 
@@ -68,14 +65,6 @@ const toggleMenu = () => {
 const ir = (ruta) => {
   isMenuOpen.value = false
   router.push(ruta)
-}
-
-const accionCabecera = computed(() =>
-  props.accion ?? (esUsuario.value ? { texto: 'Mi cuenta', ruta: '/cuenta' } : { texto: 'Iniciar Sesión', ruta: '/signin' })
-)
-
-const signIn = ()=> {
-  router.push('/signin')
 }
 
 </script>

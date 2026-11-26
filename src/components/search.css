@@ -113,22 +113,6 @@ html, body {
   flex-direction: column;
 }
 
-/* En pantallas de celular o tablet pequeña */
-@media (max-width: 768px) {
-  /* 1. Si el padre usa CSS Grid */
-  .properties-grid {
-    display: grid;
-    grid-template-columns: 1fr !important;
-    gap: 1.25rem;
-  }
-
-  /* 2. Fuerza a cada tarjeta a ocupar el 100% del ancho */
-  .card2 {
-    max-width: 100% !important;
-    flex: 0 0 100% !important;
-  }
-}
-
 .content2{
   width: 100%;
   display: flex;
@@ -470,6 +454,19 @@ html, body {
     gap: 15px; 
     font-size: 1rem;
     margin-left: -30px;
+  }
+
+    /* 1. Si el padre usa CSS Grid */
+  .properties-grid {
+    display: grid;
+    grid-template-columns: 1fr !important;
+    gap: 1.25rem;
+  }
+
+  /* 2. Fuerza a cada tarjeta a ocupar el 100% del ancho */
+  .card2 {
+    max-width: 100% !important;
+    flex: 0 0 100% !important;
   }
 
   .menu-item{

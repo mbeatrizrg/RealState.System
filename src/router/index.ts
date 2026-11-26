@@ -3,7 +3,6 @@ import MainPage from '@/components/MainPage.vue'
 import SearchHome from '@/components/SearchHome.vue'
 import HomeDetails from '@/components/HomeDetails.vue'
 import Create from '@/components/create.vue'
-import signIn from '@/components/sign-in.vue'
 import ContactUs from '@/components/ContactUs.vue'
 import menuVendedor from '@/components/vendedor/menu-vendedor.vue'
 import Contact from '@/components/vendedor/Contact.vue'
@@ -56,12 +55,6 @@ const routes: RouteRecordRaw[] = [
     path: '/create',
     name: 'create',
     component: Create,
-    meta: { acceso: 'invitado' }
-  },
-  {
-    path: '/signin',
-    name: 'signIn',
-    component: signIn,
     meta: { acceso: 'invitado' }
   },
   {
@@ -198,9 +191,6 @@ router.beforeEach((to) => {
   const acceso = to.meta.acceso
   if (acceso === 'empleado' && !esEmpleado.value) {
     return { path: '/crm/login', query: { redirect: to.fullPath } }
-  }
-  if (acceso === 'usuario' && !esUsuario.value) {
-    return { path: '/signin', query: { redirect: to.fullPath } }
   }
   if (acceso === 'invitado' && haySesion.value) {
     return esEmpleado.value ? '/vendedor' : '/cuenta'
