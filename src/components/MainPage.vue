@@ -37,7 +37,12 @@
             <a href="tel:+584145936070" class="icon-btn">
               <img src="/phone.png" alt="telefono" class="icon-phone" />
             </a>
-            <a href="mailto:rrbrventas01@gmail.com" class="icon-btn">
+            <a 
+              href="https://mail.google.com/mail/?view=cm&fs=1&to=rrbrventas01@gmail.com" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              class="icon-btn"
+              >
               <img src="/gmail.png" alt="gmail" class="icon-gmail" />
             </a>
             <a href="https://wa.me/584145936070" target="_blank" rel="noopener noreferrer" class="icon-btn">
