@@ -51,7 +51,7 @@
             <dd v-if="inmueble.estacionamientos != null">{{ inmueble.estacionamientos }} {{ inmueble.estacionamientos === 1 ? 'puesto' : 'puestos' }}</dd>
             <dt v-if="inmueble.piso != null">Piso</dt>
             <dd v-if="inmueble.piso != null">{{ inmueble.piso === 0 ? 'Planta baja' : inmueble.piso }}</dd>
-            <dt>Código</dt><dd>{{ inmueble.rrbr }}</dd>
+            <dt>Código de inmueble</dt><dd>{{ inmueble.rrbr }}</dd>
           </dl>
           <template v-if="inmueble.extras?.length">
             <h3 class="extras-title">Extras</h3>
