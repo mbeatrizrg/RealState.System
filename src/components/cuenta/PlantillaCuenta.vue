@@ -10,9 +10,6 @@
       
       <nav class="primary-nav">
         <!-- cambiar para que se vea como el search btn -->
-        <button @click="toggleMenu" class="menu-btn">
-          <span>{{ isMenuOpen ? 'Cerrar' : 'Menu' }}</span>
-        </button> 
         <button @click="signIn" class="inc-btn">
           <span>Iniciar Sesión</span>
         </button> 
@@ -41,26 +38,6 @@
         </div>
       </section>
     </main>
-
-    <div class="menu-container" :class="{ 'open': isMenuOpen }">
-      <header class="navbar">
-        <button @click="toggleMenu" class="nav-link">Salir</button>
-        <img src="/brand2.png" alt="Rifat Richani" class="brand" />
-        <button @click="ir(accionCabecera.ruta)" class="inc-btn">
-          <span>{{ accionCabecera.texto }}</span>
-        </button>
-      </header>
-
-      <main class="menu-content">
-        <nav class="menu-list">
-          <button @click="ir('/')" class="menu-item active"><span>Principal</span></button>
-          <button @click="ir('/search')" class="menu-item"><span>Disponibles</span></button>
-          <!--favoritos
-          <a href="#" class="menu-item">Favoritos</a> -->
-          <button @click="ir('/contacts')" class="menu-item"><span>Contactanos</span></button>
-        </nav>
-      </main>
-    </div>
   </div>
 </template>
 
