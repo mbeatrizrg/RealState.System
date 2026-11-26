@@ -95,7 +95,7 @@ html, body {
 
 .imagen {
   width: 100%;
-  height: 560px;
+  height: 600px;
   margin: 0;
   position: relative; /* CLAVE 1: Mantiene a las imágenes atrapadas en esta caja */
   overflow: hidden;
