@@ -191,10 +191,6 @@ html, body {
   cursor: pointer;
 }
 
-.nav-link:hover {
-  text-decoration: underline;
-}
-
 /* Contenedor del menú para centrar vertical y horizontalmente */
 .menu-content {
   margin-top: 90px;
